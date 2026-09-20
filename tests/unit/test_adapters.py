@@ -153,3 +153,29 @@ def test_python_unexpected_exception_does_not_expose_arguments(tmp_path):
         adapter.run(RunRequest("invalid", {}, {}, tmp_path, 2))
     assert "must-not-leak" not in str(captured.value.details)
     assert captured.value.details["exception_type"] == "RuntimeError"
+
+
+def test_contextual_handler_receives_saved_scene_and_seed_without_changing_two_arg_handlers(
+    tmp_path,
+):
+    def contextual(context, inputs, parameters):
+        context["random_seed"] += 1
+        return {"seed": context["random_seed"], "scene_id": context["scene"]["id"]}
+
+    adapter = PythonFunctionAdapter(
+        {"old": lambda inputs, parameters: {"value": 1}},
+        contextual_handlers={"contextual": contextual},
+    )
+    context = {"scene": {"id": "frozen-scene"}, "random_seed": 42}
+    result = adapter.run(RunRequest("contextual", {}, {}, tmp_path, 3, context=context))
+    assert result.outputs == {"seed": 43, "scene_id": "frozen-scene"}
+    assert context["random_seed"] == 42
+    assert adapter.run(RunRequest("old", {}, {}, tmp_path, 3)).outputs == {"value": 1}
+
+
+def test_contextual_and_standard_handler_names_must_not_overlap():
+    with pytest.raises(CoastMASError, match="overlap"):
+        PythonFunctionAdapter(
+            {"same": lambda inputs, parameters: {}},
+            contextual_handlers={"same": lambda context, inputs, parameters: {}},
+        )

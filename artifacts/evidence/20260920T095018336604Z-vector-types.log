@@ -1,0 +1,2 @@
+src/coastmas/core/data_inspection.py:291: error: Item "None" of "Geod | None" has no attribute "geometry_area_perimeter"  [union-attr]
+Found 1 error in 1 file (checked 50 source files)

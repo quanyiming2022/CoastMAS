@@ -1,0 +1,67 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_vector_geometry_container_is_bound_with_its_verified_crs _________
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11b718560>
+
+    def test_vector_geometry_container_is_bound_with_its_verified_crs(storage):
+        import json
+    
+        feature = {
+            "type": "Feature",
+            "properties": {"unit_id": "u1"},
+            "geometry": {"type": "Point", "coordinates": [117, 30]},
+        }
+        content = json.dumps({"type": "FeatureCollection", "features": [feature]}).encode()
+        record = storage.put("vector/input", content)
+        target = variable(
+            name="height",
+            standard_name="management_units",
+            data_type="json",
+            unit="1",
+            dimension="dimensionless",
+        )
+        source = asset(
+            format="GeoJSON",
+            type="vector",
+            crs="EPSG:4326",
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=[target],
+            quality={"size_bytes": record.size},
+        )
+        result = StoredDataResolver(storage).resolve(
+            source, target, workflow().input_bindings[0], scene()
+        )
+        assert result["crs"] == "EPSG:4326"
+        assert result["features"][0]["properties"]["unit_id"] == "u1"
+        transformed = StoredDataResolver(storage).resolve(
+            source,
+            target,
+            workflow()
+            .input_bindings[0]
+            .model_copy(update={"crs_transform": "EPSG:4326 -> EPSG:32650"}),
+            scene(),
+        )
+>       assert transformed["crs"] == "EPSG:32650"
+E       AssertionError: assert 'EPSG:4326' == 'EPSG:32650'
+E         
+E         - EPSG:32650
+E         ?         --
+E         + EPSG:4326
+E         ?      +
+
+tests/integration/test_datasource.py:137: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_datasource.py::test_vector_geometry_container_is_bound_with_its_verified_crs
+1 failed, 2 warnings in 1.26s

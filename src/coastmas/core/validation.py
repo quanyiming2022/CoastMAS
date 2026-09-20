@@ -120,9 +120,10 @@ def validate_asset_binding(
         geometry = asset.quality.get("geometry")
         if geometry not in model.supported_geometry:
             reject("GEOMETRY", "data geometry is absent or unsupported")
-        resolution = asset.quality.get("spatial_resolution_m")
+        scale_field = "spatial_resolution_m" if asset.type == "raster" else "spatial_support_m"
+        resolution = asset.quality.get(scale_field)
         if not isinstance(resolution, (int, float)) or isinstance(resolution, bool):
-            reject("SPATIAL_SCALE", "measured spatial resolution is required")
+            reject("SPATIAL_SCALE", "declared spatial resolution/support is required")
         else:
             try:
                 scale = float(convert_units([resolution], "m", model.spatial_scale.unit)[0])

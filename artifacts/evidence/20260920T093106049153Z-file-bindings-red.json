@@ -1,0 +1,32 @@
+{
+  "name": "file-bindings-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_data_inspection.py::test_json_framework_preserves_per_indicator_metadata_instead_of_claiming_one_numeric_unit",
+    "tests/integration/test_datasource.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T09:31:06.049153+00:00",
+  "finished_at": "2026-09-20T09:31:13.247124+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "c51c14297babe943a25a06140987bdc1a92bd37f6e284e0c08f43019133ec431",
+  "git_commit": "0bbb9ed12bf1f6544b2c09a76dc105874b4c4a1c",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T093106049153Z-file-bindings-red.log"
+}

@@ -1,0 +1,3 @@
+src/coastmas/domain/builtin_catalog.py:76: error: Argument 1 to "float" has incompatible type "list[JsonValue] | dict[str, JsonValue] | str | bool | int | float | None"; expected "str | Buffer | SupportsFloat | SupportsIndex"  [arg-type]
+src/coastmas/domain/builtin_catalog.py:89: error: Argument 1 to "float" has incompatible type "list[JsonValue] | dict[str, JsonValue] | str | bool | int | float | None"; expected "str | Buffer | SupportsFloat | SupportsIndex"  [arg-type]
+Found 2 errors in 1 file (checked 50 source files)

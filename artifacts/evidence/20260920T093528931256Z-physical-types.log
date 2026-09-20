@@ -1,0 +1,2 @@
+src/coastmas/adapters/datasource.py:74: error: Argument 2 to "isclose" has incompatible type "list[JsonValue] | dict[str, JsonValue] | str | int | float"; expected "complex | number[Any, Any] | numpy.bool[builtins.bool]"  [arg-type]
+Found 1 error in 1 file (checked 48 source files)

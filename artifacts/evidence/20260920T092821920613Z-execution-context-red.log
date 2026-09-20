@@ -1,0 +1,35 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_contextual_handler_receives_saved_scene_and_seed_without_changing_two_arg_handlers _
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-106/test_contextual_handler_receiv0')
+
+    def test_contextual_handler_receives_saved_scene_and_seed_without_changing_two_arg_handlers(
+        tmp_path,
+    ):
+        def contextual(context, inputs, parameters):
+            context["random_seed"] += 1
+            return {"seed": context["random_seed"], "scene_id": context["scene"]["id"]}
+    
+>       adapter = PythonFunctionAdapter(
+            {"old": lambda inputs, parameters: {"value": 1}},
+            contextual_handlers={"contextual": contextual},
+        )
+E       TypeError: PythonFunctionAdapter.__init__() got an unexpected keyword argument 'contextual_handlers'
+
+tests/unit/test_adapters.py:165: TypeError
+_________ test_contextual_and_standard_handler_names_must_not_overlap __________
+
+    def test_contextual_and_standard_handler_names_must_not_overlap():
+        with pytest.raises(CoastMASError, match="overlap"):
+>           PythonFunctionAdapter(
+                {"same": lambda inputs, parameters: {}},
+                contextual_handlers={"same": lambda context, inputs, parameters: {}},
+            )
+E           TypeError: PythonFunctionAdapter.__init__() got an unexpected keyword argument 'contextual_handlers'
+
+tests/unit/test_adapters.py:178: TypeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_adapters.py::test_contextual_handler_receives_saved_scene_and_seed_without_changing_two_arg_handlers
+FAILED tests/unit/test_adapters.py::test_contextual_and_standard_handler_names_must_not_overlap
+2 failed, 9 deselected in 0.13s

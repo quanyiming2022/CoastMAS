@@ -1,0 +1,504 @@
+F...FFF                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_json_framework_preserves_per_indicator_metadata_instead_of_claiming_one_numeric_unit _
+
+    def test_json_framework_preserves_per_indicator_metadata_instead_of_claiming_one_numeric_unit():
+        payload = {
+            "framework": {
+                "columns": [{"name": "income", "unit": "USD", "positive": True}],
+                "values": [[100], [200]],
+            }
+        }
+        content = json.dumps(payload).encode()
+>       report = inspect(
+            content,
+            "JSON",
+            type="json",
+            variables=[
+                variable(
+                    name="framework",
+                    standard_name="indicator_framework",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                )
+            ],
+        )
+
+tests/unit/test_data_inspection.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_data_inspection.py:24: in inspect
+    return inspect_data(content, metadata)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/data_inspection.py:340: in inspect_data
+    _numeric(value[variable.name], variable)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+values = {'columns': [{'name': 'income', 'unit': 'USD', 'positive': True}], 'values': [[100], [200]]}
+variable = VariableSpec(name='framework', standard_name='indicator_framework', description='Elevation', data_type='json', unit='1... spatial_support='grid', temporal_support='instant', aggregation_type='intensive', nodata_policy='mask', required=True)
+
+    def _numeric(values: JsonValue, variable: VariableSpec) -> None:
+        stack: list[tuple[JsonValue, int]] = [(values, 0)]
+        count = 0
+        while stack:
+            value, depth = stack.pop()
+            count += 1
+            if count > MAX_CELLS or depth > 64:
+                raise ConstraintError("variable structure exceeds configured budget")
+            if isinstance(value, list):
+                stack.extend((item, depth + 1) for item in value)
+            elif value is None:
+                if variable.nodata_policy == "reject":
+                    raise ConstraintError("variable contains forbidden NoData")
+            elif (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(value)
+            ):
+>               raise ConstraintError("numeric variable contains invalid values")
+E               coastmas.core.errors.ConstraintError: numeric variable contains invalid values
+
+src/coastmas/core/data_inspection.py:74: ConstraintError
+______ test_real_tabular_files_resolve_all_values_and_convert_units[CSV] _______
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11a5a08c0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-108/test_real_tabular_files_resolv0')
+format = 'CSV'
+
+    @pytest.mark.parametrize("format", ["CSV", "NetCDF"])
+    def test_real_tabular_files_resolve_all_values_and_convert_units(storage, tmp_path, format):
+        import netCDF4
+    
+        if format == "CSV":
+            content = b"height\n100\n200\n300\n"
+        else:
+            path = tmp_path / "input.nc"
+            with netCDF4.Dataset(path, "w") as dataset:
+                dataset.createDimension("row", 3)
+                values = dataset.createVariable("height", "f8", ("row",))
+                values.units = "cm"
+                values[:] = [100, 200, 300]
+            content = path.read_bytes()
+        record = storage.put("table/input", content)
+        source = asset(
+            format=format,
+            type="table",
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=[variable(data_type="array", unit="cm")],
+            quality={"size_bytes": record.size},
+        )
+>       result = StoredDataResolver(storage).resolve(
+            source, variable(data_type="array"), workflow().input_bindings[0], scene()
+        )
+
+tests/integration/test_datasource.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.datasource.StoredDataResolver object at 0x11a5a0740>
+asset = DataAssetSpec(id='dem', name='DEM', type='table', uri='s3://coastmas-test-4fa95821d9054dfd853c580e39f7692e/table/input...rce='SYNTHETIC', license='CC0', version=1, checksum='d0c93593511fae54d6bd5585613eebe9c5d3f1fc0487528f9eaa6e405cdd2e5c')
+target = VariableSpec(name='height', standard_name='elevation', description='Elevation', data_type='array', unit='m', dimension... spatial_support='grid', temporal_support='instant', aggregation_type='intensive', nodata_policy='mask', required=True)
+binding = BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(node_id='screen-node', variable='height...it_conversion=None, crs_transform=None, resampling=None, temporal_transform=None, quality_check=(), status='VALIDATED')
+scene = SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygon', 'coordinates':...'vertical_datum': 'demo-datum'}, constraints=(), required_outputs=('result',), data_policy={}, quality_requirements={})
+
+    def resolve(
+        self, asset: DataAssetSpec, target: VariableSpec, binding: BindingPlan, scene: SceneSpec
+    ) -> JsonValue:
+        address = urlsplit(asset.uri)
+        if (
+            address.scheme != "s3"
+            or address.netloc != self.store.bucket
+            or address.query
+            or address.fragment
+        ):
+            raise CoastMASError("STORAGE_ERROR", "asset must use configured object storage")
+        if binding.source.id != asset.id or binding.source.version != asset.version:
+            raise ConstraintError("binding data version differs from resolved asset")
+        size = asset.quality.get("size_bytes")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise ConstraintError("asset byte size metadata is required")
+        content = self.store.read(
+            ArtifactRecord(self.store.bucket, address.path.removeprefix("/"), asset.checksum, size)
+        )
+        candidates = [
+            item for item in asset.variables if item.standard_name == target.standard_name
+        ]
+        if len(candidates) != 1:
+            raise ConstraintError("binding requires one unambiguous source variable")
+        source = candidates[0]
+        validate_semantics(source, target, {})
+        if binding.temporal_transform is not None:
+            raise ConstraintError(
+                "temporal binding requires an explicit time-series transformation node"
+            )
+        if asset.format == "GeoTIFF":
+            grid = decode_geotiff(content)
+            if (
+                asset.type != "raster"
+                or target.data_type != "raster"
+                or not asset.crs
+                or CRS(grid.crs) != CRS(asset.crs)
+                or grid.unit != source.unit
+                or grid.vertical_datum != asset.vertical_datum
+            ):
+                raise ConstraintError("GeoTIFF metadata differs from immutable data catalog")
+            if source.semantic_type == "categorical":
+                known = grid.values[np.isfinite(grid.values)]
+                if np.any(known != np.floor(known)):
+                    raise ConstraintError(
+                        "categorical raster contains fractional class identifiers"
+                    )
+            converted = grid.values.copy()
+            known_mask = np.isfinite(converted)
+            if np.any(known_mask):
+                converted[known_mask] = convert_units(
+                    converted[known_mask], source.unit, target.unit
+                )
+            if target.nodata_policy == "reject" and not np.all(known_mask):
+                raise ConstraintError("target does not accept NoData")
+            grid = Grid(converted, grid.crs, grid.transform, target.unit, grid.vertical_datum)
+            target_spec = scene.data_policy.get("target_grid")
+            if binding.crs_transform and target_spec is None:
+                raise ConstraintError("CRS transformation requires an explicit destination grid")
+            if target_spec is not None:
+                destination = TargetGrid.model_validate(target_spec)
+                if binding.crs_transform is not None:
+                    target_crs = binding.crs_transform.split(" -> ")[-1]
+                    if CRS(destination.crs) != CRS(target_crs):
+                        raise ConstraintError("destination grid differs from verified CRS binding")
+                method = binding.resampling
+                if method not in ("nearest", "bilinear", "sum", "area_weighted"):
+                    raise ConstraintError(
+                        "grid binding needs an explicit conservative or cubic transformation node"
+                    )
+                grid = resample_grid(
+                    grid,
+                    crs=destination.crs,
+                    transform=Affine(*destination.transform),
+                    shape=(destination.height, destination.width),
+                    kind=source.semantic_type,
+                    method=method,
+                )
+            values: list[JsonValue] = [
+                [float(value) if np.isfinite(value) else None for value in row]
+                for row in grid.values
+            ]
+            return values
+        if asset.format == "JSON":
+            payload = JSON_OBJECT.validate_json(content)
+            if source.name not in payload:
+                raise ConstraintError("source variable missing from stored JSON")
+            value = payload[source.name]
+            if source.unit != target.unit:
+                value = transform_numeric(
+                    value, source.unit, target.unit, allow_nodata=target.nodata_policy != "reject"
+                )
+            json.dumps(value, allow_nan=False)
+            return value
+>       raise CoastMASError(
+            "DATA_FORMAT_ERROR", "data format requires a registered ingestion adapter"
+        )
+E       coastmas.core.errors.CoastMASError: data format requires a registered ingestion adapter
+
+src/coastmas/adapters/datasource.py:132: CoastMASError
+_____ test_real_tabular_files_resolve_all_values_and_convert_units[NetCDF] _____
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11a525d60>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-108/test_real_tabular_files_resolv1')
+format = 'NetCDF'
+
+    @pytest.mark.parametrize("format", ["CSV", "NetCDF"])
+    def test_real_tabular_files_resolve_all_values_and_convert_units(storage, tmp_path, format):
+        import netCDF4
+    
+        if format == "CSV":
+            content = b"height\n100\n200\n300\n"
+        else:
+            path = tmp_path / "input.nc"
+            with netCDF4.Dataset(path, "w") as dataset:
+                dataset.createDimension("row", 3)
+                values = dataset.createVariable("height", "f8", ("row",))
+                values.units = "cm"
+                values[:] = [100, 200, 300]
+            content = path.read_bytes()
+        record = storage.put("table/input", content)
+        source = asset(
+            format=format,
+            type="table",
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=[variable(data_type="array", unit="cm")],
+            quality={"size_bytes": record.size},
+        )
+>       result = StoredDataResolver(storage).resolve(
+            source, variable(data_type="array"), workflow().input_bindings[0], scene()
+        )
+
+tests/integration/test_datasource.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.datasource.StoredDataResolver object at 0x11a6833b0>
+asset = DataAssetSpec(id='dem', name='DEM', type='table', uri='s3://coastmas-test-379cc5b78c324c679484303277af3895/table/input...rce='SYNTHETIC', license='CC0', version=1, checksum='9fbfdf4b1387de2f8aeabd191bb9edf06c7d1f0068d3e31bc9598cf0903ff601')
+target = VariableSpec(name='height', standard_name='elevation', description='Elevation', data_type='array', unit='m', dimension... spatial_support='grid', temporal_support='instant', aggregation_type='intensive', nodata_policy='mask', required=True)
+binding = BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(node_id='screen-node', variable='height...it_conversion=None, crs_transform=None, resampling=None, temporal_transform=None, quality_check=(), status='VALIDATED')
+scene = SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygon', 'coordinates':...'vertical_datum': 'demo-datum'}, constraints=(), required_outputs=('result',), data_policy={}, quality_requirements={})
+
+    def resolve(
+        self, asset: DataAssetSpec, target: VariableSpec, binding: BindingPlan, scene: SceneSpec
+    ) -> JsonValue:
+        address = urlsplit(asset.uri)
+        if (
+            address.scheme != "s3"
+            or address.netloc != self.store.bucket
+            or address.query
+            or address.fragment
+        ):
+            raise CoastMASError("STORAGE_ERROR", "asset must use configured object storage")
+        if binding.source.id != asset.id or binding.source.version != asset.version:
+            raise ConstraintError("binding data version differs from resolved asset")
+        size = asset.quality.get("size_bytes")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise ConstraintError("asset byte size metadata is required")
+        content = self.store.read(
+            ArtifactRecord(self.store.bucket, address.path.removeprefix("/"), asset.checksum, size)
+        )
+        candidates = [
+            item for item in asset.variables if item.standard_name == target.standard_name
+        ]
+        if len(candidates) != 1:
+            raise ConstraintError("binding requires one unambiguous source variable")
+        source = candidates[0]
+        validate_semantics(source, target, {})
+        if binding.temporal_transform is not None:
+            raise ConstraintError(
+                "temporal binding requires an explicit time-series transformation node"
+            )
+        if asset.format == "GeoTIFF":
+            grid = decode_geotiff(content)
+            if (
+                asset.type != "raster"
+                or target.data_type != "raster"
+                or not asset.crs
+                or CRS(grid.crs) != CRS(asset.crs)
+                or grid.unit != source.unit
+                or grid.vertical_datum != asset.vertical_datum
+            ):
+                raise ConstraintError("GeoTIFF metadata differs from immutable data catalog")
+            if source.semantic_type == "categorical":
+                known = grid.values[np.isfinite(grid.values)]
+                if np.any(known != np.floor(known)):
+                    raise ConstraintError(
+                        "categorical raster contains fractional class identifiers"
+                    )
+            converted = grid.values.copy()
+            known_mask = np.isfinite(converted)
+            if np.any(known_mask):
+                converted[known_mask] = convert_units(
+                    converted[known_mask], source.unit, target.unit
+                )
+            if target.nodata_policy == "reject" and not np.all(known_mask):
+                raise ConstraintError("target does not accept NoData")
+            grid = Grid(converted, grid.crs, grid.transform, target.unit, grid.vertical_datum)
+            target_spec = scene.data_policy.get("target_grid")
+            if binding.crs_transform and target_spec is None:
+                raise ConstraintError("CRS transformation requires an explicit destination grid")
+            if target_spec is not None:
+                destination = TargetGrid.model_validate(target_spec)
+                if binding.crs_transform is not None:
+                    target_crs = binding.crs_transform.split(" -> ")[-1]
+                    if CRS(destination.crs) != CRS(target_crs):
+                        raise ConstraintError("destination grid differs from verified CRS binding")
+                method = binding.resampling
+                if method not in ("nearest", "bilinear", "sum", "area_weighted"):
+                    raise ConstraintError(
+                        "grid binding needs an explicit conservative or cubic transformation node"
+                    )
+                grid = resample_grid(
+                    grid,
+                    crs=destination.crs,
+                    transform=Affine(*destination.transform),
+                    shape=(destination.height, destination.width),
+                    kind=source.semantic_type,
+                    method=method,
+                )
+            values: list[JsonValue] = [
+                [float(value) if np.isfinite(value) else None for value in row]
+                for row in grid.values
+            ]
+            return values
+        if asset.format == "JSON":
+            payload = JSON_OBJECT.validate_json(content)
+            if source.name not in payload:
+                raise ConstraintError("source variable missing from stored JSON")
+            value = payload[source.name]
+            if source.unit != target.unit:
+                value = transform_numeric(
+                    value, source.unit, target.unit, allow_nodata=target.nodata_policy != "reject"
+                )
+            json.dumps(value, allow_nan=False)
+            return value
+>       raise CoastMASError(
+            "DATA_FORMAT_ERROR", "data format requires a registered ingestion adapter"
+        )
+E       coastmas.core.errors.CoastMASError: data format requires a registered ingestion adapter
+
+src/coastmas/adapters/datasource.py:132: CoastMASError
+________ test_vector_geometry_container_is_bound_with_its_verified_crs _________
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11a5b92b0>
+
+    def test_vector_geometry_container_is_bound_with_its_verified_crs(storage):
+        import json
+    
+        feature = {
+            "type": "Feature",
+            "properties": {"unit_id": "u1"},
+            "geometry": {"type": "Point", "coordinates": [117, 30]},
+        }
+        content = json.dumps({"type": "FeatureCollection", "features": [feature]}).encode()
+        record = storage.put("vector/input", content)
+        target = variable(
+            name="height",
+            standard_name="management_units",
+            data_type="json",
+            unit="1",
+            dimension="dimensionless",
+        )
+        source = asset(
+            format="GeoJSON",
+            type="vector",
+            crs="EPSG:4326",
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=[target],
+            quality={"size_bytes": record.size},
+        )
+>       result = StoredDataResolver(storage).resolve(
+            source, target, workflow().input_bindings[0], scene()
+        )
+
+tests/integration/test_datasource.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.datasource.StoredDataResolver object at 0x11a74fdd0>
+asset = DataAssetSpec(id='dem', name='DEM', type='vector', uri='s3://coastmas-test-d7800cc7fdbe487fa213642aeb4f12f7/vector/inp...rce='SYNTHETIC', license='CC0', version=1, checksum='90a81a57b694d07913a605c49e72bea3fc8e8a4b1c78b36940474bc4ad97760e')
+target = VariableSpec(name='height', standard_name='management_units', description='Elevation', data_type='json', unit='1', dim... spatial_support='grid', temporal_support='instant', aggregation_type='intensive', nodata_policy='mask', required=True)
+binding = BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(node_id='screen-node', variable='height...it_conversion=None, crs_transform=None, resampling=None, temporal_transform=None, quality_check=(), status='VALIDATED')
+scene = SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygon', 'coordinates':...'vertical_datum': 'demo-datum'}, constraints=(), required_outputs=('result',), data_policy={}, quality_requirements={})
+
+    def resolve(
+        self, asset: DataAssetSpec, target: VariableSpec, binding: BindingPlan, scene: SceneSpec
+    ) -> JsonValue:
+        address = urlsplit(asset.uri)
+        if (
+            address.scheme != "s3"
+            or address.netloc != self.store.bucket
+            or address.query
+            or address.fragment
+        ):
+            raise CoastMASError("STORAGE_ERROR", "asset must use configured object storage")
+        if binding.source.id != asset.id or binding.source.version != asset.version:
+            raise ConstraintError("binding data version differs from resolved asset")
+        size = asset.quality.get("size_bytes")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise ConstraintError("asset byte size metadata is required")
+        content = self.store.read(
+            ArtifactRecord(self.store.bucket, address.path.removeprefix("/"), asset.checksum, size)
+        )
+        candidates = [
+            item for item in asset.variables if item.standard_name == target.standard_name
+        ]
+        if len(candidates) != 1:
+            raise ConstraintError("binding requires one unambiguous source variable")
+        source = candidates[0]
+        validate_semantics(source, target, {})
+        if binding.temporal_transform is not None:
+            raise ConstraintError(
+                "temporal binding requires an explicit time-series transformation node"
+            )
+        if asset.format == "GeoTIFF":
+            grid = decode_geotiff(content)
+            if (
+                asset.type != "raster"
+                or target.data_type != "raster"
+                or not asset.crs
+                or CRS(grid.crs) != CRS(asset.crs)
+                or grid.unit != source.unit
+                or grid.vertical_datum != asset.vertical_datum
+            ):
+                raise ConstraintError("GeoTIFF metadata differs from immutable data catalog")
+            if source.semantic_type == "categorical":
+                known = grid.values[np.isfinite(grid.values)]
+                if np.any(known != np.floor(known)):
+                    raise ConstraintError(
+                        "categorical raster contains fractional class identifiers"
+                    )
+            converted = grid.values.copy()
+            known_mask = np.isfinite(converted)
+            if np.any(known_mask):
+                converted[known_mask] = convert_units(
+                    converted[known_mask], source.unit, target.unit
+                )
+            if target.nodata_policy == "reject" and not np.all(known_mask):
+                raise ConstraintError("target does not accept NoData")
+            grid = Grid(converted, grid.crs, grid.transform, target.unit, grid.vertical_datum)
+            target_spec = scene.data_policy.get("target_grid")
+            if binding.crs_transform and target_spec is None:
+                raise ConstraintError("CRS transformation requires an explicit destination grid")
+            if target_spec is not None:
+                destination = TargetGrid.model_validate(target_spec)
+                if binding.crs_transform is not None:
+                    target_crs = binding.crs_transform.split(" -> ")[-1]
+                    if CRS(destination.crs) != CRS(target_crs):
+                        raise ConstraintError("destination grid differs from verified CRS binding")
+                method = binding.resampling
+                if method not in ("nearest", "bilinear", "sum", "area_weighted"):
+                    raise ConstraintError(
+                        "grid binding needs an explicit conservative or cubic transformation node"
+                    )
+                grid = resample_grid(
+                    grid,
+                    crs=destination.crs,
+                    transform=Affine(*destination.transform),
+                    shape=(destination.height, destination.width),
+                    kind=source.semantic_type,
+                    method=method,
+                )
+            values: list[JsonValue] = [
+                [float(value) if np.isfinite(value) else None for value in row]
+                for row in grid.values
+            ]
+            return values
+        if asset.format == "JSON":
+            payload = JSON_OBJECT.validate_json(content)
+            if source.name not in payload:
+                raise ConstraintError("source variable missing from stored JSON")
+            value = payload[source.name]
+            if source.unit != target.unit:
+                value = transform_numeric(
+                    value, source.unit, target.unit, allow_nodata=target.nodata_policy != "reject"
+                )
+            json.dumps(value, allow_nan=False)
+            return value
+>       raise CoastMASError(
+            "DATA_FORMAT_ERROR", "data format requires a registered ingestion adapter"
+        )
+E       coastmas.core.errors.CoastMASError: data format requires a registered ingestion adapter
+
+src/coastmas/adapters/datasource.py:132: CoastMASError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_data_inspection.py::test_json_framework_preserves_per_indicator_metadata_instead_of_claiming_one_numeric_unit
+FAILED tests/integration/test_datasource.py::test_real_tabular_files_resolve_all_values_and_convert_units[CSV]
+FAILED tests/integration/test_datasource.py::test_real_tabular_files_resolve_all_values_and_convert_units[NetCDF]
+FAILED tests/integration/test_datasource.py::test_vector_geometry_container_is_bound_with_its_verified_crs
+4 failed, 3 passed, 2 warnings in 5.80s

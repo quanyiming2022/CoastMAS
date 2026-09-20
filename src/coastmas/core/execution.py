@@ -221,7 +221,18 @@ def execute_workflow(
                 raise CoastMASError("TIMEOUT", "workflow total execution deadline exceeded")
             runtime = runtimes[node.id]
             request = RunRequest(
-                runtime.handler, inputs, parameters, work_root, remaining_seconds, cancellation
+                runtime.handler,
+                inputs,
+                parameters,
+                work_root,
+                remaining_seconds,
+                cancellation,
+                context={
+                    "scene": manifest.scene.model_dump(mode="json"),
+                    "node_id": node.id,
+                    "random_seed": manifest.random_seed,
+                    "software_version": manifest.software_version,
+                },
             )
             runtime.adapter.validate(request)
             directory = runtime.adapter.prepare(request)

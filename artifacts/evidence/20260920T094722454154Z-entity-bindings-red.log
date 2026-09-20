@@ -1,0 +1,105 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution __
+
+    def test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution():
+        from coastmas.core.validation import validate_asset_binding
+        from tests.factories import variable
+    
+        boundary = variable(
+            data_type="json",
+            standard_name="management_units",
+            unit="1",
+            dimension="dimensionless",
+            spatial_support="management_unit",
+        )
+        candidate = model(inputs=[boundary], supported_geometry=["polygon"])
+        data = asset(
+            type="vector",
+            variables=[boundary],
+            quality={"validated": True, "geometry": "polygon", "spatial_support_m": 50},
+        )
+        report = validate_asset_binding(
+            data, boundary, candidate, scene(), workflow().input_bindings[0]
+        )
+>       assert report.valid, report.issues
+E       AssertionError: (ValidationIssue(code='SPATIAL_SCALE', message='measured spatial resolution is required', node_id='screen-node', variable='height'),)
+E       assert False
+E        +  where False = ValidationReport(issues=(ValidationIssue(code='SPATIAL_SCALE', message='measured spatial resolution is required', node_id='screen-node', variable='height'),), bindings=()).valid
+
+tests/unit/test_validation.py:158: AssertionError
+_____ test_csv_container_keeps_unit_identifiers_and_declared_column_units ______
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11751dc40>
+
+    def test_csv_container_keeps_unit_identifiers_and_declared_column_units(storage):
+        content = b"unit_id,population\nU1,120\nU2,160\n"
+        record = storage.put("population/input", content)
+        target = variable(
+            name="records",
+            standard_name="management_population",
+            data_type="json",
+            unit="1",
+            dimension="dimensionless",
+        )
+        source = asset(
+            format="CSV",
+            type="table",
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=[target],
+            quality={"size_bytes": record.size, "column_units": {"population": "person"}},
+        )
+        binding = (
+            workflow()
+            .input_bindings[0]
+            .model_copy(
+                update={
+                    "target": workflow()
+                    .input_bindings[0]
+                    .target.model_copy(update={"variable": "records"})
+                }
+            )
+        )
+>       result = StoredDataResolver(storage).resolve(source, target, binding, scene())
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_datasource.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/datasource.py:132: in resolve
+    value = read_data_value(content, asset, source.name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/data_inspection.py:398: in read_data_value
+    inspect_data(content, asset)
+src/coastmas/core/data_inspection.py:350: in inspect_data
+    report = _csv(content, asset)
+             ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content = b'unit_id,population\nU1,120\nU2,160\n'
+asset = DataAssetSpec(id='dem', name='DEM', type='table', uri='s3://coastmas-test-9d3467dbd6a7491bbcef51759c0bfd54/population/...rce='SYNTHETIC', license='CC0', version=1, checksum='1a6db60f9b7f02c08f3a601d919e4db413ea8fb87da2155a2bda4f8c47092769')
+
+    def _csv(content: bytes, asset: DataAssetSpec) -> DataInspection:
+        reader = csv.DictReader(io.StringIO(content.decode("utf-8-sig")))
+        fields = reader.fieldnames
+        if not fields or len(set(fields)) != len(fields) or any(not name for name in fields):
+            raise ConstraintError("CSV requires unique nonempty column names")
+        if not {item.name for item in asset.variables}.issubset(fields):
+>           raise ConstraintError("CSV is missing a declared variable column")
+E           coastmas.core.errors.ConstraintError: CSV is missing a declared variable column
+
+src/coastmas/core/data_inspection.py:175: ConstraintError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_validation.py::test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution
+FAILED tests/integration/test_datasource.py::test_csv_container_keeps_unit_identifiers_and_declared_column_units
+2 failed, 2 warnings in 1.28s

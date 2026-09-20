@@ -133,3 +133,26 @@ def test_incompatible_resampling_is_a_report_not_an_unhandled_exception():
     result = report(workflow=workflow(**payload))
     assert not result.valid
     assert "RESAMPLING" in {issue.code for issue in result.issues}
+
+
+def test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution():
+    from coastmas.core.validation import validate_asset_binding
+    from tests.factories import variable
+
+    boundary = variable(
+        data_type="json",
+        standard_name="management_units",
+        unit="1",
+        dimension="dimensionless",
+        spatial_support="management_unit",
+    )
+    candidate = model(inputs=[boundary], supported_geometry=["polygon"])
+    data = asset(
+        type="vector",
+        variables=[boundary],
+        quality={"validated": True, "geometry": "polygon", "spatial_support_m": 50},
+    )
+    report = validate_asset_binding(
+        data, boundary, candidate, scene(), workflow().input_bindings[0]
+    )
+    assert report.valid, report.issues

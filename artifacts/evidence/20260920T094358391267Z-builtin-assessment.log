@@ -1,0 +1,310 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_registered_assessment_nodes_execute_real_stored_frames_as_dag[False] ___
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x117f0c770>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-112/test_registered_assessment_nod0')
+temporal = False
+
+    @pytest.mark.parametrize("temporal", [False, True])
+    def test_registered_assessment_nodes_execute_real_stored_frames_as_dag(storage, tmp_path, temporal):
+        catalog = assessment_catalog("project-demo")
+        components = {item.runtime_config["component"]: item for item in catalog.models}
+        source = frame(periods=temporal)
+        payload = json.dumps({"frame": source.model_dump(mode="json")}).encode()
+        stored = storage.put("indicator/frame.json", payload)
+        data = asset(
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2023-01-01T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        nodes = [
+            {"id": name, "model_id": components[name].id, "model_version": 1}
+            for name in ("normalize", "weight", "composite")
+        ]
+        edges = [
+            {
+                "source_node": "normalize",
+                "source_variable": "frame",
+                "target_node": target,
+                "target_variable": "frame",
+            }
+            for target in ("weight", "composite")
+        ]
+        edges.append(
+            {
+                "source_node": "weight",
+                "source_variable": "weights",
+                "target_node": "composite",
+                "target_variable": "weights",
+            }
+        )
+        outputs = [{"node_id": "composite", "variable": "scores"}]
+        if temporal:
+            nodes.append({"id": "change", "model_id": components["change"].id, "model_version": 1})
+            edges.append(
+                {
+                    "source_node": "composite",
+                    "source_variable": "scores",
+                    "target_node": "change",
+                    "target_variable": "scores",
+                }
+            )
+            outputs.append({"node_id": "change", "variable": "change"})
+        graph = WorkflowSpec.model_validate(
+            {
+                "id": "assessment",
+                "name": "assessment",
+                "version": 1,
+                "scene_type": "C" if temporal else "B",
+                "nodes": nodes,
+                "edges": edges,
+                "input_bindings": [
+                    {
+                        "source": {"id": data.id, "version": 1},
+                        "target": {"node_id": "normalize", "variable": "frame"},
+                        "semantic_mapping": "exact_standard_name",
+                        "unit_conversion": None,
+                        "crs_transform": None,
+                        "resampling": None,
+                        "temporal_transform": None,
+                        "quality_check": [],
+                        "status": "MANUAL_REVIEW",
+                    }
+                ],
+                "parameter_bindings": [],
+                "constraints": [],
+                "validation_rules": [],
+                "execution_policy": {"timeout_seconds": 30, "max_retries": 0},
+                "output_definition": outputs,
+            }
+        )
+        context = scene(time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"})
+        used = {node.model_id for node in graph.nodes}
+        manifest = RunManifest(
+            scene=context,
+            workflow=graph,
+            models=tuple(item for item in catalog.models if item.id in used),
+            data_assets=(data,),
+            parameters=(),
+            bindings=graph.input_bindings,
+            random_seed=42,
+            software_version="test",
+            container_image="local-test",
+            timestamp=datetime.now(UTC),
+            environment={},
+        )
+>       result = execute_workflow(
+            manifest,
+            registry=catalog.registry,
+            resolver=StoredDataResolver(storage),
+            work_root=tmp_path,
+        )
+
+tests/integration/test_builtin_assessment.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+manifest = RunManifest(scene=SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygo..._transform=None, resampling=None, temporal_transform=None, quality_check=(), status='MANUAL_REVIEW'),), environment={})
+registry = <coastmas.core.execution.ExecutionRegistry object at 0x11accaae0>
+resolver = <coastmas.adapters.datasource.StoredDataResolver object at 0x11ad06e10>
+work_root = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-112/test_registered_assessment_nod0')
+cancel = None, on_progress = None
+
+    def execute_workflow(
+        manifest: RunManifest,
+        *,
+        registry: ExecutionRegistry,
+        resolver: DataResolver,
+        work_root: Path,
+        cancel: threading.Event | None = None,
+        on_progress: Callable[[float], None] | None = None,
+    ) -> WorkflowExecution:
+        cancellation = cancel if cancel is not None else threading.Event()
+        if cancellation.is_set():
+            raise CoastMASError("CANCELLED", "workflow cancelled before execution")
+        workflow = manifest.workflow
+        report = validate_workflow(
+            workflow, list(manifest.models), list(manifest.data_assets), manifest.scene
+        )
+        if not report.valid:
+>           raise ConstraintError(
+                "workflow preflight rejected execution",
+                {"issues": [issue.code for issue in report.issues]},
+            )
+E           coastmas.core.errors.ConstraintError: workflow preflight rejected execution
+
+src/coastmas/core/execution.py:133: ConstraintError
+___ test_registered_assessment_nodes_execute_real_stored_frames_as_dag[True] ___
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11ade0e90>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-112/test_registered_assessment_nod1')
+temporal = True
+
+    @pytest.mark.parametrize("temporal", [False, True])
+    def test_registered_assessment_nodes_execute_real_stored_frames_as_dag(storage, tmp_path, temporal):
+        catalog = assessment_catalog("project-demo")
+        components = {item.runtime_config["component"]: item for item in catalog.models}
+        source = frame(periods=temporal)
+        payload = json.dumps({"frame": source.model_dump(mode="json")}).encode()
+        stored = storage.put("indicator/frame.json", payload)
+        data = asset(
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2023-01-01T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        nodes = [
+            {"id": name, "model_id": components[name].id, "model_version": 1}
+            for name in ("normalize", "weight", "composite")
+        ]
+        edges = [
+            {
+                "source_node": "normalize",
+                "source_variable": "frame",
+                "target_node": target,
+                "target_variable": "frame",
+            }
+            for target in ("weight", "composite")
+        ]
+        edges.append(
+            {
+                "source_node": "weight",
+                "source_variable": "weights",
+                "target_node": "composite",
+                "target_variable": "weights",
+            }
+        )
+        outputs = [{"node_id": "composite", "variable": "scores"}]
+        if temporal:
+            nodes.append({"id": "change", "model_id": components["change"].id, "model_version": 1})
+            edges.append(
+                {
+                    "source_node": "composite",
+                    "source_variable": "scores",
+                    "target_node": "change",
+                    "target_variable": "scores",
+                }
+            )
+            outputs.append({"node_id": "change", "variable": "change"})
+        graph = WorkflowSpec.model_validate(
+            {
+                "id": "assessment",
+                "name": "assessment",
+                "version": 1,
+                "scene_type": "C" if temporal else "B",
+                "nodes": nodes,
+                "edges": edges,
+                "input_bindings": [
+                    {
+                        "source": {"id": data.id, "version": 1},
+                        "target": {"node_id": "normalize", "variable": "frame"},
+                        "semantic_mapping": "exact_standard_name",
+                        "unit_conversion": None,
+                        "crs_transform": None,
+                        "resampling": None,
+                        "temporal_transform": None,
+                        "quality_check": [],
+                        "status": "MANUAL_REVIEW",
+                    }
+                ],
+                "parameter_bindings": [],
+                "constraints": [],
+                "validation_rules": [],
+                "execution_policy": {"timeout_seconds": 30, "max_retries": 0},
+                "output_definition": outputs,
+            }
+        )
+        context = scene(time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"})
+        used = {node.model_id for node in graph.nodes}
+        manifest = RunManifest(
+            scene=context,
+            workflow=graph,
+            models=tuple(item for item in catalog.models if item.id in used),
+            data_assets=(data,),
+            parameters=(),
+            bindings=graph.input_bindings,
+            random_seed=42,
+            software_version="test",
+            container_image="local-test",
+            timestamp=datetime.now(UTC),
+            environment={},
+        )
+>       result = execute_workflow(
+            manifest,
+            registry=catalog.registry,
+            resolver=StoredDataResolver(storage),
+            work_root=tmp_path,
+        )
+
+tests/integration/test_builtin_assessment.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+manifest = RunManifest(scene=SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygo..._transform=None, resampling=None, temporal_transform=None, quality_check=(), status='MANUAL_REVIEW'),), environment={})
+registry = <coastmas.core.execution.ExecutionRegistry object at 0x11ad858b0>
+resolver = <coastmas.adapters.datasource.StoredDataResolver object at 0x11ad87d70>
+work_root = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-112/test_registered_assessment_nod1')
+cancel = None, on_progress = None
+
+    def execute_workflow(
+        manifest: RunManifest,
+        *,
+        registry: ExecutionRegistry,
+        resolver: DataResolver,
+        work_root: Path,
+        cancel: threading.Event | None = None,
+        on_progress: Callable[[float], None] | None = None,
+    ) -> WorkflowExecution:
+        cancellation = cancel if cancel is not None else threading.Event()
+        if cancellation.is_set():
+            raise CoastMASError("CANCELLED", "workflow cancelled before execution")
+        workflow = manifest.workflow
+        report = validate_workflow(
+            workflow, list(manifest.models), list(manifest.data_assets), manifest.scene
+        )
+        if not report.valid:
+>           raise ConstraintError(
+                "workflow preflight rejected execution",
+                {"issues": [issue.code for issue in report.issues]},
+            )
+E           coastmas.core.errors.ConstraintError: workflow preflight rejected execution
+
+src/coastmas/core/execution.py:133: ConstraintError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_builtin_assessment.py::test_registered_assessment_nodes_execute_real_stored_frames_as_dag[False]
+FAILED tests/integration/test_builtin_assessment.py::test_registered_assessment_nodes_execute_real_stored_frames_as_dag[True]
+2 failed, 2 warnings in 2.39s

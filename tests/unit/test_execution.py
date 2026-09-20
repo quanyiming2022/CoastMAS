@@ -142,3 +142,21 @@ def test_precancelled_workflow_never_starts_model(tmp_path):
             work_root=tmp_path,
             cancel=cancelled,
         )
+
+
+def test_contextual_model_uses_immutable_manifest_scene_and_seed(tmp_path):
+    def contextual(context, inputs, parameters):
+        assert context["scene"]["id"] == "scene"
+        assert context["node_id"] == "screen-node"
+        assert context["random_seed"] == 42
+        assert "environment" not in context
+        return {"result": inputs["height"]}
+
+    registry = ExecutionRegistry()
+    registry.register(
+        model(), PythonFunctionAdapter({}, contextual_handlers={"run": contextual}), "run"
+    )
+    result = execute_workflow(
+        manifest(), registry=registry, resolver=Resolver(), work_root=tmp_path
+    )
+    assert result.outputs == {"screen-node.result": [[1.0, 2.0]]}

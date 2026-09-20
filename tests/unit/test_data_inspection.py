@@ -141,3 +141,46 @@ def test_netcdf_infinity_is_not_silently_reclassified_as_nodata(tmp_path):
         values[:] = [np.inf]
     with pytest.raises(CoastMASError):
         inspect(path.read_bytes(), "NetCDF", type="table")
+
+
+def test_json_framework_preserves_per_indicator_metadata_instead_of_claiming_one_numeric_unit():
+    payload = {
+        "framework": {
+            "columns": [{"name": "income", "unit": "USD", "positive": True}],
+            "values": [[100], [200]],
+        }
+    }
+    content = json.dumps(payload).encode()
+    report = inspect(
+        content,
+        "JSON",
+        type="json",
+        variables=[
+            variable(
+                name="framework",
+                standard_name="indicator_framework",
+                data_type="json",
+                unit="1",
+                dimension="dimensionless",
+            )
+        ],
+    )
+    assert report.preview == payload
+
+
+def test_concurrent_netcdf_bindings_preserve_complete_shape_without_parallel_native_io(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+
+    from coastmas.core.data_inspection import read_data_value
+
+    path = tmp_path / "concurrent.nc"
+    with netCDF4.Dataset(path, "w") as dataset:
+        dataset.createDimension("row", 20)
+        values = dataset.createVariable("height", "f8", ("row",))
+        values.units = "m"
+        values[:] = np.arange(20)
+    content = path.read_bytes()
+    source = asset(format="NetCDF", type="table", checksum=hashlib.sha256(content).hexdigest())
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        results = list(pool.map(lambda _: read_data_value(content, source, "height"), range(12)))
+    assert all(value == list(range(20)) for value in results)

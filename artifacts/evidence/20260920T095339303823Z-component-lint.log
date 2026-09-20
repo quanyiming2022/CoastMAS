@@ -1,0 +1,33 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> tests/unit/test_indicator_frames.py:1:1
+   |
+ 1 | / import numpy as np
+ 2 | | import pytest
+ 3 | | from coastmas.domain.indicator_frames import (
+ 4 | |     IndicatorFrame,
+ 5 | |     aggregate_frame,
+ 6 | |     normalize_frame,
+ 7 | |     temporal_change,
+ 8 | |     weight_frame,
+ 9 | | )
+10 | | from pydantic import ValidationError
+11 | |
+12 | | from coastmas.core.errors import CoastMASError
+   | |______________________________________________^
+help: Organize imports
+   |
+2  | import pytest
+3  + from pydantic import ValidationError
+4  +
+5  + from coastmas.core.errors import CoastMASError
+6  | from coastmas.domain.indicator_frames import (
+--------------------------------------------------------------------------------
+12 | )
+   - from pydantic import ValidationError
+   -
+   - from coastmas.core.errors import CoastMASError
+13 |
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

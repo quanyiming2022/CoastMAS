@@ -12,6 +12,7 @@ import json
 import math
 import stat
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import PurePosixPath
 from typing import cast
 
@@ -23,11 +24,16 @@ from fiona.model import to_dict  # type: ignore[import-untyped]
 from pydantic import JsonValue, TypeAdapter
 from pyproj import CRS
 from rasterio.io import MemoryFile as RasterMemoryFile  # type: ignore[import-untyped]
+from shapely import orient_polygons  # type: ignore[import-untyped]
 from shapely.geometry import shape  # type: ignore[import-untyped]
 
 from coastmas.adapters.geofiles import decode_geotiff
 from coastmas.core.contracts import Contract, DataAssetSpec, VariableSpec
 from coastmas.core.errors import CoastMASError, ConstraintError
+
+# All native NetCDF operations in this process use one thread (Unidata requirement).
+# API inspection itself additionally runs in an isolated, deadline-bound process.
+NETCDF_IO = ThreadPoolExecutor(max_workers=1, thread_name_prefix="coastmas-netcdf")
 
 MAX_BYTES = 64 * 1024 * 1024
 MAX_ITEMS = 100_000
@@ -54,6 +60,21 @@ def _reject_constant(value: str) -> None:
 
 
 def _numeric(values: JsonValue, variable: VariableSpec) -> None:
+    if variable.data_type == "json":
+        pending: list[tuple[JsonValue, int]] = [(values, 0)]
+        nodes = 0
+        while pending:
+            item, level = pending.pop()
+            nodes += 1
+            if nodes > MAX_ITEMS or level > 64:
+                raise ConstraintError("JSON container exceeds structure budget")
+            if isinstance(item, float) and not math.isfinite(item):
+                raise ConstraintError("JSON container contains a non-finite number")
+            if isinstance(item, dict):
+                pending.extend((value, level + 1) for value in item.values())
+            elif isinstance(item, list):
+                pending.extend((value, level + 1) for value in item)
+        return
     stack: list[tuple[JsonValue, int]] = [(values, 0)]
     count = 0
     while stack:
@@ -151,7 +172,7 @@ def _csv(content: bytes, asset: DataAssetSpec) -> DataInspection:
     fields = reader.fieldnames
     if not fields or len(set(fields)) != len(fields) or any(not name for name in fields):
         raise ConstraintError("CSV requires unique nonempty column names")
-    if not {item.name for item in asset.variables}.issubset(fields):
+    if not {item.name for item in asset.variables if item.data_type != "json"}.issubset(fields):
         raise ConstraintError("CSV is missing a declared variable column")
     preview: list[JsonValue] = []
     count = 0
@@ -162,6 +183,8 @@ def _csv(content: bytes, asset: DataAssetSpec) -> DataInspection:
         if None in row or any(value is None for value in row.values()):
             raise ConstraintError("CSV row has a different number of fields")
         for variable in asset.variables:
+            if variable.data_type == "json":
+                continue  # Table containers preserve entity keys and heterogeneous columns.
             raw = row[variable.name]
             _numeric(None if raw.strip() == "" else float(raw), variable)
         if count <= 10:
@@ -211,7 +234,7 @@ def _archive(content: bytes) -> str:
         return shapes[0]
 
 
-def _vector(content: bytes, asset: DataAssetSpec) -> DataInspection:
+def _vector(content: bytes, asset: DataAssetSpec, *, full: bool = False) -> DataInspection:
     driver = {"GeoJSON": "GeoJSON", "Shapefile": "ESRI Shapefile", "GeoPackage": "GPKG"}[
         asset.format
     ]
@@ -241,6 +264,9 @@ def _vector(content: bytes, asset: DataAssetSpec) -> DataInspection:
                 raise ConstraintError("vector file and catalog CRS differ")
             count = 0
             preview: list[JsonValue] = []
+            support_sizes: list[float] = []
+            reference = CRS(crs)
+            geometry_type = str(collection.schema["geometry"]).lower()
             for feature in collection:
                 count += 1
                 if count > MAX_ITEMS:
@@ -254,12 +280,30 @@ def _vector(content: bytes, asset: DataAssetSpec) -> DataInspection:
                     raise ConstraintError("vector geometry must be valid nonempty 2D")
                 if not all(math.isfinite(value) for value in parsed.bounds):
                     raise ConstraintError("vector coordinates must be finite")
+                if parsed.geom_type in {"Polygon", "MultiPolygon"}:
+                    if reference.is_projected:
+                        area = (
+                            parsed.area
+                            * reference.axis_info[0].unit_conversion_factor
+                            * reference.axis_info[1].unit_conversion_factor
+                        )
+                    else:
+                        geodesic = reference.get_geod()
+                        if geodesic is None:
+                            raise ConstraintError("CRS has no geodesic definition for polygon area")
+                        area, _ = geodesic.geometry_area_perimeter(orient_polygons(parsed))
+                        area = abs(area)
+                    if not math.isfinite(area) or area <= 0:
+                        raise ConstraintError("polygon cannot define a positive spatial support")
+                    support_sizes.append(math.sqrt(area))
                 properties = raw.get("properties", {})
                 for variable in asset.variables:
+                    if variable.data_type == "json":
+                        continue  # Explicit feature-collection container, not an attribute column.
                     if variable.name not in properties:
                         raise ConstraintError("vector attribute variable is absent")
                     _numeric(JSON_VALUE.validate_python(properties[variable.name]), variable)
-                if count <= 10:
+                if full or count <= 10:
                     preview.append(JSON_VALUE.validate_json(json.dumps(raw, allow_nan=False)))
             if count == 0:
                 raise ConstraintError("vector file contains no features")
@@ -268,6 +312,14 @@ def _vector(content: bytes, asset: DataAssetSpec) -> DataInspection:
         metadata={
             "validated": True,
             "feature_count": count,
+            "geometry": geometry_type,
+            "spatial_support_m": max(support_sizes)
+            if support_sizes
+            else asset.quality.get("spatial_support_m"),
+            "minimum_spatial_support_m": min(support_sizes) if support_sizes else None,
+            "spatial_support_definition": "sqrt_feature_area"
+            if support_sizes
+            else "catalog_declaration",
             "crs": asset.crs,
             "spatial_extent": bounds,
             "unit_source": "catalog_declaration",
@@ -329,7 +381,7 @@ def inspect_data(content: bytes, asset: DataAssetSpec) -> DataInspection:
         elif asset.format in {"GeoJSON", "Shapefile", "GeoPackage"}:
             report = _vector(content, asset)
         elif asset.format == "NetCDF":
-            report = _netcdf(content, asset)
+            report = NETCDF_IO.submit(_netcdf, content, asset).result()
         elif asset.format == "JSON":
             value = _read_json(content)
             if not isinstance(value, dict):
@@ -369,3 +421,47 @@ def inspect_data(content: bytes, asset: DataAssetSpec) -> DataInspection:
             }
         }
     )
+
+
+def read_data_value(content: bytes, asset: DataAssetSpec, variable_name: str) -> JsonValue:
+    """Return full validated values, never the truncated preview, for execution bindings."""
+    inspect_data(content, asset)
+    declared = next((item for item in asset.variables if item.name == variable_name), None)
+    if declared is None:
+        raise ConstraintError("requested variable is absent from the catalog")
+    if asset.format == "JSON":
+        payload = _read_json(content)
+        if not isinstance(payload, dict):
+            raise ConstraintError("JSON data must be an object")
+        return payload[variable_name]
+    if asset.format == "CSV":
+        reader = csv.DictReader(io.StringIO(content.decode("utf-8-sig")))
+        if declared.data_type == "json":
+            rows: list[JsonValue] = [cast(dict[str, JsonValue], dict(row)) for row in reader]
+            return {
+                "rows": rows,
+                "column_units": asset.quality.get("column_units", {}),
+                "unit_source": "catalog_declaration",
+            }
+        return [float(row[variable_name]) if row[variable_name].strip() else None for row in reader]
+    if asset.format == "NetCDF":
+        return NETCDF_IO.submit(_netcdf_value, content, variable_name).result()
+    if asset.format in {"GeoJSON", "Shapefile", "GeoPackage"}:
+        if declared.data_type != "json":
+            raise ConstraintError("vector execution binding requires an explicit feature container")
+        collection = _vector(content, asset, full=True)
+        return {
+            "type": "FeatureCollection",
+            "crs": asset.crs,
+            "features": collection.preview["features"],
+        }
+    raise ConstraintError("this file type requires a raster binding")
+
+
+def _netcdf_value(content: bytes, variable_name: str) -> JsonValue:
+    with netCDF4.Dataset("binding-memory.nc", memory=content) as dataset:
+        values = np.ma.asarray(dataset.variables[variable_name][:], dtype=np.float64)
+        plain = np.ma.filled(values, np.nan)
+        serializable = plain.astype(object)
+        serializable[~np.isfinite(plain)] = None
+        return JSON_VALUE.validate_python(serializable.tolist())

@@ -1,0 +1,32 @@
+{
+  "name": "entity-bindings-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_validation.py::test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution",
+    "tests/integration/test_datasource.py::test_csv_container_keeps_unit_identifiers_and_declared_column_units",
+    "-q"
+  ],
+  "started_at": "2026-09-20T09:47:22.454154+00:00",
+  "finished_at": "2026-09-20T09:47:24.951121+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "c504e344186a502f4cbd4fbbd9cf15b57b1dd6bb037a7cc7fb525057262faa70",
+  "git_commit": "0bbb9ed12bf1f6544b2c09a76dc105874b4c4a1c",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T094722454154Z-entity-bindings-red.log"
+}

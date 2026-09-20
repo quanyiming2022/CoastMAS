@@ -6,21 +6,26 @@ accessible. CRS/grid changes require an explicit target grid in the scene.
 """
 
 import json
+from functools import partial
 from urllib.parse import urlsplit
 
 import numpy as np
 from affine import Affine
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter
-from pyproj import CRS
+from pyproj import CRS, Transformer
+from pyproj.exceptions import ProjError
+from shapely.geometry import mapping, shape  # type: ignore[import-untyped]
+from shapely.ops import transform as transform_geometry  # type: ignore[import-untyped]
 
 from coastmas.adapters.geofiles import Grid, decode_geotiff, resample_grid
 from coastmas.adapters.storage import ArtifactRecord, S3ArtifactStore
 from coastmas.core.binding import convert_units, validate_semantics
 from coastmas.core.contracts import BindingPlan, DataAssetSpec, SceneSpec, VariableSpec
+from coastmas.core.data_inspection import inspect_data, read_data_value
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import transform_numeric
 
-JSON_OBJECT = TypeAdapter(dict[str, JsonValue])
+JSON_VALUE: TypeAdapter[JsonValue] = TypeAdapter(JsonValue)
 
 
 class TargetGrid(BaseModel):
@@ -65,7 +70,18 @@ class StoredDataResolver:
             raise ConstraintError(
                 "temporal binding requires an explicit time-series transformation node"
             )
-        if asset.format == "GeoTIFF":
+        if asset.format in {"GeoTIFF", "COG"}:
+            inspection = inspect_data(content, asset)
+            measured = inspection.metadata.get("spatial_resolution_m")
+            declared = asset.quality.get("spatial_resolution_m")
+            if measured is not None and not isinstance(measured, (int, float)):
+                raise ConstraintError("invalid measured raster resolution")
+            if measured is not None and (
+                isinstance(declared, bool)
+                or not isinstance(declared, (float, int))
+                or not np.isclose(declared, measured, rtol=1e-9, atol=0)
+            ):
+                raise ConstraintError("catalog resolution differs from the actual raster")
             grid = decode_geotiff(content)
             if (
                 asset.type != "raster"
@@ -118,11 +134,10 @@ class StoredDataResolver:
                 for row in grid.values
             ]
             return values
-        if asset.format == "JSON":
-            payload = JSON_OBJECT.validate_json(content)
-            if source.name not in payload:
-                raise ConstraintError("source variable missing from stored JSON")
-            value = payload[source.name]
+        if asset.format in {"JSON", "CSV", "NetCDF", "GeoJSON", "Shapefile", "GeoPackage"}:
+            value = read_data_value(content, asset, source.name)
+            if asset.type == "vector" and binding.crs_transform is not None:
+                value = reproject_features(value, asset.crs, binding.crs_transform)
             if source.unit != target.unit:
                 value = transform_numeric(
                     value, source.unit, target.unit, allow_nodata=target.nodata_policy != "reject"
@@ -132,3 +147,33 @@ class StoredDataResolver:
         raise CoastMASError(
             "DATA_FORMAT_ERROR", "data format requires a registered ingestion adapter"
         )
+
+
+def reproject_features(value: JsonValue, crs: str | None, declaration: str) -> JsonValue:
+    if not isinstance(value, dict) or not isinstance(value.get("features"), list) or crs is None:
+        raise ConstraintError("vector CRS binding requires a feature collection")
+    parts = declaration.split(" -> ")
+    if len(parts) != 2 or CRS(parts[0]) != CRS(crs):
+        raise ConstraintError("vector source CRS differs from verified binding")
+    try:
+        transformer = Transformer.from_crs(
+            crs, parts[1], always_xy=True, allow_ballpark=False, only_best=True
+        )
+        features = value["features"]
+        if not isinstance(features, list):
+            raise ConstraintError("invalid feature collection")
+        transformed: list[JsonValue] = []
+        for feature in features:
+            if not isinstance(feature, dict) or not isinstance(feature.get("geometry"), dict):
+                raise ConstraintError("feature geometry missing")
+            geometry = transform_geometry(
+                partial(transformer.transform, errcheck=True), shape(feature["geometry"])
+            )
+            transformed.append(
+                JSON_VALUE.validate_json(
+                    json.dumps({**feature, "geometry": mapping(geometry)}, allow_nan=False)
+                )
+            )
+        return {**value, "features": transformed, "crs": parts[1]}
+    except ProjError as exc:
+        raise ConstraintError("vector coordinate transformation is unavailable") from exc

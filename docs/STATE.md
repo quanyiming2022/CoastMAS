@@ -2,14 +2,14 @@
 
 - 项目已依用户授权全量迁移到 `/Users/quanyiming/projects/CoastMAS`；原 Documents 目录已移走。始终显式指定工作目录。
 - 完整需求和执行规范已读；唯一映射 `requirements-traceability.csv`。全部 76 节与 EQ 有效，尚无完整产品交付。
-- 最近已保存提交 `5e8bce6`（科学算法、数据库、API、worker）；本文件描述其后同批文件目录与运行 API 改动，最新提交以 git log -1 为准。
+- 最近已保存提交 `0bbb9ed`（科学算法、数据库、API、worker）；本文件描述其后同批文件绑定、场景上下文与评价组件改动，最新提交以 git log -1 为准。
 - 已实现：版本化契约、DAG/科学预检、单位/CRS/语义/时间/总量守恒；综合评价/熵权/TOPSIS/多期/连通筛查；MILP、AST 栅格计算、分区统计、适宜性；固定种子及分组划分随机森林、HMAC 私有模型存储。
 - 已实现：PostgreSQL 用户/项目/成员/不可变版本/审计，幂等任务、租约、心跳、取消/失败确认与原子发布；Argon2 会话、CSRF、FastAPI 模型/数据/场景/工作流版本 API。
 - 已实现：受限 Python/CLI 子进程适配器；超时、取消、输出预算、子进程组清理；MinIO 校验与不可变写；GeoTIFF 读写/重投影及元数据验证；文件到绑定的真实数据解析。
 - 已实现：锁定注册版本的 DAG 执行器与 Celery worker；真实 Redis → 读取 MinIO → 子进程 → MinIO 结果 → PostgreSQL 发布。重复投递仅执行一次；执行中的取消及撤权停止进程且不发布。
 - 已生成所有要求的合成样例（真实 GeoTIFF、GeoJSON、CSV）。三个计算层场景有手算金标准及研究产物；不等于 UI/工作流完整演示验收。人口估计显式采用单元内均匀分布，海平面模型不称水动力模拟。
-- 最新统一测试：`20260920T092439870312Z-catalog-runs-full`，172 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
-- 覆盖率：行 88.3864%、分支 67.1450%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
+- 最新统一测试：`20260920T095113403821Z-pre-scenario-full`，190 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
+- 覆盖率：行 88.2465%、分支 67.5487%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
 - 回归：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。
 - 计算层演示：`PYTHONPATH=src .venv/bin/python scripts/evidence.py demonstrations -- .venv/bin/python scripts/run_demonstrations.py`。
 - Docker 磁盘已由用户调整；持久 PostGIS 55432、Redis 56379、MinIO 59000 均健康。临时内存盘 PostGIS 55433 已停止。测试只创建/降级/删除自身随机临时库与临时 bucket，不清理其他项目。
@@ -31,4 +31,10 @@
 
 - 新增工作流 validate/run、jobs 列表/读取/取消/显式重试、results 列表/元数据/内容/追溯 API。服务端构建不可变快照并检查可信运行时；并发幂等提交复用同一 timestamp；重试保留快照并审计来源。远端状态未知不自动重试。
 - 新增 GeoTIFF/COG、GeoJSON、Shapefile ZIP、单层 GeoPackage、CSV、JSON、NetCDF 的真实文件检查与预览。上传实际计算 SHA，元数据登记不能自证质量；验证追加新版本；解析在有期限的独立子进程内完成。CSV/矢量列单位明确为目录声明，结构验证不等于科学准确性认证。
-- 新增依赖 fiona 1.10.1、netCDF4 1.7.4、python-multipart 0.0.32，requirements-lock.txt 已同步；严格类型通过。尚需完整文件格式到工作流值的 ingestion adapter，目前执行解析仅 GeoTIFF/JSON。
+- 新增依赖 fiona 1.10.1、netCDF4 1.7.4、python-multipart 0.0.32，requirements-lock.txt 已同步；严格类型通过。文件执行绑定已接通 CSV、NetCDF、GeoJSON、Shapefile、GeoPackage、COG；服务/数据库连接器仍待实现。
+
+- 新增可信 Python contextual_handlers，输入仅保存的 scene/node_id/random_seed/software_version；既有二参数处理器保持兼容。真实子进程修改上下文不会回写父进程。
+- 指标框架保留实体标识、逐指标单位、方向、固定参考上下界与共享跨期权重。归一化会先转换参考单位；多期 TOPSIS 未定义共享理想点时显式拒绝，不制造可比性。
+- 已注册 normalize/weight/composite/topsis/change 五个评价组件，注册前实际执行手算金标准校验并记录测得误差。场景 B/C 核心 DAG 从真实 MinIO 读取框架，经多个真实子进程运行通过；尚未接入完整规划/UI，也未称完整场景验收通过。
+- 矢量空间尺度使用 spatial_support_m，不再要求像元分辨率。多边形支撑记录 sqrt_feature_area 及最小/最大值；绑定实际应用无 ballpark 的坐标转换。NetCDF 在进程内使用单个专用 IO 线程。
+- 下一步明确入口：实现并注册场景 A screening → overlay → unit_statistics，使用 scene.data_policy.target_grid 对齐栅格并明确人口均匀分布假设；随后三场景自动规划、持久种子目录、统一启动、前端和研究验收。

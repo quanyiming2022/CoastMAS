@@ -19,6 +19,7 @@ import threading
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from functools import partial
 from pathlib import Path
 from typing import Protocol
 
@@ -30,6 +31,9 @@ from coastmas.core.errors import CoastMASError
 
 OUTPUT_SCHEMA = TypeAdapter(dict[str, JsonValue])
 Handler = Callable[[dict[str, JsonValue], dict[str, JsonValue]], dict[str, JsonValue]]
+ContextHandler = Callable[
+    [dict[str, JsonValue], dict[str, JsonValue], dict[str, JsonValue]], dict[str, JsonValue]
+]
 
 
 @dataclass(frozen=True)
@@ -40,6 +44,7 @@ class RunRequest:
     work_root: Path
     timeout_seconds: float
     cancel: threading.Event = field(default_factory=threading.Event)
+    context: dict[str, JsonValue] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -71,7 +76,14 @@ class CLIAdapter:
             raise CoastMASError("VALIDATION_ERROR", "invalid execution timeout")
         if request.cancel.is_set():
             raise CoastMASError("CANCELLED", "execution cancelled before start")
-        json.dumps({"inputs": request.inputs, "parameters": request.parameters}, allow_nan=False)
+        json.dumps(
+            {
+                "inputs": request.inputs,
+                "parameters": request.parameters,
+                "context": request.context,
+            },
+            allow_nan=False,
+        )
 
     def prepare(self, request: RunRequest) -> Path:
         request.work_root.mkdir(parents=True, exist_ok=True)
@@ -213,9 +225,21 @@ class CLIAdapter:
 
 
 class PythonFunctionAdapter(CLIAdapter):
-    def __init__(self, handlers: dict[str, Handler], max_output_bytes: int = 1048576):
-        super().__init__({name: () for name in handlers}, max_output_bytes)
+    def __init__(
+        self,
+        handlers: dict[str, Handler],
+        max_output_bytes: int = 1048576,
+        *,
+        contextual_handlers: dict[str, ContextHandler] | None = None,
+    ):
+        contextual = contextual_handlers or {}
+        if handlers.keys() & contextual.keys():
+            raise CoastMASError("MODEL_ERROR", "standard and contextual handler names overlap")
+        super().__init__(
+            {name: () for name in handlers.keys() | contextual.keys()}, max_output_bytes
+        )
         self.handlers = dict(handlers)
+        self.contextual_handlers = dict(contextual)
 
     def execution_environment(self) -> dict[str, str]:
         environment = super().execution_environment()
@@ -249,7 +273,12 @@ class PythonFunctionAdapter(CLIAdapter):
         # This pickle is generated from a maintainer's callback, never accepted from an upload.
         handler = directory / "trusted-handler.pkl"
         with handler.open("wb") as output:
-            cloudpickle.dump(self.handlers[request.handler], output)
+            callback = (
+                partial(self.contextual_handlers[request.handler], request.context)
+                if request.handler in self.contextual_handlers
+                else self.handlers[request.handler]
+            )
+            cloudpickle.dump(callback, output)
         (directory / "parameters.json").write_text(json.dumps(request.parameters, allow_nan=False))
         return [
             sys.executable,
