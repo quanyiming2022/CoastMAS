@@ -1,0 +1,28 @@
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+______ test_equivalent_scene_dictionary_order_has_same_workflow_identity _______
+
+    def test_equivalent_scene_dictionary_order_has_same_workflow_identity():
+        from coastmas.core.contracts import SceneSpec
+    
+        catalog, data, context = inputs()
+        goal = parse_template_goal('可持续性评价：等权综合评价')
+        payload = context.model_dump(mode='json')
+        payload['scenario_conditions'] = {'scenario_label': 'test', 'metadata': {'a': 1, 'b': 2}}
+        first = SceneSpec.model_validate(payload)
+        payload['scenario_conditions'] = {'metadata': {'b': 2, 'a': 1}, 'scenario_label': 'test'}
+        second = SceneSpec.model_validate(payload)
+        first_plan = build_template_plan(goal, first, catalog.models, (data,), catalog.registry)
+        second_plan = build_template_plan(goal, second, catalog.models, (data,), catalog.registry)
+        assert first_plan.candidate_workflow is not None
+        assert second_plan.candidate_workflow is not None
+>       assert first_plan.candidate_workflow.id == second_plan.candidate_workflow.id
+E       AssertionError: assert 'plan:4f6f2a5...e50352b9fe4a0' == 'plan:ad567b1...a15c6c71522ae'
+E         
+E         - plan:ad567b1db5a798ad219dada8daab1f3c048cbdbb24ab901c43da15c6c71522ae
+E         + plan:4f6f2a556d06116401a98e2cc383c78ac429899d073fd807614e50352b9fe4a0
+
+tests/unit/test_planning.py:221: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_planning.py::test_equivalent_scene_dictionary_order_has_same_workflow_identity
+1 failed, 7 passed in 0.60s

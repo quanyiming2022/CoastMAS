@@ -1,0 +1,53 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test e2e/planner.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:97479) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+  1) e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('DATA_AMBIGUOUS')
+    Expected: visible
+    Error: strict mode violation: getByText('DATA_AMBIGUOUS') resolved to 2 elements:
+        1) <strong>DATA_AMBIGUOUS</strong> aka getByText('DATA_AMBIGUOUS', { exact: true })
+        2) <pre>{↵  "id": "ead3d335-f119-48c1-9546-7f5b2ef3c478",…</pre> aka getByText('{ "id": "ead3d335-f119-48c1-')
+
+    Call log:
+      - Expect "toBeVisible" getByText('DATA_AMBIGUOUS') with timeout 5000ms
+      - waiting for getByText('DATA_AMBIGUOUS')
+
+
+      35 |   await expect(
+      36 |     page.getByText("DATA_AMBIGUOUS", { exact: false }),
+    > 37 |   ).toBeVisible();
+         |     ^
+      38 |   await expect(
+      39 |     page.getByRole("button", { name: "保存工作流", exact: true }),
+      40 |   ).toBeDisabled();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/planner.spec.ts:37:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 

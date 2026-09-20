@@ -1,0 +1,52 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 3 tests using 1 worker
+
+(node:97283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[2/3] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+  1) e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+
+    TimeoutError: locator.fill: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByLabel('管理目标', { exact: true })
+
+
+      31 |   await page
+      32 |     .getByLabel("管理目标", { exact: true })
+    > 33 |     .fill("海岸影响筛查：海平面上升0.5米");
+         |      ^
+      34 |   await page.getByRole("button", { name: "生成规划", exact: true }).click();
+      35 |   await expect(
+      36 |     page.getByText("DATA_AMBIGUOUS", { exact: false }),
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/planner.spec.ts:33:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:97330) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/3] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  1 failed
+    e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+  2 passed (25.6s)

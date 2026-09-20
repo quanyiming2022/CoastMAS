@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const SESSION_EXPIRED = "coastmas:session-expired";
+
 export class ApiError extends Error {
   constructor(
     public readonly code: string,
@@ -57,6 +59,13 @@ export async function request<T>(
   } catch (error) {
     if (options.signal?.aborted) throw error;
     throw new ApiError("NETWORK_ERROR", "无法连接服务，请检查连接后重试");
+  }
+  if (
+    response.status === 401 &&
+    path !== "/auth/me" &&
+    path !== "/auth/login"
+  ) {
+    window.dispatchEvent(new Event(SESSION_EXPIRED));
   }
   let value: unknown;
   try {

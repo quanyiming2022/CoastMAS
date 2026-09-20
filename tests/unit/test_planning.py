@@ -202,3 +202,20 @@ def test_distinct_selected_data_produce_distinct_workflow_identity():
     first = build_template_plan(goal, context, catalog.models, (data,), catalog.registry)
     second = build_template_plan(goal, context, catalog.models, (other,), catalog.registry)
     assert first.candidate_workflow.id != second.candidate_workflow.id
+
+
+def test_equivalent_scene_dictionary_order_has_same_workflow_identity():
+    from coastmas.core.contracts import SceneSpec
+
+    catalog, data, context = inputs()
+    goal = parse_template_goal("可持续性评价：等权综合评价")
+    payload = context.model_dump(mode="json")
+    payload["scenario_conditions"] = {"scenario_label": "test", "metadata": {"a": 1, "b": 2}}
+    first = SceneSpec.model_validate(payload)
+    payload["scenario_conditions"] = {"metadata": {"b": 2, "a": 1}, "scenario_label": "test"}
+    second = SceneSpec.model_validate(payload)
+    first_plan = build_template_plan(goal, first, catalog.models, (data,), catalog.registry)
+    second_plan = build_template_plan(goal, second, catalog.models, (data,), catalog.registry)
+    assert first_plan.candidate_workflow is not None
+    assert second_plan.candidate_workflow is not None
+    assert first_plan.candidate_workflow.id == second_plan.candidate_workflow.id

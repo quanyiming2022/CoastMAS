@@ -21,7 +21,7 @@ from coastmas.core.contracts import (
 )
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
-from coastmas.core.llm import LLMProvider, PlanningPrompt
+from coastmas.core.llm import LLMProvider, PlanningPrompt, ProviderPlanningArtifact
 from coastmas.core.model_documents import reject_embedded_credentials
 from coastmas.core.planning import (
     ManagementGoal,
@@ -385,6 +385,7 @@ def resolve_plan(
     if not proposal.missing_conditions:
         workflow = validate_provider_proposal(proposal, scene, selected, assets, registry)
         artifact["candidate_workflow"] = workflow.model_dump(mode="json")
+    artifact = ProviderPlanningArtifact.model_validate(artifact).model_dump(mode="json")
     save_artifact(session, user_id, trace_id, artifact)
     output = _view(trace)
     session.commit()

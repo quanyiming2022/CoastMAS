@@ -80,6 +80,9 @@ export default function Catalog({ kind }: { kind: CatalogKind }) {
                         <Link to={`/${kind}/${encodeURIComponent(item.id)}`}>
                           {item.name}
                         </Link>
+                        <small className="resource-id" title={item.id}>
+                          …{item.id.slice(-12)}
+                        </small>
                       </td>
                       <td>
                         {display(

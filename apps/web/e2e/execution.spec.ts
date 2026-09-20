@@ -39,7 +39,16 @@ test("browser preflight -> Redis worker -> immutable coastal result", async ({
     .getByRole("navigation")
     .getByRole("link", { name: "工作流", exact: true })
     .click();
-  await page.getByRole("link", { name: "coastal_impact", exact: true }).click();
+  // Names are not unique; pin the chosen identity and verify it in the downloaded manifest.
+  const workflowLink = page
+    .getByRole("link", { name: "coastal_impact", exact: true })
+    .first();
+  const workflowHref = await workflowLink.getAttribute("href");
+  expect(workflowHref).toMatch(/^\/workflows\/plan%3A[0-9a-f]{64}$/);
+  const selectedWorkflowId = decodeURIComponent(
+    workflowHref!.slice("/workflows/".length),
+  );
+  await workflowLink.click();
   await expect(
     page.getByRole("button", { name: "提交运行", exact: true }),
   ).toBeDisabled();
@@ -87,6 +96,7 @@ test("browser preflight -> Redis worker -> immutable coastal result", async ({
   ).toBe(320);
   expect(output.executed_nodes).toEqual(["screening", "overlay", "statistics"]);
   expect(output.llm_calls).toBe(0);
+  expect(output.run_manifest.workflow.id).toBe(selectedWorkflowId);
   await page.screenshot({
     path: "../../artifacts/screenshots/coastal-result.png",
     fullPage: true,

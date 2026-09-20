@@ -41,9 +41,7 @@ def main() -> None:
                 configuration_value("COASTMAS_PROJECT_ID", DEFAULT_PROJECT_ID),
             )
             seeded = seed_project(session, owner, project, store, sample_directory())
-        print(
-            f"Initialized {project}; models={len(seeded.catalog.models)}; workflows=3."
-        )
+        print(f"Initialized {project}; models={len(seeded.catalog.models)}; workflows=3.")
         engine.dispose()
     elif args.service == "api":
         import uvicorn

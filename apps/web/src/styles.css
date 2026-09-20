@@ -604,3 +604,46 @@ summary:focus-visible {
   height: 280px;
   width: 100%;
 }
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.15fr;
+  gap: 20px;
+  align-items: start;
+}
+.spaced {
+  margin-top: 18px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+.checkbox-label input {
+  width: auto;
+}
+.preset-list {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+.preset-list button {
+  text-align: left;
+  font-size: 12px;
+}
+.ledger-entry {
+  border-top: 1px solid #e1eaea;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+@media (max-width: 1150px) {
+  .planner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.resource-id {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+}

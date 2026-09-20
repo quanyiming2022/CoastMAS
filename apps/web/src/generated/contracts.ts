@@ -138,6 +138,9 @@ export type StandardName1 = string;
 export type RequiredData = RequiredData1[];
 export type Edges1 = WorkflowEdge[];
 export type Nodes1 = WorkflowNode[];
+export type InterpretationRequiresReview = true;
+export type MissingConditions1 = string[];
+export type Origin = 'provider_candidate';
 /**
  * @maxItems 128
  */
@@ -161,11 +164,15 @@ export type Parameters2 = ProposedParameter[];
  */
 export type OutputDefinition1 = [BindingTarget, ...BindingTarget[]];
 export type ManagementGoal1 = string;
-export type MissingConditions1 = string[];
+export type MissingConditions2 = string[];
 export type Rationale1 = string[];
 export type RequiredCapabilities1 = string[];
 export type RequiredData2 = string[];
 export type TaskGraph1 = string[];
+export type RequestId = string;
+export type Usage = {
+  [k: string]: JsonValue;
+} | null;
 export type Checksum1 = string;
 export type CreatedAt1 = string;
 export type GeographicEntityId = string;
@@ -206,6 +213,7 @@ export interface CoastMASContracts {
   ManagementGoal: ManagementGoal;
   ModelSpec: ModelSpec;
   PlanningArtifact: PlanningArtifact;
+  ProviderPlanningArtifact: ProviderPlanningArtifact;
   ProviderProposal: ProviderProposal;
   ResultManifest: ResultManifest;
   RunManifest: RunManifest;
@@ -414,10 +422,19 @@ export interface TaskGraph {
   edges: Edges1;
   nodes: Nodes1;
 }
+export interface ProviderPlanningArtifact {
+  candidate_workflow: WorkflowSpec | null;
+  interpretation_requires_review?: InterpretationRequiresReview;
+  missing_conditions: MissingConditions1;
+  origin?: Origin;
+  proposal: ProviderProposal;
+  request_id: RequestId;
+  usage: Usage;
+}
 export interface ProviderProposal {
   candidate_workflow: ProposedWorkflow | null;
   management_goal: ManagementGoal1;
-  missing_conditions: MissingConditions1;
+  missing_conditions: MissingConditions2;
   rationale: Rationale1;
   required_capabilities: RequiredCapabilities1;
   required_data: RequiredData2;

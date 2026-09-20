@@ -18,7 +18,7 @@ from coastmas.core.contracts import (
     SceneSpec,
     WorkflowSpec,
 )
-from coastmas.core.llm import ProviderProposal
+from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +40,7 @@ def main() -> None:
         ManagementGoal,
         PlanningArtifact,
         ProviderProposal,
+        ProviderPlanningArtifact,
     ]
     references, schema = models_json_schema(
         [(model, "validation") for model in contracts], title="CoastMASContracts"

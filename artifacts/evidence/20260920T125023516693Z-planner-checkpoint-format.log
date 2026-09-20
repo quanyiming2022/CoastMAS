@@ -1,0 +1,12 @@
+unformatted: File would be reformatted
+  --> src/coastmas/__main__.py:44:15
+   |
+43 |             seeded = seed_project(session, owner, project, store, sample_directory())
+   -         print(
+   -             f"Initialized {project}; models={len(seeded.catalog.models)}; workflows=3."
+   -         )
+44 +         print(f"Initialized {project}; models={len(seeded.catalog.models)}; workflows=3.")
+45 |         engine.dispose()
+   |
+
+1 file would be reformatted, 109 files already formatted

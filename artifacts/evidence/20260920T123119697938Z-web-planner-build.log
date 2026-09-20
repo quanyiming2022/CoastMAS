@@ -1,0 +1,20 @@
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+src/Planner.tsx(164,20): error TS2339: Property 'task_graph' does not exist on type 'PlanningArtifact | ProviderPlanningArtifact'.
+  Property 'task_graph' does not exist on type 'ProviderPlanningArtifact'.
+src/Planner.tsx(165,8): error TS7006: Parameter 'node' implicitly has an 'any' type.
+src/Planner.tsx(171,20): error TS2339: Property 'rationale' does not exist on type 'PlanningArtifact | ProviderPlanningArtifact'.
+  Property 'rationale' does not exist on type 'ProviderPlanningArtifact'.
+src/Planner.tsx(174,18): error TS2339: Property 'code' does not exist on type 'string | MissingCondition'.
+  Property 'code' does not exist on type 'string'.
+src/Planner.tsx(175,21): error TS2339: Property 'message' does not exist on type 'string | MissingCondition'.
+  Property 'message' does not exist on type 'string'.
+src/Planner.tsx(279,27): error TS7006: Parameter 'task' implicitly has an 'any' type.
+src/Planner.tsx(279,33): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/Planner.tsx(332,27): error TS2339: Property 'required_data' does not exist on type 'PlanningArtifact | ProviderPlanningArtifact'.
+  Property 'required_data' does not exist on type 'ProviderPlanningArtifact'.
+src/Planner.tsx(332,46): error TS7006: Parameter 'item' implicitly has an 'any' type.
+src/Planner.tsx(360,27): error TS7006: Parameter 'reason' implicitly has an 'any' type.
+src/Planner.tsx(360,35): error TS7006: Parameter 'index' implicitly has an 'any' type.

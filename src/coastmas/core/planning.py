@@ -6,6 +6,7 @@ conditions or requested outputs. This module performs no external requests.
 """
 
 import hashlib
+import json
 import re
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Annotated, Literal, Self
@@ -323,11 +324,16 @@ def build_template_plan(
         draft = WorkflowSpec(
             id="plan:"
             + hashlib.sha256(
-                (
-                    scene.model_dump_json()
-                    + goal.model_dump_json()
-                    + graph.model_dump_json()
-                    + "".join(item.model_dump_json() for item in bindings)
+                json.dumps(
+                    {
+                        "scene": scene.model_dump(mode="json"),
+                        "goal": goal.model_dump(mode="json"),
+                        "graph": graph.model_dump(mode="json"),
+                        "bindings": [item.model_dump(mode="json") for item in bindings],
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                    allow_nan=False,
                 ).encode()
             ).hexdigest(),
             name=goal.template,

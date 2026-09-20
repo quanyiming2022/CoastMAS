@@ -1,0 +1,33 @@
+{
+  "name": "web-planner-selection-e2e",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e",
+    "--",
+    "e2e/planner.spec.ts"
+  ],
+  "started_at": "2026-09-20T12:34:19.652901+00:00",
+  "finished_at": "2026-09-20T12:34:23.263531+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "c11ebd50735db361e01ee94bd636cce0e2f4c015a0c865267b90f1ac6e6636f2",
+  "git_commit": "22a9f78960d7e1c6408212a99a264b3fd89e9da5",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T123419652901Z-web-planner-selection-e2e.log"
+}

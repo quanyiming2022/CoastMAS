@@ -58,7 +58,40 @@ test("real session, seeded catalog, deep link and logout", async ({ page }) => {
     .getByRole("navigation")
     .getByRole("link", { name: "工作流", exact: true })
     .click();
-  await expect(page.locator("tbody tr")).toHaveCount(3);
+  await expect(
+    page.getByRole("heading", { name: "工作流", exact: true }),
+  ).toBeVisible();
+  const projectId = await page
+    .getByRole("combobox", { name: "当前项目" })
+    .inputValue();
+  const response = await page.request.get(
+    "/api/v1/workflows?project_id=" +
+      encodeURIComponent(projectId) +
+      "&limit=50",
+  );
+  expect(response.status()).toBe(200);
+  const workflows = z
+    .array(z.object({ id: z.string(), name: z.string() }))
+    .parse(await response.json());
+  expect(workflows.map((item) => item.name)).toEqual(
+    expect.arrayContaining([
+      "coastal_impact",
+      "sustainability",
+      "temporal_change",
+    ]),
+  );
+  await expect(page.locator("tbody tr")).toHaveCount(workflows.length);
+  for (const workflow of workflows)
+    await expect(
+      page
+        .locator("tbody a")
+        .filter({ hasText: workflow.name })
+        .and(
+          page.locator(
+            `[href="/workflows/${encodeURIComponent(workflow.id)}"]`,
+          ),
+        ),
+    ).toBeVisible();
   await page.getByRole("button", { name: "退出登录" }).click();
   await expect(
     page.getByRole("heading", { name: "登录工作空间" }),

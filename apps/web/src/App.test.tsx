@@ -109,3 +109,81 @@ it("does not turn a server failure into an empty successful dashboard", async ()
   expect(screen.getByRole("alert")).toHaveTextContent("trace-7");
   expect(screen.queryByText("尚无运行记录。")).not.toBeInTheDocument();
 });
+
+it("expires a session on protected 401 and never reuses the previous account project cache", async () => {
+  let identity: "A" | "B" | null = "A";
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (input: string) => {
+      if (input.endsWith("/auth/me"))
+        return new Response(
+          JSON.stringify(
+            identity
+              ? {
+                  user_id: identity,
+                  email: identity + "@test.local",
+                  is_admin: false,
+                }
+              : { error_code: "AUTHENTICATION_ERROR", message: "Expired" },
+          ),
+          { status: identity ? 200 : 401 },
+        );
+      if (input.endsWith("/auth/login")) {
+        identity = "B";
+        return new Response(
+          JSON.stringify({ user_id: "B", csrf_token: "new-test-token" }),
+        );
+      }
+      if (input.endsWith("/projects"))
+        return new Response(
+          JSON.stringify([
+            {
+              id: "project-" + identity,
+              name: "Private project " + identity,
+              owner_id: identity,
+            },
+          ]),
+        );
+      if (input.includes("/dashboard?"))
+        return new Response(
+          JSON.stringify({
+            counts: { models: 37 },
+            run_states: {},
+            recent_runs: [],
+            provider_configured: false,
+          }),
+        );
+      if (input.includes("/models?")) {
+        if (identity === "A") {
+          identity = null;
+          return new Response(
+            JSON.stringify({
+              error_code: "AUTHENTICATION_ERROR",
+              message: "Expired",
+            }),
+            { status: 401 },
+          );
+        }
+        expect(input).toContain("project_id=project-B");
+        return new Response("[]");
+      }
+      throw new Error("Unexpected request: " + input);
+    }),
+  );
+  mount();
+  await screen.findByText("37");
+  fireEvent.click(screen.getByRole("link", { name: "模型中心" }));
+  fireEvent.change(await screen.findByLabelText("邮箱"), {
+    target: { value: "B@test.local" },
+  });
+  fireEvent.change(screen.getByLabelText("密码"), {
+    target: { value: "test-only-password" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "登录" }));
+  await waitFor(() =>
+    expect(screen.getByRole("combobox", { name: "当前项目" })).toHaveValue(
+      "project-B",
+    ),
+  );
+  expect(screen.queryByText("Private project A")).not.toBeInTheDocument();
+});

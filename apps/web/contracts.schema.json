@@ -1192,6 +1192,71 @@
       "title": "ProposedWorkflow",
       "type": "object"
     },
+    "ProviderPlanningArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_workflow": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorkflowSpec"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "interpretation_requires_review": {
+          "const": true,
+          "default": true,
+          "title": "Interpretation Requires Review",
+          "type": "boolean"
+        },
+        "missing_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Conditions",
+          "type": "array"
+        },
+        "origin": {
+          "const": "provider_candidate",
+          "default": "provider_candidate",
+          "title": "Origin",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/ProviderProposal"
+        },
+        "request_id": {
+          "minLength": 1,
+          "title": "Request Id",
+          "type": "string"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Usage"
+        }
+      },
+      "required": [
+        "proposal",
+        "candidate_workflow",
+        "missing_conditions",
+        "request_id",
+        "usage"
+      ],
+      "title": "ProviderPlanningArtifact",
+      "type": "object"
+    },
     "ProviderProposal": {
       "additionalProperties": false,
       "properties": {
@@ -2033,6 +2098,9 @@
     "PlanningArtifact": {
       "$ref": "#/$defs/PlanningArtifact"
     },
+    "ProviderPlanningArtifact": {
+      "$ref": "#/$defs/ProviderPlanningArtifact"
+    },
     "ProviderProposal": {
       "$ref": "#/$defs/ProviderProposal"
     },
@@ -2060,7 +2128,8 @@
     "ResultManifest",
     "ManagementGoal",
     "PlanningArtifact",
-    "ProviderProposal"
+    "ProviderProposal",
+    "ProviderPlanningArtifact"
   ],
   "title": "CoastMASContracts",
   "type": "object"

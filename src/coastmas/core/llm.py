@@ -26,6 +26,7 @@ from coastmas.core.contracts import (
     Contract,
     VersionReference,
     WorkflowEdge,
+    WorkflowSpec,
 )
 from coastmas.core.errors import CoastMASError
 from coastmas.persistence.planning import (
@@ -68,6 +69,16 @@ class ProviderProposal(Contract):
     candidate_workflow: ProposedWorkflow | None
     missing_conditions: tuple[str, ...]
     rationale: tuple[str, ...]
+
+
+class ProviderPlanningArtifact(Contract):
+    origin: Literal["provider_candidate"] = "provider_candidate"
+    proposal: ProviderProposal
+    candidate_workflow: WorkflowSpec | None
+    missing_conditions: tuple[str, ...]
+    request_id: Annotated[str, Field(min_length=1)]
+    usage: dict[str, JsonValue] | None
+    interpretation_requires_review: Literal[True] = True
 
 
 class PlanningPrompt(Contract):

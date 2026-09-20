@@ -1,0 +1,55 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 3 tests using 1 worker
+
+(node:98998) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  1) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    Error: locator.click: Error: strict mode violation: getByRole('link', { name: 'coastal_impact', exact: true }) resolved to 2 elements:
+        1) <a data-discover="true" href="/workflows/plan%3A0839d896c8c431d1649bd54bf58ce28114e997fab9b3030d769ec12224fd0a76">coastal_impact</a> aka getByRole('link', { name: 'coastal_impact' }).first()
+        2) <a data-discover="true" href="/workflows/plan%3A09de8e203816478fcc88aacc1d32c90331ed8cafd766a6af64620f40a6028052">coastal_impact</a> aka getByRole('link', { name: 'coastal_impact' }).nth(1)
+
+    Call log:
+      - waiting for getByRole('link', { name: 'coastal_impact', exact: true })
+
+
+      40 |     .getByRole("link", { name: "工作流", exact: true })
+      41 |     .click();
+    > 42 |   await page.getByRole("link", { name: "coastal_impact", exact: true }).click();
+         |                                                                         ^
+      43 |   await expect(
+      44 |     page.getByRole("button", { name: "提交运行", exact: true }),
+      45 |   ).toBeDisabled();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:42:73
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:99007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/3] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[3/3] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  1 failed
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+  2 passed (6.2s)

@@ -1,5 +1,10 @@
-import { lazy, Suspense, useState, type FormEvent } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { lazy, Suspense, useEffect, useState, type FormEvent } from "react";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  type QueryClient,
+} from "@tanstack/react-query";
 import {
   NavLink,
   Navigate,
@@ -8,13 +13,14 @@ import {
   useLocation,
 } from "react-router-dom";
 import { z } from "zod";
-import { ApiError, request, userSchema } from "./api";
+import { ApiError, request, userSchema, SESSION_EXPIRED } from "./api";
 import { ErrorNotice, Loading } from "./components";
 import { WorkspaceProvider } from "./workspace";
 import type { CatalogKind } from "./Catalog";
 const CatalogDetail = lazy(() =>
   import("./Catalog").then((module) => ({ default: module.CatalogDetail })),
 );
+const Planner = lazy(() => import("./Planner"));
 const Runs = lazy(() => import("./Runs"));
 const RunDetail = lazy(() =>
   import("./Runs").then((module) => ({ default: module.RunDetail })),
@@ -29,12 +35,22 @@ const Catalog = lazy(() => import("./Catalog"));
 const navigation = [
   ["/dashboard", "项目概览"],
   ["/models", "模型中心"],
+  ["/planner", "智能规划"],
   ["/workflows", "工作流"],
   ["/scenes", "场景空间"],
   ["/data", "数据目录"],
   ["/runs", "运行中心"],
   ["/results", "结果中心"],
 ] as const;
+
+async function clearProtectedData(client: QueryClient): Promise<void> {
+  await client.cancelQueries({
+    predicate: (query) => query.queryKey[0] !== "current-user",
+  });
+  client.removeQueries({
+    predicate: (query) => query.queryKey[0] !== "current-user",
+  });
+}
 
 export default function App() {
   const location = useLocation();
@@ -44,13 +60,24 @@ export default function App() {
     queryFn: ({ signal }) => request("/auth/me", userSchema, { signal }),
     retry: false,
   });
+  useEffect(() => {
+    let expiring = false;
+    const expire = () => {
+      if (expiring) return;
+      expiring = true;
+      void clearProtectedData(client)
+        .then(() => client.invalidateQueries({ queryKey: ["current-user"] }))
+        .finally(() => {
+          expiring = false;
+        });
+    };
+    window.addEventListener(SESSION_EXPIRED, expire);
+    return () => window.removeEventListener(SESSION_EXPIRED, expire);
+  }, [client]);
   const logout = useMutation({
     mutationFn: () => request("/auth/logout", z.null(), { method: "POST" }),
     onSuccess: async () => {
-      await client.cancelQueries();
-      client.removeQueries({
-        predicate: (query) => query.queryKey[0] !== "current-user",
-      });
+      await clearProtectedData(client);
       await client.resetQueries({ queryKey: ["current-user"] });
     },
   });
@@ -107,6 +134,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Navigate replace to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/planner" element={<Planner />} />
               <Route path="/runs" element={<Runs />} />
               <Route path="/runs/:id" element={<RunDetail />} />
               <Route path="/results" element={<Results />} />
@@ -165,6 +193,7 @@ function Login() {
       ),
     onSuccess: async () => {
       setPassword("");
+      await clearProtectedData(client);
       await client.invalidateQueries({ queryKey: ["current-user"] });
     },
   });

@@ -1,0 +1,45 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test e2e/planner.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:96003) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+  1) e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('navigation').getByRole('link', { name: '智能规划', exact: true })
+
+
+      25 |     .getByRole("navigation")
+      26 |     .getByRole("link", { name: "智能规划", exact: true })
+    > 27 |     .click();
+         |      ^
+      28 |   await page
+      29 |     .getByRole("combobox", { name: "规划场景", exact: true })
+      30 |     .selectOption({ label: "Synthetic coastal inundation screening · v1" });
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/planner.spec.ts:27:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 

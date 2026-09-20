@@ -1,0 +1,31 @@
+{
+  "name": "web-session-cache-build",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "build"
+  ],
+  "started_at": "2026-09-20T12:39:23.558104+00:00",
+  "finished_at": "2026-09-20T12:39:27.183736+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "bb6d409a6fccc0497149b690a1de4e427f5a973e7010609ccbb61f331555063e",
+  "git_commit": "22a9f78960d7e1c6408212a99a264b3fd89e9da5",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T123923558104Z-web-session-cache-build.log"
+}
