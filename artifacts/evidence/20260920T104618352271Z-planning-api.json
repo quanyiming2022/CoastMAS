@@ -1,0 +1,31 @@
+{
+  "name": "planning-api",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_planning_api.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T10:46:18.352271+00:00",
+  "finished_at": "2026-09-20T10:46:26.885872+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "ab81484803b1d2224cd53f7ec709b585aca18bb60d69675a5080acdad68e29dc",
+  "git_commit": "473546de2d6f69f5ad76d2d210763ed96cd84bf7",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T104618352271Z-planning-api.log"
+}

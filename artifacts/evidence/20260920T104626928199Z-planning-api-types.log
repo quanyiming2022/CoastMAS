@@ -1,0 +1,2 @@
+src/coastmas/app/planning_routes.py:119: error: Need type annotation for "additional" (hint: "additional: set[<type>] = ...")  [var-annotated]
+Found 1 error in 1 file (checked 56 source files)

@@ -18,10 +18,12 @@ from coastmas.adapters.storage import S3ArtifactStore
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.model_routes import router as model_router
+from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
+from coastmas.core.llm import LLMProvider
 from coastmas.core.model_documents import reject_embedded_credentials
 from coastmas.persistence.auth import login, logout
 from coastmas.persistence.database import local_database_url
@@ -180,6 +182,7 @@ def create_app(
     engine: Engine | None = None,
     registry: ExecutionRegistry | None = None,
     artifact_store: S3ArtifactStore | None = None,
+    llm_provider: LLMProvider | None = None,
 ) -> FastAPI:
     app = FastAPI(title=os.environ.get("COASTMAS_BRAND_NAME", "CoastMAS"), version="0.1.0")
     app.state.engine = (
@@ -272,6 +275,8 @@ def create_app(
     app.include_router(data_router)
     app.include_router(model_router)
     app.include_router(run_router)
+    app.include_router(planning_router)
+    app.state.llm_provider = llm_provider
     routes: list[tuple[str, str, type[Contract]]] = [
         ("models", "model", ModelSpec),
         ("data-assets", "data", DataAssetSpec),

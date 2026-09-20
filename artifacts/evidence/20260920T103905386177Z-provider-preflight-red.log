@@ -1,0 +1,13 @@
+.....F                                                                   [100%]
+=================================== FAILURES ===================================
+____ test_provider_candidate_cannot_invent_models_or_bypass_hard_preflight _____
+
+    def test_provider_candidate_cannot_invent_models_or_bypass_hard_preflight():
+        from coastmas.core.llm import ProviderProposal
+>       from coastmas.core.planning import validate_provider_proposal
+E       ImportError: cannot import name 'validate_provider_proposal' from 'coastmas.core.planning' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/core/planning.py)
+
+tests/unit/test_planning.py:114: ImportError
+=========================== short test summary info ============================
+FAILED tests/unit/test_planning.py::test_provider_candidate_cannot_invent_models_or_bypass_hard_preflight
+1 failed, 5 passed in 0.49s

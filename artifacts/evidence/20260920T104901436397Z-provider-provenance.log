@@ -1,0 +1,46 @@
+F.........                                                               [100%]
+=================================== FAILURES ===================================
+____ test_actual_http_requests_share_budget_and_usage_is_provider_reported _____
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_ccbb3e072051428bb88df34628a00962)
+actors = ('692bba18-3805-44c9-bf9c-54abca54a323', '03ea4e47-61b0-4763-b6f6-3d1b2414c0ee', '9fa6e387-04b5-49fd-9587-33269423f34c', 'd6abaaa1-46aa-440c-93a8-8cf6765c635f')
+server = ('http://127.0.0.1:59836/v1', [{'model': 'local-protocol-fixture', 'messages': [{'role': 'system', 'content': 'Return ... {'prompt_tokens': 101, 'completion_tokens': 31, 'total_tokens': 132, 'prompt_tokens_details': {'cached_tokens': 20}}})
+
+    def test_actual_http_requests_share_budget_and_usage_is_provider_reported(engine, actors, server):
+        provider, prompt, identifier = setup(engine, actors, server)
+        for _ in range(2):
+            result = provider.generate(engine, actors[0], identifier, prompt)
+            assert result.proposal.missing_conditions
+            assert result.usage["input_tokens"] == 101
+            assert result.usage["cached_input_tokens"] == 20
+        with pytest.raises(CoastMASError, match="budget"):
+            provider.generate(engine, actors[0], identifier, prompt)
+        assert len(server[1]) == 2
+        request = server[1][0]
+        assert request["response_format"]["json_schema"]["strict"] is True
+        assert request["max_completion_tokens"] > 0
+        assert "local-fixture-only" not in json.dumps(request)
+        with Session(engine) as session:
+            records = list(
+                session.scalars(select(ProviderRequest).where(ProviderRequest.trace_id == identifier))
+            )
+            assert [item.status for item in records] == ["SUCCEEDED", "SUCCEEDED"]
+            assert all(item.dispatched_at and item.finished_at for item in records)
+>           assert all(item.provider_model == "local-protocol-fixture" for item in records)
+E           assert False
+E            +  where False = all(<generator object test_actual_http_requests_share_budget_and_usage_is_provider_reported.<locals>.<genexpr> at 0x11d714d40>)
+
+tests/integration/test_llm_provider.py:122: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_llm_provider.py::test_actual_http_requests_share_budget_and_usage_is_provider_reported
+1 failed, 9 passed, 2 warnings in 8.12s

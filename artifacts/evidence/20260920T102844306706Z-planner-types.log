@@ -1,0 +1,4 @@
+src/coastmas/core/planning.py:144: error: Incompatible types in assignment (expression has type "tuple[str, str, Literal['composite', 'topsis'], str]", variable has type "tuple[str, str, str]")  [assignment]
+src/coastmas/core/planning.py:305: error: Argument 1 to "append" of "list" has incompatible type "tuple[Literal['change'], str]"; expected "tuple[Literal['composite', 'topsis'], str]"  [arg-type]
+src/coastmas/core/planning.py:306: error: Incompatible types in assignment (expression has type "str", variable has type "VariableSpec")  [assignment]
+Found 3 errors in 1 file (checked 53 source files)

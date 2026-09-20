@@ -7,6 +7,7 @@ import pytest
 from coastmas.adapters.datasource import StoredDataResolver
 from coastmas.core.contracts import RunManifest, WorkflowSpec
 from coastmas.core.execution import execute_workflow
+from coastmas.core.planning import ManagementGoal, build_template_plan
 from coastmas.core.validation import validate_workflow
 from coastmas.domain.builtin_catalog import assessment_catalog
 from tests.factories import asset, scene, variable
@@ -103,6 +104,23 @@ def test_registered_assessment_nodes_execute_real_stored_frames_as_dag(storage, 
         }
     )
     context = scene(time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"})
+    context = context.model_copy(
+        update={"required_outputs": tuple(["scores", "change"] if temporal else ["scores"])}
+    )
+    plan = build_template_plan(
+        ManagementGoal(
+            original_text="structured demonstration request",
+            template="temporal_change" if temporal else "sustainability",
+        ),
+        context,
+        catalog.models,
+        (data,),
+        catalog.registry,
+    )
+    assert not plan.missing_conditions, plan.missing_conditions
+    assert plan.candidate_workflow is not None
+    assert plan.candidate_workflow.edges == graph.edges
+    graph = plan.candidate_workflow
     used = {node.model_id for node in graph.nodes}
     manifest = RunManifest(
         scene=context,

@@ -1,0 +1,60 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____ test_plan_parse_recommend_build_share_artifact_then_run_real_workflow _____
+
+authenticated = (<starlette.testclient.TestClient object at 0x11c3764b0>, 'd4raa6MUOPITKNIlzmr4BzrhUPima4DRUJaXiyUbuBM', 'e81e81c4-93ce-4a35-8d8b-7d8ae950512b', '24c54da1-4509-4caa-aa03-af4cc0ecd460')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_92d9493d651343c4b5a05acb69853224)
+actors = ('24c54da1-4509-4caa-aa03-af4cc0ecd460', 'e54d9b4c-22f7-4191-a638-495226296401', '2a28b183-2468-494e-b201-9d2e41db38c8', 'e81e81c4-93ce-4a35-8d8b-7d8ae950512b')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11c3d3ef0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-123/test_plan_parse_recommend_buil0')
+
+    def test_plan_parse_recommend_build_share_artifact_then_run_real_workflow(
+        authenticated, engine, actors, storage, tmp_path,
+    ):
+        client, csrf, project, _ = authenticated
+        catalog, data, context = prepare(engine, actors, storage, client)
+        headers = {'X-CSRF-Token': csrf, 'Idempotency-Key': uuid4().hex}
+        request = {'project_id': project, 'scene': {'id': context.id, 'version': 1},
+                   'goal': '可持续性评价：等权综合评价', 'allow_external': False}
+        response = client.post('/api/v1/plans', headers=headers, json=request)
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"a2e3c38f-e609-4482-9914-aa8f1cf127d1"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_planning_api.py:41: AssertionError
+_____ test_unrecognized_goal_is_preserved_and_external_access_not_assumed ______
+
+authenticated = (<starlette.testclient.TestClient object at 0x11d0619a0>, 'ciXx_eWQYLpBb-_uWL1TDqh76-BMxs1kyp3aueHpEJQ', '51c9b076-bc35-43cb-bf75-8a72c430e8dc', '0d2ceff4-0580-4ca2-a83f-fa3f57f17697')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_92d9493d651343c4b5a05acb69853224)
+actors = ('0d2ceff4-0580-4ca2-a83f-fa3f57f17697', '6f5dc64c-9083-4cab-abf6-94f23d3bdf1b', 'ef71f4a2-41bd-403d-a54a-f62af4f08e18', '51c9b076-bc35-43cb-bf75-8a72c430e8dc')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11d086ab0>
+
+    def test_unrecognized_goal_is_preserved_and_external_access_not_assumed(authenticated, engine, actors, storage):
+        client, csrf, project, _ = authenticated
+        _, _, context = prepare(engine, actors, storage, client)
+        headers = {'X-CSRF-Token': csrf, 'Idempotency-Key': uuid4().hex}
+        goal = '同时模拟2050年潮汐与极端风暴，不能忽略相互作用'
+        response = client.post('/api/v1/plans', headers=headers, json={
+            'project_id': project, 'scene': {'id': context.id, 'version': 1}, 'goal': goal,
+        })
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"297ae804-89ad-4380-a11a-5e7801bfae39"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_planning_api.py:80: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_planning_api.py::test_plan_parse_recommend_build_share_artifact_then_run_real_workflow
+FAILED tests/integration/test_planning_api.py::test_unrecognized_goal_is_preserved_and_external_access_not_assumed
+2 failed, 2 warnings in 4.90s

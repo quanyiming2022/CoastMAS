@@ -6,6 +6,7 @@ from coastmas.adapters.geofiles import decode_geotiff
 from coastmas.core.contracts import DataAssetSpec, RunManifest, WorkflowSpec
 from coastmas.core.data_inspection import inspect_data
 from coastmas.core.execution import execute_workflow
+from coastmas.core.planning import build_template_plan, parse_template_goal
 from coastmas.domain.coastal_catalog import coastal_catalog, coastal_sample_scene
 
 
@@ -108,6 +109,17 @@ def test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv(storage, tmp_pa
             ],
         }
     )
+    plan = build_template_plan(
+        parse_template_goal("海岸影响筛查：海平面上升0.5米"),
+        scene,
+        catalog.models,
+        tuple(assets),
+        catalog.registry,
+    )
+    assert not plan.missing_conditions, plan.missing_conditions
+    assert plan.candidate_workflow is not None
+    assert plan.candidate_workflow.edges == graph.edges
+    graph = plan.candidate_workflow
     selected = {node.model_id for node in graph.nodes}
     run = RunManifest(
         scene=scene,

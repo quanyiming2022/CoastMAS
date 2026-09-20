@@ -147,3 +147,47 @@ class AuthSession(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     csrf_hash: Mapped[str] = mapped_column(String(64))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class PlanningTrace(Base):
+    __tablename__ = "planning_traces"
+    __table_args__ = (
+        UniqueConstraint("project_id", "owner_id", "idempotency_key"),
+        CheckConstraint("max_provider_requests BETWEEN 0 AND 32"),
+        CheckConstraint("reserved_requests BETWEEN 0 AND max_provider_requests"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id"), index=True)
+    owner_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    idempotency_key: Mapped[str] = mapped_column(String(256))
+    inputs: Mapped[dict[str, JsonValue]] = mapped_column(JSONB)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    allow_external: Mapped[bool] = mapped_column(Boolean)
+    max_provider_requests: Mapped[int] = mapped_column(Integer, default=2, server_default="2")
+    reserved_requests: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    artifact: Mapped[dict[str, JsonValue] | None] = mapped_column(JSONB, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class ProviderRequest(Base):
+    __tablename__ = "provider_requests"
+    __table_args__ = (
+        UniqueConstraint("trace_id", "ordinal"),
+        CheckConstraint("ordinal > 0"),
+        CheckConstraint("status IN ('RESERVED','DISPATCHED','SUCCEEDED','INVALID','FAILED')"),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    trace_id: Mapped[str] = mapped_column(ForeignKey("planning_traces.id"), index=True)
+    ordinal: Mapped[int] = mapped_column(Integer)
+    request_fingerprint: Mapped[str] = mapped_column(String(64))
+    provider_model: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    provider_endpoint: Mapped[str | None] = mapped_column(String(1024), nullable=True)
+    response_model: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    http_status: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    status: Mapped[str] = mapped_column(String(16), default="RESERVED")
+    response_fingerprint: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    usage: Mapped[dict[str, JsonValue] | None] = mapped_column(JSONB, nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    dispatched_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

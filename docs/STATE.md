@@ -2,14 +2,14 @@
 
 - 项目已依用户授权全量迁移到 `/Users/quanyiming/projects/CoastMAS`；原 Documents 目录已移走。始终显式指定工作目录。
 - 完整需求和执行规范已读；唯一映射 `requirements-traceability.csv`。全部 76 节与 EQ 有效，尚无完整产品交付。
-- 最近已保存提交 `0bbb9ed`（科学算法、数据库、API、worker）；本文件描述其后同批文件绑定、场景上下文与评价组件改动，最新提交以 git log -1 为准。
+- 最近已保存提交 `473546d`（科学算法、数据库、API、worker）；本文件描述其后同批文件绑定、场景上下文与评价组件改动，最新提交以 git log -1 为准。
 - 已实现：版本化契约、DAG/科学预检、单位/CRS/语义/时间/总量守恒；综合评价/熵权/TOPSIS/多期/连通筛查；MILP、AST 栅格计算、分区统计、适宜性；固定种子及分组划分随机森林、HMAC 私有模型存储。
 - 已实现：PostgreSQL 用户/项目/成员/不可变版本/审计，幂等任务、租约、心跳、取消/失败确认与原子发布；Argon2 会话、CSRF、FastAPI 模型/数据/场景/工作流版本 API。
 - 已实现：受限 Python/CLI 子进程适配器；超时、取消、输出预算、子进程组清理；MinIO 校验与不可变写；GeoTIFF 读写/重投影及元数据验证；文件到绑定的真实数据解析。
 - 已实现：锁定注册版本的 DAG 执行器与 Celery worker；真实 Redis → 读取 MinIO → 子进程 → MinIO 结果 → PostgreSQL 发布。重复投递仅执行一次；执行中的取消及撤权停止进程且不发布。
 - 已生成所有要求的合成样例（真实 GeoTIFF、GeoJSON、CSV）。三个计算层场景有手算金标准及研究产物；不等于 UI/工作流完整演示验收。人口估计显式采用单元内均匀分布，海平面模型不称水动力模拟。
-- 最新统一测试：`20260920T101645146099Z-coastal-dag-full`，198 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
-- 覆盖率：行 88.4187%、分支 68.2055%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
+- 最新统一测试：`20260920T105146035549Z-planning-full`，218 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
+- 覆盖率：行 88.7824%、分支 69.8546%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
 - 回归：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。
 - 计算层演示：`PYTHONPATH=src .venv/bin/python scripts/evidence.py demonstrations -- .venv/bin/python scripts/run_demonstrations.py`。
 - Docker 磁盘已由用户调整；持久 PostGIS 55432、Redis 56379、MinIO 59000 均健康。临时内存盘 PostGIS 55433 已停止。测试只创建/降级/删除自身随机临时库与临时 bucket，不清理其他项目。
@@ -40,3 +40,9 @@
 - 场景 A 已注册 screening → overlay → statistics，真实 MinIO GeoTIFF/GeoJSON/CSV 经三个子进程 DAG 得到 80000 m²、320 人金标准。AOI 裁剪不重新归一化人口，未知 DEM 单独计量；输出为地形连通筛查而非水动力模拟。
 - TargetGridSpec 限制格网尺寸、面积与可逆变换；执行前检查支持的 CRS 和投影条件。
 - 下一步明确入口：结构化确定性规划与共享 LLM 调用预算，之后持久种子目录、统一启动、前端和研究验收。
+
+- 新增 core/planning.py：完整模板解析、三场景多节点构图、歧义数据阻断、所选数据参与工作流身份、提供方候选科学预检。三个模板均已由规划器生成 DAG 后真实计算通过。
+- 新增迁移 0005 和 planning_traces/provider_requests：默认两次共享预算、并发原子扣减、幂等、撤权、不可覆盖终态证据；请求模型/响应模型/端点/HTTP 状态/用量保留可追溯字段。
+- OpenAICompatibleProvider 无 SDK 自动重试或重定向；强制 JSON Schema，拒绝截断/拒绝/无效结果。真实外部 API 仍未配置，本地 HTTP 协议测试不算外部评测。
+- 规划 API 已支持创建、读取、解析/推荐/构图共享产物、保存工作流、读取调用账本；已验证真实评价任务结果和输入停用后的复用阻断。全范围尚未交付。
+- 下一步明确入口：保存本轮完整回归证据；实现持久样例种子、API/worker 统一启动与完整前端，继续其余必选范围。避免重写现有科学组件和规划功能。
