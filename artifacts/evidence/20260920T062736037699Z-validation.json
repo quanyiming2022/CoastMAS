@@ -1,0 +1,19 @@
+{
+  "name": "validation",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_validation.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T06:27:36.037699+00:00",
+  "finished_at": "2026-09-20T06:27:36.602007+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "a621f6491d8757ce4982604c1f4df8a20379e55f55bb9dec0a94b93872d9c966",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T062736037699Z-validation.log"
+}

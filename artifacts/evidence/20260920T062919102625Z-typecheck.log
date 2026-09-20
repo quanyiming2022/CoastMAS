@@ -1,0 +1,13 @@
+src/coastmas/core/validation.py:231: error: Incompatible types in assignment (expression has type "ParameterSpec", variable has type "ParameterBinding")  [assignment]
+src/coastmas/core/validation.py:232: error: "ParameterBinding" has no attribute "default"  [attr-defined]
+src/coastmas/core/validation.py:234: error: "ParameterBinding" has no attribute "required"  [attr-defined]
+src/coastmas/core/validation.py:240: error: "ParameterBinding" has no attribute "minimum"  [attr-defined]
+src/coastmas/core/validation.py:241: error: "ParameterBinding" has no attribute "maximum"  [attr-defined]
+src/coastmas/core/validation.py:318: error: Incompatible types in assignment (expression has type "BindingTarget", variable has type "VariableSpec | None")  [assignment]
+src/coastmas/core/validation.py:319: error: Item "VariableSpec" of "VariableSpec | None" has no attribute "node_id"  [union-attr]
+src/coastmas/core/validation.py:319: error: Item "None" of "VariableSpec | None" has no attribute "node_id"  [union-attr]
+src/coastmas/core/validation.py:321: error: Item "VariableSpec" of "VariableSpec | None" has no attribute "variable"  [union-attr]
+src/coastmas/core/validation.py:321: error: Item "None" of "VariableSpec | None" has no attribute "variable"  [union-attr]
+src/coastmas/core/validation.py:324: error: Item "VariableSpec" of "VariableSpec | None" has no attribute "variable"  [union-attr]
+src/coastmas/core/validation.py:324: error: Item "None" of "VariableSpec | None" has no attribute "variable"  [union-attr]
+Found 12 errors in 1 file (checked 10 source files)

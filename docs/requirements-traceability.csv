@@ -1,0 +1,1203 @@
+requirement_id,source_section,requirement,implementation_path,verification_command,evidence_path,status,blocker
+R01.000,requirements.md §1,项目名称,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R01.001,requirements.md §1,coastmas,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.000,requirements.md §2,项目定位,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.001,requirements.md §2,独立代码仓库,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.002,requirements.md §2,+,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.003,requirements.md §2,独立数据库,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.004,requirements.md §2,独立部署,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.005,requirements.md §2,独立用户体系,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.006,requirements.md §2,独立模型体系,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.007,requirements.md §2,独立运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.008,requirements.md §2,独立验收,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.009,requirements.md §2,通用模型编排核心,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.010,requirements.md §2,海岸带领域包,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.011,requirements.md §2,独立海岸带应用系统,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.012,requirements.md §2,GeoAI Integration Adapter,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.013,requirements.md §2,直接修改现有 GeoAI Platform 核心代码,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.014,requirements.md §2,把 GeoAI 源码复制进本项目,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.015,requirements.md §2,使 CoastMAS 必须依赖 GeoAI 才能运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R02.016,requirements.md §2,把海岸带专业概念写死在通用模型编排核心,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.000,requirements.md §3,总体研究目标,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.001,requirements.md §3,3.1 模型智能拆解与集成,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.002,requirements.md §3,3.2 场景化模型适配,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.003,requirements.md §3,3.3 可持续状态动态综合评价,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.004,requirements.md §3,管理需求,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.005,requirements.md §3,任务理解,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.006,requirements.md §3,任务拆解,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.007,requirements.md §3,数据需求识别,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.008,requirements.md §3,模型检索,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.009,requirements.md §3,模型筛选,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.010,requirements.md §3,模型组合,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.011,requirements.md §3,变量级连接,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.012,requirements.md §3,科学约束校验,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.013,requirements.md §3,可执行工作流,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.014,requirements.md §3,任务调度,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.015,requirements.md §3,结果追溯,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.016,requirements.md §3,管理目标,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.017,requirements.md §3,+,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.018,requirements.md §3,地理区域,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.019,requirements.md §3,地理实体,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.020,requirements.md §3,时间范围,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.021,requirements.md §3,情景条件,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.022,requirements.md §3,实际数据,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.023,requirements.md §3,模型参数,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.024,requirements.md §3,边界条件,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.025,requirements.md §3,场景,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.026,requirements.md §3,Indicator Framework,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.027,requirements.md §3,Indicator Definition,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.028,requirements.md §3,Normalization,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.029,requirements.md §3,Weighting,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.030,requirements.md §3,Aggregation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.031,requirements.md §3,Classification,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.032,requirements.md §3,Temporal Comparison,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R03.033,requirements.md §3,Spatial Statistics,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R04.000,requirements.md §4,最终系统总体架构,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R05.000,requirements.md §5,推荐技术栈,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.001,requirements.md §5,Backend,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.002,requirements.md §5,Database,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.003,requirements.md §5,Queue,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.004,requirements.md §5,Object Storage,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.005,requirements.md §5,Frontend,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.006,requirements.md §5,Deployment,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.007,requirements.md §5,Python,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.008,requirements.md §5,FastAPI,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.009,requirements.md §5,Pydantic,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.010,requirements.md §5,SQLAlchemy,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.011,requirements.md §5,Alembic,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.012,requirements.md §5,GeoAlchemy2,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.013,requirements.md §5,Rasterio,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.014,requirements.md §5,GeoPandas,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.015,requirements.md §5,Shapely,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.016,requirements.md §5,PyProj,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.017,requirements.md §5,Pint,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.018,requirements.md §5,NumPy,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.019,requirements.md §5,Pandas,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.020,requirements.md §5,SciPy,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.021,requirements.md §5,scikit-learn,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.022,requirements.md §5,NetworkX,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.023,requirements.md §5,Neo4j,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.024,requirements.md §5,PostgreSQL,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.025,requirements.md §5,PostGIS,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.026,requirements.md §5,Redis,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.027,requirements.md §5,Celery / Dramatiq,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.028,requirements.md §5,QUEUED,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.029,requirements.md §5,RUNNING,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.030,requirements.md §5,SUCCEEDED,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.031,requirements.md §5,FAILED,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.032,requirements.md §5,CANCELLED,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.033,requirements.md §5,MinIO,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.034,requirements.md §5,React,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.035,requirements.md §5,Next.js,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.036,requirements.md §5,TypeScript,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.037,requirements.md §5,MapLibre GL,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.038,requirements.md §5,ECharts,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.039,requirements.md §5,React Flow,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.040,requirements.md §5,Dockerfile,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.041,requirements.md §5,docker-compose.yml,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R05.042,requirements.md §5,.env.example,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R06.000,requirements.md §6,核心设计原则,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.001,requirements.md §6,6.1 科学硬约束优先,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.002,requirements.md §6,Hard Constraint Validation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.003,requirements.md §6,Candidate Models,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.004,requirements.md §6,Soft Ranking,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.005,requirements.md §6,用一个综合得分抵消单位错误,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.006,requirements.md §6,用模型推荐概率抵消数据缺失,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.007,requirements.md §6,用LLM判断代替CRS检查,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R06.008,requirements.md §6,用LLM猜测缺失参数,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R07.000,requirements.md §7,核心标准对象,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.001,requirements.md §7,7.1 ModelSpec,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.002,requirements.md §7,7.2 VariableSpec,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.003,requirements.md §7,7.3 DataAssetSpec,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.004,requirements.md §7,7.4 SceneSpec,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.005,requirements.md §7,7.5 WorkflowSpec,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.006,requirements.md §7,7.6 BindingPlan,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.007,requirements.md §7,7.7 ExecutionJob,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.008,requirements.md §7,7.8 RunManifest,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.009,requirements.md §7,7.9 ResultManifest,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.010,requirements.md §7,id,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.011,requirements.md §7,name,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.012,requirements.md §7,display_name,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.013,requirements.md §7,version,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.014,requirements.md §7,model_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.015,requirements.md §7,description,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.016,requirements.md §7,capabilities,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.017,requirements.md §7,scientific_domain,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.018,requirements.md §7,inputs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.019,requirements.md §7,outputs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.020,requirements.md §7,parameters,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.021,requirements.md §7,spatial_scale,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.022,requirements.md §7,temporal_scale,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.023,requirements.md §7,supported_geometry,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.024,requirements.md §7,supported_crs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.025,requirements.md §7,runtime_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.026,requirements.md §7,runtime_config,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.027,requirements.md §7,constraints,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.028,requirements.md §7,validation_status,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.029,requirements.md §7,validation_metrics,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.030,requirements.md §7,references,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.031,requirements.md §7,owner,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.032,requirements.md §7,license,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.033,requirements.md §7,created_at,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.034,requirements.md §7,updated_at,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.035,requirements.md §7,STATISTICAL,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.036,requirements.md §7,PROCESS,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.037,requirements.md §7,MACHINE_LEARNING,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.038,requirements.md §7,RASTER,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.039,requirements.md §7,GIS,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.040,requirements.md §7,HYBRID,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.041,requirements.md §7,EXTERNAL,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.042,requirements.md §7,standard_name,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.043,requirements.md §7,data_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.044,requirements.md §7,unit,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.045,requirements.md §7,dimension,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.046,requirements.md §7,semantic_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.047,requirements.md §7,spatial_support,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.048,requirements.md §7,temporal_support,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.049,requirements.md §7,aggregation_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.050,requirements.md §7,nodata_policy,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.051,requirements.md §7,required,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.052,requirements.md §7,type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.053,requirements.md §7,uri,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.054,requirements.md §7,format,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.055,requirements.md §7,crs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.056,requirements.md §7,vertical_datum,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.057,requirements.md §7,spatial_extent,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.058,requirements.md §7,time_start,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.059,requirements.md §7,time_end,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.060,requirements.md §7,time_resolution,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.061,requirements.md §7,variables,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.062,requirements.md §7,quality,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.063,requirements.md §7,source,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.064,requirements.md §7,checksum,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.065,requirements.md §7,management_goal,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.066,requirements.md §7,study_area,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.067,requirements.md §7,entity_types,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.068,requirements.md §7,time_range,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.069,requirements.md §7,scenario_conditions,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.070,requirements.md §7,required_outputs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.071,requirements.md §7,data_policy,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.072,requirements.md §7,quality_requirements,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.073,requirements.md §7,scene_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.074,requirements.md §7,nodes,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.075,requirements.md §7,edges,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.076,requirements.md §7,input_bindings,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.077,requirements.md §7,parameter_bindings,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.078,requirements.md §7,validation_rules,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.079,requirements.md §7,execution_policy,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.080,requirements.md §7,output_definition,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.081,requirements.md §7,DataAsset,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.082,requirements.md §7,Transformation,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.083,requirements.md §7,Model Variable,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.084,requirements.md §7,target,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.085,requirements.md §7,semantic_mapping,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.086,requirements.md §7,unit_conversion,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.087,requirements.md §7,crs_transform,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.088,requirements.md §7,resampling,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.089,requirements.md §7,temporal_transform,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.090,requirements.md §7,quality_check,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.091,requirements.md §7,status,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.092,requirements.md §7,workflow_id,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.093,requirements.md §7,scene_id,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.094,requirements.md §7,submitted_by,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.095,requirements.md §7,started_at,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.096,requirements.md §7,finished_at,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.097,requirements.md §7,progress,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.098,requirements.md §7,current_node,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.099,requirements.md §7,error,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.100,requirements.md §7,logs,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.101,requirements.md §7,SceneSpec version,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.102,requirements.md §7,WorkflowSpec version,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.103,requirements.md §7,ModelSpec versions,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.104,requirements.md §7,DataAsset versions,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.105,requirements.md §7,software version,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.106,requirements.md §7,container image,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.107,requirements.md §7,timestamp,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.108,requirements.md §7,random_seed,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.109,requirements.md §7,job_id,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.110,requirements.md §7,result_type,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.111,requirements.md §7,storage_uri,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.112,requirements.md §7,entity_binding,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.113,requirements.md §7,quality_status,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R07.114,requirements.md §7,provenance,src/coastmas/core/contracts.py,.venv/bin/python -m pytest tests/unit/test_contracts.py,,NOT_RUN,尚未实现或验证
+R08.000,requirements.md §8,模型智能拆解与集成器,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.001,requirements.md §8,8.1 模型注册中心,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.002,requirements.md §8,新增模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.003,requirements.md §8,编辑模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.004,requirements.md §8,版本管理,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.005,requirements.md §8,启用/禁用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.006,requirements.md §8,搜索,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.007,requirements.md §8,过滤,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.008,requirements.md §8,导入,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.009,requirements.md §8,导出,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.010,requirements.md §8,复制,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.011,requirements.md §8,验证,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.012,requirements.md §8,删除保护,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.013,requirements.md §8,ModelSpec JSON,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R08.014,requirements.md §8,ModelSpec YAML,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R09.000,requirements.md §9,模型拆解能力,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.001,requirements.md §9,9.1 White-box Model,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.002,requirements.md §9,9.2 Black-box Model,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.003,requirements.md §9,Python Function,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.004,requirements.md §9,Pipeline,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.005,requirements.md §9,CLI arguments,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.006,requirements.md §9,Declared Components,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.007,requirements.md §9,preprocess,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.008,requirements.md §9,compute,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.009,requirements.md §9,postprocess,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.010,requirements.md §9,validate,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R09.011,requirements.md §9,Atomic Model Component,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R10.000,requirements.md §10,模型知识图谱,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.001,requirements.md §10,Objective,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.002,requirements.md §10,Task,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.003,requirements.md §10,Model,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.004,requirements.md §10,Variable,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.005,requirements.md §10,DataType,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.006,requirements.md §10,EntityType,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.007,requirements.md §10,SceneType,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.008,requirements.md §10,Constraint,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.009,requirements.md §10,REQUIRES,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.010,requirements.md §10,PRODUCES,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.011,requirements.md §10,SUPPORTS,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.012,requirements.md §10,DEPENDS_ON,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.013,requirements.md §10,MAPS_TO,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.014,requirements.md §10,VALID_FOR,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.015,requirements.md §10,INCOMPATIBLE_WITH,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.016,requirements.md §10,DERIVED_FROM,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.017,requirements.md §10,CAN_FOLLOW,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R10.018,requirements.md §10,模型,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.000,requirements.md §11,管理目标智能理解,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.001,requirements.md §11,分析某海岸段在0.5米海平面上升情景下，,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.002,requirements.md §11,土地利用和人口受到的影响，,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.003,requirements.md §11,并按照管理单元统计风险。,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.004,requirements.md §11,ManagementGoal,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.005,requirements.md §11,TaskGraph,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.006,requirements.md §11,RequiredData,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.007,requirements.md §11,RequiredCapabilities,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.008,requirements.md §11,CandidateWorkflow,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R11.009,requirements.md §11,MissingConditions,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.000,requirements.md §12,LLM智能代理,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.001,requirements.md §12,LLMProvider,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.002,requirements.md §12,OpenAI-compatible API,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.003,requirements.md §12,Deterministic Fallback Planner,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.004,requirements.md §12,理解需求,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.005,requirements.md §12,拆解任务,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.006,requirements.md §12,推荐已注册模型,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.007,requirements.md §12,说明推荐依据,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.008,requirements.md §12,生成结构化Workflow候选,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.009,requirements.md §12,凭空创造不存在的模型,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.010,requirements.md §12,绕过模型注册中心,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.011,requirements.md §12,绕过科学校验,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.012,requirements.md §12,直接修改模型参数越界值,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R12.013,requirements.md §12,自动认为缺失数据存在,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R13.000,requirements.md §13,模型检索与匹配,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.001,requirements.md §13,13.1 Hard Filter,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.002,requirements.md §13,13.2 Soft Ranking,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.003,requirements.md §13,Capability,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.004,requirements.md §13,Input Availability,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.005,requirements.md §13,Semantic Compatibility,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.006,requirements.md §13,Unit Compatibility,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.007,requirements.md §13,Spatial Scale,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.008,requirements.md §13,Temporal Scale,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.009,requirements.md §13,Geometry,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.010,requirements.md §13,CRS,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.011,requirements.md §13,Required Parameter,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.012,requirements.md §13,Validation Status,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.013,requirements.md §13,REJECTED,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.014,requirements.md §13,capability match,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.015,requirements.md §13,data availability,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.016,requirements.md §13,scale fitness,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.017,requirements.md §13,validation evidence,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.018,requirements.md §13,runtime cost,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R13.019,requirements.md §13,user preference,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R14.000,requirements.md §14,Workflow Studio,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.001,requirements.md §14,拖拽模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.002,requirements.md §14,连接变量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.003,requirements.md §14,删除连接,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.004,requirements.md §14,编辑参数,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.005,requirements.md §14,设置输入,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.006,requirements.md §14,设置输出,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.007,requirements.md §14,检查错误,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.008,requirements.md §14,保存Workflow,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.009,requirements.md §14,版本化,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.010,requirements.md §14,复制Workflow,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.011,requirements.md §14,运行Workflow,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.012,requirements.md §14,模型名称,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.013,requirements.md §14,版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.014,requirements.md §14,状态,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.015,requirements.md §14,输入,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R14.016,requirements.md §14,输出,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R15.000,requirements.md §15,Workflow科学校验,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.001,requirements.md §15,变量语义,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.002,requirements.md §15,单位,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.003,requirements.md §15,空间参考,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.004,requirements.md §15,时间范围,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.005,requirements.md §15,空间尺度,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.006,requirements.md §15,时间尺度,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.007,requirements.md §15,数据类型,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.008,requirements.md §15,Geometry,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.009,requirements.md §15,缺失值,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.010,requirements.md §15,参数范围,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.011,requirements.md §15,上下游依赖,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.012,requirements.md §15,循环依赖,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.013,requirements.md §15,IterativeGroup,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.014,requirements.md §15,iteration,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.015,requirements.md §15,convergence_threshold,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R15.016,requirements.md §15,max_iterations,src/coastmas/core/validation.py,make test,,NOT_RUN,尚未实现或验证
+R16.000,requirements.md §16,场景化模型接口器,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.001,requirements.md §16,实际场景,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.002,requirements.md §16,实际数据,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.003,requirements.md §16,模型输入,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.004,requirements.md §16,模型结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.005,requirements.md §16,地理实体,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R16.006,requirements.md §16,管理结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R17.000,requirements.md §17,Scene Workspace,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.001,requirements.md §17,新建场景,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.002,requirements.md §17,绘制AOI,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.003,requirements.md §17,上传AOI,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.004,requirements.md §17,选择地理实体,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.005,requirements.md §17,选择时间,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.006,requirements.md §17,设置情景参数,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.007,requirements.md §17,选择数据,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.008,requirements.md §17,查看数据覆盖,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.009,requirements.md §17,运行预检,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.010,requirements.md §17,执行工作流,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R17.011,requirements.md §17,查看结果,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.000,requirements.md §18,地理实体体系,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.001,requirements.md §18,GeographicEntity,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.002,requirements.md §18,coast_segment,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.003,requirements.md §18,wetland,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.004,requirements.md §18,land_parcel,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.005,requirements.md §18,administrative_unit,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.006,requirements.md §18,management_unit,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.007,requirements.md §18,water_body,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.008,requirements.md §18,protection_zone,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.009,requirements.md §18,custom,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.010,requirements.md §18,id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.011,requirements.md §18,type,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.012,requirements.md §18,geometry,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.013,requirements.md §18,version,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.014,requirements.md §18,valid_from,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.015,requirements.md §18,valid_to,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.016,requirements.md §18,properties,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.017,requirements.md §18,Result Object ID,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.018,requirements.md §18,Geographic Entity ID,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R18.019,requirements.md §18,Management Unit ID,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.000,requirements.md §19,数据目录,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.001,requirements.md §19,上传数据,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.002,requirements.md §19,登记URL,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.003,requirements.md §19,登记数据库,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.004,requirements.md §19,登记HTTP服务,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.005,requirements.md §19,搜索,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.006,requirements.md §19,过滤,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.007,requirements.md §19,预览,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.008,requirements.md §19,质量检查,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.009,requirements.md §19,版本,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.010,requirements.md §19,血缘,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.011,requirements.md §19,权限,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.012,requirements.md §19,GeoTIFF,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.013,requirements.md §19,COG,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.014,requirements.md §19,GeoJSON,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.015,requirements.md §19,Shapefile,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.016,requirements.md §19,GeoPackage,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.017,requirements.md §19,CSV,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.018,requirements.md §19,NetCDF,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R19.019,requirements.md §19,JSON,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R20.000,requirements.md §20,变量语义映射,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.001,requirements.md §20,sea_level,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.002,requirements.md §20,elevation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.003,requirements.md §20,population,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.004,requirements.md §20,land_cover,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.005,requirements.md §20,temperature,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.006,requirements.md §20,salinity,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.007,requirements.md §20,wave_height,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.008,requirements.md §20,precipitation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.009,requirements.md §20,wind_speed,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.010,requirements.md §20,alias,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.011,requirements.md §20,synonym,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.012,requirements.md §20,approved_mapping,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.013,requirements.md §20,Exact Standard Name,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.014,requirements.md §20,Approved Mapping,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.015,requirements.md §20,Ontology/Synonym,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R20.016,requirements.md §20,Manual Confirmation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R21.000,requirements.md §21,单位转换,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R21.001,requirements.md §21,Pint,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.000,requirements.md §22,CRS处理,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.001,requirements.md §22,PyProj,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.002,requirements.md §22,Rasterio,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.003,requirements.md §22,GeoPandas,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.004,requirements.md §22,CRS missing,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.005,requirements.md §22,CRS mismatch,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R22.006,requirements.md §22,projection validity,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.000,requirements.md §23,垂向基准,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.001,requirements.md §23,vertical_datum,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.002,requirements.md §23,DEM vertical datum,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.003,requirements.md §23,!=,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.004,requirements.md §23,water level vertical datum,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.005,requirements.md §23,BLOCK EXECUTION,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.006,requirements.md §23,有完整元数据,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.007,requirements.md §23,有校验,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.008,requirements.md §23,有转换Adapter接口,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R23.009,requirements.md §23,有失败阻断,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.000,requirements.md §24,空间尺度转换,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.001,requirements.md §24,Continuous,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.002,requirements.md §24,Categorical,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.003,requirements.md §24,Extensive quantity,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.004,requirements.md §24,nearest,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.005,requirements.md §24,bilinear,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.006,requirements.md §24,cubic,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R24.007,requirements.md §24,sum / area weighted aggregation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.000,requirements.md §25,时间适配,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.001,requirements.md §25,nearest,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.002,requirements.md §25,mean,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.003,requirements.md §25,sum,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.004,requirements.md §25,min,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.005,requirements.md §25,max,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.006,requirements.md §25,interpolation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.007,requirements.md §25,aggregation_type,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.008,requirements.md §25,precipitation accumulation,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R25.009,requirements.md §25,temperature average,src/coastmas/core/binding.py,.venv/bin/python -m pytest tests/unit/test_binding.py,,NOT_RUN,尚未实现或验证
+R26.000,requirements.md §26,模型运行适配器,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.001,requirements.md §26,26.1 PythonFunctionAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.002,requirements.md §26,26.2 CLIAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.003,requirements.md §26,26.3 DockerAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.004,requirements.md §26,26.4 HTTPAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.005,requirements.md §26,26.5 RasterGISAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.006,requirements.md §26,26.6 MLAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.007,requirements.md §26,ModelAdapter,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.008,requirements.md §26,prepare(),src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.009,requirements.md §26,validate(),src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.010,requirements.md §26,execute(),src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.011,requirements.md §26,collect(),src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.012,requirements.md §26,cleanup(),src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.013,requirements.md §26,raster calculator,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.014,requirements.md §26,zonal statistics,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.015,requirements.md §26,buffer,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.016,requirements.md §26,intersection,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.017,requirements.md §26,overlay,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.018,requirements.md §26,reprojection,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.019,requirements.md §26,resampling,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.020,requirements.md §26,polygonize,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.021,requirements.md §26,scikit-learn,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R26.022,requirements.md §26,joblib model,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.000,requirements.md §27,不得伪造外部科学模型,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.001,requirements.md §27,源代码,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.002,requirements.md §27,可执行文件,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.003,requirements.md §27,容器,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.004,requirements.md §27,API,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.005,requirements.md §27,模型权重,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.006,requirements.md §27,REGISTERED_METADATA,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R27.007,requirements.md §27,NOT_EXECUTABLE,src/coastmas/adapters/,make test,,NOT_RUN,尚未实现或验证
+R28.000,requirements.md §28,内置可实际运行的科研示范模型,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.001,requirements.md §28,28.1 Weighted Composite Assessment,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.002,requirements.md §28,28.2 Entropy Weight,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.003,requirements.md §28,28.3 TOPSIS,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.004,requirements.md §28,28.4 Zonal Statistics,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.005,requirements.md §28,28.5 Raster Calculator,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.006,requirements.md §28,28.6 Sea Level Rise Screening Model,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.007,requirements.md §28,28.7 Random Forest Model,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.008,requirements.md §28,28.8 Spatial Suitability Model,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.009,requirements.md §28,positive indicator normalization,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.010,requirements.md §28,negative indicator normalization,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.011,requirements.md §28,manual weight,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.012,requirements.md §28,equal weight,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.013,requirements.md §28,weighted aggregation,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.014,requirements.md §28,classification,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.015,requirements.md §28,weights,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.016,requirements.md §28,normalized matrix,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.017,requirements.md §28,composite score,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.018,requirements.md §28,count,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.019,requirements.md §28,sum,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.020,requirements.md §28,mean,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.021,requirements.md §28,min,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.022,requirements.md §28,max,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.023,requirements.md §28,std,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.024,requirements.md §28,area,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.025,requirements.md §28,percentage,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.026,requirements.md §28,Screening / Demonstration Model,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.027,requirements.md §28,DEM,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.028,requirements.md §28,sea_level_increment,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.029,requirements.md §28,coastal connectivity,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.030,requirements.md §28,nodata mask,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.031,requirements.md §28,potential inundation raster,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.032,requirements.md §28,potential inundation polygon,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.033,requirements.md §28,area statistics,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.034,requirements.md §28,classification/regression,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.035,requirements.md §28,train,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.036,requirements.md §28,save,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.037,requirements.md §28,load,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.038,requirements.md §28,predict,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.039,requirements.md §28,metrics,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.040,requirements.md §28,feature importance,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.041,requirements.md §28,constraint mask,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.042,requirements.md §28,weighted factors,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R28.043,requirements.md §28,suitability score,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.000,requirements.md §29,可持续发展状态综合评价模块,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.001,requirements.md §29,29.1 Indicator Definition,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.002,requirements.md §29,29.2 指标分类,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.003,requirements.md §29,29.3 时间动态评价,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.004,requirements.md §29,29.4 空间评价,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.005,requirements.md §29,indicator_id,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.006,requirements.md §29,name,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.007,requirements.md §29,category,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.008,requirements.md §29,unit,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.009,requirements.md §29,direction,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.010,requirements.md §29,source,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.011,requirements.md §29,formula,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.012,requirements.md §29,normalization,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.013,requirements.md §29,weight_method,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.014,requirements.md §29,weight,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.015,requirements.md §29,资源利用,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.016,requirements.md §29,空间潜力,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.017,requirements.md §29,脆弱性,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.018,requirements.md §29,稳定性,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.019,requirements.md §29,发展韧性,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.020,requirements.md §29,DEMO FRAMEWORK,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.021,requirements.md §29,T1,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.022,requirements.md §29,T2,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.023,requirements.md §29,...,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.024,requirements.md §29,Tn,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.025,requirements.md §29,score,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.026,requirements.md §29,rank,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.027,requirements.md §29,change,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.028,requirements.md §29,trend,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.029,requirements.md §29,management unit,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.030,requirements.md §29,administrative unit,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.031,requirements.md §29,custom polygon,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R29.032,requirements.md §29,grid,src/coastmas/domain/,.venv/bin/python -m pytest tests/unit/test_science.py,,NOT_RUN,尚未实现或验证
+R30.000,requirements.md §30,多主体协同管理示范,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.001,requirements.md §30,RESEARCHER,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.002,requirements.md §30,MANAGER,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.003,requirements.md §30,PUBLIC,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.004,requirements.md §30,ADMIN,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.005,requirements.md §30,objective weights,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.006,requirements.md §30,constraints,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.007,requirements.md §30,comments,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.008,requirements.md §30,proposal,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.009,requirements.md §30,方案版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.010,requirements.md §30,方案比较,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.011,requirements.md §30,约束冲突检测,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.012,requirements.md §30,意见记录,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.013,requirements.md §30,审核状态,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.014,requirements.md §30,事实,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.015,requirements.md §30,模型结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.016,requirements.md §30,方案差异,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R30.017,requirements.md §30,约束冲突,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.000,requirements.md §31,空间优化示范,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.001,requirements.md §31,SpatialOptimizationModel,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.002,requirements.md §31,candidate units,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.003,requirements.md §31,benefit,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.004,requirements.md §31,ecological cost,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.005,requirements.md §31,risk,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.006,requirements.md §31,budget,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.007,requirements.md §31,area requirement,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.008,requirements.md §31,hard constraints,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.009,requirements.md §31,selected units,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.010,requirements.md §31,objective values,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.011,requirements.md §31,constraint satisfaction,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.012,requirements.md §31,MILP,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R31.013,requirements.md §31,hard constraint,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.000,requirements.md §32,Provenance / 科研追溯,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.001,requirements.md §32,是谁运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.002,requirements.md §32,什么时候运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.003,requirements.md §32,什么场景,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.004,requirements.md §32,用了什么数据,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.005,requirements.md §32,数据什么版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.006,requirements.md §32,用了什么模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.007,requirements.md §32,模型什么版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.008,requirements.md §32,用了什么参数,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.009,requirements.md §32,做了什么转换,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R32.010,requirements.md §32,产生了什么结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R33.000,requirements.md §33,结果版本管理,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R33.001,requirements.md §33,Result,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R33.002,requirements.md §33,ResultRevision,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R33.003,requirements.md §33,ResultManifest,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.000,requirements.md §34,质量状态,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.001,requirements.md §34,RAW,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.002,requirements.md §34,VALIDATED,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.003,requirements.md §34,REVIEWED,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.004,requirements.md §34,PUBLISHED,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.005,requirements.md §34,REJECTED,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.006,requirements.md §34,Execution Status,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.007,requirements.md §34,Scientific Validation Status,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.008,requirements.md §34,Review Status,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R34.009,requirements.md §34,SUCCESS,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R35.000,requirements.md §35,Web前端页面,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.001,requirements.md §35,/login,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.002,requirements.md §35,/dashboard,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.003,requirements.md §35,/models,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.004,requirements.md §35,/models/:id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.005,requirements.md §35,/knowledge-graph,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.006,requirements.md §35,/planner,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.007,requirements.md §35,/workflows,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.008,requirements.md §35,/workflows/:id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.009,requirements.md §35,/scenes,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.010,requirements.md §35,/scenes/:id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.011,requirements.md §35,/data,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.012,requirements.md §35,/assessments,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.013,requirements.md §35,/runs,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.014,requirements.md §35,/runs/:id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.015,requirements.md §35,/results,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.016,requirements.md §35,/results/:id,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.017,requirements.md §35,/research,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R35.018,requirements.md §35,/admin,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.000,requirements.md §36,Dashboard,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.001,requirements.md §36,场景数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.002,requirements.md §36,模型数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.003,requirements.md §36,可执行模型数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.004,requirements.md §36,工作流数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.005,requirements.md §36,最近运行,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.006,requirements.md §36,运行状态,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.007,requirements.md §36,数据资产数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.008,requirements.md §36,结果数量,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R36.009,requirements.md §36,质量状态,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.000,requirements.md §37,Model Center,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.001,requirements.md §37,模型列表,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.002,requirements.md §37,模型类型,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.003,requirements.md §37,版本,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.004,requirements.md §37,验证状态,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.005,requirements.md §37,执行状态,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.006,requirements.md §37,输入,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.007,requirements.md §37,输出,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.008,requirements.md §37,参数,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.009,requirements.md §37,约束,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.010,requirements.md §37,模型详情,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.011,requirements.md §37,模型关系,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R37.012,requirements.md §37,测试运行,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R38.000,requirements.md §38,Smart Planner,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.001,requirements.md §38,自然语言任务输入,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.002,requirements.md §38,结构化任务拆解,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.003,requirements.md §38,候选模型,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.004,requirements.md §38,缺失数据,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.005,requirements.md §38,约束,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.006,requirements.md §38,推荐依据,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R38.007,requirements.md §38,生成Workflow,src/coastmas/planner/,make research,,NOT_RUN,尚未实现或验证
+R39.000,requirements.md §39,Workflow Studio,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R39.001,requirements.md §39,Data Node,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R39.002,requirements.md §39,Transform Node,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R39.003,requirements.md §39,Model Node,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R39.004,requirements.md §39,Validation Node,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R39.005,requirements.md §39,Output Node,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.000,requirements.md §40,Scene Workspace,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.001,requirements.md §40,Scene Tree,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.002,requirements.md §40,Data,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.003,requirements.md §40,Entity,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.004,requirements.md §40,Layer,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.005,requirements.md §40,Map,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.006,requirements.md §40,Scene Config,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.007,requirements.md §40,Bindings,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.008,requirements.md §40,Parameters,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.009,requirements.md §40,Validation,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.010,requirements.md §40,Job Status,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R40.011,requirements.md §40,Log,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.000,requirements.md §41,Run Center,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.001,requirements.md §41,Queued,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.002,requirements.md §41,Running,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.003,requirements.md §41,Succeeded,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.004,requirements.md §41,Failed,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.005,requirements.md §41,Cancelled,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.006,requirements.md §41,cancel,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.007,requirements.md §41,retry,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.008,requirements.md §41,view logs,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R41.009,requirements.md §41,view manifest,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.000,requirements.md §42,Result Center,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.001,requirements.md §42,地图,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.002,requirements.md §42,图层,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.003,requirements.md §42,表格,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.004,requirements.md §42,统计图,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.005,requirements.md §42,时间序列,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.006,requirements.md §42,场景比较,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.007,requirements.md §42,下载,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R42.008,requirements.md §42,Provenance,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.000,requirements.md §43,Research Evaluation页面,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.001,requirements.md §43,Experiment A,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.002,requirements.md §43,Experiment B,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.003,requirements.md §43,Experiment C,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.004,requirements.md §43,Rule-only Planner,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.005,requirements.md §43,LLM-only Recommendation,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.006,requirements.md §43,LLM + Knowledge Graph + Constraint Validation,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.007,requirements.md §43,workflow validity rate,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.008,requirements.md §43,constraint violation rate,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.009,requirements.md §43,manual correction count,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R43.010,requirements.md §43,planning latency,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R44.000,requirements.md §44,场景接口实验,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.001,requirements.md §44,正确单位,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.002,requirements.md §44,错误单位,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.003,requirements.md §44,正确CRS,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.004,requirements.md §44,错误CRS,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.005,requirements.md §44,缺CRS,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.006,requirements.md §44,缺时间,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.007,requirements.md §44,缺数据,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.008,requirements.md §44,错误语义,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.009,requirements.md §44,尺度不匹配,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.010,requirements.md §44,detected,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.011,requirements.md §44,blocked,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.012,requirements.md §44,auto-fixed,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.013,requirements.md §44,manual-review,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.014,requirements.md §44,binding success rate,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.015,requirements.md §44,error detection rate,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.016,requirements.md §44,automatic adaptation rate,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R44.017,requirements.md §44,manual intervention rate,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R45.000,requirements.md §45,数据库,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.001,requirements.md §45,users,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.002,requirements.md §45,roles,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.003,requirements.md §45,projects,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.004,requirements.md §45,models,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.005,requirements.md §45,model_versions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.006,requirements.md §45,model_variables,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.007,requirements.md §45,model_parameters,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.008,requirements.md §45,model_constraints,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.009,requirements.md §45,data_assets,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.010,requirements.md §45,data_asset_versions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.011,requirements.md §45,geographic_entities,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.012,requirements.md §45,entity_versions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.013,requirements.md §45,scenes,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.014,requirements.md §45,scene_versions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.015,requirements.md §45,workflows,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.016,requirements.md §45,workflow_versions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.017,requirements.md §45,workflow_nodes,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.018,requirements.md §45,workflow_edges,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.019,requirements.md §45,bindings,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.020,requirements.md §45,jobs,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.021,requirements.md §45,job_nodes,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.022,requirements.md §45,job_logs,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.023,requirements.md §45,results,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.024,requirements.md §45,result_revisions,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.025,requirements.md §45,run_manifests,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.026,requirements.md §45,result_manifests,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.027,requirements.md §45,indicator_frameworks,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.028,requirements.md §45,indicators,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.029,requirements.md §45,assessments,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.030,requirements.md §45,assessment_results,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.031,requirements.md §45,graph_nodes,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.032,requirements.md §45,graph_edges,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.033,requirements.md §45,research_experiments,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.034,requirements.md §45,experiment_runs,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.035,requirements.md §45,experiment_metrics,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.036,requirements.md §45,audit_logs,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R45.037,requirements.md §45,Alembic migration,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R46.000,requirements.md §46,API,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.001,requirements.md §46,Models,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.002,requirements.md §46,Data,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.003,requirements.md §46,Scenes,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.004,requirements.md §46,Planning,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.005,requirements.md §46,Workflows,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.006,requirements.md §46,Jobs,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.007,requirements.md §46,Results,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.008,requirements.md §46,Assessment,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.009,requirements.md §46,Knowledge Graph,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.010,requirements.md §46,/api/v1,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.011,requirements.md §46,GET    /models,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.012,requirements.md §46,POST   /models,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.013,requirements.md §46,GET    /models/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.014,requirements.md §46,PUT    /models/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.015,requirements.md §46,DELETE /models/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.016,requirements.md §46,POST   /models/{id}/validate,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.017,requirements.md §46,POST   /models/{id}/test,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.018,requirements.md §46,GET    /data-assets,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.019,requirements.md §46,POST   /data-assets,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.020,requirements.md §46,GET    /data-assets/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.021,requirements.md §46,POST   /data-assets/{id}/validate,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.022,requirements.md §46,GET    /scenes,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.023,requirements.md §46,POST   /scenes,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.024,requirements.md §46,GET    /scenes/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.025,requirements.md §46,PUT    /scenes/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.026,requirements.md §46,POST   /scenes/{id}/preflight,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.027,requirements.md §46,POST /planner/parse,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.028,requirements.md §46,POST /planner/recommend,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.029,requirements.md §46,POST /planner/build-workflow,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.030,requirements.md §46,GET  /workflows,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.031,requirements.md §46,POST /workflows,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.032,requirements.md §46,GET  /workflows/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.033,requirements.md §46,POST /workflows/{id}/validate,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.034,requirements.md §46,POST /workflows/{id}/run,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.035,requirements.md §46,GET  /jobs,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.036,requirements.md §46,GET  /jobs/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.037,requirements.md §46,POST /jobs/{id}/cancel,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.038,requirements.md §46,POST /jobs/{id}/retry,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.039,requirements.md §46,GET /results,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.040,requirements.md §46,GET /results/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.041,requirements.md §46,GET /results/{id}/provenance,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.042,requirements.md §46,POST /assessments,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.043,requirements.md §46,POST /assessments/{id}/run,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.044,requirements.md §46,GET  /assessments/{id}/results,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.045,requirements.md §46,GET /graph,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.046,requirements.md §46,GET /graph/models/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R46.047,requirements.md §46,GET /graph/variables/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.000,requirements.md §47,GeoAI集成接口,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.001,requirements.md §47,integration/geoai,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.002,requirements.md §47,GET  /api/v1/integration/capabilities,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.003,requirements.md §47,GET  /api/v1/integration/models,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.004,requirements.md §47,POST /api/v1/integration/jobs,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.005,requirements.md §47,GET  /api/v1/integration/jobs/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.006,requirements.md §47,GET  /api/v1/integration/results/{id},src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.007,requirements.md §47,docs/geoai-integration.md,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.008,requirements.md §47,注册 CoastMAS,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.009,requirements.md §47,查询模型,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.010,requirements.md §47,提交场景,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.011,requirements.md §47,执行Workflow,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R47.012,requirements.md §47,获得结果,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R48.000,requirements.md §48,示例数据,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.001,requirements.md §48,sample-data/,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.002,requirements.md §48,SYNTHETIC / DEMONSTRATION DATA,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.003,requirements.md §48,coastal_aoi.geojson,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.004,requirements.md §48,management_units.geojson,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.005,requirements.md §48,dem.tif,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.006,requirements.md §48,land_cover_t1.tif,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.007,requirements.md §48,land_cover_t2.tif,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.008,requirements.md §48,population.csv,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.009,requirements.md §48,economic.csv,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.010,requirements.md §48,tide.csv,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R48.011,requirements.md §48,protection_zone.geojson,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.000,requirements.md §49,内置完整演示场景,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.001,requirements.md §49,Scenario A  ,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.002,requirements.md §49,海平面上升潜在淹没与影响分析,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.003,requirements.md §49,Scenario B  ,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.004,requirements.md §49,海岸带资源利用与空间潜力综合评价,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.005,requirements.md §49,Scenario C  ,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.006,requirements.md §49,多期发展韧性动态评价,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.007,requirements.md §49,Scene,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.008,requirements.md §49,DEM,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.009,requirements.md §49,Sea Level Screening,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.010,requirements.md §49,Potential Inundation,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.011,requirements.md §49,Population / Land Use Overlay,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.012,requirements.md §49,Management Unit Statistics,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.013,requirements.md §49,Result,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.014,requirements.md §49,Indicators,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.015,requirements.md §49,Normalization,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.016,requirements.md §49,Weight,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.017,requirements.md §49,Composite Evaluation,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.018,requirements.md §49,Spatial Unit Result,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.019,requirements.md §49,Map,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.020,requirements.md §49,T1,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.021,requirements.md §49,T2,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.022,requirements.md §49,T3,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.023,requirements.md §49,Indicator Engine,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.024,requirements.md §49,Composite Score,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.025,requirements.md §49,Change,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.026,requirements.md §49,Trend,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R49.027,requirements.md §49,Spatial Comparison,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.000,requirements.md §50,第一个真正体现两个“器”的完整示范,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.001,requirements.md §50,分析研究区在0.5米海平面上升情景下，,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.002,requirements.md §50,潜在淹没范围及其对人口和土地利用的影响，,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.003,requirements.md §50,并按管理单元统计。,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.004,requirements.md §50,1. 解析目标,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.005,requirements.md §50,2. 拆解任务,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.006,requirements.md §50,3. 找到：,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.007,requirements.md §50,DEM,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.008,requirements.md §50,海平面场景,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.009,requirements.md §50,人口,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.010,requirements.md §50,土地利用,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.011,requirements.md §50,管理单元,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.012,requirements.md §50,4. 找到：,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.013,requirements.md §50,SeaLevelScreening,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.014,requirements.md §50,Overlay,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.015,requirements.md §50,ZonalStatistics,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.016,requirements.md §50,5. 生成Workflow,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.017,requirements.md §50,6. 校验单位、CRS、变量,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.018,requirements.md §50,7. 生成BindingPlan,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.019,requirements.md §50,8. 运行,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.020,requirements.md §50,9. 生成地图和表格,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.021,requirements.md §50,10. 保存RunManifest,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.022,requirements.md §50,11. 保存ResultManifest,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R50.023,requirements.md §50,12. 展示Provenance,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R51.000,requirements.md §51,权限,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.001,requirements.md §51,ADMIN,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.002,requirements.md §51,RESEARCHER,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.003,requirements.md §51,MANAGER,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.004,requirements.md §51,VIEWER,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.005,requirements.md §51,model,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.006,requirements.md §51,data,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.007,requirements.md §51,scene,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.008,requirements.md §51,workflow,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.009,requirements.md §51,job,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.010,requirements.md §51,result,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R51.011,requirements.md §51,publish,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.000,requirements.md §52,审计,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.001,requirements.md §52,audit_logs,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.002,requirements.md §52,who,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.003,requirements.md §52,when,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.004,requirements.md §52,action,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.005,requirements.md §52,resource,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.006,requirements.md §52,old_value,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R52.007,requirements.md §52,new_value,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R53.000,requirements.md §53,科研可复现要求,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.001,requirements.md §53,random_seed,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.002,requirements.md §53,code version,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.003,requirements.md §53,model version,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.004,requirements.md §53,data version,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.005,requirements.md §53,parameter,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R53.006,requirements.md §53,environment,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.000,requirements.md §54,错误处理,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.001,requirements.md §54,catch(Exception),docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.002,requirements.md §54,然后返回“未知错误”,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.003,requirements.md §54,ValidationError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.004,requirements.md §54,DataError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.005,requirements.md §54,ModelError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.006,requirements.md §54,ExecutionError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.007,requirements.md §54,BindingError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.008,requirements.md §54,ConstraintError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R54.009,requirements.md §54,AuthorizationError,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.000,requirements.md §55,安全,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.001,requirements.md §55,password hashing,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.002,requirements.md §55,JWT/session security,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.003,requirements.md §55,RBAC,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.004,requirements.md §55,upload validation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.005,requirements.md §55,path traversal prevention,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.006,requirements.md §55,safe subprocess,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.007,requirements.md §55,container isolation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.008,requirements.md §55,SQL injection prevention,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.009,requirements.md §55,XSS prevention,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R55.010,requirements.md §55,API validation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R56.000,requirements.md §56,性能,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R56.001,requirements.md §56,P95 < 500 ms,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R56.002,requirements.md §56,P95 < 1 s,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R56.003,requirements.md §56,HTTP同步等待几十分钟,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R57.000,requirements.md §57,前端专业性,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R57.001,requirements.md §57,专业GIS / 数据分析工作台,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R58.000,requirements.md §58,自动测试,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.001,requirements.md §58,unit tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.002,requirements.md §58,integration tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.003,requirements.md §58,API tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.004,requirements.md §58,workflow tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.005,requirements.md §58,binding tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.006,requirements.md §58,model adapter tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.007,requirements.md §58,component tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.008,requirements.md §58,critical interaction tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R58.009,requirements.md §58,Playwright,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.000,requirements.md §59,必测错误场景,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.001,requirements.md §59,缺数据,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.002,requirements.md §59,单位不兼容,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.003,requirements.md §59,CRS不一致,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.004,requirements.md §59,CRS缺失,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.005,requirements.md §59,参数越界,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.006,requirements.md §59,模型不存在,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.007,requirements.md §59,模型不可执行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.008,requirements.md §59,Workflow断链,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.009,requirements.md §59,Workflow循环,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.010,requirements.md §59,任务失败,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.011,requirements.md §59,任务取消,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.012,requirements.md §59,结果版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R59.013,requirements.md §59,权限不足,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R60.000,requirements.md §60,E2E验收,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.001,requirements.md §60,Login,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.002,requirements.md §60,Create Scene,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.003,requirements.md §60,Select AOI,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.004,requirements.md §60,Select Demo Data,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.005,requirements.md §60,Enter Natural Language Goal,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.006,requirements.md §60,Generate Workflow,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.007,requirements.md §60,Validate,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.008,requirements.md §60,Run,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.009,requirements.md §60,Wait for Completion,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.010,requirements.md §60,Open Result,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.011,requirements.md §60,View Map,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.012,requirements.md §60,View Statistics,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R60.013,requirements.md §60,View Provenance,apps/web/,make e2e,,NOT_RUN,尚未实现或验证
+R61.000,requirements.md §61,Docker验收,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R61.001,requirements.md §61,检查：,docker-compose.yml,make acceptance,,NOT_RUN,尚未实现或验证
+R62.000,requirements.md §62,数据库验收,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R62.001,requirements.md §62,migration up,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R62.002,requirements.md §62,migration down test,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R62.003,requirements.md §62,fresh install,src/coastmas/persistence/,make test,,NOT_RUN,尚未实现或验证
+R63.000,requirements.md §63,必须输出OpenAPI,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R63.001,requirements.md §63,/openapi.json,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R63.002,requirements.md §63,/docs,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R64.000,requirements.md §64,文档,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.001,requirements.md §64,README.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.002,requirements.md §64,docs/,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.003,requirements.md §64,architecture.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.004,requirements.md §64,scientific-method.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.005,requirements.md §64,model-spec.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.006,requirements.md §64,scene-spec.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.007,requirements.md §64,workflow-spec.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.008,requirements.md §64,binding-engine.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.009,requirements.md §64,knowledge-graph.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.010,requirements.md §64,llm-agent.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.011,requirements.md §64,adapter-development.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.012,requirements.md §64,assessment-engine.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.013,requirements.md §64,api.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.014,requirements.md §64,deployment.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.015,requirements.md §64,user-guide.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.016,requirements.md §64,admin-guide.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.017,requirements.md §64,research-validation.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.018,requirements.md §64,geoai-integration.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R64.019,requirements.md §64,acceptance-report.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.000,requirements.md §65,科研方法文档,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.001,requirements.md §65,Scientific Model,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.002,requirements.md §65,Engineering Adapter,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.003,requirements.md §65,LLM Recommendation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.004,requirements.md §65,Scientific Validation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R65.005,requirements.md §65,User Review,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.000,requirements.md §66,研发边界说明,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.001,requirements.md §66,智能模型组织,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.002,requirements.md §66,数据-模型适配,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.003,requirements.md §66,工作流执行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.004,requirements.md §66,动态评价,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.005,requirements.md §66,科研验证,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.006,requirements.md §66,自动拥有所有海岸带模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.007,requirements.md §66,自动取代水动力专家,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.008,requirements.md §66,所有地区无需校准,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.009,requirements.md §66,所有数据可自动融合,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R66.010,requirements.md §66,AI生成结果天然科学可信,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.000,requirements.md §67,不允许出现的交付问题,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.001,requirements.md §67,禁止一,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.002,requirements.md §67,禁止二,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.003,requirements.md §67,禁止三,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.004,requirements.md §67,禁止四,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.005,requirements.md §67,禁止五,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.006,requirements.md §67,禁止六,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.007,requirements.md §67,禁止七,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.008,requirements.md §67,禁止八,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.009,requirements.md §67,禁止九,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.010,requirements.md §67,禁止十,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.011,requirements.md §67,TODO,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.012,requirements.md §67,FIXME,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.013,requirements.md §67,pass,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R67.014,requirements.md §67,NotImplemented,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R68.000,requirements.md §68,研究实验必须真正执行,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.001,requirements.md §68,Test 1,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.002,requirements.md §68,Test 2,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.003,requirements.md §68,Test 3,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.004,requirements.md §68,Test 4,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.005,requirements.md §68,Test 5,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.006,requirements.md §68,Test 6,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.007,requirements.md §68,Test 7,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.008,requirements.md §68,Test 8,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.009,requirements.md §68,Test 9,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.010,requirements.md §68,Test 10,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.011,requirements.md §68,Test 11,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.012,requirements.md §68,Test 12,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R68.013,requirements.md §68,research-validation.md,sample-data/;tests/research/,make research,,NOT_RUN,尚未实现或验证
+R69.000,requirements.md §69,项目目录,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R69.001,requirements.md §69,coastmas/,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R69.002,requirements.md §69,core,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R69.003,requirements.md §69,domain,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R69.004,requirements.md §69,adapter,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R69.005,requirements.md §69,app,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R70.000,requirements.md §70,GeoAI代码边界,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R70.001,requirements.md §70,GeoAI Platform,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R70.002,requirements.md §70,coastmas/,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R70.003,requirements.md §70,HTTP API,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R70.004,requirements.md §70,Adapter,src/coastmas/app/,make e2e,,NOT_RUN,尚未实现或验证
+R71.000,requirements.md §71,Git要求,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.001,requirements.md §71,初始化Git,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.002,requirements.md §71,git status,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.003,requirements.md §71,.env,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.004,requirements.md §71,password,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.005,requirements.md §71,token,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R71.006,requirements.md §71,large generated data,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.000,requirements.md §72,最终Definition of Done,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.001,requirements.md §72,[ ] 系统可以独立启动,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.002,requirements.md §72,[ ] 用户可以登录,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.003,requirements.md §72,[ ] Model Center可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.004,requirements.md §72,[ ] ModelSpec可管理,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.005,requirements.md §72,[ ] 知识图谱可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.006,requirements.md §72,[ ] Smart Planner可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.007,requirements.md §72,[ ] 管理目标可拆解,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.008,requirements.md §72,[ ] 模型可检索,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.009,requirements.md §72,[ ] Workflow可以自动生成,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.010,requirements.md §72,[ ] Workflow可以人工编辑,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.011,requirements.md §72,[ ] Workflow可以校验,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.012,requirements.md §72,[ ] Workflow可以运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.013,requirements.md §72,[ ] Model Adapter体系可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.014,requirements.md §72,[ ] Scene Workspace可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.015,requirements.md §72,[ ] Data Catalog可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.016,requirements.md §72,[ ] SceneSpec可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.017,requirements.md §72,[ ] BindingPlan可生成,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.018,requirements.md §72,[ ] 单位转换可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.019,requirements.md §72,[ ] CRS检查可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.020,requirements.md §72,[ ] 垂向基准检查存在,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.021,requirements.md §72,[ ] 时间适配可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.022,requirements.md §72,[ ] 数据空间适配可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.023,requirements.md §72,[ ] 运行中心可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.024,requirements.md §72,[ ] 结果中心可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.025,requirements.md §72,[ ] Provenance完整,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.026,requirements.md §72,[ ] 动态综合评价可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.027,requirements.md §72,[ ] 空间优化示范可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.028,requirements.md §72,[ ] 多主体协同示范可用,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.029,requirements.md §72,[ ] 三个科研Demo可运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.030,requirements.md §72,[ ] LLM不可用时系统仍可运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.031,requirements.md §72,[ ] Research Evaluation可运行,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.032,requirements.md §72,[ ] 自动化测试通过,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.033,requirements.md §72,[ ] E2E通过,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.034,requirements.md §72,[ ] docker compose启动成功,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.035,requirements.md §72,[ ] OpenAPI正常,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.036,requirements.md §72,[ ] 文档完整,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.037,requirements.md §72,[ ] GeoAI Adapter完成,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.038,requirements.md §72,[ ] acceptance-report.md完成,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R72.039,requirements.md §72,[ ] 核心链路没有TODO/placeholder,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.000,requirements.md §73,最终验收报告,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.001,requirements.md §73,docs/acceptance-report.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.002,requirements.md §73,1 项目概况,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.003,requirements.md §73,2 实际完成模块,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.004,requirements.md §73,3 软件架构,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.005,requirements.md §73,4 数据库,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.006,requirements.md §73,5 模型数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.007,requirements.md §73,6 可执行模型数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.008,requirements.md §73,7 Adapter数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.009,requirements.md §73,8 API数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.010,requirements.md §73,9 页面数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.011,requirements.md §73,10 自动测试数量,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.012,requirements.md §73,11 测试通过率,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.013,requirements.md §73,12 E2E结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.014,requirements.md §73,13 科研实验结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.015,requirements.md §73,14 Demo场景结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.016,requirements.md §73,15 Docker运行状态,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.017,requirements.md §73,16 已知限制,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.018,requirements.md §73,17 外部模型待接入清单,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R73.019,requirements.md §73,18 GeoAI集成方式,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.000,requirements.md §74,最终向用户汇报格式,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.001,requirements.md §74,A. 最终版本,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.002,requirements.md §74,B. Git commit,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.003,requirements.md §74,C. 项目路径,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.004,requirements.md §74,D. 启动方式,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.005,requirements.md §74,E. Web地址,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.006,requirements.md §74,F. API地址,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.007,requirements.md §74,G. 测试结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.008,requirements.md §74,H. 研究实验结果,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.009,requirements.md §74,I. 核心功能矩阵,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.010,requirements.md §74,J. Demo账号,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.011,requirements.md §74,K. Demo场景,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.012,requirements.md §74,L. 文档位置,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.013,requirements.md §74,M. GeoAI集成接口,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R74.014,requirements.md §74,N. 明确列出尚未接入的外部模型,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.000,requirements.md §75,最高优先级研发原则,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.001,requirements.md §75,原则一,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.002,requirements.md §75,原则二,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.003,requirements.md §75,原则三,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.004,requirements.md §75,原则四,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.005,requirements.md §75,原则五,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.006,requirements.md §75,原则六,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.007,requirements.md §75,原则七,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.008,requirements.md §75,原则八,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R75.009,requirements.md §75,docs/architecture-decisions.md,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.000,requirements.md §76,任务启动指令,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.001,requirements.md §76,Architecture,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.002,requirements.md §76,Database,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.003,requirements.md §76,Backend,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.004,requirements.md §76,Core,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.005,requirements.md §76,Adapters,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.006,requirements.md §76,Knowledge Graph,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.007,requirements.md §76,LLM Agent,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.008,requirements.md §76,Scene Engine,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.009,requirements.md §76,Assessment,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.010,requirements.md §76,Frontend,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.011,requirements.md §76,Demo Data,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.012,requirements.md §76,Research Experiments,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.013,requirements.md §76,Tests,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.014,requirements.md §76,E2E,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.015,requirements.md §76,Docker,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.016,requirements.md §76,Documentation,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+R76.017,requirements.md §76,Acceptance,docs/implementation-plan.md,make acceptance,,NOT_RUN,尚未实现或验证
+EQ01,execution-quality.md §1,适用范围与明确覆盖事项,,,,NOT_RUN,尚未实现或验证
+EQ02,execution-quality.md §2,一次委托的内部执行机制,,,,NOT_RUN,尚未实现或验证
+EQ03,execution-quality.md §3,控制 Codex 开发过程的上下文与输出,,,,NOT_RUN,尚未实现或验证
+EQ04,execution-quality.md §4,降低工程复杂度，但不减少能力,,,,NOT_RUN,尚未实现或验证
+EQ05,execution-quality.md §5,系统运行时的 LLM 成本控制,,,,NOT_RUN,尚未实现或验证
+EQ06,execution-quality.md §6,强类型、边界与可维护性门禁,,,,NOT_RUN,尚未实现或验证
+EQ07,execution-quality.md §7,并发、缓存与执行质量,,,,NOT_RUN,尚未实现或验证
+EQ08,execution-quality.md §8,科研算法质量要求,,,,NOT_RUN,尚未实现或验证
+EQ09,execution-quality.md §9,安全底线,,,,NOT_RUN,尚未实现或验证
+EQ10,execution-quality.md §10,自动化验证：日常增量，交付全量,,,,NOT_RUN,尚未实现或验证
+EQ11,execution-quality.md §11,必选验收用例与证据,,,,NOT_RUN,尚未实现或验证
+EQ12,execution-quality.md §12,节省效果的报告方式,,,,NOT_RUN,尚未实现或验证

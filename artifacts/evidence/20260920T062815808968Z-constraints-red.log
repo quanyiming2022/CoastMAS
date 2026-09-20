@@ -1,0 +1,122 @@
+.................FFFF                                                    [100%]
+=================================== FAILURES ===================================
+____________ test_declared_constraint_is_enforced_before_execution _____________
+
+    def test_declared_constraint_is_enforced_before_execution():
+        registered=model(constraints=[{"field":"parameters.increment","operator":"le","value":.25,"description":"reviewed calibration domain"}])
+        result=report(models=[registered])
+>       assert not result.valid
+E       AssertionError: assert not True
+E        +  where True = ValidationReport(issues=(), bindings=(BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(n...=None, quality_check=('semantics', 'unit', 'CRS', 'vertical_datum', 'scale', 'time', 'quality'), status='VALIDATED'),)).valid
+
+tests/unit/test_validation.py:61: AssertionError
+______________ test_unknown_constraint_path_cannot_silently_pass _______________
+
+    def test_unknown_constraint_path_cannot_silently_pass():
+        registered=model(constraints=[{"field":"invented.path","operator":"eq","value":1,"description":"unresolvable"}])
+        result=report(models=[registered])
+>       assert not result.valid
+E       AssertionError: assert not True
+E        +  where True = ValidationReport(issues=(), bindings=(BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(n...=None, quality_check=('semantics', 'unit', 'CRS', 'vertical_datum', 'scale', 'time', 'quality'), status='VALIDATED'),)).valid
+
+tests/unit/test_validation.py:68: AssertionError
+____________ test_invalid_temporal_unit_returns_structured_failure _____________
+
+    def test_invalid_temporal_unit_returns_structured_failure():
+>       result=report(assets=[asset(time_resolution="1 nonsense")])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_validation.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_validation.py:9: in report
+    return validate_workflow(**args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/validation.py:175: in validate_workflow
+    report = validate_asset_binding(asset, variable, model, scene, binding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/validation.py:105: in validate_asset_binding
+    interval = float(UNITS.Quantity(asset.time_resolution).to(model.temporal_scale.unit).magnitude)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/quantity.py:220: in __new__
+    inst = cast(Self, ureg.parse_expression(value))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1502: in parse_expression
+    result = build_eval_tree(gen).evaluate(_define_op, bin_op=bin_op)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/pint_eval.py:400: in evaluate
+    self.right.evaluate(define_op, bin_op, un_op),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/pint_eval.py:411: in evaluate
+    return define_op(self.left)
+           ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1491: in _define_op
+    return self._eval_token(s, case_sensitive=case_sensitive, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1401: in _eval_token
+    {self.get_name(token_text, case_sensitive=case_sensitive): 1}
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pint.registry.UnitRegistry object at 0x1087087a0>
+name_or_alias = 'nonsense', case_sensitive = None
+
+    def get_name(self, name_or_alias: str, case_sensitive: bool | None = None) -> str:
+        """Return the canonical name of a unit."""
+    
+        if name_or_alias == "dimensionless":
+            return ""
+    
+        try:
+            return self._units[name_or_alias].name
+        except KeyError:
+            pass
+    
+        candidates = self.parse_unit_name(name_or_alias, case_sensitive)
+        if not candidates:
+>           raise UndefinedUnitError(name_or_alias)
+E           pint.errors.UndefinedUnitError: 'nonsense' is not defined in the unit registry
+
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:666: UndefinedUnitError
+_____ test_incompatible_resampling_is_a_report_not_an_unhandled_exception ______
+
+    def test_incompatible_resampling_is_a_report_not_an_unhandled_exception():
+        payload=workflow().model_dump(mode="json")
+        payload["input_bindings"][0]["resampling"]="sum"
+>       result=report(workflow=workflow(**payload))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_validation.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_validation.py:9: in report
+    return validate_workflow(**args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/validation.py:175: in validate_workflow
+    report = validate_asset_binding(asset, variable, model, scene, binding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/validation.py:120: in validate_asset_binding
+    resampling=choose_resampling(source.semantic_type, binding.resampling),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+semantic_type = 'continuous', requested = 'sum'
+
+    def choose_resampling(semantic_type: str, requested: ResamplingMethod | None) -> ResamplingMethod:
+        allowed: dict[str, tuple[ResamplingMethod, ...]] = {
+            "continuous": ("bilinear", "nearest", "cubic"),
+            "categorical": ("nearest",),
+            "extensive": ("area_weighted", "sum"),
+        }
+        methods = allowed.get(semantic_type)
+        if methods is None:
+            raise ConstraintError("unknown variable semantics")
+        if requested is not None and requested not in methods:
+>           raise ConstraintError("resampling method conflicts with variable semantics")
+E           coastmas.core.errors.ConstraintError: resampling method conflicts with variable semantics
+
+src/coastmas/core/binding.py:82: ConstraintError
+=========================== short test summary info ============================
+FAILED tests/unit/test_validation.py::test_declared_constraint_is_enforced_before_execution
+FAILED tests/unit/test_validation.py::test_unknown_constraint_path_cannot_silently_pass
+FAILED tests/unit/test_validation.py::test_invalid_temporal_unit_returns_structured_failure
+FAILED tests/unit/test_validation.py::test_incompatible_resampling_is_a_report_not_an_unhandled_exception
+4 failed, 17 passed in 0.37s
