@@ -248,12 +248,15 @@ function EntityEditor({
       );
     },
     onSuccess: async (result) => {
+      // Select the committed revision before background refreshes; a later refresh
+      // must not overwrite a historical version the user has selected meanwhile.
+      client.setQueryData(["entity", result.spec.id, ""], result);
+      onSaved(result.spec.id);
       await Promise.all([
         client.invalidateQueries({ queryKey: ["entities", projectId] }),
         client.invalidateQueries({ queryKey: ["entity-map", projectId] }),
         client.invalidateQueries({ queryKey: ["entity", result.spec.id] }),
       ]);
-      onSaved(result.spec.id);
     },
   });
   const submit = (event: FormEvent) => {

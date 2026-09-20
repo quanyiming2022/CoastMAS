@@ -693,6 +693,161 @@
       "title": "GeographicEntity",
       "type": "object"
     },
+    "GraphEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "enum": [
+            "declaration",
+            "workflow_declaration",
+            "contract_candidate",
+            "contract_conflict"
+          ],
+          "title": "Evidence",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Properties",
+          "type": "object"
+        },
+        "source": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Target",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "REQUIRES",
+            "PRODUCES",
+            "SUPPORTS",
+            "DEPENDS_ON",
+            "MAPS_TO",
+            "VALID_FOR",
+            "INCOMPATIBLE_WITH",
+            "DERIVED_FROM",
+            "CAN_FOLLOW"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "type",
+        "evidence"
+      ],
+      "title": "GraphEdge",
+      "type": "object"
+    },
+    "GraphNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Label",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Properties",
+          "type": "object"
+        },
+        "resource": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "type": {
+          "enum": [
+            "Objective",
+            "Task",
+            "Model",
+            "Variable",
+            "DataType",
+            "EntityType",
+            "SceneType",
+            "Constraint",
+            "DataAsset",
+            "Scene",
+            "Workflow"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "label"
+      ],
+      "title": "GraphNode",
+      "type": "object"
+    },
+    "GraphSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/GraphEdge"
+          },
+          "maxItems": 50000,
+          "title": "Edges",
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/GraphNode"
+          },
+          "maxItems": 10000,
+          "title": "Nodes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "title": "GraphSnapshot",
+      "type": "object"
+    },
     "JsonValue": {},
     "LineGeometry": {
       "additionalProperties": false,
@@ -2427,6 +2582,9 @@
     "GeographicEntity": {
       "$ref": "#/$defs/GeographicEntity"
     },
+    "GraphSnapshot": {
+      "$ref": "#/$defs/GraphSnapshot"
+    },
     "ManagementGoal": {
       "$ref": "#/$defs/ManagementGoal"
     },
@@ -2456,6 +2614,7 @@
     }
   },
   "required": [
+    "GraphSnapshot",
     "GeographicEntity",
     "ModelSpec",
     "DataAssetSpec",

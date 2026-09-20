@@ -1,0 +1,35 @@
+	github.com/minio/minio/internal/deadlineconn/deadlineconn.go:97 +0x6d fp=0x39391b748f80 sp=0x39391b748f50 pc=0x8861ad
+net/http.(*connReader).backgroundRead(0x3939267a1b80)
+	net/http/server.go:702 +0x33 fp=0x39391b748fc8 sp=0x39391b748f80 pc=0x749053
+net/http.(*connReader).startBackgroundRead.gowrap2()
+	net/http/server.go:698 +0x17 fp=0x39391b748fe0 sp=0x39391b748fc8 pc=0x748fb7
+runtime.goexit({})
+	runtime/asm_amd64.s:1771 +0x1 fp=0x39391b748fe8 sp=0x39391b748fe0 pc=0x4966c1
+created by net/http.(*connReader).startBackgroundRead in goroutine 52485
+	net/http/server.go:698 +0xb6
+MinIO Object Storage Server
+Copyright: 2015-2026 MinIO, Inc.
+License: GNU AGPLv3 - https://www.gnu.org/licenses/agpl-3.0.html
+Version: RELEASE.2025-09-07T16-13-09Z.hotfix.7aa24e772 (go1.26.1 linux/amd64)
+
+API: http://172.19.0.4:9000  http://127.0.0.1:9000 
+WebUI: http://172.19.0.4:9001 http://127.0.0.1:9001 
+
+Docs: https://docs.min.io
+panic:  invalid tableLog 194 (5 -> 11)
+
+goroutine 34339 [running]:
+github.com/klauspost/compress/zstd.(*Encoder).encodeAll(0xe1b6731f400, {0x4bcee68, 0xe1b680ce000}, {0xe1b676a6000, 0x17b, 0x10000}, {0xe1b676da000, 0x0, 0x10000})
+	github.com/klauspost/compress@v1.18.0/zstd/encoder.go:566 +0x5e5
+github.com/klauspost/compress/zstd.(*Encoder).nextBlock(0xe1b6731f400, 0x1)
+	github.com/klauspost/compress@v1.18.0/zstd/encoder.go:209 +0xf2
+github.com/klauspost/compress/zstd.(*Encoder).Close(0xe1b6731f400)
+	github.com/klauspost/compress@v1.18.0/zstd/encoder.go:435 +0x35
+github.com/minio/minio/cmd.(*dataUsageCache).serializeTo(0xe1b6754bcd0, {0x4b6cdc0, 0xe1b67420cf0})
+	github.com/minio/minio/cmd/data-usage-cache.go:1016 +0x13f
+github.com/minio/minio/cmd.(*dataUsageCache).save(0xe1b6754bcd0, {0x4baa390, 0xe1b673e1ae0}, {0x4b96e50, 0xe1b673e1d60}, {0xe1b6760e1c0, 0x3f})
+	github.com/minio/minio/cmd/data-usage-cache.go:962 +0x127
+github.com/minio/minio/cmd.erasureObjects.nsScanner.func2(0xe1b67420ca8?)
+	github.com/minio/minio/cmd/erasure.go:563 +0xa74
+created by github.com/minio/minio/cmd.erasureObjects.nsScanner in goroutine 34356
+	github.com/minio/minio/cmd/erasure.go:484 +0x8ea

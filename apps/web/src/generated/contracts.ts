@@ -122,6 +122,42 @@ export type Type7 =
 export type ValidFrom = string;
 export type ValidTo = string | null;
 export type Version2 = number;
+export type Evidence = 'declaration' | 'workflow_declaration' | 'contract_candidate' | 'contract_conflict';
+export type Id4 = string;
+export type Source1 = string;
+export type Target = string;
+export type Type8 =
+  | 'REQUIRES'
+  | 'PRODUCES'
+  | 'SUPPORTS'
+  | 'DEPENDS_ON'
+  | 'MAPS_TO'
+  | 'VALID_FOR'
+  | 'INCOMPATIBLE_WITH'
+  | 'DERIVED_FROM'
+  | 'CAN_FOLLOW';
+/**
+ * @maxItems 50000
+ */
+export type Edges = GraphEdge[];
+export type Id5 = string;
+export type Label = string;
+export type Type9 =
+  | 'Objective'
+  | 'Task'
+  | 'Model'
+  | 'Variable'
+  | 'DataType'
+  | 'EntityType'
+  | 'SceneType'
+  | 'Constraint'
+  | 'DataAsset'
+  | 'Scene'
+  | 'Workflow';
+/**
+ * @maxItems 10000
+ */
+export type Nodes = GraphNode[];
 export type AssessmentMethod = 'composite' | 'topsis';
 export type OriginalText = string;
 export type SeaLevelIncrementM = number | null;
@@ -137,7 +173,7 @@ export type Description2 = string;
 export type DisplayName = string;
 export type Enabled = boolean;
 export type ExecutionStatus = 'EXECUTABLE' | 'NOT_EXECUTABLE';
-export type Id4 = string;
+export type Id6 = string;
 export type Inputs = VariableSpec[];
 export type License1 = string;
 export type ModelType = 'STATISTICAL' | 'PROCESS' | 'MACHINE_LEARNING' | 'RASTER' | 'GIS' | 'HYBRID' | 'EXTERNAL';
@@ -168,17 +204,17 @@ export type SourceNode = string;
 export type SourceVariable = string;
 export type TargetNode = string;
 export type TargetVariable = string;
-export type Edges = WorkflowEdge[];
+export type Edges1 = WorkflowEdge[];
 export type MaxRetries = number;
 export type TimeoutSeconds = number;
-export type Id5 = string;
+export type Id7 = string;
 export type InputBindings = BindingPlan[];
 export type Name5 = string;
 /**
  * @minItems 1
  */
-export type Nodes = [WorkflowNode, ...WorkflowNode[]];
-export type Id6 = string;
+export type Nodes1 = [WorkflowNode, ...WorkflowNode[]];
+export type Id8 = string;
 export type Kind = 'data' | 'transform' | 'model' | 'validation' | 'output';
 export type ModelId = string;
 export type ModelVersion = number;
@@ -200,15 +236,15 @@ export type Rationale = string[];
 export type RequiredCapabilities = string[];
 export type StandardName1 = string;
 export type RequiredData = RequiredData1[];
-export type Edges1 = WorkflowEdge[];
-export type Nodes1 = WorkflowNode[];
+export type Edges2 = WorkflowEdge[];
+export type Nodes2 = WorkflowNode[];
 export type InterpretationRequiresReview = true;
 export type MissingConditions1 = string[];
 export type Origin = 'provider_candidate';
 /**
  * @maxItems 128
  */
-export type Edges2 = WorkflowEdge[];
+export type Edges3 = WorkflowEdge[];
 /**
  * @maxItems 128
  */
@@ -217,8 +253,8 @@ export type InputBindings1 = ProposedBinding[];
  * @minItems 1
  * @maxItems 32
  */
-export type Nodes2 = [ProposedNode, ...ProposedNode[]];
-export type Id7 = string;
+export type Nodes3 = [ProposedNode, ...ProposedNode[]];
+export type Id9 = string;
 export type Name6 = string;
 export type Value1 = number;
 export type Parameters2 = ProposedParameter[];
@@ -244,7 +280,7 @@ export type GeographicEntityVersion = number;
 export type ManagementUnitId1 = string | null;
 export type ResultObjectId = string;
 export type EntityBinding = EntityBinding1[];
-export type Id8 = string;
+export type Id10 = string;
 export type JobId = string;
 export type Provenance = string;
 export type QualityStatus = 'RAW' | 'VALIDATED' | 'REVIEWED' | 'PUBLISHED' | 'REJECTED';
@@ -262,7 +298,7 @@ export type Parameters3 = ParameterBinding[];
 export type RandomSeed = number;
 export type Constraints2 = ConstraintSpec[];
 export type EntityTypes = string[];
-export type Id9 = string;
+export type Id11 = string;
 export type ManagementGoal2 = string;
 export type Name7 = string;
 export type RequiredOutputs = string[];
@@ -275,6 +311,7 @@ export interface CoastMASContracts {
   DataAssetSpec: DataAssetSpec;
   ExecutionJob: ExecutionJob;
   GeographicEntity: GeographicEntity;
+  GraphSnapshot: GraphSnapshot;
   ManagementGoal: ManagementGoal;
   ModelSpec: ModelSpec;
   PlanningArtifact: PlanningArtifact;
@@ -399,6 +436,31 @@ export interface MultiPolygonGeometry {
 export interface Properties {
   [k: string]: JsonValue;
 }
+export interface GraphSnapshot {
+  edges: Edges;
+  nodes: Nodes;
+}
+export interface GraphEdge {
+  evidence: Evidence;
+  id: Id4;
+  properties?: Properties1;
+  source: Source1;
+  target: Target;
+  type: Type8;
+}
+export interface Properties1 {
+  [k: string]: JsonValue;
+}
+export interface GraphNode {
+  id: Id5;
+  label: Label;
+  properties?: Properties2;
+  resource?: VersionReference | null;
+  type: Type9;
+}
+export interface Properties2 {
+  [k: string]: JsonValue;
+}
 export interface ManagementGoal {
   assessment_method?: AssessmentMethod;
   original_text: OriginalText;
@@ -414,7 +476,7 @@ export interface ModelSpec {
   display_name: DisplayName;
   enabled?: Enabled;
   execution_status?: ExecutionStatus;
-  id: Id4;
+  id: Id6;
   inputs: Inputs;
   license: License1;
   model_type: ModelType;
@@ -474,12 +536,12 @@ export interface PlanningArtifact {
 }
 export interface WorkflowSpec {
   constraints: Constraints1;
-  edges: Edges;
+  edges: Edges1;
   execution_policy: ExecutionPolicy;
-  id: Id5;
+  id: Id7;
   input_bindings: InputBindings;
   name: Name5;
-  nodes: Nodes;
+  nodes: Nodes1;
   output_definition: OutputDefinition;
   parameter_bindings: ParameterBindings;
   scene_type: SceneType;
@@ -497,7 +559,7 @@ export interface ExecutionPolicy {
   timeout_seconds: TimeoutSeconds;
 }
 export interface WorkflowNode {
-  id: Id6;
+  id: Id8;
   kind?: Kind;
   model_id: ModelId;
   model_version: ModelVersion;
@@ -523,8 +585,8 @@ export interface RequiredData1 {
   target: BindingTarget;
 }
 export interface TaskGraph {
-  edges: Edges1;
-  nodes: Nodes1;
+  edges: Edges2;
+  nodes: Nodes2;
 }
 export interface ProviderPlanningArtifact {
   candidate_workflow: WorkflowSpec | null;
@@ -545,9 +607,9 @@ export interface ProviderProposal {
   task_graph: TaskGraph1;
 }
 export interface ProposedWorkflow {
-  edges: Edges2;
+  edges: Edges3;
   input_bindings: InputBindings1;
-  nodes: Nodes2;
+  nodes: Nodes3;
   output_definition: OutputDefinition1;
 }
 export interface ProposedBinding {
@@ -555,7 +617,7 @@ export interface ProposedBinding {
   target: BindingTarget;
 }
 export interface ProposedNode {
-  id: Id7;
+  id: Id9;
   model: VersionReference;
   parameters: Parameters2;
 }
@@ -567,7 +629,7 @@ export interface ResultManifest {
   checksum: Checksum1;
   created_at: CreatedAt1;
   entity_binding: EntityBinding;
-  id: Id8;
+  id: Id10;
   job_id: JobId;
   provenance: Provenance;
   quality_status: QualityStatus;
@@ -608,7 +670,7 @@ export interface SceneSpec {
   constraints: Constraints2;
   data_policy: DataPolicy;
   entity_types: EntityTypes;
-  id: Id9;
+  id: Id11;
   management_goal: ManagementGoal2;
   name: Name7;
   quality_requirements: QualityRequirements;

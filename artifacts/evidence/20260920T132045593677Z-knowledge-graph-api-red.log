@@ -1,0 +1,34 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_graph_reads_only_authorized_versions_and_excludes_runtime_configuration _
+
+authenticated = (<starlette.testclient.TestClient object at 0x11be39760>, 'K8jbgI4IzOeA-7RucO8KmomfJLK5NZqD3bYW62K2zY4', '0b3ff781-dc2a-4566-ad0c-97f6da7a63aa', '3bc48eb1-900e-4aab-b4dc-336b60e22d0e')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_9da7e8dd8282464da4a5e383fcbf315f)
+
+    def test_graph_reads_only_authorized_versions_and_excludes_runtime_configuration(authenticated, engine):
+        client, _, project, owner=authenticated
+        spec=model(id='graph-'+uuid4().hex,runtime_config={'authorization':'must-not-expose'})
+        data=asset(id='graph-data-'+uuid4().hex)
+        with Session(engine) as session,session.begin():
+            for kind,item in [('model',spec),('data',data)]:
+                create_resource(session,user_id=owner,project_id=project,kind=kind,identifier=item.id,name=item.name,spec=item.model_dump(mode='json'))
+        response=client.get('/api/v1/knowledge-graph',params={'project_id':project})
+>       assert response.status_code==200,response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"6e81690d-577c-4d26-a872-bacc1400c5b1"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_knowledge_graph_api.py:17: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_knowledge_graph_api.py::test_graph_reads_only_authorized_versions_and_excludes_runtime_configuration
+1 failed, 2 warnings in 2.43s

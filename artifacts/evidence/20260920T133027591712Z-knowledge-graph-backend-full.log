@@ -1,0 +1,4313 @@
+...EEE.....E.EEEEEEEEE...............................EEE...........EEEEE [ 26%]
+E....EEEEEEE............................................................ [ 53%]
+........................................................................ [ 80%]
+...................................................                      [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_registered_assessment_nodes_execute_real_stored_frames_as_dag[False] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aed070>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123aebb30>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-1870679087c44ffd9115a546aa34cfe2'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aed070>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_registered_assessment_nodes_execute_real_stored_frames_as_dag[True] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123bc7140>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123c75520>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-785366d72a624ebfbd94e8c8b777ff3b'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123bc7140>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123b10ef0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123b5cc80>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-3369649f8d6e45d49f2dda1fa968dd5a'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123b10ef0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_upload_reads_real_csv_and_validates_versioned_catalog _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122db40e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122dca330>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-5a31d50a832a49668db4588c4ee5be9d'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122db40e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+____ ERROR at setup of test_corrupt_upload_does_not_create_catalog_resource ____
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122a3b080>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122a6d880>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-d5af43e5bbcb4236a790d42c7363649c'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122a3b080>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_real_stored_geotiff_binding_converts_units_and_preserves_nodata _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aeebd0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123c7c350>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-727d08f6585741aca5ca5a5624968380'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aeebd0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_stored_geotiff_metadata_cannot_be_overridden_by_catalog _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122f41400>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x12301fb00>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-fa1c73502b7e4f6a9ca295e2be8ea194'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122f41400>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+________ ERROR at setup of test_resolver_refuses_arbitrary_remote_urls _________
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122953b00>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122cd8d10>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-123ed8a174e846fabc77d70610e15ba2'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122953b00>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_real_tabular_files_resolve_all_values_and_convert_units[CSV] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e1ce60>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122987500>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-0531c69fb09849d0915b0644033803a5'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e1ce60>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_real_tabular_files_resolve_all_values_and_convert_units[NetCDF] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122ec5f40>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123c74800>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-ffefd89564c649aca6062b732e929310'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122ec5f40>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_vector_geometry_container_is_bound_with_its_verified_crs _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123b5cec0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x1229841d0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-0a49102a206e484683ccfb00a829681d'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123b5cec0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+__ ERROR at setup of test_catalog_cannot_misstate_measured_raster_resolution ___
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123c3fe00>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123c3fa70>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-724c33de08bc4103bdb62c28e622b3c2'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123c3fe00>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_csv_container_keeps_unit_identifiers_and_declared_column_units _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e6f380>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122e679e0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-5610511196b84e76aa8117fbd1a29647'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e6f380>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_plan_parse_recommend_build_share_artifact_then_run_real_workflow _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x124689910>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x124689fa0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-976263ebde524c159b18b4f75f6b6a2f'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x124689910>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_unrecognized_goal_is_preserved_and_external_access_not_assumed _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x1244367e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x12447fb30>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-d474fd8e5e3f4a6cbefcc4dd6a0d6fe5'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x1244367e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_external_endpoints_use_one_trace_and_do_not_export_source_uris _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122d90b30>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x12449e120>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-2cbf448217fa45b9b1409ba245367961'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122d90b30>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+___ ERROR at setup of test_run_api_builds_manifest_and_publishes_real_result ___
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x10b69ff20>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123bc7f80>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-ad301818b2be48deb2201b9494cd8ff9'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x10b69ff20>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122dc8ad0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122cda9f0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-9c3bccab071743609860e6d10f6099b8'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122dc8ad0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_run_api_does_not_accept_caller_manifest_or_unknown_runtime _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aa7920>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122cd93a0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-06ff1e4c58a04130a9374cb31d7f11c2'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122aa7920>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_concurrent_api_submissions_share_one_persisted_manifest _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122cdbb60>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122aa6420>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-bba6eacc6981409987960262ff122dbb'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122cdbb60>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+__ ERROR at setup of test_result_download_checks_bytes_and_current_permission __
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122bac050>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122baea20>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-fe7d798eb41840c8be09e81bff7983c9'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122bac050>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_seed_is_repeatable_preserves_user_state_and_three_scenes_run _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122a3a4e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x1246b10d0>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-7ebe1ce1b7804fff8b38825c4b794721'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122a3a4e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_real_object_store_is_immutable_and_checksum_verified __
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122f68ef0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x12441ba70>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-01fa5d467ac94b3ea3f338e36fbb0340'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122f68ef0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+__________ ERROR at setup of test_object_keys_cannot_escape_namespace __________
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122985190>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122c6bb90>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-bac01af1d96d43b69c980c71bc59407a'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122985190>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_real_redis_worker_to_postgres_and_minio_publishes_once _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122df83e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122d3a000>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-5ad483ab242e410eb55ea9ac26566952'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122df83e0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_running_worker_stops_on_cancel_or_permission_revocation[cancel] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122d37140>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122b85b20>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-683647053c0a47568671c9bf5cee74fd'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122d37140>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_running_worker_stops_on_cancel_or_permission_revocation[revoke] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122bdcfb0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122d39880>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-fa646a42aa82458c9c3291aa779a8d08'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122bdcfb0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_manifest_rechecks_cached_resource_lifecycle[enabled-False] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e910a0>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x122f8b950>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-30209201128b4084882a1c95ae216c0c'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x122e910a0>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+_ ERROR at setup of test_manifest_rechecks_cached_resource_lifecycle[archived-True] _
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123a87b30>
+
+    def ensure_bucket(self) -> None:
+        try:
+>           self.client.head_bucket(Bucket=self.bucket)
+
+src/coastmas/adapters/storage.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/botocore/client.py:606: in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/botocore/context.py:123: in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <botocore.client.S3 object at 0x123fa3e90>, operation_name = 'HeadBucket'
+api_params = {'Bucket': 'coastmas-test-a6aa256414c542c6a9d1ef9b77fcd80d'}
+
+    @with_current_context()
+    def _make_api_call(self, operation_name, api_params):
+        operation_model = self._service_model.operation_model(operation_name)
+        service_name = self._service_model.service_name
+        history_recorder.record(
+            'API_CALL',
+            {
+                'service': service_name,
+                'operation': operation_name,
+                'params': api_params,
+            },
+        )
+        if operation_model.deprecated:
+            logger.debug(
+                'Warning: %s.%s() is deprecated', service_name, operation_name
+            )
+        # If the operation has the `auth` property and the client has a
+        # configured auth scheme preference, use both to compute the
+        # auth type. Otherwise, fallback to auth/auth_type resolution.
+        if operation_model.auth and self.meta.config.auth_scheme_preference:
+            preferred_schemes = self.meta.config.auth_scheme_preference.split(
+                ','
+            )
+            auth_type = resolve_auth_scheme_preference(
+                preferred_schemes, operation_model.auth
+            )
+        else:
+            auth_type = operation_model.resolved_auth_type
+        request_context = {
+            'client_region': self.meta.region_name,
+            'client_config': self.meta.config,
+            'has_streaming_input': operation_model.has_streaming_input,
+            'auth_type': auth_type,
+            'unsigned_payload': operation_model.unsigned_payload,
+            'auth_options': self._service_model.metadata.get('auth'),
+        }
+    
+        api_params = self._emit_api_params(
+            api_params=api_params,
+            operation_model=operation_model,
+            context=request_context,
+        )
+        (
+            endpoint_url,
+            additional_headers,
+            properties,
+        ) = self._resolve_endpoint_ruleset(
+            operation_model, api_params, request_context
+        )
+        if properties:
+            # Pass arbitrary endpoint info with the Request
+            # for use during construction.
+            request_context['endpoint_properties'] = properties
+        request_dict = self._convert_to_request_dict(
+            api_params=api_params,
+            operation_model=operation_model,
+            endpoint_url=endpoint_url,
+            context=request_context,
+            headers=additional_headers,
+        )
+        resolve_checksum_context(request_dict, operation_model, api_params)
+    
+        service_id = self._service_model.service_id.hyphenize()
+        handler, event_response = self.meta.events.emit_until_response(
+            f'before-call.{service_id}.{operation_name}',
+            model=operation_model,
+            params=request_dict,
+            request_signer=self._request_signer,
+            context=request_context,
+        )
+    
+        if event_response is not None:
+            http, parsed_response = event_response
+        else:
+            maybe_compress_request(
+                self.meta.config, request_dict, operation_model
+            )
+            apply_request_checksum(request_dict)
+            http, parsed_response = self._make_request(
+                operation_model, request_dict, request_context
+            )
+    
+        self.meta.events.emit(
+            f'after-call.{service_id}.{operation_name}',
+            http_response=http,
+            parsed=parsed_response,
+            model=operation_model,
+            context=request_context,
+        )
+    
+        if http.status_code >= 300:
+            error_info = parsed_response.get("Error", {})
+            error_code = request_context.get(
+                'error_code_override'
+            ) or error_info.get("Code")
+            error_class = self.exceptions.from_code(error_code)
+>           raise error_class(parsed_response, operation_name)
+E           botocore.exceptions.ClientError: An error occurred (502) when calling the HeadBucket operation (reached max retries: 0): Bad Gateway
+
+.venv/lib/python3.12/site-packages/botocore/client.py:1094: ClientError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture
+    def storage():
+        settings = local_storage_settings()
+        bucket = "coastmas-test-" + uuid4().hex
+        store = S3ArtifactStore(settings, bucket=bucket)
+>       store.ensure_bucket()
+
+tests/integration/conftest.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.storage.S3ArtifactStore object at 0x123a87b30>
+
+    def ensure_bucket(self) -> None:
+        try:
+            self.client.head_bucket(Bucket=self.bucket)
+        except ClientError as exc:
+            if str(exc.response.get("Error", {}).get("Code")) not in {"404", "NoSuchBucket"}:
+>               raise CoastMASError(
+                    "STORAGE_ERROR", "object storage bucket is unavailable"
+                ) from exc
+E               coastmas.core.errors.CoastMASError: object storage bucket is unavailable
+
+src/coastmas/adapters/storage.py:92: CoastMASError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Coverage JSON written to file artifacts/coverage.json
+=========================== short test summary info ============================
+ERROR tests/integration/test_builtin_assessment.py::test_registered_assessment_nodes_execute_real_stored_frames_as_dag[False]
+ERROR tests/integration/test_builtin_assessment.py::test_registered_assessment_nodes_execute_real_stored_frames_as_dag[True]
+ERROR tests/integration/test_builtin_coastal.py::test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv
+ERROR tests/integration/test_data_api.py::test_upload_reads_real_csv_and_validates_versioned_catalog
+ERROR tests/integration/test_data_api.py::test_corrupt_upload_does_not_create_catalog_resource
+ERROR tests/integration/test_datasource.py::test_real_stored_geotiff_binding_converts_units_and_preserves_nodata
+ERROR tests/integration/test_datasource.py::test_stored_geotiff_metadata_cannot_be_overridden_by_catalog
+ERROR tests/integration/test_datasource.py::test_resolver_refuses_arbitrary_remote_urls
+ERROR tests/integration/test_datasource.py::test_real_tabular_files_resolve_all_values_and_convert_units[CSV]
+ERROR tests/integration/test_datasource.py::test_real_tabular_files_resolve_all_values_and_convert_units[NetCDF]
+ERROR tests/integration/test_datasource.py::test_vector_geometry_container_is_bound_with_its_verified_crs
+ERROR tests/integration/test_datasource.py::test_catalog_cannot_misstate_measured_raster_resolution
+ERROR tests/integration/test_datasource.py::test_csv_container_keeps_unit_identifiers_and_declared_column_units
+ERROR tests/integration/test_planning_api.py::test_plan_parse_recommend_build_share_artifact_then_run_real_workflow
+ERROR tests/integration/test_planning_api.py::test_unrecognized_goal_is_preserved_and_external_access_not_assumed
+ERROR tests/integration/test_planning_api.py::test_external_endpoints_use_one_trace_and_do_not_export_source_uris
+ERROR tests/integration/test_run_api.py::test_run_api_builds_manifest_and_publishes_real_result
+ERROR tests/integration/test_run_api.py::test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry
+ERROR tests/integration/test_run_api.py::test_run_api_does_not_accept_caller_manifest_or_unknown_runtime
+ERROR tests/integration/test_run_api.py::test_concurrent_api_submissions_share_one_persisted_manifest
+ERROR tests/integration/test_run_api.py::test_result_download_checks_bytes_and_current_permission
+ERROR tests/integration/test_sample_bootstrap.py::test_seed_is_repeatable_preserves_user_state_and_three_scenes_run
+ERROR tests/integration/test_storage.py::test_real_object_store_is_immutable_and_checksum_verified
+ERROR tests/integration/test_storage.py::test_object_keys_cannot_escape_namespace
+ERROR tests/integration/test_worker.py::test_real_redis_worker_to_postgres_and_minio_publishes_once
+ERROR tests/integration/test_worker.py::test_running_worker_stops_on_cancel_or_permission_revocation[cancel]
+ERROR tests/integration/test_worker.py::test_running_worker_stops_on_cancel_or_permission_revocation[revoke]
+ERROR tests/integration/test_worker.py::test_manifest_rechecks_cached_resource_lifecycle[enabled-False]
+ERROR tests/integration/test_worker.py::test_manifest_rechecks_cached_resource_lifecycle[archived-True]
+238 passed, 2 warnings, 29 errors in 76.29s (0:01:16)

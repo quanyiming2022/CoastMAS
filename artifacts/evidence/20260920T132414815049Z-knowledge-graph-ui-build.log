@@ -1,0 +1,38 @@
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1023 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.51 kB │ gzip:   0.36 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js    508.48 kB
+dist/assets/index-CEWml69F.css                  8.29 kB │ gzip:   2.67 kB
+dist/assets/style-DLioOiRN.css                 15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                82.86 kB │ gzip:  10.71 kB
+dist/assets/result-data-Nr2BoTlq.js             1.11 kB │ gzip:   0.51 kB
+dist/assets/WorkflowGraph-xjPhDqCQ.js           2.15 kB │ gzip:   1.09 kB
+dist/assets/GeoMap-COGwnRiu.js                  2.37 kB │ gzip:   1.30 kB
+dist/assets/Dashboard-BMelffhb.js               2.40 kB │ gzip:   1.25 kB
+dist/assets/Runs-B_yTvlK4.js                    3.51 kB │ gzip:   1.51 kB
+dist/assets/Workflow-CRNS6nZX.js                3.51 kB │ gzip:   1.75 kB
+dist/assets/Catalog-D6Ez-6bZ.js                 4.47 kB │ gzip:   1.99 kB
+dist/assets/Results-qofkM-1-.js                 5.41 kB │ gzip:   2.00 kB
+dist/assets/KnowledgeGraph-DGJbFqc4.js          5.95 kB │ gzip:   2.73 kB
+dist/assets/Entities-Bbb5y0Lq.js                6.97 kB │ gzip:   2.97 kB
+dist/assets/Planner-BWnYMgem.js                 8.25 kB │ gzip:   3.54 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js             9.08 kB │ gzip:   3.46 kB
+dist/assets/contracts-BIEZKCY3.js             176.28 kB │ gzip:  46.56 kB
+dist/assets/style-BXi2kEpJ.js                 177.68 kB │ gzip:  57.29 kB
+dist/assets/index-DASzDB0K.js                 391.08 kB │ gzip: 119.96 kB
+dist/assets/CoastalStatistics-DUmXmHoH.js     543.54 kB │ gzip: 185.03 kB
+dist/assets/maplibre-gl-558Sartg.js         1,018.90 kB │ gzip: 274.91 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 273ms

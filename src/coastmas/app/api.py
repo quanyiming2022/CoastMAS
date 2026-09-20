@@ -18,6 +18,7 @@ from coastmas.adapters.storage import S3ArtifactStore
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.geography_routes import router as geography_router
+from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
@@ -305,6 +306,7 @@ def create_app(
 
     app.state.artifact_store = artifact_store
     app.state.registry = registry if registry is not None else ExecutionRegistry()
+    app.include_router(knowledge_graph_router)
     app.include_router(geography_router)
     app.include_router(data_router)
     app.include_router(model_router)

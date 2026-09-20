@@ -20,6 +20,7 @@ import type { CatalogKind } from "./Catalog";
 const CatalogDetail = lazy(() =>
   import("./Catalog").then((module) => ({ default: module.CatalogDetail })),
 );
+const KnowledgeGraph = lazy(() => import("./KnowledgeGraph"));
 const Entities = lazy(() => import("./Entities"));
 const Planner = lazy(() => import("./Planner"));
 const Runs = lazy(() => import("./Runs"));
@@ -36,6 +37,7 @@ const Catalog = lazy(() => import("./Catalog"));
 const navigation = [
   ["/dashboard", "项目概览"],
   ["/models", "模型中心"],
+  ["/knowledge-graph", "知识图谱"],
   ["/planner", "智能规划"],
   ["/workflows", "工作流"],
   ["/scenes", "场景空间"],
@@ -136,6 +138,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Navigate replace to="/dashboard" />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
               <Route path="/entities" element={<Entities />} />
               <Route path="/planner" element={<Planner />} />
               <Route path="/runs" element={<Runs />} />

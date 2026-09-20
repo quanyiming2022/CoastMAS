@@ -1,0 +1,35 @@
+
+> coastmas-web@0.1.0 test
+> vitest run --run src/Entities.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/Entities.test.tsx (1 test | 1 failed) 133ms
+   × does not reset the user's historical selection when a delayed map refresh completes 133ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/Entities.test.tsx > does not reset the user's historical selection when a delayed map refresh completes
+Error: expect(element).toHaveValue(1)
+
+Expected the element to have value:
+  1
+Received:
+  null
+ ❯ src/Entities.test.tsx:113:41
+    111|   });
+    112|   await waitFor(() => expect(client.isMutating()).toBe(0));
+    113|   expect(screen.getByLabelText("读取版本")).toHaveValue(1);
+       |                                         ^
+    114|   expect(screen.getByLabelText("实体名称")).toHaveValue("Original");
+    115| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  21:35:35
+   Duration  830ms (environment 48%, import 20%, tests 17%, transform 8%, setup 6%)
+

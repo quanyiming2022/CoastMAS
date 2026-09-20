@@ -1,0 +1,31 @@
+{
+  "name": "knowledge-graph-focus-build",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "build"
+  ],
+  "started_at": "2026-09-20T13:29:46.321728+00:00",
+  "finished_at": "2026-09-20T13:29:50.170866+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "cd93dae2c8f0e4427264055a4311eba365e7b238d1fdde4da30719d0aee69f1b",
+  "git_commit": "d0d2d49d76a5ffd68bb81e8be9a45591c7c12741",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T132946321728Z-knowledge-graph-focus-build.log"
+}

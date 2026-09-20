@@ -49,3 +49,6 @@
 - 新增 GeographicEntity：八类实体、严格几何/CRS/时间/身份校验；PostGIS 不可变派生空间版本与资源同事务写入，分页空间/时间/历史查询。页面支持导入、修订、历史读取与点线面地图；真实浏览器证据 20260920T130926122354Z-geography-browser 通过。详见 geographic-entities.md；完整场景工作台仍未完成。API 当前日志 api-geography.log。
 
 - 实体增量统一回归：20260920T131213156037Z-geography-backend-full，262 passed、2 warnings；20260920T131222098930Z-geography-ui-all-browser，4 passed。Python lint/format、类型、契约漂移、生产构建均通过。当前覆盖行 5128/5837，分支 1363/1944；最终覆盖门槛仍未通过。下一项：知识图谱及完整场景关系。
+
+- 知识图谱增量：PostgreSQL 契约版本投影＋NetworkX 3.6.1（BSD-3-Clause），九类关系、来源版本、权限/预算限制、交互邻域/关系筛选/证据分页已实现。契约候选不等于科学预检通过，运行配置与存储 URI 不进入图响应。真实浏览器 20260920T132950224396Z-knowledge-graph-focus-browser 通过；完整回归进行中。当前 API 日志 api-knowledge-graph.log。
+- 最新完整回归未通过：20260920T133027591712Z-knowledge-graph-backend-full（238 passed / 29 errors）及 20260920T133035539580Z-knowledge-graph-all-browser（2 passed / 3 failed）。MinIO 第二次 panic 已停止服务、私有只读备份；原生 ARM 官方安全版源码编译进行中，尚未切换对象卷。实体历史选择竞态已用受控延迟红绿测试修复，14项组件及实体/图谱两条浏览器复测通过。当前对象存储故障不能计为验收通过。详情 environment-blockers.md。

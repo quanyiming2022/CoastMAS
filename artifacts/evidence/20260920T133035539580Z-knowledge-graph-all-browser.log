@@ -1,0 +1,129 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 5 tests using 1 worker
+
+(node:7950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+  1) e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry ───
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected substring: "VERSION_CONFLICT"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      86 |   );
+      87 |   await page.getByRole("button", { name: "保存实体版本", exact: true }).click();
+    > 88 |   await expect(page.getByRole("alert")).toContainText("VERSION_CONFLICT");
+         |                                         ^
+      89 |   await page.reload();
+      90 |   await expect(
+      91 |     page.getByRole("button", { name: `${name} 修订 · v2`, exact: true }),
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/entities.spec.ts:88:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:7979) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/5] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  2) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    TimeoutError: locator.click: Timeout 90000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: '查看不可变结果' })
+
+
+      69 |   await page
+      70 |     .getByRole("link", { name: "查看不可变结果" })
+    > 71 |     .click({ timeout: 90000 });
+         |      ^
+      72 |   await expect(
+      73 |     page.getByRole("heading", { name: "结果与科研追溯" }),
+      74 |   ).toBeVisible();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:71:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:8132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/5] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[4/5] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[5/5] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  3) e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout ────────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 503
+
+      29 |   ).not.toHaveValue("");
+      30 |   const readiness = await page.request.get("/health/ready");
+    > 31 |   expect(readiness.status()).toBe(200);
+         |                              ^
+      32 |   expect((await readiness.json()).dependencies.object_storage).toBe("ready");
+      33 |   await page
+      34 |     .getByRole("navigation")
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/workspace.spec.ts:31:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  3 failed
+    e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry ────
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+    e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout ─────────────────
+  2 passed (1.7m)

@@ -659,3 +659,18 @@ summary:focus-visible {
 .entity-form button {
   justify-self: start;
 }
+
+.graph-toolbar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.graph-toolbar label {
+  display: grid;
+  gap: 8px;
+  max-width: 100%;
+}
+.graph-toolbar select {
+  max-width: 420px;
+}
