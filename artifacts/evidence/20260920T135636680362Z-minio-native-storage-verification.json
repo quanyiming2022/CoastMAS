@@ -1,0 +1,31 @@
+{
+  "name": "minio-native-storage-verification",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-u",
+    "scripts/verify_storage_copy.py",
+    "--seconds",
+    "120"
+  ],
+  "started_at": "2026-09-20T13:56:36.680362+00:00",
+  "finished_at": "2026-09-20T13:56:38.768877+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "2ea674d0abe70a214ae15d64ae6d9e091aea67307a8033331643db4e73b00a33",
+  "git_commit": "cbcef3dd0d436de037bada7d8db18ffc2cd009f1",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T135636680362Z-minio-native-storage-verification.log"
+}

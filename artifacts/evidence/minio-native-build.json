@@ -1,0 +1,15 @@
+{
+  "source_commit": "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+  "source_archive_sha256": "45521908307306e925c98d629e1c17d78c8b72b6ee242b1bfb1409f7d8ee5841",
+  "go_version": "go1.26.8",
+  "go_archive_sha256": "a012b25b571bd0138a03dcd25375ceba866fe5ca822f426d2c66a4de56fd3f4b",
+  "target": "linux/arm64",
+  "module_verification": "go.sum and signed sum.golang.org; no checksum bypass",
+  "files": {
+    "LICENSE": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "health": "7d8b353aeb81b3129a360d4fa83dd8d2e2abd02d9f1d46cfe238cb1d8835f73e",
+    "source.tar.gz": "45521908307306e925c98d629e1c17d78c8b72b6ee242b1bfb1409f7d8ee5841",
+    "minio": "6b3b2e501e04c41960a170c6c1f37d75e71af87a5b424713f64cc72b5bb7f99f",
+    "ca-certificates.crt": "9cc2a774b5198dcff14d9be1e66091f538975d867ce029a96bce15a55dfd730f"
+  }
+}

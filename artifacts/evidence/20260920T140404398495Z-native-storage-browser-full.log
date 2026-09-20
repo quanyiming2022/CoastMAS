@@ -1,0 +1,17 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 5 tests using 1 worker
+
+(node:13972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[2/5] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[3/5] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[4/5] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[5/5] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  5 passed (16.6s)

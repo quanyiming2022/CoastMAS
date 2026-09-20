@@ -52,3 +52,5 @@
 
 - 知识图谱增量：PostgreSQL 契约版本投影＋NetworkX 3.6.1（BSD-3-Clause），九类关系、来源版本、权限/预算限制、交互邻域/关系筛选/证据分页已实现。契约候选不等于科学预检通过，运行配置与存储 URI 不进入图响应。真实浏览器 20260920T132950224396Z-knowledge-graph-focus-browser 通过；完整回归进行中。当前 API 日志 api-knowledge-graph.log。
 - 最新完整回归未通过：20260920T133027591712Z-knowledge-graph-backend-full（238 passed / 29 errors）及 20260920T133035539580Z-knowledge-graph-all-browser（2 passed / 3 failed）。MinIO 第二次 panic 已停止服务、私有只读备份；原生 ARM 官方安全版源码编译进行中，尚未切换对象卷。实体历史选择竞态已用受控延迟红绿测试修复，14项组件及实体/图谱两条浏览器复测通过。当前对象存储故障不能计为验收通过。详情 environment-blockers.md。
+
+- 原生存储恢复检查点：正式 MinIO 已切到固定镜像 sha256:072e3ef119f19b6ebee3cb0129309f0ed50ff9988fae2b43ada4a68687334fb2 和独立 coastmas_objects_native 卷；旧卷及私有备份保留。重建二进制摘要一致；11资产版本/7旧结果完整读取、120秒并发200写3168读通过。恢复后 20260920T140404835174Z-native-storage-backend-full 与 20260920T140404398495Z-native-storage-browser-full 全部通过；详细数量见日志。当前覆盖 5297/6015 行、1431/2020 分支，最终分支门槛仍未通过。下一项：可编辑 Workflow Studio 与场景工作台；完整部署/全范围仍未完成。

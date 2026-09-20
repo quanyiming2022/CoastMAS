@@ -1,0 +1,71 @@
+Traceback (most recent call last):
+  File "/Users/quanyiming/Projects/CoastMAS/scripts/verify_storage_copy.py", line 132, in <module>
+    main()
+  File "/Users/quanyiming/Projects/CoastMAS/scripts/verify_storage_copy.py", line 36, in main
+    for revision in session.scalars(
+                    ^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2481, in scalars
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1635, in _execute_clauseelement
+    compiled_sql, extracted_params, cache_hit = elem._compile_w_cache(
+                                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 715, in _compile_w_cache
+    compiled_sql = self._compiler(
+                   ^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 323, in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/compiler.py", line 1462, in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/compiler.py", line 902, in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/compiler.py", line 948, in process
+    return obj._compiler_dispatch(self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/visitors.py", line 138, in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+           ^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/compiler.py", line 4834, in visit_select
+    compile_state = select_stmt._compile_state_factory(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/base.py", line 774, in create_for_statement
+    return klass.create_for_statement(statement, compiler, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 447, in create_for_statement
+    return cls._create_orm_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 1246, in _create_orm_context
+    self._setup_for_generate()
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 1281, in _setup_for_generate
+    self._join(query._setup_joins, self._entities)
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 1922, in _join
+    self._join_left_to_right(
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 2021, in _join_left_to_right
+    _ORMJoin(
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/orm/util.py", line 1957, in __init__
+    expression.Join.__init__(self, left, right, onclause, isouter, full)
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1306, in __init__
+    self.onclause = self._match_primaries(self.left, self.right)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1417, in _match_primaries
+    return self._join_condition(left, right, a_subset=left_right)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1440, in _join_condition
+    cls._joincond_trim_constraints(
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/sqlalchemy/sql/selectable.py", line 1585, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'resource_versions' and 'resources'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.

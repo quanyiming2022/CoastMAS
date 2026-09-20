@@ -1,7 +1,7 @@
 name: coastmas
 services:
   database:
-    image: postgis/postgis:16-3.4
+    image: postgis/postgis@sha256:44126d872ac91993766c341e369c539e8196614321765d36a6f1bab0419a5fa5
     platform: linux/amd64
     environment:
       POSTGRES_USER: coastmas
@@ -15,7 +15,7 @@ services:
       timeout: 3s
       retries: 20
   redis:
-    image: redis:7.4.2-alpine
+    image: redis@sha256:02419de7eddf55aa5bcf49efb74e88fa8d931b4d77c07eff8a6b2144472b6952
     ports: ["127.0.0.1:56379:6379"]
     command: ["redis-server", "--appendonly", "yes"]
     volumes: ["coastmas_redis:/data"]
@@ -25,20 +25,23 @@ services:
       timeout: 3s
       retries: 20
   object-storage:
-    platform: linux/amd64
-    image: quay.io/minio/minio@sha256:cf3dadcfa1fb0324f43958bad1abba986d53c4ecc04d4d50b46c7dcda28bd3cd
+    platform: linux/arm64
+    image: sha256:072e3ef119f19b6ebee3cb0129309f0ed50ff9988fae2b43ada4a68687334fb2
+    pull_policy: never
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Set object storage user}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Set object storage password}
     command: ["server", "/data", "--console-address", ":9001"]
     ports: ["127.0.0.1:59000:9000", "127.0.0.1:59001:9001"]
-    volumes: ["coastmas_objects:/data"]
+    volumes: ["coastmas_objects_native:/data"]
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "/usr/bin/health"]
       interval: 5s
       timeout: 3s
       retries: 20
 volumes:
   coastmas_database:
   coastmas_redis:
-  coastmas_objects:
+  coastmas_objects_native:
+    external: true
+    name: coastmas_objects_native

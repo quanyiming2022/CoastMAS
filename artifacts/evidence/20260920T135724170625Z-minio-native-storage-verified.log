@@ -1,0 +1,2 @@
+{"verified_asset_versions": 11, "verified_results": 7, "verified_bytes": 187363}
+{"status": "PASS", "elapsed_seconds": 120.197, "concurrency": 8, "verified_writes": 200, "verified_reads": 3168, "owned_test_bucket_removed": true}

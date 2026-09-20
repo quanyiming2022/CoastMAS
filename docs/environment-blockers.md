@@ -23,3 +23,5 @@
 对象卷保持停止，已再次只读私有备份（`minio-before-native-source-backup.json`，67616 bytes，SHA256 7e92f6082bdd8ea55ef9fcfd788b1bb0b9f6777ce4ee93afbca60cd3c05c0a40）。官方热修复 ARM64 下载路径返回 410；Docker Hub 的 Go 镜像访问超时，未无限重试。官方 codeload 源码和 Go 工具链下载可达，正在准备固定官方安全版源码的原生 ARM 构建及隔离卷验证，尚未切换或宣称恢复。
 
 同轮实体浏览器失败另有独立前端原因：保存 mutation 等待地图刷新后才重置选中版本，覆盖用户在等待期间选中的历史版本。可控延迟测试 `20260920T133534251873Z-entity-selection-race-red` 已复现；修复把已提交版本选择置于背景刷新之前，全部14项组件测试 `20260920T133636364262Z-entity-selection-race-fixed` 通过。没有放宽版本冲突断言。
+
+原生恢复进展：固定官方安全源码＋Go 1.26.8 的 Linux/ARM64 静态镜像已构建，通过全部已存 11 个资产版本/7 个结果校验及 120 秒并发读写。正式服务切到独立副本卷，`/health/ready` 三项恢复 ready；原卷保留。详细构建、源码、二进制/镜像摘要、备份与回滚边界见 `object-storage-recovery.md`。当前完整回归重跑中，尚未将本轮全范围验收计为通过。

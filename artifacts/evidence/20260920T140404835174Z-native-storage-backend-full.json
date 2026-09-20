@@ -1,0 +1,33 @@
+{
+  "name": "native-storage-backend-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--cov=coastmas",
+    "--cov-branch",
+    "--cov-report=json:artifacts/coverage.json"
+  ],
+  "started_at": "2026-09-20T14:04:04.835174+00:00",
+  "finished_at": "2026-09-20T14:06:41.821473+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "61f77272dc1852879428b3c832bed800be87697a5e67451b42c761d919547e7a",
+  "git_commit": "cbcef3dd0d436de037bada7d8db18ffc2cd009f1",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T140404835174Z-native-storage-backend-full.log"
+}
