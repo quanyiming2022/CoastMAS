@@ -1,11 +1,33 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "coastmas"
 version = "0.1.0"
 requires-python = ">=3.12"
+dependencies = [
+    "affine==3.0.1",
+    "alembic==1.20.0",
+    "argon2-cffi==25.1.0",
+    "boto3==1.43.98",
+    "celery==5.6.3",
+    "cloudpickle==3.1.2",
+    "fastapi==0.141.1",
+    "joblib==1.6.0",
+    "numpy==2.5.3",
+    "pint==0.26.1",
+    "psycopg==3.3.6",
+    "pydantic==2.13.5",
+    "pyproj==3.8.0",
+    "rasterio==1.5.1",
+    "redis==8.1.0",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "shapely==2.1.2",
+    "SQLAlchemy==2.0.54",
+    "uvicorn==0.53.0"
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -24,3 +46,10 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+patch = ["subprocess"]
+sigterm = true
+source = ["coastmas"]

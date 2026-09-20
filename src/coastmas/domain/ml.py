@@ -113,10 +113,29 @@ class TrustedModelStore:
         self.key = signing_key
         self.root.mkdir(parents=True, exist_ok=True)
 
-    def save(self, trained: TrainedForest) -> str:
+    def save(self, trained: TrainedForest, *, feature_names: tuple[str, ...] | None = None) -> str:
         identifier = uuid4().hex
         buffer = io.BytesIO()
-        joblib.dump(trained.estimator, buffer, compress=3)
+        names = feature_names or tuple(
+            f"feature_{index}" for index in range(trained.feature_importance.size)
+        )
+        if (
+            len(names) != trained.feature_importance.size
+            or len(set(names)) != len(names)
+            or not all(names)
+        ):
+            raise ConstraintError("feature names must uniquely match the trained feature columns")
+        bundle = {
+            "format": "coastmas-forest-v1",
+            "estimator": trained.estimator,
+            "feature_names": names,
+            "seed": trained.seed,
+            "task": trained.task,
+            "training_groups": trained.training_groups,
+            "validation_groups": trained.validation_groups,
+            "metrics": trained.metrics,
+        }
+        joblib.dump(bundle, buffer, compress=3)
         payload = buffer.getvalue()
         if len(payload) > 128 * 1024 * 1024:
             raise ConstraintError("model artifact exceeds 128 MiB budget")
@@ -135,7 +154,9 @@ class TrustedModelStore:
             raise
         return identifier
 
-    def load(self, identifier: str) -> ForestEstimator:
+    def load(
+        self, identifier: str, *, feature_names: tuple[str, ...] | None = None
+    ) -> ForestEstimator:
         if re.fullmatch(r"[a-f0-9]{32}", identifier) is None:
             raise ConstraintError("invalid trusted model identifier")
         artifact = self.root / (identifier + ".joblib")
@@ -151,7 +172,14 @@ class TrustedModelStore:
         if not hmac.compare_digest(expected, signature_file.read_text()):
             raise ConstraintError("model signature mismatch; refusing deserialization")
         # The authenticated bytes, not a re-opened filename, are deserialized (no TOCTOU swap).
-        estimator = joblib.load(io.BytesIO(payload))
+        bundle = joblib.load(io.BytesIO(payload))
+        if not isinstance(bundle, dict) or bundle.get("format") != "coastmas-forest-v1":
+            raise ConstraintError("authenticated model bundle format is unsupported")
+        if feature_names is not None and bundle.get("feature_names") != feature_names:
+            raise ConstraintError(
+                "prediction feature names or order differ from the trained schema"
+            )
+        estimator = bundle.get("estimator")
         if not isinstance(estimator, (RandomForestClassifier, RandomForestRegressor)):
             raise ConstraintError("authenticated artifact is not a supported forest")
         return cast(ForestEstimator, estimator)

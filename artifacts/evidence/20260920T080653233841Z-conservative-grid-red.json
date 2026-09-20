@@ -1,0 +1,31 @@
+{
+  "name": "conservative-grid-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_geofiles.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T08:06:53.233841+00:00",
+  "finished_at": "2026-09-20T08:06:53.963754+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "dc14996279ae37a53c6b7da2c75e6105930d3d8d7256f95cb89944d3b5c61288",
+  "git_commit": "116c344719198f2af05d39c9fa856873955c134e",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T080653233841Z-conservative-grid-red.log"
+}

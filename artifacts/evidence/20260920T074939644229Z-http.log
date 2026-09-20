@@ -1,0 +1,112 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_real_registered_http_model_executes_and_cleans_up ____________
+
+endpoint = 'http://127.0.0.1:62290'
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-77/test_real_registered_http_mode0')
+
+    def test_real_registered_http_model_executes_and_cleans_up(endpoint, tmp_path):
+        adapter = HTTPAdapter({"remote": RemoteEndpoint(endpoint + "/model", allow_private=True)})
+>       result = adapter.run(RunRequest("remote", {"value": 41}, {}, tmp_path, 5))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_http_adapter.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/runtime.py:206: in run
+    output, exit_code, elapsed = self.execute(request, directory)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/adapters/http.py:144: in execute
+    return super().execute(request, directory)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.http.HTTPAdapter object at 0x10af94e60>
+request = RunRequest(handler='remote', inputs={'value': 41}, parameters={}, work_root=PosixPath('/private/var/folders/28/dvzgw6t...nyiming/pytest-77/test_real_registered_http_mode0'), timeout_seconds=5, cancel=<threading.Event at 0x10af94ec0: unset>)
+directory = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-77/test_real_registered_http_mode0/coastmas-job-f6i61vzj')
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        arguments = self.arguments(request, directory)
+        environment = {
+            "PATH": os.defpath,
+            "LANG": "C.UTF-8",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPATH": str(Path(__file__).resolve().parents[2]),
+        }
+        started = time.monotonic()
+        process = subprocess.Popen(
+            arguments,
+            cwd=directory,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+            shell=False,
+        )
+        output = bytearray()
+        total = 0
+        try:
+            with selectors.DefaultSelector() as selector:
+                if process.stdout is None or process.stderr is None:
+                    raise CoastMASError("EXECUTION_ERROR", "process output channels unavailable")
+                selector.register(process.stdout, selectors.EVENT_READ, "stdout")
+                selector.register(process.stderr, selectors.EVENT_READ, "stderr")
+                while selector.get_map():
+                    if request.cancel.is_set():
+                        raise CoastMASError("CANCELLED", "execution cancelled")
+                    if time.monotonic() - started > request.timeout_seconds:
+                        raise CoastMASError("TIMEOUT", "execution timeout")
+                    for key, _ in selector.select(timeout=0.02):
+                        chunk = os.read(key.fd, 8192)
+                        if not chunk:
+                            selector.unregister(key.fileobj)
+                            continue
+                        total += len(chunk)
+                        if total > self.max_output_bytes:
+                            raise CoastMASError(
+                                "OUTPUT_LIMIT", "model output exceeds configured budget"
+                            )
+                        if key.data == "stdout":
+                            output.extend(chunk)
+                remaining = max(0.001, request.timeout_seconds - (time.monotonic() - started))
+                try:
+                    code = process.wait(timeout=remaining)
+                except subprocess.TimeoutExpired as exc:
+                    raise CoastMASError("TIMEOUT", "execution timeout") from exc
+                if code != 0:
+>                   raise CoastMASError("EXECUTION_ERROR", f"model exited with code {code}")
+E                   coastmas.core.errors.CoastMASError: model exited with code 1
+
+src/coastmas/adapters/runtime.py:180: CoastMASError
+_______ test_private_addresses_and_redirects_are_not_implicitly_trusted ________
+
+endpoint = 'http://127.0.0.1:62291'
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-77/test_private_addresses_and_red0')
+
+    def test_private_addresses_and_redirects_are_not_implicitly_trusted(endpoint, tmp_path):
+        request = RunRequest("remote", {"value": 1}, {}, tmp_path, 5)
+>       with pytest.raises(CoastMASError, match="private"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'private'
+E         Actual message: 'model exited with code 1'
+
+tests/integration/test_http_adapter.py:57: AssertionError
+_____________ test_remote_deadline_and_output_budget_are_enforced ______________
+
+endpoint = 'http://127.0.0.1:62296'
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-77/test_remote_deadline_and_outpu0')
+
+    def test_remote_deadline_and_output_budget_are_enforced(endpoint, tmp_path):
+>       with pytest.raises(CoastMASError, match="deadline|timeout"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'deadline|timeout'
+E         Actual message: 'model exited with code 1'
+
+tests/integration/test_http_adapter.py:67: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_http_adapter.py::test_real_registered_http_model_executes_and_cleans_up
+FAILED tests/integration/test_http_adapter.py::test_private_addresses_and_redirects_are_not_implicitly_trusted
+FAILED tests/integration/test_http_adapter.py::test_remote_deadline_and_output_budget_are_enforced
+3 failed in 1.68s

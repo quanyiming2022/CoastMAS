@@ -27,3 +27,13 @@ GeoTIFF 仅接收 GTiff 内存字节，限制压缩字节和解码像元数；�
 参考实现接口：[Rasterio 重投影](https://rasterio.readthedocs.io/en/stable/topics/reproject.html)、[Rasterio MemoryFile](https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html)。类别量最近邻；总量场禁止用连续量插值替代面积守恒重分配。
 
 `sample-data/README.md` 说明合成数据假设，manifest 保留文件校验和。三场景计算产物保存在 artifacts/research；人口按行政单元淹没面积比例估计，不能解释为真实精确人数。固定参考范围与权重跨期复用。当前仅有计算层与通用工作流执行链的分离证据，三场景界面/规划/绑定/执行 E2E 尚待完成。
+
+
+## GIS 运算与进程隔离补充
+RasterGISAdapter 使用真实 Rasterio/Shapely 运算。矢量输入携带明确 CRS；内部投影几何映射不冒充 WGS84 GeoJSON 导出。缓冲在经审查的投影坐标中计算，每象限 32 段逼近；叠加 union 明确 dissolve，并保留来源标识，不推断属性聚合。参考：[Shapely 操作接口](https://shapely.readthedocs.io/en/stable/_reference.html)。
+
+栅格表达式先转换到基础单位再计算，检查推导输出量纲；加减、比较与 where 分支的数值字面量按另一操作数的基础单位解释，乘除字面量无量纲。NoData 不填零。
+
+总量格网转换采用同一经审查投影中的真实像元多边形相交面积，STRtree 检索，逐源覆盖比例和总量均须在 1e-10 容差内守恒。未知值、未完整覆盖的源格网或部分覆盖目标格网明确拒绝，不外推人口。跨 CRS 的保守分配仍需额外审查的面积映射，尚不宣称已实现。
+
+模型持久化签名包含估计器、特征名及顺序、训练/验证分组和随机种子；预测顺序不匹配被拒绝。子进程采集已按 [Coverage 官方进程文档](https://coverage.readthedocs.io/en/latest/subprocess.html) 验证，当前分支覆盖率仍未达到项目门槛。

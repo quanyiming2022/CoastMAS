@@ -1,0 +1,20 @@
+..............                                                           [100%]
+=============================== warnings summary ===============================
+tests/unit/test_geofiles.py: 12 warnings
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/grid_conservation.py:39: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform * (column, row),
+
+tests/unit/test_geofiles.py: 12 warnings
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/grid_conservation.py:40: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform * (column + 1, row),
+
+tests/unit/test_geofiles.py: 12 warnings
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/grid_conservation.py:41: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform * (column + 1, row + 1),
+
+tests/unit/test_geofiles.py: 12 warnings
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/grid_conservation.py:42: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform * (column, row + 1),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+14 passed, 48 warnings in 6.60s

@@ -1,0 +1,38 @@
+......F                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_extensive_grid_resampling_conserves_total_and_rejects_partial_coverage __
+
+    def test_extensive_grid_resampling_conserves_total_and_rejects_partial_coverage():
+        source = Grid(np.array([[100.]]), "EPSG:32650", Affine(20,0,500000,0,-20,3500000), "person")
+>       target = resample_grid(source,crs=source.crs,transform=Affine(10,0,500000,0,-10,3500000),shape=(2,2),kind="extensive",method="area_weighted")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_geofiles.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+grid = Grid(values=array([[100.]]), crs='EPSG:32650', transform=Affine(20.0, 0.0, 500000.0,
+       0.0, -20.0, 3500000.0), unit='person', vertical_datum=None)
+crs = 'EPSG:32650'
+transform = Affine(10.0, 0.0, 500000.0,
+       0.0, -10.0, 3500000.0)
+shape = (2, 2), kind = 'extensive', method = 'area_weighted'
+max_cells = 4000000
+
+    def resample_grid(
+        grid: Grid,
+        *,
+        crs: str,
+        transform: Affine,
+        shape: tuple[int, int],
+        kind: Literal["continuous", "categorical", "extensive"],
+        method: Literal["nearest", "bilinear", "average"],
+        max_cells: int = 4_000_000,
+    ) -> Grid:
+        if kind == "extensive":
+>           raise ConstraintError("extensive values require explicit conservative area redistribution")
+E           coastmas.core.errors.ConstraintError: extensive values require explicit conservative area redistribution
+
+src/coastmas/adapters/geofiles.py:127: ConstraintError
+=========================== short test summary info ============================
+FAILED tests/unit/test_geofiles.py::test_extensive_grid_resampling_conserves_total_and_rejects_partial_coverage
+1 failed, 6 passed in 0.45s

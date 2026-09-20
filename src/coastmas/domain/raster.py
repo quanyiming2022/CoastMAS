@@ -7,6 +7,7 @@ condition, preventing an unknown condition from becoming a false low score.
 
 import ast
 import math
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 import numpy as np
@@ -17,7 +18,7 @@ from coastmas.core.numeric import FloatArray
 from coastmas.domain.assessment import normalized_weights
 
 
-def raster_calculator(expression: str, variables: dict[str, ArrayLike]) -> FloatArray:
+def raster_calculator(expression: str, variables: Mapping[str, ArrayLike]) -> FloatArray:
     if len(expression) > 1000 or not variables:
         raise ConstraintError("expression or variable budget exceeded")
     try:

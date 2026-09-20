@@ -120,11 +120,23 @@ def resample_grid(
     transform: Affine,
     shape: tuple[int, int],
     kind: Literal["continuous", "categorical", "extensive"],
-    method: Literal["nearest", "bilinear", "average"],
+    method: Literal["nearest", "bilinear", "average", "sum", "area_weighted"],
     max_cells: int = 4_000_000,
 ) -> Grid:
     if kind == "extensive":
-        raise ConstraintError("extensive values require explicit conservative area redistribution")
+        if method not in ("sum", "area_weighted"):
+            raise ConstraintError(
+                "extensive values require explicit conservative area redistribution"
+            )
+        source_crs, target_crs = CRS(grid.crs), CRS(crs)
+        if source_crs != target_crs or not source_crs.is_projected:
+            raise ConstraintError("conservative grids require a common reviewed projected CRS")
+        from coastmas.domain.grid_conservation import allocate_grid
+
+        allocated = allocate_grid(
+            grid.values, grid.transform, transform, shape, max_cells=min(max_cells, 100000)
+        )
+        return Grid(allocated, crs, transform, grid.unit, grid.vertical_datum)
     if kind == "categorical" and method != "nearest":
         raise ConstraintError("categorical values require nearest-neighbour resampling")
     if kind not in ("continuous", "categorical") or method not in (

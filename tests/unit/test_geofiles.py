@@ -85,3 +85,37 @@ def test_invalid_grid_and_missing_metadata_fail_explicitly():
             Grid(np.ones((2, 2)), "EPSG:32650", transform, "m")
     with pytest.raises(CoastMASError):
         Grid(np.array([[float("inf")]]), "EPSG:32650", Affine(1, 0, 1, 0, -1, 1), "m")
+
+
+def test_extensive_grid_resampling_conserves_total_and_rejects_partial_coverage():
+    source = Grid(
+        np.array([[100.0]]), "EPSG:32650", Affine(20, 0, 500000, 0, -20, 3500000), "person"
+    )
+    target = resample_grid(
+        source,
+        crs=source.crs,
+        transform=Affine(10, 0, 500000, 0, -10, 3500000),
+        shape=(2, 2),
+        kind="extensive",
+        method="area_weighted",
+    )
+    np.testing.assert_allclose(target.values, [[25, 25], [25, 25]], rtol=0, atol=1e-10)
+    assert target.values.sum() == source.values.sum()
+    back = resample_grid(
+        target,
+        crs=source.crs,
+        transform=source.transform,
+        shape=(1, 1),
+        kind="extensive",
+        method="area_weighted",
+    )
+    np.testing.assert_allclose(back.values, source.values, rtol=0, atol=1e-10)
+    with pytest.raises(CoastMASError, match="coverage"):
+        resample_grid(
+            source,
+            crs=source.crs,
+            transform=Affine(10, 0, 500000, 0, -10, 3500000),
+            shape=(1, 1),
+            kind="extensive",
+            method="area_weighted",
+        )

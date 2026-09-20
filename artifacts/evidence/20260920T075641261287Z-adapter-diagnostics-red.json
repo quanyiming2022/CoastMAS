@@ -1,0 +1,31 @@
+{
+  "name": "adapter-diagnostics-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_adapters.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:56:41.261287+00:00",
+  "finished_at": "2026-09-20T07:56:43.042240+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "ae0ab5da79aa209f19e91ba99eb0eed774fb9df7069633bbc84a494da9b1e551",
+  "git_commit": "116c344719198f2af05d39c9fa856873955c134e",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T075641261287Z-adapter-diagnostics-red.log"
+}

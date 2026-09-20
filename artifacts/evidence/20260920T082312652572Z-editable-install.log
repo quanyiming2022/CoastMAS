@@ -1,0 +1,16 @@
+Obtaining file:///Users/quanyiming/Projects/CoastMAS
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: coastmas
+  Building editable for coastmas (pyproject.toml): started
+  Building editable for coastmas (pyproject.toml): finished with status 'done'
+  Created wheel for coastmas: filename=coastmas-0.1.0-0.editable-py3-none-any.whl size=1424 sha256=e9b761b7e390a175530945e75d22b65459c738e5f78c8696c985f12f9fce22fc
+  Stored in directory: /private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pip-ephem-wheel-cache-cq9qde_f/wheels/89/27/5a/eca1f57da3711ecec0a773edd2f173252fe1527183e6ee2e6a
+Successfully built coastmas
+Installing collected packages: coastmas
+Successfully installed coastmas-0.1.0
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: /Users/quanyiming/Projects/CoastMAS/.venv/bin/python -m pip install --upgrade pip

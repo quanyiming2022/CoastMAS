@@ -1,0 +1,6 @@
+src/coastmas/domain/raster_units.py:40: error: Argument 2 to "raster_calculator" has incompatible type "dict[str, ndarray[tuple[Any, ...], dtype[float64]]]"; expected "dict[str, Buffer | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | complex | bytes | str | _NestedSequence[complex | bytes | str]]"  [arg-type]
+src/coastmas/domain/raster_units.py:40: note: "dict" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+src/coastmas/domain/raster_units.py:40: note: Consider using "Mapping" instead, which is covariant in the value type
+src/coastmas/domain/raster_units.py:71: error: Argument 1 to "float" has incompatible type "str | bytes | int | float | complex | EllipsisType | None"; expected "str | Buffer | SupportsFloat | SupportsIndex"  [arg-type]
+src/coastmas/adapters/ml.py:125: error: Dict entry 0 has incompatible type "str": "list[str]"; expected "str": "list[JsonValue] | dict[str, JsonValue] | str | int | float | None"  [dict-item]
+Found 3 errors in 2 files (checked 38 source files)

@@ -1,0 +1,4 @@
+src/coastmas/adapters/http.py:140: error: Argument 1 to "__init__" of "PythonFunctionAdapter" has incompatible type "dict[str, partial[dict[str, JsonValue]]]"; expected "dict[str, Callable[[dict[str, JsonValue], dict[str, JsonValue]], dict[str, JsonValue]]]"  [arg-type]
+src/coastmas/adapters/http.py:140: note: "dict" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+src/coastmas/adapters/http.py:140: note: Consider using "Mapping" instead, which is covariant in the value type
+Found 1 error in 1 file (checked 34 source files)

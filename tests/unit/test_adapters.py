@@ -126,3 +126,30 @@ def test_child_group_is_terminated_even_after_parent_exits(tmp_path):
         )
     time.sleep(0.7)
     assert not marker.exists()
+
+
+def test_python_scientific_failure_keeps_code_and_safe_diagnostic_frames(tmp_path):
+    from coastmas.core.errors import ConstraintError
+
+    def invalid(inputs, parameters):
+        raise ConstraintError("vertical datum mismatch")
+
+    adapter = PythonFunctionAdapter({"invalid": invalid})
+    with pytest.raises(CoastMASError) as captured:
+        adapter.run(RunRequest("invalid", {}, {}, tmp_path, 2))
+    assert captured.value.code == "CONSTRAINT_ERROR"
+    assert "vertical datum mismatch" in captured.value.message
+    assert captured.value.details["exception_type"] == "ConstraintError"
+    assert captured.value.details["frames"]
+    assert not list(tmp_path.iterdir())
+
+
+def test_python_unexpected_exception_does_not_expose_arguments(tmp_path):
+    def invalid(inputs, parameters):
+        raise RuntimeError("credential=must-not-leak")
+
+    adapter = PythonFunctionAdapter({"invalid": invalid})
+    with pytest.raises(CoastMASError) as captured:
+        adapter.run(RunRequest("invalid", {}, {}, tmp_path, 2))
+    assert "must-not-leak" not in str(captured.value.details)
+    assert captured.value.details["exception_type"] == "RuntimeError"

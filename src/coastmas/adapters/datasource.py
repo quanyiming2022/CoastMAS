@@ -101,7 +101,7 @@ class StoredDataResolver:
                     if CRS(destination.crs) != CRS(target_crs):
                         raise ConstraintError("destination grid differs from verified CRS binding")
                 method = binding.resampling
-                if method not in ("nearest", "bilinear"):
+                if method not in ("nearest", "bilinear", "sum", "area_weighted"):
                     raise ConstraintError(
                         "grid binding needs an explicit conservative or cubic transformation node"
                     )

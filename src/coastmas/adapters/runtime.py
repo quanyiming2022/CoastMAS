@@ -127,14 +127,17 @@ class CLIAdapter:
         cls.signal_group(process.pid, signal.SIGKILL)
         process.wait(timeout=2)
 
-    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
-        arguments = self.arguments(request, directory)
-        environment = {
+    def execution_environment(self) -> dict[str, str]:
+        return {
             "PATH": os.defpath,
             "LANG": "C.UTF-8",
             "PYTHONDONTWRITEBYTECODE": "1",
             "PYTHONPATH": str(Path(__file__).resolve().parents[2]),
         }
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        arguments = self.arguments(request, directory)
+        environment = self.execution_environment()
         started = time.monotonic()
         process = subprocess.Popen(
             arguments,
@@ -214,6 +217,34 @@ class PythonFunctionAdapter(CLIAdapter):
         super().__init__({name: () for name in handlers}, max_output_bytes)
         self.handlers = dict(handlers)
 
+    def execution_environment(self) -> dict[str, str]:
+        environment = super().execution_environment()
+        # Explicit instrumentation allowlist; no provider credentials or general env forwarding.
+        # Coverage serializes absolute output paths, so temporary job cleanup loses no measurements.
+        if "COVERAGE_PROCESS_CONFIG" in os.environ:
+            environment["COVERAGE_PROCESS_CONFIG"] = os.environ["COVERAGE_PROCESS_CONFIG"]
+        return environment
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        try:
+            return super().execute(request, directory)
+        except CoastMASError as exc:
+            diagnostic = directory / "failure.json"
+            if (
+                exc.code == "EXECUTION_ERROR"
+                and diagnostic.is_file()
+                and diagnostic.stat().st_size <= 32768
+            ):
+                failure = OUTPUT_SCHEMA.validate_json(diagnostic.read_bytes())
+                code, message, details = (
+                    failure.get("code"),
+                    failure.get("message"),
+                    failure.get("details"),
+                )
+                if isinstance(code, str) and isinstance(message, str) and isinstance(details, dict):
+                    raise CoastMASError(code, message, details) from exc
+            raise
+
     def arguments(self, request: RunRequest, directory: Path) -> list[str]:
         # This pickle is generated from a maintainer's callback, never accepted from an upload.
         handler = directory / "trusted-handler.pkl"
@@ -222,7 +253,8 @@ class PythonFunctionAdapter(CLIAdapter):
         (directory / "parameters.json").write_text(json.dumps(request.parameters, allow_nan=False))
         return [
             sys.executable,
-            str(Path(__file__).with_name("python_runner.py")),
+            "-m",
+            "coastmas.adapters.python_runner",
             str(handler),
             str(directory / "input.json"),
             str(directory / "parameters.json"),
