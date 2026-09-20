@@ -46,6 +46,9 @@ export default function Catalog({ kind }: { kind: CatalogKind }) {
         description="项目中的版本化资源；打开详情查看数据来源与科学约束。"
       />
       <div className="toolbar">
+        {kind === "workflows" ? (
+          <Link to="/workflows/new">新建工作流</Link>
+        ) : null}
         <label>
           筛选本页
           <input

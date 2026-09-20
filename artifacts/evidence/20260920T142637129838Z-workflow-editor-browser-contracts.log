@@ -1,0 +1,58 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test workflow-editor.spec.ts
+
+
+Running 2 tests using 1 worker
+
+(node:15820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+  1) e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: '删除连线 1', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: '删除连线 1', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '删除连线 1', exact: true })
+
+
+      69 |   await expect(
+      70 |     page.getByRole("button", { name: "删除连线 1", exact: true }),
+    > 71 |   ).toBeVisible();
+         |     ^
+      72 |   await page.getByRole("button", { name: "删除连线 1", exact: true }).click();
+      73 |   await expect(page.locator(".react-flow__edge")).toHaveCount(0);
+      74 |   await page.getByRole("button", { name: "删除选中节点", exact: true }).click();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/workflow-editor.spec.ts:71:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:15831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] e2e/workflow-editor.spec.ts:106:1 › copy, revise and run a pinned workflow through actual worker and result storage
+  1 failed
+    e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight 
+  1 passed (17.9s)

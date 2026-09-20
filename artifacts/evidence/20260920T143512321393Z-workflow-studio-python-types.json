@@ -1,0 +1,28 @@
+{
+  "name": "workflow-studio-python-types",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/mypy",
+    "src"
+  ],
+  "started_at": "2026-09-20T14:35:12.321393+00:00",
+  "finished_at": "2026-09-20T14:35:14.791725+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "1e6bfd2da51b1dcafc5e1a4215dee1577ea7e33720be9613a7e3b4a915579371",
+  "git_commit": "b7a8a90ddcaed037c1204b454b96d29b255345ba",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T143512321393Z-workflow-studio-python-types.log"
+}

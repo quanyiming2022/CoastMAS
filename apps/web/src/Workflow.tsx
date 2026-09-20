@@ -108,6 +108,9 @@ function WorkflowWorkspace({ workflow }: { workflow: WorkflowSpec }) {
         title={workflow.name}
         description={`版本 ${workflow.version} · ${workflow.nodes.length} 个计算节点 · ${workflow.input_bindings.length} 份数据绑定`}
       />
+      <Link to={`/workflows/${encodeURIComponent(workflow.id)}/edit`}>
+        编辑工作流 / 另存副本
+      </Link>
       <Panel title="运行场景与科学预检">
         <div className="toolbar">
           <label>

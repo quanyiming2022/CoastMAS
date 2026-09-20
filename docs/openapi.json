@@ -1,6 +1,137 @@
 {
   "components": {
     "schemas": {
+      "BindingPlan": {
+        "additionalProperties": false,
+        "properties": {
+          "crs_transform": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Crs Transform"
+          },
+          "quality_check": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Check",
+            "type": "array"
+          },
+          "resampling": {
+            "anyOf": [
+              {
+                "enum": [
+                  "nearest",
+                  "bilinear",
+                  "cubic",
+                  "sum",
+                  "area_weighted"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resampling"
+          },
+          "semantic_mapping": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Semantic Mapping",
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "status": {
+            "enum": [
+              "VALIDATED",
+              "BLOCKED",
+              "MANUAL_REVIEW"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "target": {
+            "$ref": "#/components/schemas/BindingTarget"
+          },
+          "temporal_transform": {
+            "anyOf": [
+              {
+                "enum": [
+                  "nearest",
+                  "mean",
+                  "sum",
+                  "min",
+                  "max",
+                  "interpolation"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temporal Transform"
+          },
+          "unit_conversion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Conversion"
+          }
+        },
+        "required": [
+          "source",
+          "target",
+          "semantic_mapping",
+          "unit_conversion",
+          "crs_transform",
+          "resampling",
+          "temporal_transform",
+          "quality_check",
+          "status"
+        ],
+        "title": "BindingPlan",
+        "type": "object"
+      },
+      "BindingTarget": {
+        "additionalProperties": false,
+        "properties": {
+          "node_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Node Id",
+            "type": "string"
+          },
+          "variable": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Variable",
+            "type": "string"
+          }
+        },
+        "required": [
+          "node_id",
+          "variable"
+        ],
+        "title": "BindingTarget",
+        "type": "object"
+      },
       "Body_upload_api_v1_data_assets_upload_post": {
         "properties": {
           "file": {
@@ -25,6 +156,45 @@
           "file"
         ],
         "title": "Body_upload_api_v1_data_assets_upload_post",
+        "type": "object"
+      },
+      "ConstraintSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "field": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Field",
+            "type": "string"
+          },
+          "operator": {
+            "enum": [
+              "eq",
+              "ne",
+              "ge",
+              "le",
+              "in",
+              "required"
+            ],
+            "title": "Operator",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/JsonValue"
+          }
+        },
+        "required": [
+          "field",
+          "operator",
+          "value",
+          "description"
+        ],
+        "title": "ConstraintSpec",
         "type": "object"
       },
       "CopyRequest": {
@@ -187,6 +357,29 @@
           "enabled"
         ],
         "title": "EnabledRequest",
+        "type": "object"
+      },
+      "ExecutionPolicy": {
+        "additionalProperties": false,
+        "properties": {
+          "max_retries": {
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Max Retries",
+            "type": "integer"
+          },
+          "timeout_seconds": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 86400.0,
+            "title": "Timeout Seconds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timeout_seconds",
+          "max_retries"
+        ],
+        "title": "ExecutionPolicy",
         "type": "object"
       },
       "GraphEdge": {
@@ -804,6 +997,36 @@
         "title": "NewUser",
         "type": "object"
       },
+      "ParameterBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "node_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Node Id",
+            "type": "string"
+          },
+          "parameter": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Parameter",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "node_id",
+          "parameter",
+          "value"
+        ],
+        "title": "ParameterBinding",
+        "type": "object"
+      },
       "PlanRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1030,6 +1253,232 @@
           "version"
         ],
         "title": "VersionReference",
+        "type": "object"
+      },
+      "WorkflowDraftSelection": {
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "random_seed": {
+            "default": 42,
+            "maximum": 4294967295.0,
+            "minimum": 0.0,
+            "title": "Random Seed",
+            "type": "integer"
+          },
+          "scene": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowSpec"
+          }
+        },
+        "required": [
+          "project_id",
+          "workflow",
+          "scene"
+        ],
+        "title": "WorkflowDraftSelection",
+        "type": "object"
+      },
+      "WorkflowEdge": {
+        "additionalProperties": false,
+        "properties": {
+          "source_node": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source Node",
+            "type": "string"
+          },
+          "source_variable": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source Variable",
+            "type": "string"
+          },
+          "target_node": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Target Node",
+            "type": "string"
+          },
+          "target_variable": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Target Variable",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_node",
+          "source_variable",
+          "target_node",
+          "target_variable"
+        ],
+        "title": "WorkflowEdge",
+        "type": "object"
+      },
+      "WorkflowNode": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "default": "model",
+            "enum": [
+              "data",
+              "transform",
+              "model",
+              "validation",
+              "output"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "model_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Model Id",
+            "type": "string"
+          },
+          "model_version": {
+            "minimum": 1.0,
+            "title": "Model Version",
+            "type": "integer"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Parameters",
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "model_id",
+          "model_version"
+        ],
+        "title": "WorkflowNode",
+        "type": "object"
+      },
+      "WorkflowSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "$ref": "#/components/schemas/ConstraintSpec"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowEdge"
+            },
+            "title": "Edges",
+            "type": "array"
+          },
+          "execution_policy": {
+            "$ref": "#/components/schemas/ExecutionPolicy"
+          },
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "input_bindings": {
+            "items": {
+              "$ref": "#/components/schemas/BindingPlan"
+            },
+            "title": "Input Bindings",
+            "type": "array"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/WorkflowNode"
+            },
+            "minItems": 1,
+            "title": "Nodes",
+            "type": "array"
+          },
+          "output_definition": {
+            "items": {
+              "$ref": "#/components/schemas/BindingTarget"
+            },
+            "title": "Output Definition",
+            "type": "array"
+          },
+          "parameter_bindings": {
+            "items": {
+              "$ref": "#/components/schemas/ParameterBinding"
+            },
+            "title": "Parameter Bindings",
+            "type": "array"
+          },
+          "scene_type": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Scene Type",
+            "type": "string"
+          },
+          "validation_rules": {
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            "title": "Validation Rules",
+            "type": "array"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "scene_type",
+          "nodes",
+          "edges",
+          "input_bindings",
+          "parameter_bindings",
+          "constraints",
+          "validation_rules",
+          "execution_policy",
+          "output_definition"
+        ],
+        "title": "WorkflowSpec",
         "type": "object"
       }
     }
@@ -4121,6 +4570,51 @@
           }
         },
         "summary": "Update Scene"
+      }
+    },
+    "/api/v1/workflow-drafts/validate": {
+      "post": {
+        "operationId": "preflight_draft_api_v1_workflow_drafts_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowDraftSelection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Preflight Draft Api V1 Workflow Drafts Validate Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Preflight Draft",
+        "tags": [
+          "runs"
+        ]
       }
     },
     "/api/v1/workflows": {

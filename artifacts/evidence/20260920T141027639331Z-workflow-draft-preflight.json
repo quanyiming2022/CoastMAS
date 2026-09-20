@@ -1,0 +1,32 @@
+{
+  "name": "workflow-draft-preflight",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_workflow_drafts.py",
+    "tests/integration/test_run_api.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T14:10:27.639331+00:00",
+  "finished_at": "2026-09-20T14:10:51.091588+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "d7df3ee2f0955790197208c9a7af7c41d88da736191ba90a3bda786c19bf12f7",
+  "git_commit": "b7a8a90ddcaed037c1204b454b96d29b255345ba",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T141027639331Z-workflow-draft-preflight.log"
+}

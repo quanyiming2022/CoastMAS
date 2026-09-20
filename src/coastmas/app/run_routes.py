@@ -23,11 +23,12 @@ from coastmas.core.contracts import (
     Name,
     RunManifest,
     SceneSpec,
+    VersionReference,
     WorkflowSpec,
 )
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry
-from coastmas.core.validation import ValidationReport, validate_workflow
+from coastmas.core.validation import ValidationIssue, ValidationReport, validate_workflow
 from coastmas.persistence.jobs import cancel_job, read_job, read_result, snapshot, submit_job
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.schema import AuditLog, Job, Resource, ResultBundle
@@ -40,6 +41,13 @@ class RunSelection(Contract):
     workflow_version: int = Field(ge=1)
     scene_id: Name
     scene_version: int = Field(ge=1)
+    random_seed: int = Field(default=42, ge=0, le=2**32 - 1)
+
+
+class WorkflowDraftSelection(Contract):
+    project_id: Name
+    workflow: WorkflowSpec
+    scene: VersionReference
     random_seed: int = Field(default=42, ge=0, le=2**32 - 1)
 
 
@@ -73,7 +81,15 @@ def load_manifest(
             session, user_id=user, identifier=workflow_id, version=selection.workflow_version
         ).spec
     )
-    resource_in_project(session, user, selection.scene_id, "scene", record.project_id)
+    manifest, report = candidate_manifest(session, user, record.project_id, workflow, selection)
+    return record.project_id, manifest, report
+
+
+def candidate_manifest(
+    session: Session, user: str, project: str, workflow: WorkflowSpec, selection: RunSelection
+) -> tuple[RunManifest, ValidationReport]:
+    require_permission(session, user, project, "read")
+    resource_in_project(session, user, selection.scene_id, "scene", project)
     scene = SceneSpec.model_validate(
         read_resource(
             session, user_id=user, identifier=selection.scene_id, version=selection.scene_version
@@ -86,7 +102,7 @@ def load_manifest(
         (binding.source.id, binding.source.version, "data") for binding in workflow.input_bindings
     )
     for identifier, revision, kind in sorted(references):
-        resource_in_project(session, user, identifier, kind, record.project_id)
+        resource_in_project(session, user, identifier, kind, project)
         content = read_resource(session, user_id=user, identifier=identifier, version=revision).spec
         if kind == "model":
             models.append(ModelSpec.model_validate(content))
@@ -106,7 +122,7 @@ def load_manifest(
         random_seed=selection.random_seed,
         environment={"python": platform.python_version(), "platform": platform.system()},
     )
-    return record.project_id, manifest, report
+    return manifest, report
 
 
 def check_execution(request: Request, manifest: RunManifest, report: ValidationReport) -> None:
@@ -136,19 +152,51 @@ def existing_submission(session: Session, project: str, user: str, key: str) -> 
     )
 
 
+def preflight_response(
+    request: Request, manifest: RunManifest, report: ValidationReport
+) -> dict[str, JsonValue]:
+    issues = list(report.issues)
+    registry = cast(ExecutionRegistry, request.app.state.registry)
+    for model in manifest.models:
+        try:
+            registry.resolve(model)
+        except CoastMASError as exc:
+            for node in manifest.workflow.nodes:
+                if (node.model_id, node.model_version) == (model.id, model.version):
+                    issues.append(ValidationIssue(exc.code, exc.message, node.id))
+    return {
+        "valid": not issues,
+        "issues": [encode(item) for item in issues],
+        "bindings": [item.model_dump(mode="json") for item in report.bindings],
+    }
+
+
+@router.post("/workflow-drafts/validate")
+def preflight_draft(
+    body: WorkflowDraftSelection, request: Request, session: DatabaseSession, user_id: CurrentUser
+) -> dict[str, JsonValue]:
+    selection = RunSelection(
+        workflow_version=body.workflow.version,
+        scene_id=body.scene.id,
+        scene_version=body.scene.version,
+        random_seed=body.random_seed,
+    )
+    manifest, report = candidate_manifest(
+        session, user_id, body.project_id, body.workflow, selection
+    )
+    return preflight_response(request, manifest, report)
+
+
 @router.post("/workflows/{identifier}/validate")
 def preflight(
     identifier: str,
     body: RunSelection,
+    request: Request,
     session: DatabaseSession,
     user_id: CurrentUser,
 ) -> dict[str, JsonValue]:
-    _, _, report = load_manifest(session, user_id, identifier, body)
-    return {
-        "valid": report.valid,
-        "issues": [encode(item) for item in report.issues],
-        "bindings": [item.model_dump(mode="json") for item in report.bindings],
-    }
+    _, manifest, report = load_manifest(session, user_id, identifier, body)
+    return preflight_response(request, manifest, report)
 
 
 @router.post("/workflows/{identifier}/run", status_code=202)

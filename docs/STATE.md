@@ -18,39 +18,30 @@
 
 ## 当前前端与实测链路
 - React/TypeScript strict、TanStack Query、生成契约+AJV/Zod；无任意 any，写请求无自动重试，CSRF/幂等/错误追踪。已接通登录、项目切换、概览、模型/数据/场景/工作流目录与详情、运行/结果中心。
-- 工作流图显示真实数据/模型/输出和节点、连接错误；选择场景预检后运行，服务端再次检查。图目前只读；完整可编辑 Studio 未完成。
+- 工作流图显示真实数据/模型/输出和节点、连接错误；选择场景预检后运行，服务端再次检查。可编辑 Studio 已接入草稿预检、拖拽端口、输入输出、参数和版本保存，真实浏览器拖入/连线/删除/参数/绑定/输出/复制/修订/历史/运行通过。
 - 运行页真实轮询/取消/重试/快照；结果页真实下载、来源、离线多边形地图、分区人口图表和统计表；全部基于实际输出。地图使用 MapLibre 6 的 Vite `?worker&url` 打包，不依赖外部底图。
 - 浏览器真实链路已通过：登录→预检→Redis→独立 worker→S3/PG 发布→结果/下载；面积 80000 m²、估算人口 320、3 节点、执行阶段 LLM=0。桌面/手机截图在 `artifacts/screenshots/`。
 - 地图缺失 worker、统计未知面积字段误读、登录状态刷新与测试控件定位的失败记录均保留，修正后重跑；不能删除失败制造全绿历史。
-- 前端仍缺：图谱/实体/地图场景编辑、模型注册及完整目录操作、可编辑工作流、动态评价/协同/研究/管理页面、场景比较/时间序列与全部操作 E2E。当前页面不等于完整 UI 验收。
+- 前端仍缺：完整地图场景编辑、模型注册及完整目录操作、动态评价/协同/研究/管理页面、场景比较/时间序列与全部操作 E2E。当前页面不等于完整 UI 验收。
 
 ## 最新证据
-- 后端完整：`20260920T114407025040Z-workspace-readiness-full`，229 passed、2 条依赖弃用警告。严格类型 `20260920T114404466768Z-workspace-readiness-types`；ruff check 通过。
-- 覆盖率当前 4992/5697 行、1319/1898 分支（约 87.62% / 69.49%）；业务分支及核心覆盖率门槛未通过。没有排除困难业务文件。
-- 前端组件/契约：`20260920T121841821255Z-web-coastal-stats-fields`，10 passed。严格类型随 production build 通过；lint 最近 `20260920T121353467038Z-web-result-refined-check`，随后少量地图/字段修改需再检查。
-- 生产构建：`20260920T121844962451Z-web-coastal-stats-build` 通过，保留图表/地图大于 500 KB 包体警告，已按需加载，未提高阈值隐藏警告。
-- 真实浏览器：`20260920T121848342743Z-web-coastal-map-chart-e2e`，2 passed，包含地图库加载、图表、下载金标准、深链接和退出后 401。只有已覆盖行为通过。
-- `scripts/export_contracts.py --check` 当前通过；生成 TypeScript 漂移检查需纳入统一 Makefile。前端 optional fsevents 安装脚本未运行，实际构建与浏览器正常。
+- 存储恢复后完整后端：`20260920T140404835174Z-native-storage-backend-full`，267 passed、2 warnings；真实浏览器 `20260920T140404398495Z-native-storage-browser-full`，5 passed。
+- 覆盖率 5297/6015 行、1431/2020 分支，最终分支门槛仍未通过，没有排除困难业务文件。
+- 工作流草稿预检增量：`20260920T141027639331Z-workflow-draft-preflight` 通过；前端18项测试 `20260920T142517556100Z-workflow-editor-unit` 通过；生产构建 `20260920T142324251056Z-workflow-editor-build` 通过。编辑器两条真实浏览器通过；全套浏览器 20260920T143512052605Z-workflow-studio-browser-full 为 7 passed，最新18项单元与 lint 通过。完整后端 20260920T143514654592Z-workflow-studio-backend-full：269 passed、2 warnings。
+- 生成契约源于 Pydantic，漂移检查需纳入统一 Makefile。Vite 图表/地图包体警告、依赖弃用警告保持可见。
 
 ## 环境与继续执行
 - 本地 API/UI `http://127.0.0.1:58000`，worker 与 beat 已启动；PostGIS 55432、Redis 56379、MinIO 59000。`/health/live` 是进程存活，`/health/ready` 真实检查 DB/S3/Redis；旧 `/health` 只检查 DB。
-- Docker 磁盘用户已调整。MinIO hotfix AMD64 镜像曾 Go SIGSEGV（非 OOM）；仅本项目对象卷已私有备份，原镜像重启后完整回归和浏览器计算通过。仿真是否根因未确定，没有降级为较旧 ARM 镜像；详情 environment-blockers.md。
+- Docker 磁盘用户已调整。旧 MinIO 两次 panic 后已切换经校验的官方安全源码原生 ARM 构建，镜像/源码/二进制固定摘要，新卷 coastmas_objects_native。旧卷和私有备份保留；归因未确定。详见 object-storage-recovery.md。
 - 外部 LLM 密钥仍缺失，真实外部研究实验 BLOCKED；本地协议测试不能算真实外部实验。独立开发不因此等待。
-- 最小下一步：保存本轮 UI 检查与文档；完成实体/图谱/协同/评价/研究等必选范围。维护已实现科学组件，不重新生成项目。
+- 最小下一步：保存工作流编辑增量全套证据，再推进场景工作台及实体绑定。当前 API 日志 api-workflow-editor.log；worker/beat 持续运行。
 - 其他必选缺口：时间/跨 CRS 保守分配显式节点、服务/DB 数据连接器、非内置运行审批、完整任务诊断日志、计算结果缓存、孤立存储对象保留清理、可选 GeoAI API、全部研究与性能实验、统一 Docker 部署/Makefile/完整文档和最终门禁。
 - 后端回归命令：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。前端：`npm --prefix apps/web test`、`run lint`、`run build`、`run e2e`。
 - 平台中断不代表完成，不宣称后台继续执行。只有所有必选项在最终交付代码上有证据通过才宣布完成。
 
-- 最新增量：智能规划页面已接通；数据歧义必须选择，输入变化后旧规划不可保存，外部账本 0/2 经真实浏览器验证。共享 ProviderPlanningArtifact 保留未知 usage 与需复核标记；本地提供方协议回归17项通过。
-- 发现并修复同一场景仅JSON对象键顺序不同就产生不同工作流ID的问题；旧资源保持原标识，新规划使用规范JSON摘要。相关科学/样例13项回归通过。目录展示标识片段，测试按选定唯一身份与清单核对，不假设名称唯一。
-- 会话过期和换账号清除私有查询缓存已有红绿回归。前端目前11项测试通过，最新真实浏览器 `20260920T124618439609Z-web-canonical-e2e` 3 passed。完整后端增量回归 `20260920T124636108740Z-planner-web-core-full`：231 passed、2 warnings。类型/lint 通过；入口文件仅修正格式后重新格式检查通过。
-- 已异步请求用户在项目 .env 配置外部 LLM 端点、模型与密钥，未在对话收集密钥。等待配置不阻止独立开发；未提供时继续标记真实外部实验 BLOCKED。
-
-- 新增 GeographicEntity：八类实体、严格几何/CRS/时间/身份校验；PostGIS 不可变派生空间版本与资源同事务写入，分页空间/时间/历史查询。页面支持导入、修订、历史读取与点线面地图；真实浏览器证据 20260920T130926122354Z-geography-browser 通过。详见 geographic-entities.md；完整场景工作台仍未完成。API 当前日志 api-geography.log。
-
-- 实体增量统一回归：20260920T131213156037Z-geography-backend-full，262 passed、2 warnings；20260920T131222098930Z-geography-ui-all-browser，4 passed。Python lint/format、类型、契约漂移、生产构建均通过。当前覆盖行 5128/5837，分支 1363/1944；最终覆盖门槛仍未通过。下一项：知识图谱及完整场景关系。
-
-- 知识图谱增量：PostgreSQL 契约版本投影＋NetworkX 3.6.1（BSD-3-Clause），九类关系、来源版本、权限/预算限制、交互邻域/关系筛选/证据分页已实现。契约候选不等于科学预检通过，运行配置与存储 URI 不进入图响应。真实浏览器 20260920T132950224396Z-knowledge-graph-focus-browser 通过；完整回归进行中。当前 API 日志 api-knowledge-graph.log。
-- 最新完整回归未通过：20260920T133027591712Z-knowledge-graph-backend-full（238 passed / 29 errors）及 20260920T133035539580Z-knowledge-graph-all-browser（2 passed / 3 failed）。MinIO 第二次 panic 已停止服务、私有只读备份；原生 ARM 官方安全版源码编译进行中，尚未切换对象卷。实体历史选择竞态已用受控延迟红绿测试修复，14项组件及实体/图谱两条浏览器复测通过。当前对象存储故障不能计为验收通过。详情 environment-blockers.md。
-
-- 原生存储恢复检查点：正式 MinIO 已切到固定镜像 sha256:072e3ef119f19b6ebee3cb0129309f0ed50ff9988fae2b43ada4a68687334fb2 和独立 coastmas_objects_native 卷；旧卷及私有备份保留。重建二进制摘要一致；11资产版本/7旧结果完整读取、120秒并发200写3168读通过。恢复后 20260920T140404835174Z-native-storage-backend-full 与 20260920T140404398495Z-native-storage-browser-full 全部通过；详细数量见日志。当前覆盖 5297/6015 行、1431/2020 分支，最终分支门槛仍未通过。下一项：可编辑 Workflow Studio 与场景工作台；完整部署/全范围仍未完成。
+## 后续已完成增量
+- 智能规划 UI：数据歧义必须选择，输入变化使旧候选不可保存；外部账本 0/2、换账号缓存清理均有真实/组件证据。规范 JSON 工作流 ID 修复保留旧版本。
+- 地理实体：八类实体、严格几何/CRS/时间/身份，PostGIS 不可变派生空间版本，分页空间/时间/历史查询；导入/修订/历史/地图真实浏览器通过。实体历史选择竞态有红绿测试；详见 geographic-entities.md。
+- 知识图谱：PostgreSQL 契约投影＋NetworkX，九类关系、版本来源、权限/预算、交互邻域和筛选；契约候选不代表科学通过。真实浏览器通过，详见 knowledge-graph.md。
+- 原生 MinIO：11 资产版本/7 旧结果逐字节校验，120 秒并发 200 写/3168 读，重复源码构建二进制摘要一致；恢复后全套回归通过。过去存储崩溃和对应测试失败证据全部保留，不声称长时稳定性已充分验证。
+- 真实外部 LLM 配置问题已异步询问一次，无答复；不要重复询问或打印密钥。本地协议回归不能替代真实外部实验。

@@ -1,0 +1,82 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_draft_preflight_checks_unsaved_science_and_never_persists_or_submits ___
+
+authenticated = (<starlette.testclient.TestClient object at 0x11f5da8a0>, 'RbpWuAI3Xfl9lUs29AR1_kSEI8FnmY1LqBu85lYlYlc', '7e7d576f-a099-4c53-9a7d-3bcc604059d9', '886e2175-b72f-4d4d-a8bb-83124935b2a2')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_daa35178bf1245edaa7b6285f2c7ded0)
+actors = ('886e2175-b72f-4d4d-a8bb-83124935b2a2', 'b4ee90bb-9b35-4862-a9fb-442717a2b887', '1fae99b5-654c-46ac-986e-b1a0d7f159b4', '7e7d576f-a099-4c53-9a7d-3bcc604059d9')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11e873830>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-142/test_draft_preflight_checks_un0')
+
+    def test_draft_preflight_checks_unsaved_science_and_never_persists_or_submits(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, _ = authenticated
+        _, identifier, selection = setup_run(engine, actors, storage, tmp_path, client)
+        workflow = client.get("/api/v1/workflows/" + identifier).json()["spec"]
+        draft_id = "draft-" + uuid4().hex
+        workflow = {**workflow, "id": draft_id, "version": 1}
+        body = {
+            "project_id": project,
+            "workflow": workflow,
+            "scene": {"id": selection["scene_id"], "version": selection["scene_version"]},
+            "random_seed": 42,
+        }
+        headers = {"X-CSRF-Token": csrf}
+        before = client.get("/api/v1/jobs", params={"project_id": project}).json()
+        response = client.post("/api/v1/workflow-drafts/validate", headers=headers, json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"ddf0605e-42ee-4da3-b5dd-e2427a9a0760"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_workflow_drafts.py:28: AssertionError
+____ test_draft_and_saved_preflight_expose_unregistered_runtime_before_run _____
+
+authenticated = (<starlette.testclient.TestClient object at 0x1203b88f0>, 'Pb5zDZIQns1sJYqcF8Mn4cjrz7Xe3a_w35yPJ3jEBZk', '4a6f2642-29a8-4818-823f-8664fbfa35f1', 'f08a1bf8-9d67-496a-b124-78c8eff25e96')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_daa35178bf1245edaa7b6285f2c7ded0)
+actors = ('f08a1bf8-9d67-496a-b124-78c8eff25e96', '920c5bfb-78e3-49d8-b8bc-7cfd9b99f211', 'a6cbb955-f5f6-4c9e-986c-73bdaaf9ec25', '4a6f2642-29a8-4818-823f-8664fbfa35f1')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1204063c0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-142/test_draft_and_saved_preflight0')
+
+    def test_draft_and_saved_preflight_expose_unregistered_runtime_before_run(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, _ = authenticated
+        _, identifier, selection = setup_run(engine, actors, storage, tmp_path, client)
+        workflow = client.get("/api/v1/workflows/" + identifier).json()["spec"]
+        client.app.state.registry = ExecutionRegistry()
+        headers = {"X-CSRF-Token": csrf}
+        draft = client.post(
+            "/api/v1/workflow-drafts/validate",
+            headers=headers,
+            json={
+                "project_id": project,
+                "workflow": workflow,
+                "scene": {"id": selection["scene_id"], "version": selection["scene_version"]},
+            },
+        )
+        saved = client.post(
+            "/api/v1/workflows/" + identifier + "/validate", headers=headers, json=selection
+        )
+        for response in (draft, saved):
+>           assert response.status_code == 200, response.text
+E           AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"88a957ad-cc80-4623-b729-74123710b87a"}
+E           assert 404 == 200
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_workflow_drafts.py:69: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_drafts.py::test_draft_preflight_checks_unsaved_science_and_never_persists_or_submits
+FAILED tests/integration/test_workflow_drafts.py::test_draft_and_saved_preflight_expose_unregistered_runtime_before_run
+2 failed, 2 warnings in 5.47s
