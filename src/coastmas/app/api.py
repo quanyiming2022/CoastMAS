@@ -7,11 +7,11 @@ from dataclasses import asdict
 from typing import cast
 from uuid import uuid4
 
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Query, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, SecretStr, ValidationError
-from sqlalchemy import Engine, create_engine, select, text
+from sqlalchemy import Engine, create_engine, func, select, text
 from starlette.exceptions import HTTPException
 
 from coastmas.adapters.storage import S3ArtifactStore
@@ -20,6 +20,7 @@ from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
+from coastmas.app.workspace_routes import router as workspace_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
@@ -33,7 +34,7 @@ from coastmas.persistence.resources import (
     require_permission,
     update_resource,
 )
-from coastmas.persistence.schema import Resource
+from coastmas.persistence.schema import Resource, ResourceVersion, User
 
 LOG = logging.getLogger("coastmas.api")
 
@@ -72,19 +73,45 @@ def error_response(
 
 def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[Contract]) -> None:
     def list_items(
-        project_id: str, session: DatabaseSession, user_id: CurrentUser
+        project_id: str,
+        response: Response,
+        session: DatabaseSession,
+        user_id: CurrentUser,
+        limit: int = Query(default=100, ge=1, le=500),
+        offset: int = Query(default=0, ge=0),
     ) -> list[dict[str, JsonValue]]:
         require_permission(session, user_id, project_id, "read")
-        records = session.scalars(
-            select(Resource)
-            .where(
-                Resource.project_id == project_id,
-                Resource.kind == kind,
-                Resource.archived.is_(False),
-            )
-            .order_by(Resource.name)
-            .limit(500)
+        conditions = (
+            Resource.project_id == project_id,
+            Resource.kind == kind,
+            Resource.archived.is_(False),
         )
+        total = session.scalar(select(func.count()).select_from(Resource).where(*conditions))
+        response.headers["X-Total-Count"] = str(total)
+        records = session.execute(
+            select(Resource, ResourceVersion)
+            .join(
+                ResourceVersion,
+                (ResourceVersion.resource_id == Resource.id)
+                & (ResourceVersion.version == Resource.current_version),
+            )
+            .where(*conditions)
+            .order_by(Resource.name, Resource.id)
+            .limit(limit)
+            .offset(offset)
+        )
+        fields = {
+            "model_type",
+            "validation_status",
+            "execution_status",
+            "capabilities",
+            "type",
+            "format",
+            "crs",
+            "management_goal",
+            "required_outputs",
+            "scene_type",
+        }
         return [
             {
                 "id": item.id,
@@ -92,8 +119,9 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
                 "version": item.current_version,
                 "enabled": item.enabled,
                 "published": item.published,
+                "summary": {key: value for key, value in revision.spec.items() if key in fields},
             }
-            for item in records
+            for item, revision in records
         ]
 
     def create_item(
@@ -267,8 +295,11 @@ def create_app(
         response.delete_cookie("coastmas_csrf")
 
     @app.get("/api/v1/auth/me")
-    def current_user(user_id: CurrentUser) -> dict[str, str]:
-        return {"user_id": user_id}
+    def current_user(user_id: CurrentUser, session: DatabaseSession) -> dict[str, JsonValue]:
+        account = session.get(User, user_id)
+        if account is None:
+            raise CoastMASError("AUTHENTICATION_ERROR", "account unavailable")
+        return {"user_id": user_id, "email": account.email, "is_admin": account.is_admin}
 
     app.state.artifact_store = artifact_store
     app.state.registry = registry if registry is not None else ExecutionRegistry()
@@ -276,6 +307,7 @@ def create_app(
     app.include_router(model_router)
     app.include_router(run_router)
     app.include_router(planning_router)
+    app.include_router(workspace_router)
     app.state.llm_provider = llm_provider
     routes: list[tuple[str, str, type[Contract]]] = [
         ("models", "model", ModelSpec),

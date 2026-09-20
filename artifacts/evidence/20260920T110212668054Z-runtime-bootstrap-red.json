@@ -1,0 +1,32 @@
+{
+  "name": "runtime-bootstrap-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_runtime_bootstrap.py",
+    "tests/integration/test_sample_bootstrap.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T11:02:12.668054+00:00",
+  "finished_at": "2026-09-20T11:02:14.018243+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "839afeedb4aec8ae3cf6744d1d50aaa770e19ef337501a6412917dd8f425b81e",
+  "git_commit": "0831990afc7e2c8e924cfa93af098070b4dcb30a",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T110212668054Z-runtime-bootstrap-red.log"
+}

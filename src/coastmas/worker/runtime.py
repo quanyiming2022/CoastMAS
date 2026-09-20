@@ -55,9 +55,18 @@ class WorkflowWorker:
             *manifest.data_assets,
         )
         for item in objects:
-            record = session.get(Resource, item.id)
-            if record is None or record.project_id != job.project_id or not record.enabled:
-                raise ConstraintError("run input is not an enabled resource in this project")
+            record = session.scalar(
+                select(Resource)
+                .where(Resource.id == item.id)
+                .execution_options(populate_existing=True)
+            )
+            if (
+                record is None
+                or record.project_id != job.project_id
+                or not record.enabled
+                or record.archived
+            ):
+                raise ConstraintError("run input is not an active resource in this project")
             revision = read_resource(
                 session, user_id=job.submitted_by, identifier=item.id, version=item.version
             )

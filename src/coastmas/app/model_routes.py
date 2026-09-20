@@ -6,7 +6,7 @@ from datetime import UTC, datetime
 from typing import Annotated, Literal, cast
 from uuid import uuid4
 
-from fastapi import APIRouter, Query, Response
+from fastapi import APIRouter, Query, Request, Response
 from fastapi.encoders import jsonable_encoder
 from pydantic import Field, FiniteFloat, JsonValue
 from sqlalchemy import func, select
@@ -15,6 +15,7 @@ from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, Name, SceneSpec
 from coastmas.core.decomposition import DecompositionRequest, ModelDecomposition, decompose_model
 from coastmas.core.errors import CoastMASError
+from coastmas.core.execution import ExecutionRegistry, RegisteredRuntime
 from coastmas.core.matching import MatchWeights, match_models
 from coastmas.core.model_documents import export_model, import_model
 from coastmas.persistence.lifecycle import archive_resource, resource_history
@@ -283,17 +284,29 @@ def copy_model(
 
 @router.post("/{identifier}/enabled")
 def set_enabled(
-    identifier: str, body: EnabledRequest, session: DatabaseSession, user_id: CurrentUser
+    identifier: str,
+    body: EnabledRequest,
+    request: Request,
+    session: DatabaseSession,
+    user_id: CurrentUser,
 ) -> dict[str, JsonValue]:
     resource = model_resource(session, user_id, identifier)
     current = read_resource(session, user_id=user_id, identifier=identifier)
-    model = ModelSpec.model_validate(current.spec).model_copy(
+    original = ModelSpec.model_validate(current.spec)
+    registry = cast(ExecutionRegistry, request.app.state.registry)
+    runtime: RegisteredRuntime | None = None
+    if original.validation_status == "VALIDATED" and original.execution_status == "EXECUTABLE":
+        try:
+            runtime = registry.resolve(original)
+        except CoastMASError:
+            runtime = None
+    model = original.model_copy(
         update={
             "version": body.expected_version + 1,
             "enabled": body.enabled,
             "updated_at": datetime.now(UTC),
-            "validation_status": "UNVALIDATED",
-            "execution_status": "NOT_EXECUTABLE",
+            "validation_status": "VALIDATED" if runtime else "UNVALIDATED",
+            "execution_status": "EXECUTABLE" if runtime else "NOT_EXECUTABLE",
         }
     )
     result = update_resource(
@@ -305,6 +318,11 @@ def set_enabled(
     )
     resource.enabled = body.enabled
     session.commit()
+    if runtime is not None:
+        try:
+            registry.resolve(model)
+        except CoastMASError:
+            registry.register(model, runtime.adapter, runtime.handler)
     return cast(dict[str, JsonValue], asdict(result))
 
 

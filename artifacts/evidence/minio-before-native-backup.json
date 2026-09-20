@@ -1,0 +1,7 @@
+{
+  "path": "artifacts/runtime/storage-backup/minio-before-native-20260920T113315Z.tar.gz",
+  "bytes": 25775,
+  "sha256": "c6a92272316c4a9b9810274897715579cd2c900e46c7a97ad3bf2d57334727cf",
+  "scope": "coastmas_coastmas_objects only",
+  "source_mount": "read-only"
+}

@@ -7,6 +7,7 @@ from typing import Protocol, cast
 
 # These are the only untyped SDK import boundaries; responses use explicit structural checks.
 import boto3  # type: ignore[import-untyped]
+from botocore.config import Config  # type: ignore[import-untyped]
 from botocore.exceptions import ClientError  # type: ignore[import-untyped]
 
 from coastmas.configuration import configuration_value
@@ -70,6 +71,9 @@ class S3ArtifactStore:
                 aws_access_key_id=settings.access_key,
                 aws_secret_access_key=settings.secret_key,
                 region_name="us-east-1",
+                config=Config(
+                    connect_timeout=3, read_timeout=10, retries={"total_max_attempts": 1}
+                ),
             ),
         )
 

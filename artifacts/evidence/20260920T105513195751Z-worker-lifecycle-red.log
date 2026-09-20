@@ -1,0 +1,72 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______ test_manifest_rechecks_cached_resource_lifecycle[enabled-False] ________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_9c85bd9811f44e7fbf5efc19bc44d9fa)
+actors = ('1be4a834-bde5-487e-96cf-e6f46e3cf1b4', '43c14fdb-de14-49a5-ba86-ce59cfedfa09', 'dce1d521-3972-4fc8-955a-974d74cdb65b', '712c003a-9ba8-4881-b0a4-9cd3a22420c7')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x119bcee10>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-129/test_manifest_rechecks_cached_0')
+field = 'enabled', value = False
+
+    @pytest.mark.parametrize('field,value', [('enabled', False), ('archived', True)])
+    def test_manifest_rechecks_cached_resource_lifecycle(engine, actors, storage, tmp_path, field, value):
+        from coastmas.core.errors import CoastMASError
+        from coastmas.persistence.schema import Resource
+    
+        def add(inputs, parameters):
+            return {'result': [item + parameters['increment'] for item in inputs['height']]}
+    
+        runner, job = prepare_worker(engine, actors, storage, tmp_path, add)
+        manifest = RunManifest.model_validate(job.manifest)
+        with Session(engine) as session:
+            cached = session.get(Resource, manifest.data_assets[0].id)
+            assert cached.enabled and not cached.archived
+            with Session(engine) as change, change.begin():
+                setattr(change.get(Resource, cached.id), field, value)
+>           with pytest.raises(CoastMASError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE CoastMASError
+
+tests/integration/test_worker.py:189: Failed
+_______ test_manifest_rechecks_cached_resource_lifecycle[archived-True] ________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_9c85bd9811f44e7fbf5efc19bc44d9fa)
+actors = ('1c78f6ac-63d3-4573-9e10-1c724506af22', '3f69ef92-59cb-4bfd-99d3-236754e4e778', '39b1d5b1-e6c9-41ad-b48b-678a145e4b21', '2f2866bb-d2e5-48e0-a45a-fb9d7db05e7d')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11bcc6d20>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-129/test_manifest_rechecks_cached_1')
+field = 'archived', value = True
+
+    @pytest.mark.parametrize('field,value', [('enabled', False), ('archived', True)])
+    def test_manifest_rechecks_cached_resource_lifecycle(engine, actors, storage, tmp_path, field, value):
+        from coastmas.core.errors import CoastMASError
+        from coastmas.persistence.schema import Resource
+    
+        def add(inputs, parameters):
+            return {'result': [item + parameters['increment'] for item in inputs['height']]}
+    
+        runner, job = prepare_worker(engine, actors, storage, tmp_path, add)
+        manifest = RunManifest.model_validate(job.manifest)
+        with Session(engine) as session:
+            cached = session.get(Resource, manifest.data_assets[0].id)
+            assert cached.enabled and not cached.archived
+            with Session(engine) as change, change.begin():
+                setattr(change.get(Resource, cached.id), field, value)
+>           with pytest.raises(CoastMASError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE CoastMASError
+
+tests/integration/test_worker.py:189: Failed
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_worker.py::test_manifest_rechecks_cached_resource_lifecycle[enabled-False]
+FAILED tests/integration/test_worker.py::test_manifest_rechecks_cached_resource_lifecycle[archived-True]
+2 failed, 3 deselected, 2 warnings in 4.91s

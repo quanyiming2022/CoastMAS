@@ -169,3 +169,24 @@ def test_running_worker_stops_on_cancel_or_permission_revocation(
             assert not list(tmp_path.iterdir())
     finally:
         app.close()
+
+
+@pytest.mark.parametrize("field,value", [("enabled", False), ("archived", True)])
+def test_manifest_rechecks_cached_resource_lifecycle(
+    engine, actors, storage, tmp_path, field, value
+):
+    from coastmas.core.errors import CoastMASError
+    from coastmas.persistence.schema import Resource
+
+    def add(inputs, parameters):
+        return {"result": [item + parameters["increment"] for item in inputs["height"]]}
+
+    runner, job = prepare_worker(engine, actors, storage, tmp_path, add)
+    manifest = RunManifest.model_validate(job.manifest)
+    with Session(engine) as session:
+        cached = session.get(Resource, manifest.data_assets[0].id)
+        assert cached.enabled and not cached.archived
+        with Session(engine) as change, change.begin():
+            setattr(change.get(Resource, cached.id), field, value)
+        with pytest.raises(CoastMASError):
+            runner._verify_manifest(session, job, manifest)

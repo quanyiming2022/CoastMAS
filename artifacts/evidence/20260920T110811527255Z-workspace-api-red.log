@@ -1,0 +1,54 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_project_listing_and_dashboard_are_scoped_and_computed __________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11a822f30>, 'XzFbaK4l0RX0mb909d37dcQxm8XZD-10gidxmS-gnQM', 'a5adb993-68b1-4fbb-8319-0ba78adc81c2', '04333a62-f1bd-456b-b960-a3a8730a015c')
+actors = ('04333a62-f1bd-456b-b960-a3a8730a015c', '5b6a2a79-128f-4c0e-be6d-e7f9e67c5d6b', '652bd072-ad5f-493f-af2f-ff37dffe0263', 'a5adb993-68b1-4fbb-8319-0ba78adc81c2')
+
+    def test_project_listing_and_dashboard_are_scoped_and_computed(authenticated, actors):
+        client, csrf, project, owner = authenticated
+        projects = client.get('/api/v1/projects')
+>       assert projects.status_code == 200, projects.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"f5893891-6d2e-4324-8dd1-01db2447912f"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_workspace_api.py:11: AssertionError
+__ test_admin_can_manage_users_memberships_and_audit_without_secret_exposure ___
+
+authenticated = (<starlette.testclient.TestClient object at 0x11a91e5a0>, 'CoQzNjA7wL-L0mr7vg8O83cGHg2juhKuAenQ7SPbOKE', '74ee6dda-0547-46de-b692-47aefb295eb2', '7f2ff4f7-b136-4a00-9f89-84ecf5bb6fe4')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_4765a481d53441a3883c300cdb0e2473)
+actors = ('7f2ff4f7-b136-4a00-9f89-84ecf5bb6fe4', 'ecd18464-cfd6-4bbd-a470-4d3a512aa560', '597de422-4af8-4467-962b-69654364a57f', '74ee6dda-0547-46de-b692-47aefb295eb2')
+
+    def test_admin_can_manage_users_memberships_and_audit_without_secret_exposure(
+        authenticated, engine, actors,
+    ):
+        client, csrf, project, owner = authenticated
+        with Session(engine) as session, session.begin():
+            session.get(User, owner).is_admin = True
+        headers = {'X-CSRF-Token': csrf}
+        email = uuid4().hex + '@managed.test.invalid'
+        password = 'managed-test-password'
+        created = client.post('/api/v1/admin/users', headers=headers, json={
+            'email': email, 'password': password,
+        })
+>       assert created.status_code == 201, created.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"bd08388c-30b7-4e31-a9e0-2adbb91a786b"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_workspace_api.py:34: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_workspace_api.py::test_project_listing_and_dashboard_are_scoped_and_computed
+FAILED tests/integration/test_workspace_api.py::test_admin_can_manage_users_memberships_and_audit_without_secret_exposure
+2 failed, 2 warnings in 2.80s

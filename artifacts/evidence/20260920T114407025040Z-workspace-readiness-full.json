@@ -1,0 +1,33 @@
+{
+  "name": "workspace-readiness-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--cov=coastmas",
+    "--cov-branch",
+    "--cov-report=json:artifacts/coverage.json"
+  ],
+  "started_at": "2026-09-20T11:44:07.025040+00:00",
+  "finished_at": "2026-09-20T11:46:45.137805+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "cc8896dcd37c09e54a2d67d2958cda663a368392537c9e0759f9c75e413c3933",
+  "git_commit": "0831990afc7e2c8e924cfa93af098070b4dcb30a",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T114407025040Z-workspace-readiness-full.log"
+}

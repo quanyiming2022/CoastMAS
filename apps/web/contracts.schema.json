@@ -1,0 +1,2067 @@
+{
+  "$defs": {
+    "BindingPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "crs_transform": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Crs Transform"
+        },
+        "quality_check": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Check",
+          "type": "array"
+        },
+        "resampling": {
+          "anyOf": [
+            {
+              "enum": [
+                "nearest",
+                "bilinear",
+                "cubic",
+                "sum",
+                "area_weighted"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resampling"
+        },
+        "semantic_mapping": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Semantic Mapping",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "status": {
+          "enum": [
+            "VALIDATED",
+            "BLOCKED",
+            "MANUAL_REVIEW"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/BindingTarget"
+        },
+        "temporal_transform": {
+          "anyOf": [
+            {
+              "enum": [
+                "nearest",
+                "mean",
+                "sum",
+                "min",
+                "max",
+                "interpolation"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Temporal Transform"
+        },
+        "unit_conversion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit Conversion"
+        }
+      },
+      "required": [
+        "source",
+        "target",
+        "semantic_mapping",
+        "unit_conversion",
+        "crs_transform",
+        "resampling",
+        "temporal_transform",
+        "quality_check",
+        "status"
+      ],
+      "title": "BindingPlan",
+      "type": "object"
+    },
+    "BindingTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Variable",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "variable"
+      ],
+      "title": "BindingTarget",
+      "type": "object"
+    },
+    "ConstraintSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "field": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Field",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "eq",
+            "ne",
+            "ge",
+            "le",
+            "in",
+            "required"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "field",
+        "operator",
+        "value",
+        "description"
+      ],
+      "title": "ConstraintSpec",
+      "type": "object"
+    },
+    "DataAssetSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Crs"
+        },
+        "format": {
+          "enum": [
+            "GeoTIFF",
+            "COG",
+            "GeoJSON",
+            "Shapefile",
+            "GeoPackage",
+            "CSV",
+            "NetCDF",
+            "JSON",
+            "HTTP",
+            "DATABASE"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "license": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "License",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "quality": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Quality",
+          "type": "object"
+        },
+        "source": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source",
+          "type": "string"
+        },
+        "spatial_extent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Extent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "time_end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Time End"
+        },
+        "time_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Time Resolution"
+        },
+        "time_start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Time Start"
+        },
+        "type": {
+          "enum": [
+            "raster",
+            "vector",
+            "table",
+            "json",
+            "service",
+            "database"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "uri": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Uri",
+          "type": "string"
+        },
+        "variables": {
+          "items": {
+            "$ref": "#/$defs/VariableSpec"
+          },
+          "title": "Variables",
+          "type": "array"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Vertical Datum"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "uri",
+        "format",
+        "crs",
+        "vertical_datum",
+        "spatial_extent",
+        "time_start",
+        "time_end",
+        "time_resolution",
+        "variables",
+        "quality",
+        "source",
+        "license",
+        "version",
+        "checksum"
+      ],
+      "title": "DataAssetSpec",
+      "type": "object"
+    },
+    "EntityBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "geographic_entity_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Geographic Entity Id",
+          "type": "string"
+        },
+        "geographic_entity_version": {
+          "minimum": 1,
+          "title": "Geographic Entity Version",
+          "type": "integer"
+        },
+        "management_unit_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Management Unit Id"
+        },
+        "result_object_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Result Object Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "result_object_id",
+        "geographic_entity_id",
+        "geographic_entity_version",
+        "management_unit_id"
+      ],
+      "title": "EntityBinding",
+      "type": "object"
+    },
+    "ExecutionJob": {
+      "additionalProperties": false,
+      "properties": {
+        "cancel_requested": {
+          "default": false,
+          "title": "Cancel Requested",
+          "type": "boolean"
+        },
+        "current_node": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Node"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "logs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Logs",
+          "type": "array"
+        },
+        "progress": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Progress",
+          "type": "number"
+        },
+        "scene_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        },
+        "status": {
+          "enum": [
+            "QUEUED",
+            "RUNNING",
+            "SUCCEEDED",
+            "FAILED",
+            "CANCELLED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "submitted_by": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Submitted By",
+          "type": "string"
+        },
+        "workflow_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Workflow Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "workflow_id",
+        "scene_id",
+        "status",
+        "submitted_by",
+        "started_at",
+        "finished_at",
+        "progress",
+        "current_node",
+        "error",
+        "logs"
+      ],
+      "title": "ExecutionJob",
+      "type": "object"
+    },
+    "ExecutionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "max_retries": {
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Max Retries",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "timeout_seconds",
+        "max_retries"
+      ],
+      "title": "ExecutionPolicy",
+      "type": "object"
+    },
+    "Extent": {
+      "additionalProperties": false,
+      "properties": {
+        "east": {
+          "title": "East",
+          "type": "number"
+        },
+        "north": {
+          "title": "North",
+          "type": "number"
+        },
+        "south": {
+          "title": "South",
+          "type": "number"
+        },
+        "west": {
+          "title": "West",
+          "type": "number"
+        }
+      },
+      "required": [
+        "west",
+        "south",
+        "east",
+        "north"
+      ],
+      "title": "Extent",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "ManagementGoal": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment_method": {
+          "default": "composite",
+          "enum": [
+            "composite",
+            "topsis"
+          ],
+          "title": "Assessment Method",
+          "type": "string"
+        },
+        "original_text": {
+          "maxLength": 8000,
+          "minLength": 1,
+          "title": "Original Text",
+          "type": "string"
+        },
+        "sea_level_increment_m": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sea Level Increment M"
+        },
+        "template": {
+          "enum": [
+            "coastal_impact",
+            "sustainability",
+            "temporal_change"
+          ],
+          "title": "Template",
+          "type": "string"
+        },
+        "weight_method": {
+          "default": "manual",
+          "enum": [
+            "equal",
+            "manual",
+            "entropy"
+          ],
+          "title": "Weight Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "original_text",
+        "template"
+      ],
+      "title": "ManagementGoal",
+      "type": "object"
+    },
+    "MissingCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "node_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Node Id"
+        },
+        "variable": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Variable"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "MissingCondition",
+      "type": "object"
+    },
+    "ModelSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/ConstraintSpec"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Display Name",
+          "type": "string"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "execution_status": {
+          "default": "NOT_EXECUTABLE",
+          "enum": [
+            "EXECUTABLE",
+            "NOT_EXECUTABLE"
+          ],
+          "title": "Execution Status",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "inputs": {
+          "items": {
+            "$ref": "#/$defs/VariableSpec"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "license": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "License",
+          "type": "string"
+        },
+        "model_type": {
+          "$ref": "#/$defs/ModelType"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "outputs": {
+          "items": {
+            "$ref": "#/$defs/VariableSpec"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "owner": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Owner",
+          "type": "string"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/ParameterSpec"
+          },
+          "title": "Parameters",
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "References",
+          "type": "array"
+        },
+        "runtime_config": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Runtime Config",
+          "type": "object"
+        },
+        "runtime_type": {
+          "enum": [
+            "python",
+            "cli",
+            "docker",
+            "http",
+            "raster_gis",
+            "ml",
+            "metadata"
+          ],
+          "title": "Runtime Type",
+          "type": "string"
+        },
+        "scientific_domain": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Scientific Domain",
+          "type": "array"
+        },
+        "spatial_scale": {
+          "$ref": "#/$defs/ScaleSpec"
+        },
+        "supported_crs": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Supported Crs",
+          "type": "array"
+        },
+        "supported_geometry": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Supported Geometry",
+          "type": "array"
+        },
+        "temporal_scale": {
+          "$ref": "#/$defs/ScaleSpec"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "validation_metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Validation Metrics",
+          "type": "object"
+        },
+        "validation_status": {
+          "enum": [
+            "UNVALIDATED",
+            "VALIDATED",
+            "REJECTED"
+          ],
+          "title": "Validation Status",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "display_name",
+        "version",
+        "model_type",
+        "description",
+        "capabilities",
+        "scientific_domain",
+        "inputs",
+        "outputs",
+        "parameters",
+        "spatial_scale",
+        "temporal_scale",
+        "supported_geometry",
+        "supported_crs",
+        "runtime_type",
+        "runtime_config",
+        "constraints",
+        "validation_status",
+        "validation_metrics",
+        "references",
+        "owner",
+        "license",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ModelSpec",
+      "type": "object"
+    },
+    "ModelType": {
+      "enum": [
+        "STATISTICAL",
+        "PROCESS",
+        "MACHINE_LEARNING",
+        "RASTER",
+        "GIS",
+        "HYBRID",
+        "EXTERNAL"
+      ],
+      "title": "ModelType",
+      "type": "string"
+    },
+    "ParameterBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "parameter": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "node_id",
+        "parameter",
+        "value"
+      ],
+      "title": "ParameterBinding",
+      "type": "object"
+    },
+    "ParameterSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "unit"
+      ],
+      "title": "ParameterSpec",
+      "type": "object"
+    },
+    "PlanningArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_workflow": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorkflowSpec"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "management_goal": {
+          "$ref": "#/$defs/ManagementGoal"
+        },
+        "missing_conditions": {
+          "items": {
+            "$ref": "#/$defs/MissingCondition"
+          },
+          "title": "Missing Conditions",
+          "type": "array"
+        },
+        "provider_requests": {
+          "const": 0,
+          "default": 0,
+          "title": "Provider Requests",
+          "type": "integer"
+        },
+        "rationale": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rationale",
+          "type": "array"
+        },
+        "required_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "required_data": {
+          "items": {
+            "$ref": "#/$defs/RequiredData"
+          },
+          "title": "Required Data",
+          "type": "array"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "task_graph": {
+          "$ref": "#/$defs/TaskGraph"
+        }
+      },
+      "required": [
+        "management_goal",
+        "scene",
+        "task_graph",
+        "required_data",
+        "required_capabilities",
+        "candidate_workflow",
+        "missing_conditions",
+        "rationale"
+      ],
+      "title": "PlanningArtifact",
+      "type": "object"
+    },
+    "ProposedBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "target": {
+          "$ref": "#/$defs/BindingTarget"
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ],
+      "title": "ProposedBinding",
+      "type": "object"
+    },
+    "ProposedNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "model": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/ProposedParameter"
+          },
+          "title": "Parameters",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "model",
+        "parameters"
+      ],
+      "title": "ProposedNode",
+      "type": "object"
+    },
+    "ProposedParameter": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "ProposedParameter",
+      "type": "object"
+    },
+    "ProposedWorkflow": {
+      "additionalProperties": false,
+      "properties": {
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/WorkflowEdge"
+          },
+          "maxItems": 128,
+          "title": "Edges",
+          "type": "array"
+        },
+        "input_bindings": {
+          "items": {
+            "$ref": "#/$defs/ProposedBinding"
+          },
+          "maxItems": 128,
+          "title": "Input Bindings",
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/ProposedNode"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "output_definition": {
+          "items": {
+            "$ref": "#/$defs/BindingTarget"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Output Definition",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges",
+        "input_bindings",
+        "output_definition"
+      ],
+      "title": "ProposedWorkflow",
+      "type": "object"
+    },
+    "ProviderProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_workflow": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProposedWorkflow"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "management_goal": {
+          "maxLength": 8000,
+          "minLength": 1,
+          "title": "Management Goal",
+          "type": "string"
+        },
+        "missing_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Conditions",
+          "type": "array"
+        },
+        "rationale": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rationale",
+          "type": "array"
+        },
+        "required_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "required_data": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Data",
+          "type": "array"
+        },
+        "task_graph": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Task Graph",
+          "type": "array"
+        }
+      },
+      "required": [
+        "management_goal",
+        "task_graph",
+        "required_data",
+        "required_capabilities",
+        "candidate_workflow",
+        "missing_conditions",
+        "rationale"
+      ],
+      "title": "ProviderProposal",
+      "type": "object"
+    },
+    "RequiredData": {
+      "additionalProperties": false,
+      "properties": {
+        "selected": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionReference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standard_name": {
+          "title": "Standard Name",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/BindingTarget"
+        }
+      },
+      "required": [
+        "target",
+        "standard_name",
+        "selected"
+      ],
+      "title": "RequiredData",
+      "type": "object"
+    },
+    "ResultManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "entity_binding": {
+          "items": {
+            "$ref": "#/$defs/EntityBinding"
+          },
+          "title": "Entity Binding",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "job_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "provenance": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Provenance",
+          "type": "string"
+        },
+        "quality_status": {
+          "enum": [
+            "RAW",
+            "VALIDATED",
+            "REVIEWED",
+            "PUBLISHED",
+            "REJECTED"
+          ],
+          "title": "Quality Status",
+          "type": "string"
+        },
+        "result_type": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Result Type",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "spatial_extent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Extent"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "storage_uri": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Storage Uri",
+          "type": "string"
+        },
+        "time_range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimeRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "job_id",
+        "revision",
+        "result_type",
+        "storage_uri",
+        "checksum",
+        "entity_binding",
+        "spatial_extent",
+        "time_range",
+        "unit",
+        "quality_status",
+        "provenance",
+        "created_at"
+      ],
+      "title": "ResultManifest",
+      "type": "object"
+    },
+    "RunManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "bindings": {
+          "items": {
+            "$ref": "#/$defs/BindingPlan"
+          },
+          "title": "Bindings",
+          "type": "array"
+        },
+        "container_image": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Container Image",
+          "type": "string"
+        },
+        "data_assets": {
+          "items": {
+            "$ref": "#/$defs/DataAssetSpec"
+          },
+          "title": "Data Assets",
+          "type": "array"
+        },
+        "environment": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Environment",
+          "type": "object"
+        },
+        "models": {
+          "items": {
+            "$ref": "#/$defs/ModelSpec"
+          },
+          "title": "Models",
+          "type": "array"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/ParameterBinding"
+          },
+          "title": "Parameters",
+          "type": "array"
+        },
+        "random_seed": {
+          "minimum": 0,
+          "title": "Random Seed",
+          "type": "integer"
+        },
+        "scene": {
+          "$ref": "#/$defs/SceneSpec"
+        },
+        "software_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Software Version",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "workflow": {
+          "$ref": "#/$defs/WorkflowSpec"
+        }
+      },
+      "required": [
+        "scene",
+        "workflow",
+        "models",
+        "data_assets",
+        "parameters",
+        "software_version",
+        "container_image",
+        "timestamp",
+        "random_seed",
+        "bindings",
+        "environment"
+      ],
+      "title": "RunManifest",
+      "type": "object"
+    },
+    "ScaleSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit"
+      ],
+      "title": "ScaleSpec",
+      "type": "object"
+    },
+    "SceneSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/ConstraintSpec"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "data_policy": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Data Policy",
+          "type": "object"
+        },
+        "entity_types": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Entity Types",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "management_goal": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Management Goal",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "quality_requirements": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Quality Requirements",
+          "type": "object"
+        },
+        "required_outputs": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Required Outputs",
+          "type": "array"
+        },
+        "scenario_conditions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Scenario Conditions",
+          "type": "object"
+        },
+        "study_area": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Study Area",
+          "type": "object"
+        },
+        "time_range": {
+          "$ref": "#/$defs/TimeRange"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "management_goal",
+        "study_area",
+        "entity_types",
+        "time_range",
+        "scenario_conditions",
+        "constraints",
+        "required_outputs",
+        "data_policy",
+        "quality_requirements"
+      ],
+      "title": "SceneSpec",
+      "type": "object"
+    },
+    "TaskGraph": {
+      "additionalProperties": false,
+      "properties": {
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/WorkflowEdge"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/WorkflowNode"
+          },
+          "title": "Nodes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges"
+      ],
+      "title": "TaskGraph",
+      "type": "object"
+    },
+    "TimeRange": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "TimeRange",
+      "type": "object"
+    },
+    "VariableSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_type": {
+          "enum": [
+            "intensive",
+            "extensive",
+            "categorical",
+            "instantaneous"
+          ],
+          "title": "Aggregation Type",
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "raster",
+            "vector",
+            "table",
+            "scalar",
+            "array",
+            "json"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "dimension": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Dimension",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "nodata_policy": {
+          "enum": [
+            "reject",
+            "mask",
+            "propagate"
+          ],
+          "title": "Nodata Policy",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "semantic_type": {
+          "enum": [
+            "continuous",
+            "categorical",
+            "extensive"
+          ],
+          "title": "Semantic Type",
+          "type": "string"
+        },
+        "spatial_support": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Spatial Support",
+          "type": "string"
+        },
+        "standard_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Standard Name",
+          "type": "string"
+        },
+        "temporal_support": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Temporal Support",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "standard_name",
+        "description",
+        "data_type",
+        "unit",
+        "dimension",
+        "semantic_type",
+        "spatial_support",
+        "temporal_support",
+        "aggregation_type",
+        "nodata_policy",
+        "required"
+      ],
+      "title": "VariableSpec",
+      "type": "object"
+    },
+    "VersionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "VersionReference",
+      "type": "object"
+    },
+    "WorkflowEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "source_node": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source Node",
+          "type": "string"
+        },
+        "source_variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source Variable",
+          "type": "string"
+        },
+        "target_node": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Target Node",
+          "type": "string"
+        },
+        "target_variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Target Variable",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_node",
+        "source_variable",
+        "target_node",
+        "target_variable"
+      ],
+      "title": "WorkflowEdge",
+      "type": "object"
+    },
+    "WorkflowNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "model",
+          "enum": [
+            "data",
+            "transform",
+            "model",
+            "validation",
+            "output"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "model_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_version": {
+          "minimum": 1,
+          "title": "Model Version",
+          "type": "integer"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "model_id",
+        "model_version"
+      ],
+      "title": "WorkflowNode",
+      "type": "object"
+    },
+    "WorkflowSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/ConstraintSpec"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/WorkflowEdge"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "execution_policy": {
+          "$ref": "#/$defs/ExecutionPolicy"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "input_bindings": {
+          "items": {
+            "$ref": "#/$defs/BindingPlan"
+          },
+          "title": "Input Bindings",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/WorkflowNode"
+          },
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "output_definition": {
+          "items": {
+            "$ref": "#/$defs/BindingTarget"
+          },
+          "title": "Output Definition",
+          "type": "array"
+        },
+        "parameter_bindings": {
+          "items": {
+            "$ref": "#/$defs/ParameterBinding"
+          },
+          "title": "Parameter Bindings",
+          "type": "array"
+        },
+        "scene_type": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Scene Type",
+          "type": "string"
+        },
+        "validation_rules": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Validation Rules",
+          "type": "array"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "scene_type",
+        "nodes",
+        "edges",
+        "input_bindings",
+        "parameter_bindings",
+        "constraints",
+        "validation_rules",
+        "execution_policy",
+        "output_definition"
+      ],
+      "title": "WorkflowSpec",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "BindingPlan": {
+      "$ref": "#/$defs/BindingPlan"
+    },
+    "DataAssetSpec": {
+      "$ref": "#/$defs/DataAssetSpec"
+    },
+    "ExecutionJob": {
+      "$ref": "#/$defs/ExecutionJob"
+    },
+    "ManagementGoal": {
+      "$ref": "#/$defs/ManagementGoal"
+    },
+    "ModelSpec": {
+      "$ref": "#/$defs/ModelSpec"
+    },
+    "PlanningArtifact": {
+      "$ref": "#/$defs/PlanningArtifact"
+    },
+    "ProviderProposal": {
+      "$ref": "#/$defs/ProviderProposal"
+    },
+    "ResultManifest": {
+      "$ref": "#/$defs/ResultManifest"
+    },
+    "RunManifest": {
+      "$ref": "#/$defs/RunManifest"
+    },
+    "SceneSpec": {
+      "$ref": "#/$defs/SceneSpec"
+    },
+    "WorkflowSpec": {
+      "$ref": "#/$defs/WorkflowSpec"
+    }
+  },
+  "required": [
+    "ModelSpec",
+    "DataAssetSpec",
+    "SceneSpec",
+    "WorkflowSpec",
+    "BindingPlan",
+    "ExecutionJob",
+    "RunManifest",
+    "ResultManifest",
+    "ManagementGoal",
+    "PlanningArtifact",
+    "ProviderProposal"
+  ],
+  "title": "CoastMASContracts",
+  "type": "object"
+}
