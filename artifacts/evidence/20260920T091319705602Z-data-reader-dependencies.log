@@ -1,0 +1,24 @@
+Collecting fiona<2,>=1.10
+  Downloading fiona-1.10.1-cp312-cp312-macosx_11_0_arm64.whl.metadata (56 kB)
+Collecting netCDF4<2,>=1.7
+  Downloading netcdf4-1.7.4-cp311-abi3-macosx_14_0_arm64.whl.metadata (2.1 kB)
+Requirement already satisfied: attrs>=19.2.0 in ./.venv/lib/python3.12/site-packages (from fiona<2,>=1.10) (26.1.0)
+Requirement already satisfied: certifi in ./.venv/lib/python3.12/site-packages (from fiona<2,>=1.10) (2026.7.22)
+Requirement already satisfied: click~=8.0 in ./.venv/lib/python3.12/site-packages (from fiona<2,>=1.10) (8.5.0)
+Requirement already satisfied: click-plugins>=1.0 in ./.venv/lib/python3.12/site-packages (from fiona<2,>=1.10) (1.1.1.2)
+Collecting cligj>=0.5 (from fiona<2,>=1.10)
+  Using cached cligj-0.7.2-py3-none-any.whl.metadata (5.0 kB)
+Collecting cftime (from netCDF4<2,>=1.7)
+  Downloading cftime-1.6.5-cp312-cp312-macosx_11_0_arm64.whl.metadata (8.7 kB)
+Requirement already satisfied: numpy>=1.21.2 in ./.venv/lib/python3.12/site-packages (from netCDF4<2,>=1.7) (2.5.3)
+Downloading fiona-1.10.1-cp312-cp312-macosx_11_0_arm64.whl (14.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.8/14.8 MB 6.1 MB/s eta 0:00:00
+Downloading netcdf4-1.7.4-cp311-abi3-macosx_14_0_arm64.whl (22.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.8/22.8 MB 6.5 MB/s eta 0:00:00
+Using cached cligj-0.7.2-py3-none-any.whl (7.1 kB)
+Downloading cftime-1.6.5-cp312-cp312-macosx_11_0_arm64.whl (485 kB)
+Installing collected packages: cligj, cftime, netCDF4, fiona
+Successfully installed cftime-1.6.5 cligj-0.7.2 fiona-1.10.1 netCDF4-1.7.4
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: /Users/quanyiming/Projects/CoastMAS/.venv/bin/python -m pip install --upgrade pip

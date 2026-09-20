@@ -1,0 +1,9 @@
+src/coastmas/core/data_inspection.py:18: error: Unused "type: ignore" comment  [unused-ignore]
+src/coastmas/core/data_inspection.py:21: error: Unused "type: ignore" comment  [unused-ignore]
+src/coastmas/core/data_inspection.py:26: error: Library stubs not installed for "shapely.geometry"  [import-untyped]
+src/coastmas/core/data_inspection.py:26: note: Hint: "python3 -m pip install types-shapely"
+src/coastmas/core/data_inspection.py:26: note: (or run "mypy --install-types" to install all missing stub packages)
+src/coastmas/core/data_inspection.py:26: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+src/coastmas/core/data_inspection.py:35: error: Need type annotation for "JSON_VALUE"  [var-annotated]
+src/coastmas/core/data_inspection.py:80: error: Returning Any from function declared to return "list[JsonValue] | dict[str, JsonValue] | str | bool | int | float | None"  [no-any-return]
+Found 5 errors in 1 file (checked 47 source files)

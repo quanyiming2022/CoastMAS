@@ -1,0 +1,95 @@
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+____________ test_run_api_builds_manifest_and_publishes_real_result ____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x1136fe9c0>, 'xi1a56Xu8Pd3OtV90SBf-tWKOzA41sOF6gPT46O8FZE', 'b89791d4-4afa-487d-b6c5-9ed60140910f', 'eee5edd5-b959-4d75-ad74-ff3381a084d4')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_7e244e99950646e8bfd8d10d4efa8600)
+actors = ('eee5edd5-b959-4d75-ad74-ff3381a084d4', '48fd621b-66cd-4c56-81c2-43f44e463166', '3c76d259-fcf9-4fa0-affb-d1708aa854e4', 'b89791d4-4afa-487d-b6c5-9ed60140910f')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x112be9b20>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-97/test_run_api_builds_manifest_a0')
+
+    def test_run_api_builds_manifest_and_publishes_real_result(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, _ = authenticated
+        runner, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        preflight = client.post(f"/api/v1/workflows/{workflow_id}/validate", headers=headers, json=body)
+        assert preflight.status_code == 200, preflight.text
+        assert preflight.json()["valid"] is True
+        response = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert response.status_code == 202, response.text
+        job = response.json()
+        assert job["status"] == "QUEUED"
+        duplicate = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert duplicate.status_code == 202, duplicate.text
+        assert duplicate.json()["id"] == job["id"]
+        changed = client.post(
+            f"/api/v1/workflows/{workflow_id}/run", headers=headers, json={**body, "random_seed": 43}
+        )
+        assert changed.status_code == 409
+        runner.run(job["id"])
+        assert client.get(f"/api/v1/jobs/{job['id']}").json()["status"] == "SUCCEEDED"
+        results = client.get("/api/v1/results", params={"project_id": project}).json()
+        assert len(results) == 1
+        result_id = results[0]["id"]
+        result = client.get(f"/api/v1/results/{result_id}")
+        assert result.status_code == 200, result.text
+        assert result.json()["job_id"] == job["id"]
+        provenance = client.get(f"/api/v1/results/{result_id}/provenance").json()
+        assert provenance["workflow"]["id"] == workflow_id
+        assert provenance["random_seed"] == 42
+        content = client.get(f"/api/v1/results/{result_id}/content")
+>       assert content.status_code == 200, content.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"c996d144-4830-4551-b056-766f02a48576"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_run_api.py:58: AssertionError
+__ test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry __
+
+authenticated = (<starlette.testclient.TestClient object at 0x1137621e0>, 'KqoSjzpfVX_yaQRPFNw_fU5oIj2V-Qk107T-US_qMH0', '2a80139d-13ad-4393-a2e3-da51f6b1d0fb', '02369af8-f015-4160-aac4-455c66571adf')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_7e244e99950646e8bfd8d10d4efa8600)
+actors = ('02369af8-f015-4160-aac4-455c66571adf', '9fa74f88-703f-48b2-8716-d4f88a117209', 'b87df511-37ac-4f29-83c8-c71ac479c94c', '2a80139d-13ad-4393-a2e3-da51f6b1d0fb')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1144c2600>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-97/test_run_api_blocks_disabled_i0')
+
+    def test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, _, _ = authenticated
+        runner, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        with Session(engine) as session, session.begin():
+            session.get(Resource, workflow_id).enabled = False
+        response = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert response.status_code == 422
+        with Session(engine) as session, session.begin():
+            session.get(Resource, workflow_id).enabled = True
+        response = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert response.status_code == 202, response.text
+        identifier = response.json()["id"]
+        cancelled = client.post(f"/api/v1/jobs/{identifier}/cancel", headers=headers)
+        assert cancelled.status_code == 200
+        assert cancelled.json()["status"] == "CANCELLED"
+        conflict = client.post(f"/api/v1/jobs/{identifier}/retry", headers=headers)
+>       assert conflict.status_code == 409, conflict.text
+E       AssertionError: {"id":"6803ff2b-4290-4bf4-8b40-fe4735d4c4c4","project_id":"2a80139d-13ad-4393-a2e3-da51f6b1d0fb","submitted_by":"02369af8-f015-4160-aac4-455c66571adf","status":"CANCELLED","cancel_requested":true,"progress":0.0,"attempt":0,"manifest":{"scene":{"id":"scene-fb256a5a92df490cbd5ada666ec6a47e","name":"scene","version":1,"study_area":{"type":"Polygon","coordinates":[[[0,0],[100,0],[100,100],[0,100],[0,0]]]},"time_range":{"end":"2026-01-02T00:00:00Z","start":"2026-01-01T00:00:00Z"},"constraints":[],"data_policy":{},"entity_types":["management_unit"],"management_goal":"screen","required_outputs":["result"],"scenario_conditions":{"vertical_datum":"demo-datum"},"quality_requirements":{}},"models":[{"id":"screen-fb256a5a92df490cbd5ada666ec6a47e","name":"screen","owner":"researcher","inputs":[{"name":"height","unit":"m","required":true,"data_type":"array","dimension":"[length]","description":"Elevation","nodata_policy":"mask","semantic_type":"continuous","standard_name":"elevation","spatial_support":"grid","aggregation_type":"intensive","temporal_support":"instant"}],"enabled":true,"license":"MIT","outputs":[{"name":"result","unit":"m","required":true,"data_type":"array","dimension":"[length]","description":"Elevation","nodata_policy":"mask","semantic_type":"continuous","standard_name":"elevation","spatial_support":"grid","aggregation_type":"intensive","temporal_support":"instant"}],"version":1,"created_at":"2026-01-01T00:00:00Z","model_type":"RASTER","parameters":[{"name":"increment","unit":"m","default":null,"maximum":10.0,"minimum":0.0,"required":true,"description":""}],"references":[],"updated_at":"2026-01-01T00:00:00Z","constraints":[],"description":"test model","capabilities":["screen"],"display_name":"Screen","runtime_type":"python","spatial_scale":{"unit":"m","maximum":100.0,"minimum":1.0},"supported_crs":["EPSG:32650"],"runtime_config":{"handler":"screen"},"temporal_scale":{"unit":"s","maximum":86400.0,"minimum":1.0},"execution_status":"EXECUTABLE","scientific_domain":["coastal"],"validation_status":"VALIDATED","supported_geometry":["grid"],"validation_metrics":{}}],"bindings":[{"source":{"id":"dem-fb256a5a92df490cbd5ada666ec6a47e","version":1},"status":"VALIDATED","target":{"node_id":"screen-node","variable":"height"},"resampling":null,"crs_transform":null,"quality_check":[],"unit_conversion":null,"semantic_mapping":"exact_standard_name","temporal_transform":null}],"workflow":{"id":"wf-fb256a5a92df490cbd5ada666ec6a47e","name":"wf","edges":[],"nodes":[{"id":"screen-node","kind":"model","model_id":"screen-fb256a5a92df490cbd5ada666ec6a47e","parameters":{"increment":0.5},"model_version":1}],"version":1,"scene_type":"custom","constraints":[],"input_bindings":[{"source":{"id":"dem-fb256a5a92df490cbd5ada666ec6a47e","version":1},"status":"VALIDATED","target":{"node_id":"screen-node","variable":"height"},"resampling":null,"crs_transform":null,"quality_check":[],"unit_conversion":null,"semantic_mapping":"exact_standard_name","temporal_transform":null}],"execution_policy":{"max_retries":0,"timeout_seconds":60},"validation_rules":[],"output_definition":[{"node_id":"screen-node","variable":"result"}],"parameter_bindings":[]},"timestamp":"2026-09-20T09:10:39.628412Z","parameters":[],"data_assets":[{"id":"dem-fb256a5a92df490cbd5ada666ec6a47e","crs":"EPSG:32650","uri":"s3://coastmas-test-27fc335e3edf4742a5d66e8919b68f60/input/height.json","name":"DEM","type":"table","format":"JSON","source":"SYNTHETIC","license":"CC0","quality":{"validated":true,"size_bytes":16},"version":1,"checksum":"1ea7c4b235222eee109723e4a35bdc227ea54ce4a12797c1b467d76f8da77eee","time_end":"2026-12-31T00:00:00Z","variables":[{"name":"height","unit":"m","required":true,"data_type":"array","dimension":"[length]","description":"Elevation","nodata_policy":"mask","semantic_type":"continuous","standard_name":"elevation","spatial_support":"grid","aggregation_type":"intensive","temporal_support":"instant"}],"time_start":"2026-01-01T00:00:00Z","spatial_extent":{"east":100.0,"west":0.0,"north":100.0,"south":0.0},"vertical_datum":"demo-datum","time_resolution":"1 hour"}],"environment":{"python":"3.12.14","platform":"Darwin"},"random_seed":42,"container_image":"local-python-not-containerized","software_version":"0.1.0"},"error":null}
+E       assert 202 == 409
+E        +  where 202 = <Response [202 Accepted]>.status_code
+
+tests/integration/test_run_api.py:82: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_run_api.py::test_run_api_builds_manifest_and_publishes_real_result
+FAILED tests/integration/test_run_api.py::test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry
+2 failed, 2 passed, 2 warnings in 9.11s

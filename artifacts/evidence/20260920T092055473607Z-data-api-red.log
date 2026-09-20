@@ -1,0 +1,79 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_upload_reads_real_csv_and_validates_versioned_catalog __________
+
+authenticated = (<starlette.testclient.TestClient object at 0x10dae3b60>, '6NkhUKAGz-mbHtM6jg0_vv_Ffvts-8vz9Ibd-0Bdq9s', '69809cb1-3059-4ab3-8769-23d14e9c6fed', '7cfbb07a-c9ee-46d5-a951-9cb028aee608')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x10db6caa0>
+
+    def test_upload_reads_real_csv_and_validates_versioned_catalog(authenticated, storage):
+        client, csrf, project, _ = authenticated
+        client.app.state.artifact_store = storage
+        content = b"height,label\n1,a\n2,b\n"
+        source = asset(
+            id=uuid4().hex, format="CSV", type="table", variables=[variable(data_type="array")]
+        )
+        headers = {"X-CSRF-Token": csrf}
+        response = client.post(
+            "/api/v1/data-assets/upload",
+            headers=headers,
+            data={"project_id": project, "metadata": source.model_dump_json()},
+            files={"file": ("../../untrusted.csv", content, "text/csv")},
+        )
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"e7796c84-f49d-4fb6-9269-50c2b7b9c80f"}
+E       assert 405 == 201
+E        +  where 405 = <Response [405 Method Not Allowed]>.status_code
+
+tests/integration/test_data_api.py:21: AssertionError
+______________ test_catalog_metadata_cannot_self_certify_quality _______________
+
+authenticated = (<starlette.testclient.TestClient object at 0x10db6d9a0>, 'AiUtGk2rbpOtiaxhc07Ke52lYIzMH4qs2ZIXox0qWJk', '12a0dd0a-d7ec-422c-8f9d-c5f46ce8ccb8', '6d9af2fb-f6e4-49be-a008-b21b5cbc5302')
+
+    def test_catalog_metadata_cannot_self_certify_quality(authenticated):
+        client, csrf, project, _ = authenticated
+        source = asset(id=uuid4().hex)
+        response = client.post(
+            "/api/v1/data-assets",
+            headers={"X-CSRF-Token": csrf},
+            json={"project_id": project, "spec": source.model_dump(mode="json")},
+        )
+        assert response.status_code == 201
+>       assert response.json()["spec"]["quality"]["validated"] is False
+E       assert True is False
+
+tests/integration/test_data_api.py:47: AssertionError
+_____________ test_corrupt_upload_does_not_create_catalog_resource _____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x10e7af3b0>, 'kETEy8ZAQ83_GTCbUTOLSrjXHyL5bpma-8Y4Dh5u8WI', '9b61fce8-d181-45aa-a02b-5dac23f1766b', '2cf8cb8d-ea3e-480b-a5b1-ed1853e0e4fc')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1138a98e0>
+
+    def test_corrupt_upload_does_not_create_catalog_resource(authenticated, storage):
+        client, csrf, project, _ = authenticated
+        client.app.state.artifact_store = storage
+        source = asset(id=uuid4().hex)
+        response = client.post(
+            "/api/v1/data-assets/upload",
+            headers={"X-CSRF-Token": csrf},
+            data={"project_id": project, "metadata": source.model_dump_json()},
+            files={"file": ("fake.tif", b"not-a-raster", "image/tiff")},
+        )
+>       assert response.status_code == 422
+E       assert 405 == 422
+E        +  where 405 = <Response [405 Method Not Allowed]>.status_code
+
+tests/integration/test_data_api.py:60: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_data_api.py::test_upload_reads_real_csv_and_validates_versioned_catalog
+FAILED tests/integration/test_data_api.py::test_catalog_metadata_cannot_self_certify_quality
+FAILED tests/integration/test_data_api.py::test_corrupt_upload_does_not_create_catalog_resource
+3 failed, 2 warnings in 2.64s

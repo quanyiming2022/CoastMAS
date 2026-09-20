@@ -1,0 +1,31 @@
+{
+  "name": "data-inspection-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_data_inspection.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T09:14:49.429874+00:00",
+  "finished_at": "2026-09-20T09:14:58.670071+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "fd2a64cf24aca7d8ca8c3c3cebd6ea2770212552ab64dda06ecd9f9e5ef821da",
+  "git_commit": "5e8bce6bbf2ae79b5dfcc7809a85f300514ec72f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T091449429874Z-data-inspection-red.log"
+}

@@ -7,6 +7,8 @@ from fastapi import Depends, Request
 from sqlalchemy import Engine
 from sqlalchemy.orm import Session
 
+from coastmas.adapters.storage import S3ArtifactStore, local_storage_settings
+from coastmas.configuration import configuration_value
 from coastmas.persistence.auth import authenticate
 
 
@@ -29,3 +31,12 @@ def user_dependency(request: Request, session: DatabaseSession) -> str:
 
 
 CurrentUser = Annotated[str, Depends(user_dependency)]
+
+
+def artifact_store(request: Request) -> S3ArtifactStore:
+    store = cast(S3ArtifactStore | None, request.app.state.artifact_store)
+    if store is not None:
+        return store
+    return S3ArtifactStore(
+        local_storage_settings(), bucket=configuration_value("S3_BUCKET", "coastmas")
+    )

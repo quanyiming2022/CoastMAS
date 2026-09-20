@@ -1,0 +1,84 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_run_api_builds_manifest_and_publishes_real_result ____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x10f47fd40>, 'oFw5RTjhyUuuhEhDO-sBGARLxmFV2cHXCRVz9FNKyEY', 'c2c7239a-349c-433d-bb80-28993471afb6', '2a0f42e1-2b3e-4217-b1da-fe80ba4423cd')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_fc4c2c6cc0904f0ab9cdb5b2fccd912c)
+actors = ('2a0f42e1-2b3e-4217-b1da-fe80ba4423cd', '43a613df-0cd8-4153-a495-22b1e729864d', '52f5fe2d-2ab3-48aa-b05e-d68da2bdc7b2', 'c2c7239a-349c-433d-bb80-28993471afb6')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x10f4ade80>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-95/test_run_api_builds_manifest_a0')
+
+    def test_run_api_builds_manifest_and_publishes_real_result(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, _ = authenticated
+        runner, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        preflight = client.post(f"/api/v1/workflows/{workflow_id}/validate", headers=headers, json=body)
+>       assert preflight.status_code == 200, preflight.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"4047792a-e48f-4c2f-ab7c-34fc9fffd12e"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_run_api.py:32: AssertionError
+__ test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry __
+
+authenticated = (<starlette.testclient.TestClient object at 0x10f508350>, '_zbBkXLWD-B6pewq5iv7IOtHRPFIMHfXpknZhiPA4go', '96accbed-fb69-4319-8345-5e77de1905cb', 'd83bca19-6b7e-49eb-b426-05dc605477ef')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_fc4c2c6cc0904f0ab9cdb5b2fccd912c)
+actors = ('d83bca19-6b7e-49eb-b426-05dc605477ef', 'b37911bc-25e8-4979-b94d-922fe2ab2c18', 'ecbe993c-15ac-4cdd-a4cb-dbc3faa0a3a6', '96accbed-fb69-4319-8345-5e77de1905cb')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1101cb830>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-95/test_run_api_blocks_disabled_i0')
+
+    def test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, _, _ = authenticated
+        runner, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        with Session(engine) as session, session.begin():
+            session.get(Resource, workflow_id).enabled = False
+        response = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+>       assert response.status_code == 422
+E       assert 404 == 422
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_run_api.py:67: AssertionError
+_______ test_run_api_does_not_accept_caller_manifest_or_unknown_runtime ________
+
+authenticated = (<starlette.testclient.TestClient object at 0x1101cabd0>, 'v1yUJ_ImZcVtxY8PHHE58tlWBDFGjnpOlXQasw74DB4', '08d10941-9d0e-4d2b-8e1b-826f034b1799', 'f5aec991-6ece-40d0-9e42-e6b145e1151a')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_fc4c2c6cc0904f0ab9cdb5b2fccd912c)
+actors = ('f5aec991-6ece-40d0-9e42-e6b145e1151a', '60d6ce25-90d9-40e8-a0a2-d7291c773dec', '62bd74ee-5cbf-4a70-8c76-4ca7f6b7a55e', '08d10941-9d0e-4d2b-8e1b-826f034b1799')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1102d8830>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-95/test_run_api_does_not_accept_c0')
+
+    def test_run_api_does_not_accept_caller_manifest_or_unknown_runtime(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        from coastmas.core.execution import ExecutionRegistry
+    
+        client, csrf, _, _ = authenticated
+        _, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        response = client.post(
+            f"/api/v1/workflows/{workflow_id}/run", headers=headers, json={**body, "manifest": {}}
+        )
+>       assert response.status_code == 422
+E       assert 404 == 422
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_run_api.py:100: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_run_api.py::test_run_api_builds_manifest_and_publishes_real_result
+FAILED tests/integration/test_run_api.py::test_run_api_blocks_disabled_input_and_supports_cancel_then_explicit_retry
+FAILED tests/integration/test_run_api.py::test_run_api_does_not_accept_caller_manifest_or_unknown_runtime
+3 failed, 2 warnings in 6.36s

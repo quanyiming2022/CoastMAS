@@ -1,0 +1,171 @@
+..F..                                                                    [100%]
+=================================== FAILURES ===================================
+___________ test_geojson_shapefile_and_geopackage_read_real_features ___________
+
+content = b'{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"height": 2.0}, "geometry": {"type": "Point", "coordinates": [117.0, 30.0]}}]}'
+asset = DataAssetSpec(id='dem', name='DEM', type='vector', uri='s3://coastmas/dem.tif', format='GeoJSON', crs='EPSG:4326', ver...rce='SYNTHETIC', license='CC0', version=1, checksum='2916d2e73d8840c13731dca3acfbff0e9b66a54d8227d8c2bd69103caff56bd3')
+
+    def inspect_data(content: bytes, asset: DataAssetSpec) -> DataInspection:
+        if len(content) > MAX_BYTES:
+            raise CoastMASError("DATA_LIMIT", "file exceeds inspection byte budget")
+        if hashlib.sha256(content).hexdigest() != asset.checksum:
+            raise CoastMASError("CHECKSUM_ERROR", "data checksum mismatch")
+        if not asset.variables:
+            raise ConstraintError("data requires at least one declared variable")
+        try:
+            if asset.format in {"GeoTIFF", "COG"}:
+                report = _raster(content, asset)
+            elif asset.format == "CSV":
+                report = _csv(content, asset)
+            elif asset.format in {"GeoJSON", "Shapefile", "GeoPackage"}:
+>               report = _vector(content, asset)
+                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+src/coastmas/core/data_inspection.py:328: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/core/data_inspection.py:263: in _vector
+    preview.append(JSON_VALUE.validate_python(raw))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = TypeAdapter(JsonValue)
+object = {'geometry': {'coordinates': (117.0, 30.0), 'type': 'Point'}, 'id': '0', 'properties': {'height': 2.0}, 'type': 'Feature'}
+strict = None, extra = None, from_attributes = None, context = None
+experimental_allow_partial = False, by_alias = None, by_name = None
+
+    def validate_python(
+        self,
+        object: Any,
+        /,
+        *,
+        strict: bool | None = None,
+        extra: ExtraValues | None = None,
+        from_attributes: bool | None = None,
+        context: Any | None = None,
+        experimental_allow_partial: bool | Literal['off', 'on', 'trailing-strings'] = False,
+        by_alias: bool | None = None,
+        by_name: bool | None = None,
+    ) -> T:
+        """Validate a Python object against the model.
+    
+        Args:
+            object: The Python object to validate against the model.
+            strict: Whether to strictly check types.
+            extra: Whether to ignore, allow, or forbid extra data during model validation.
+                See the [`extra` configuration value][pydantic.ConfigDict.extra] for details.
+            from_attributes: Whether to extract data from object attributes.
+            context: Additional context to pass to the validator.
+            experimental_allow_partial: **Experimental** whether to enable
+                [partial validation](../concepts/experimental.md#partial-validation), e.g. to process streams.
+                * False / 'off': Default behavior, no partial validation.
+                * True / 'on': Enable partial validation.
+                * 'trailing-strings': Enable partial validation and allow trailing strings in the input.
+            by_alias: Whether to use the field's alias when validating against the provided input data.
+            by_name: Whether to use the field's name when validating against the provided input data.
+    
+        !!! note
+            When using `TypeAdapter` with a Pydantic `dataclass`, the use of the `from_attributes`
+            argument is not supported.
+    
+        Returns:
+            The validated object.
+        """
+        if by_alias is False and by_name is not True:
+            raise PydanticUserError(
+                'At least one of `by_alias` or `by_name` must be set to True.',
+                code='validate-by-alias-and-name-false',
+            )
+    
+>       return self.validator.validate_python(
+            object,
+            strict=strict,
+            extra=extra,
+            from_attributes=from_attributes,
+            context=context,
+            allow_partial=experimental_allow_partial,
+            by_alias=by_alias,
+            by_name=by_name,
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for json-or-python[json=any,python=tagged-union[list[...],dict[str,...],str,bool,int,float,none]]
+E       dict.geometry.dict.coordinates
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(117.0, 30.0), input_type=tuple]
+
+.venv/lib/python3.12/site-packages/pydantic/type_adapter.py:441: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-100/test_geojson_shapefile_and_geo0')
+
+    def test_geojson_shapefile_and_geopackage_read_real_features(tmp_path):
+        feature = {
+            "type": "Feature",
+            "properties": {"height": 2.0},
+            "geometry": {"type": "Point", "coordinates": [117.0, 30.0]},
+        }
+        content = json.dumps({"type": "FeatureCollection", "features": [feature]}).encode()
+        assert (
+>           inspect(content, "GeoJSON", type="vector", crs="EPSG:4326").metadata["feature_count"] == 1
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        )
+
+tests/unit/test_data_inspection.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/test_data_inspection.py:24: in inspect
+    return inspect_data(content, metadata)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content = b'{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"height": 2.0}, "geometry": {"type": "Point", "coordinates": [117.0, 30.0]}}]}'
+asset = DataAssetSpec(id='dem', name='DEM', type='vector', uri='s3://coastmas/dem.tif', format='GeoJSON', crs='EPSG:4326', ver...rce='SYNTHETIC', license='CC0', version=1, checksum='2916d2e73d8840c13731dca3acfbff0e9b66a54d8227d8c2bd69103caff56bd3')
+
+    def inspect_data(content: bytes, asset: DataAssetSpec) -> DataInspection:
+        if len(content) > MAX_BYTES:
+            raise CoastMASError("DATA_LIMIT", "file exceeds inspection byte budget")
+        if hashlib.sha256(content).hexdigest() != asset.checksum:
+            raise CoastMASError("CHECKSUM_ERROR", "data checksum mismatch")
+        if not asset.variables:
+            raise ConstraintError("data requires at least one declared variable")
+        try:
+            if asset.format in {"GeoTIFF", "COG"}:
+                report = _raster(content, asset)
+            elif asset.format == "CSV":
+                report = _csv(content, asset)
+            elif asset.format in {"GeoJSON", "Shapefile", "GeoPackage"}:
+                report = _vector(content, asset)
+            elif asset.format == "NetCDF":
+                report = _netcdf(content, asset)
+            elif asset.format == "JSON":
+                value = _read_json(content)
+                if not isinstance(value, dict):
+                    raise ConstraintError("JSON data must map variable names to values")
+                for variable in asset.variables:
+                    if variable.name not in value:
+                        raise ConstraintError("JSON variable missing")
+                    _numeric(value[variable.name], variable)
+                # Preview has its own byte budget and never silently returns an enormous object.
+                preview = value if len(content) <= 8192 else {"message": "preview exceeds 8192 bytes"}
+                report = DataInspection(
+                    metadata={"validated": True, "unit_source": "catalog_declaration"}, preview=preview
+                )
+            else:
+                raise ConstraintError("service/database inspection requires a configured connector")
+        except CoastMASError:
+            raise
+        except (
+            ValueError,
+            TypeError,
+            OSError,
+            RuntimeError,
+            csv.Error,
+            zipfile.BadZipFile,
+            RecursionError,
+        ) as exc:
+>           raise CoastMASError(
+                "DATA_FORMAT", "file cannot be parsed under the declared format"
+            ) from exc
+E           coastmas.core.errors.CoastMASError: file cannot be parsed under the declared format
+
+src/coastmas/core/data_inspection.py:357: CoastMASError
+=========================== short test summary info ============================
+FAILED tests/unit/test_data_inspection.py::test_geojson_shapefile_and_geopackage_read_real_features
+1 failed, 4 passed in 2.48s

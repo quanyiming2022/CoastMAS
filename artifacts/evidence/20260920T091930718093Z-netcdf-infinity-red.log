@@ -1,0 +1,21 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_netcdf_infinity_is_not_silently_reclassified_as_nodata __________
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-102/test_netcdf_infinity_is_not_si0')
+
+    def test_netcdf_infinity_is_not_silently_reclassified_as_nodata(tmp_path):
+        path = tmp_path / "infinite.nc"
+        with netCDF4.Dataset(path, "w") as dataset:
+            dataset.createDimension("time", 1)
+            values = dataset.createVariable("height", "f8", ("time",))
+            values.units = "m"
+            values[:] = [np.inf]
+>       with pytest.raises(CoastMASError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE CoastMASError
+
+tests/unit/test_data_inspection.py:142: Failed
+=========================== short test summary info ============================
+FAILED tests/unit/test_data_inspection.py::test_netcdf_infinity_is_not_silently_reclassified_as_nodata
+1 failed in 0.41s

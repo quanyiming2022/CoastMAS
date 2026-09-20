@@ -14,10 +14,14 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, SecretStr, Validat
 from sqlalchemy import Engine, create_engine, select, text
 from starlette.exceptions import HTTPException
 
+from coastmas.adapters.storage import S3ArtifactStore
+from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.model_routes import router as model_router
+from coastmas.app.run_routes import router as run_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
+from coastmas.core.execution import ExecutionRegistry
 from coastmas.core.model_documents import reject_embedded_credentials
 from coastmas.persistence.auth import login, logout
 from coastmas.persistence.database import local_database_url
@@ -104,6 +108,10 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
                     "MODEL_REGISTRATION_REQUIRED",
                     "model execution and validation require trusted registration",
                 )
+        if isinstance(validated, DataAssetSpec):
+            validated = validated.model_copy(
+                update={"quality": {**validated.quality, "validated": False}}
+            )
         spec = validated.model_dump(mode="json")
         identifier, name = spec.get("id"), spec.get("name")
         if not isinstance(identifier, str) or not isinstance(name, str):
@@ -148,6 +156,10 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
                     "MODEL_REGISTRATION_REQUIRED", "edited model requires trusted revalidation"
                 )
 
+        if isinstance(validated, DataAssetSpec):
+            validated = validated.model_copy(
+                update={"quality": {**validated.quality, "validated": False}}
+            )
         result = update_resource(
             session,
             user_id=user_id,
@@ -164,7 +176,11 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
     app.add_api_route(path + "/{identifier}", update_item, methods=["PUT"], name=f"update_{kind}")
 
 
-def create_app(engine: Engine | None = None) -> FastAPI:
+def create_app(
+    engine: Engine | None = None,
+    registry: ExecutionRegistry | None = None,
+    artifact_store: S3ArtifactStore | None = None,
+) -> FastAPI:
     app = FastAPI(title=os.environ.get("COASTMAS_BRAND_NAME", "CoastMAS"), version="0.1.0")
     app.state.engine = (
         engine if engine is not None else create_engine(local_database_url(), pool_pre_ping=True)
@@ -251,7 +267,11 @@ def create_app(engine: Engine | None = None) -> FastAPI:
     def current_user(user_id: CurrentUser) -> dict[str, str]:
         return {"user_id": user_id}
 
+    app.state.artifact_store = artifact_store
+    app.state.registry = registry if registry is not None else ExecutionRegistry()
+    app.include_router(data_router)
     app.include_router(model_router)
+    app.include_router(run_router)
     routes: list[tuple[str, str, type[Contract]]] = [
         ("models", "model", ModelSpec),
         ("data-assets", "data", DataAssetSpec),
