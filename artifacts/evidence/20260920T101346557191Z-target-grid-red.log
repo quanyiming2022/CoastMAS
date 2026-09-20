@@ -1,0 +1,32 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____________ test_scene_target_grid_must_be_supported_by_the_model _____________
+
+    def test_scene_target_grid_must_be_supported_by_the_model():
+        context = scene(
+            data_policy={
+                "target_grid": {
+                    "crs": "EPSG:3857",
+                    "transform": [10, 0, 0, 0, -10, 20],
+                    "width": 2,
+                    "height": 2,
+                }
+            }
+        )
+        report = validate_workflow(workflow(), [model()], [asset()], context)
+>       assert not report.valid
+E       AssertionError: assert not True
+E        +  where True = ValidationReport(issues=(), bindings=(BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(n...=None, quality_check=('semantics', 'unit', 'CRS', 'vertical_datum', 'scale', 'time', 'quality'), status='VALIDATED'),)).valid
+
+tests/unit/test_validation.py:173: AssertionError
+_____ test_target_grid_rejects_excessive_allocation_and_singular_transform _____
+
+    def test_target_grid_rejects_excessive_allocation_and_singular_transform():
+>       from coastmas.core.contracts import TargetGridSpec
+E       ImportError: cannot import name 'TargetGridSpec' from 'coastmas.core.contracts' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/core/contracts.py)
+
+tests/unit/test_contracts.py:120: ImportError
+=========================== short test summary info ============================
+FAILED tests/unit/test_validation.py::test_scene_target_grid_must_be_supported_by_the_model
+FAILED tests/unit/test_contracts.py::test_target_grid_rejects_excessive_allocation_and_singular_transform
+2 failed in 0.36s

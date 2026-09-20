@@ -21,9 +21,9 @@ from shapely.geometry import mapping, shape  # type: ignore[import-untyped]
 from shapely.geometry.base import BaseGeometry  # type: ignore[import-untyped]
 from shapely.ops import unary_union  # type: ignore[import-untyped]
 
-from coastmas.adapters.datasource import TargetGrid
 from coastmas.adapters.geofiles import Grid, resample_grid
 from coastmas.adapters.runtime import Handler, PythonFunctionAdapter
+from coastmas.core.contracts import TargetGridSpec as TargetGrid
 from coastmas.core.errors import ConstraintError
 from coastmas.domain.raster import zonal_statistics
 from coastmas.domain.raster_units import calculate_grids

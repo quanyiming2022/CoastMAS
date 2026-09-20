@@ -156,3 +156,19 @@ def test_vector_scale_uses_explicit_spatial_support_not_raster_pixel_resolution(
         data, boundary, candidate, scene(), workflow().input_bindings[0]
     )
     assert report.valid, report.issues
+
+
+def test_scene_target_grid_must_be_supported_by_the_model():
+    context = scene(
+        data_policy={
+            "target_grid": {
+                "crs": "EPSG:3857",
+                "transform": [10, 0, 0, 0, -10, 20],
+                "width": 2,
+                "height": 2,
+            }
+        }
+    )
+    report = validate_workflow(workflow(), [model()], [asset()], context)
+    assert not report.valid
+    assert "CRS_UNSUPPORTED" in {issue.code for issue in report.issues}

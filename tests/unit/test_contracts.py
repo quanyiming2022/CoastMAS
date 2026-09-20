@@ -114,3 +114,12 @@ def test_workflow_preserves_valid_dag():
     item = workflow((node("a"), node("b")), (edge("a", "b"),))
     assert item.nodes[0].model_version == 1
     assert WorkflowSpec.model_validate_json(item.model_dump_json()) == item
+
+
+def test_target_grid_rejects_excessive_allocation_and_singular_transform():
+    from coastmas.core.contracts import TargetGridSpec
+
+    with pytest.raises(ValueError):
+        TargetGridSpec(crs="EPSG:32650", transform=(1, 0, 0, 0, -1, 0), width=10000, height=10000)
+    with pytest.raises(ValueError):
+        TargetGridSpec(crs="EPSG:32650", transform=(0, 0, 0, 0, 0, 0), width=2, height=2)

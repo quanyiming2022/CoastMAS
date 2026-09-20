@@ -8,7 +8,7 @@ import math
 from dataclasses import dataclass
 
 import pint
-from pydantic import JsonValue
+from pydantic import JsonValue, ValidationError
 from pyproj import CRS, Transformer
 from pyproj.exceptions import ProjError
 
@@ -19,6 +19,7 @@ from coastmas.core.contracts import (
     DataAssetSpec,
     ModelSpec,
     SceneSpec,
+    TargetGridSpec,
     VariableSpec,
     WorkflowSpec,
 )
@@ -71,6 +72,21 @@ def constraint_satisfied(constraint: ConstraintSpec, context: dict[str, JsonValu
     return False
 
 
+def validate_target_grid(model: ModelSpec, scene: SceneSpec) -> TargetGridSpec | None:
+    raw = scene.data_policy.get("target_grid")
+    if raw is None:
+        if model.runtime_config.get("requires_target_grid") is True:
+            raise ConstraintError("model requires a saved target grid")
+        return None
+    grid = TargetGridSpec.model_validate(raw)
+    crs = CRS(grid.crs)
+    if not any(crs == CRS(code) for code in model.supported_crs):
+        raise ConstraintError("target grid CRS is unsupported by the model")
+    if model.runtime_config.get("requires_projected_grid") is True and not crs.is_projected:
+        raise ConstraintError("model requires a projected target grid")
+    return grid
+
+
 def validate_asset_binding(
     asset: DataAssetSpec,
     target: VariableSpec,
@@ -103,10 +119,22 @@ def validate_asset_binding(
             reject("CRS_UNDECLARED", "model must declare supported CRS")
         else:
             try:
+                target_grid = validate_target_grid(model, scene)
+            except ConstraintError as exc:
+                reject("CRS_UNSUPPORTED", exc.message)
+                target_grid = None
+            except (ValidationError, ProjError):
+                reject("TARGET_GRID", "target grid is invalid")
+                target_grid = None
+            try:
                 original = CRS(asset.crs)
                 matches = [code for code in model.supported_crs if original == CRS(code)]
-                destination = matches[0] if matches else model.supported_crs[0]
-                if not matches:
+                destination = (
+                    target_grid.crs
+                    if target_grid
+                    else (matches[0] if matches else model.supported_crs[0])
+                )
+                if original != CRS(destination):
                     Transformer.from_crs(
                         original,
                         CRS(destination),
@@ -207,6 +235,11 @@ def validate_workflow(
                 ValidationIssue("MODEL_MISSING", "registered model version not found", node.id)
             )
             continue
+        if model.runtime_config.get("requires_target_grid") is True:
+            try:
+                validate_target_grid(model, scene)
+            except (ConstraintError, ValidationError, ProjError) as exc:
+                issues.append(ValidationIssue("TARGET_GRID", str(exc), node.id))
         if not model.enabled:
             issues.append(ValidationIssue("MODEL_DISABLED", "model disabled", node.id))
         if model.execution_status != "EXECUTABLE":

@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 
 import numpy as np
 from affine import Affine
-from pydantic import BaseModel, ConfigDict, Field, JsonValue, TypeAdapter
+from pydantic import JsonValue, TypeAdapter
 from pyproj import CRS, Transformer
 from pyproj.exceptions import ProjError
 from shapely.geometry import mapping, shape  # type: ignore[import-untyped]
@@ -21,19 +21,12 @@ from coastmas.adapters.geofiles import Grid, decode_geotiff, resample_grid
 from coastmas.adapters.storage import ArtifactRecord, S3ArtifactStore
 from coastmas.core.binding import convert_units, validate_semantics
 from coastmas.core.contracts import BindingPlan, DataAssetSpec, SceneSpec, VariableSpec
+from coastmas.core.contracts import TargetGridSpec as TargetGrid
 from coastmas.core.data_inspection import inspect_data, read_data_value
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import transform_numeric
 
 JSON_VALUE: TypeAdapter[JsonValue] = TypeAdapter(JsonValue)
-
-
-class TargetGrid(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False)
-    crs: str = Field(min_length=1)
-    transform: tuple[float, float, float, float, float, float]
-    width: int = Field(gt=0, le=10000)
-    height: int = Field(gt=0, le=10000)
 
 
 class StoredDataResolver:

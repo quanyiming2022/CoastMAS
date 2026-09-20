@@ -1,0 +1,82 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv _________
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x119587b00>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-117/test_scenario_a_registered_dag0')
+
+    def test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv(storage, tmp_path):
+        directory = Path("sample-data")
+>       catalog = coastal_catalog("coastal-test", directory)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_builtin_coastal.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/domain/coastal_catalog.py:140: in coastal_catalog
+    errors = _coastal_goldens(directory)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/domain/coastal_catalog.py:68: in _coastal_goldens
+    scene = coastal_sample_scene(directory)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+directory = PosixPath('sample-data'), identifier = 'coastal-demo-scene'
+
+    def coastal_sample_scene(directory: Path, *, identifier: str = "coastal-demo-scene") -> SceneSpec:
+        manifest = verify_samples(directory)
+        dem = decode_geotiff((directory / "dem.tif").read_bytes())
+        aoi = json.loads((directory / "coastal_aoi.geojson").read_text())["features"][0]["geometry"]
+>       return SceneSpec.model_validate(
+            {
+                "id": identifier,
+                "name": "Synthetic coastal inundation screening",
+                "version": 1,
+                "management_goal": "Screen potential inundation and population/land-use impacts by management unit",
+                "study_area": aoi,
+                "entity_types": ["management_unit"],
+                "time_range": {"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"},
+                "scenario_conditions": {
+                    "vertical_datum": manifest.vertical_datum,
+                    "sea_level_baseline_m": manifest.baseline_m,
+                    "coastal_seeds": manifest.seeds,
+                    "population_distribution": "uniform_within_management_unit",
+                    "data_label": manifest.label,
+                },
+                "constraints": [],
+                "required_outputs": ["statistics", "polygons", "inundation"],
+                "data_policy": {
+                    "study_area_crs": "EPSG:4326",
+                    "target_grid": {
+                        "crs": dem.crs,
+                        "transform": list(dem.transform)[:6],
+                        "height": dem.values.shape[0],
+                        "width": dem.values.shape[1],
+                    },
+                },
+                "quality_requirements": {"method_scope": "screening, not hydrodynamics"},
+            }
+        )
+E       pydantic_core._pydantic_core.ValidationError: 4 validation errors for SceneSpec
+E       scenario_conditions.coastal_seeds.list.0
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(0, 0), input_type=tuple]
+E       scenario_conditions.coastal_seeds.list.1
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(1, 0), input_type=tuple]
+E       scenario_conditions.coastal_seeds.list.2
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(2, 0), input_type=tuple]
+E       scenario_conditions.coastal_seeds.list.3
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(3, 0), input_type=tuple]
+
+src/coastmas/domain/coastal_catalog.py:29: ValidationError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_builtin_coastal.py::test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv
+1 failed, 2 warnings in 0.30s

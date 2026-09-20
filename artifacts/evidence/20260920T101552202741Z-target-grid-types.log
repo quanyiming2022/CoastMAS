@@ -1,0 +1,3 @@
+src/coastmas/domain/coastal_components.py:17: error: Module "coastmas.adapters.datasource" does not explicitly export attribute "TargetGrid"  [attr-defined]
+src/coastmas/adapters/gis.py:24: error: Module "coastmas.adapters.datasource" does not explicitly export attribute "TargetGrid"  [attr-defined]
+Found 2 errors in 2 files (checked 52 source files)

@@ -8,8 +8,8 @@
 - 已实现：受限 Python/CLI 子进程适配器；超时、取消、输出预算、子进程组清理；MinIO 校验与不可变写；GeoTIFF 读写/重投影及元数据验证；文件到绑定的真实数据解析。
 - 已实现：锁定注册版本的 DAG 执行器与 Celery worker；真实 Redis → 读取 MinIO → 子进程 → MinIO 结果 → PostgreSQL 发布。重复投递仅执行一次；执行中的取消及撤权停止进程且不发布。
 - 已生成所有要求的合成样例（真实 GeoTIFF、GeoJSON、CSV）。三个计算层场景有手算金标准及研究产物；不等于 UI/工作流完整演示验收。人口估计显式采用单元内均匀分布，海平面模型不称水动力模拟。
-- 最新统一测试：`20260920T095113403821Z-pre-scenario-full`，190 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
-- 覆盖率：行 88.2465%、分支 67.5487%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
+- 最新统一测试：`20260920T101645146099Z-coastal-dag-full`，198 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
+- 覆盖率：行 88.4187%、分支 68.2055%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
 - 回归：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。
 - 计算层演示：`PYTHONPATH=src .venv/bin/python scripts/evidence.py demonstrations -- .venv/bin/python scripts/run_demonstrations.py`。
 - Docker 磁盘已由用户调整；持久 PostGIS 55432、Redis 56379、MinIO 59000 均健康。临时内存盘 PostGIS 55433 已停止。测试只创建/降级/删除自身随机临时库与临时 bucket，不清理其他项目。
@@ -37,4 +37,6 @@
 - 指标框架保留实体标识、逐指标单位、方向、固定参考上下界与共享跨期权重。归一化会先转换参考单位；多期 TOPSIS 未定义共享理想点时显式拒绝，不制造可比性。
 - 已注册 normalize/weight/composite/topsis/change 五个评价组件，注册前实际执行手算金标准校验并记录测得误差。场景 B/C 核心 DAG 从真实 MinIO 读取框架，经多个真实子进程运行通过；尚未接入完整规划/UI，也未称完整场景验收通过。
 - 矢量空间尺度使用 spatial_support_m，不再要求像元分辨率。多边形支撑记录 sqrt_feature_area 及最小/最大值；绑定实际应用无 ballpark 的坐标转换。NetCDF 在进程内使用单个专用 IO 线程。
-- 下一步明确入口：实现并注册场景 A screening → overlay → unit_statistics，使用 scene.data_policy.target_grid 对齐栅格并明确人口均匀分布假设；随后三场景自动规划、持久种子目录、统一启动、前端和研究验收。
+- 场景 A 已注册 screening → overlay → statistics，真实 MinIO GeoTIFF/GeoJSON/CSV 经三个子进程 DAG 得到 80000 m²、320 人金标准。AOI 裁剪不重新归一化人口，未知 DEM 单独计量；输出为地形连通筛查而非水动力模拟。
+- TargetGridSpec 限制格网尺寸、面积与可逆变换；执行前检查支持的 CRS 和投影条件。
+- 下一步明确入口：结构化确定性规划与共享 LLM 调用预算，之后持久种子目录、统一启动、前端和研究验收。

@@ -54,6 +54,22 @@ class Extent(Contract):
         return self
 
 
+class TargetGridSpec(Contract):
+    crs: Name
+    transform: tuple[FiniteFloat, FiniteFloat, FiniteFloat, FiniteFloat, FiniteFloat, FiniteFloat]
+    width: Annotated[int, Field(strict=True, gt=0, le=10000)]
+    height: Annotated[int, Field(strict=True, gt=0, le=10000)]
+
+    @model_validator(mode="after")
+    def bounded_invertible(self) -> Self:
+        if self.width * self.height > 4_000_000:
+            raise ValueError("target grid exceeds four million cells")
+        a, b, _, d, e, _ = self.transform
+        if a * e - b * d == 0:
+            raise ValueError("target grid transform must be invertible")
+        return self
+
+
 class VariableSpec(Contract):
     name: Name
     standard_name: Name

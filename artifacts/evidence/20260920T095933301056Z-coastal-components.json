@@ -1,0 +1,31 @@
+{
+  "name": "coastal-components",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_coastal_components.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T09:59:33.301056+00:00",
+  "finished_at": "2026-09-20T09:59:34.625432+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "a27839497ff707539936c8b20bd5dd758bfffca0f6b1f5c195e438b06d6398b2",
+  "git_commit": "b6ef21308fdd42555df0877540ada380a513ddbb",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T095933301056Z-coastal-components.log"
+}

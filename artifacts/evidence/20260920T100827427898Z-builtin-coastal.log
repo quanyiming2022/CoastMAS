@@ -1,0 +1,89 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv _________
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x118d93260>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-118/test_scenario_a_registered_dag0')
+
+    def test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv(storage, tmp_path):
+        directory = Path("sample-data")
+        catalog = coastal_catalog("coastal-test", directory)
+        models = {item.runtime_config["component"]: item for item in catalog.models}
+        scene = coastal_sample_scene(directory)
+        configurations = [
+            ("dem", "dem.tif", "raster", "GeoTIFF", "screening"),
+            ("land_cover", "land_cover_t1.tif", "raster", "GeoTIFF", "overlay"),
+            ("units", "management_units.geojson", "vector", "GeoJSON", "overlay"),
+            ("population", "population.csv", "table", "CSV", "overlay"),
+        ]
+        assets = []
+        bindings = []
+        for name, filename, kind, format, target_node in configurations:
+            content = (directory / filename).read_bytes()
+            artifact = storage.put("coastal/" + filename, content)
+            variable = next(item for item in models[target_node].inputs if item.name == name)
+            crs, datum = None, None
+            if kind == "raster":
+                grid = decode_geotiff(content)
+                crs, datum = grid.crs, grid.vertical_datum
+            elif kind == "vector":
+                crs = "EPSG:4326"
+            source = DataAssetSpec(
+                id=name,
+                name=name,
+                type=kind,
+                format=format,
+                uri=artifact.uri,
+                checksum=artifact.sha256,
+                crs=crs,
+                vertical_datum=datum,
+                spatial_extent=None,
+                time_start=scene.time_range.start,
+                time_end=scene.time_range.end,
+                time_resolution="1 day",
+                variables=(variable,),
+                quality={"column_units": {"population": "person"}} if name == "population" else {},
+                source="SYNTHETIC / DEMONSTRATION DATA",
+                license="CC0",
+                version=1,
+            )
+>           report = inspect_data(content, source)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_builtin_coastal.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/core/data_inspection.py:378: in inspect_data
+    report = _raster(content, asset)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content = b'II*\x00\x9e\x01\x00\x00\x11\x00\x00\x01\x03\x00\x01\x00\x00\x00\x04\x00\x00\x00\x01\x01\x03\x00\x01\x00\x00\x00\x04\...<GDALMetadata>\n  <Item name="unit">dimensionless</Item>\n  <Item name="vertical_datum"></Item>\n</GDALMetadata>\n\x00'
+asset = DataAssetSpec(id='land_cover', name='land_cover', type='raster', uri='s3://coastmas-test-9f4b5a5ebb134c35aab935aa2370f...NSTRATION DATA', license='CC0', version=1, checksum='15aa02ad16cf0d4ed9414e6e24f7418db5cfc2e99ee84bb842c7914e6b87cd43')
+
+    def _raster(content: bytes, asset: DataAssetSpec) -> DataInspection:
+        if asset.type != "raster" or len(asset.variables) != 1:
+            raise ConstraintError("raster inspection requires one declared band variable")
+        grid = decode_geotiff(content)
+        variable = asset.variables[0]
+        if not asset.crs or CRS(asset.crs) != CRS(grid.crs):
+            raise ConstraintError("file and catalog CRS differ")
+        if variable.unit != grid.unit or asset.vertical_datum != grid.vertical_datum:
+>           raise ConstraintError("file unit or vertical datum differs from catalog")
+E           coastmas.core.errors.ConstraintError: file unit or vertical datum differs from catalog
+
+src/coastmas/core/data_inspection.py:114: ConstraintError
+------------------------------ Captured log call -------------------------------
+WARNING  rasterio._env:features.py:148 CPLE_AppDefined in DeprecationWarning: 'Memory' driver is deprecated since GDAL 3.11. Use 'MEM' onwards. Further messages of this type will be suppressed.
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_builtin_coastal.py::test_scenario_a_registered_dag_reads_actual_tiff_geojson_csv
+1 failed, 2 warnings in 2.37s
