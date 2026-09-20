@@ -730,3 +730,29 @@ summary:focus-visible {
 .editor-canvas .react-flow__node {
   width: 280px;
 }
+
+.scientific-fields {
+  margin: 1rem 0;
+  border: 1px solid #c8d8d9;
+  border-radius: 8px;
+}
+.scientific-field {
+  padding: 12px 0;
+  border-bottom: 1px solid #e0ebea;
+}
+.scientific-field select {
+  max-width: 220px;
+}
+.resource-checklist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.5rem;
+}
+fieldset {
+  min-width: 0;
+}
+
+.scene-form {
+  padding: 0;
+  border: 0;
+}

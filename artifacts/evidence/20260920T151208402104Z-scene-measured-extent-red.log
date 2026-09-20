@@ -1,0 +1,22 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_coverage_uses_verified_file_extent_but_never_unverified_quality_claims __
+
+    def test_coverage_uses_verified_file_extent_but_never_unverified_quality_claims():
+        data = asset(
+            crs="EPSG:4326",
+            spatial_extent=None,
+            quality={"validated": True, "spatial_extent": [0, 0, 2, 2]},
+        )
+        coverage = inspect_scene(workspace_scene(), [data], []).data_coverage[0]
+>       assert coverage.spatial_fraction == pytest.approx(1)
+E       assert None == 1 ± 1.0e-06
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 1 ± 1.0e-06
+
+tests/unit/test_scene_workspace.py:115: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_scene_workspace.py::test_coverage_uses_verified_file_extent_but_never_unverified_quality_claims
+1 failed, 9 deselected in 0.33s

@@ -1,0 +1,87 @@
+..F.......F                                                              [100%]
+=================================== FAILURES ===================================
+_______ test_scene_entity_revocation_is_checked_at_submission_and_worker _______
+
+authenticated = (<starlette.testclient.TestClient object at 0x120514320>, '1SsWVT-8srV89SiWkDauKTHD6VsGqStxxDYoemaBAkE', 'c317fd63-8967-4950-a3d0-0b8b8aec01ba', 'c4de7931-279a-4a03-814f-7e659607f755')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_427d5e27603d43b98f6fc7ccb02623fb)
+actors = ('c4de7931-279a-4a03-814f-7e659607f755', '527130b1-8ed5-4143-bb2c-b48657d9e897', '4077fa9d-7749-4e14-bf12-18d765ad1c16', 'c317fd63-8967-4950-a3d0-0b8b8aec01ba')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1203be330>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-148/test_scene_entity_revocation_i0')
+
+    def test_scene_entity_revocation_is_checked_at_submission_and_worker(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        from coastmas.persistence.schema import Resource
+    
+        client, csrf, project, _ = authenticated
+        runner, workflow_id, selection = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        original = client.get("/api/v1/scenes/" + selection["scene_id"]).json()["spec"]
+        entity = {
+            **entity_payload(),
+            "id": "selected-" + uuid4().hex,
+            "crs": "EPSG:32650",
+            "geometry": original["study_area"],
+        }
+        assert (
+            client.post(
+                "/api/v1/entities", headers=headers, json={"project_id": project, "spec": entity}
+            ).status_code
+            == 201
+        )
+        changed = {
+            **original,
+            "version": 2,
+            "data_policy": {"study_area_crs": "EPSG:32650"},
+            "entity_references": [{"id": entity["id"], "version": 1}],
+        }
+        assert (
+            client.put(
+                "/api/v1/scenes/" + original["id"],
+                headers=headers,
+                json={"expected_version": 1, "spec": changed},
+            ).status_code
+            == 200
+        )
+        selection["scene_version"] = 2
+        response = client.post(
+            "/api/v1/workflows/" + workflow_id + "/run", headers=headers, json=selection
+        )
+        assert response.status_code == 202, response.text
+        with Session(engine) as session, session.begin():
+            session.get(Resource, entity["id"]).enabled = False
+        rejected = client.post(
+            "/api/v1/workflows/" + workflow_id + "/validate", headers=headers, json=selection
+        )
+>       assert rejected.status_code == 403, rejected.text
+E       AssertionError: {"valid":true,"issues":[],"bindings":[{"source":{"id":"dem-0f630b5d4ae74b14b632fa164c918da3","version":1},"target":{"node_id":"screen-node","variable":"height"},"semantic_mapping":"exact_standard_name","unit_conversion":null,"crs_transform":null,"resampling":"bilinear","temporal_transform":null,"quality_check":["semantics","unit","CRS","vertical_datum","scale","time","quality"],"status":"VALIDATED"}]}
+E       assert 200 == 403
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/integration/test_scene_workspace_api.py:142: AssertionError
+__________ test_workflow_execution_preflight_rejects_missing_aoi_crs ___________
+
+    def test_workflow_execution_preflight_rejects_missing_aoi_crs():
+        from coastmas.core.validation import validate_workflow
+        from tests.factories import model, workflow
+    
+        report = validate_workflow(workflow(), [model()], [asset()], scene(data_policy={}))
+>       assert not report.valid
+E       AssertionError: assert not True
+E        +  where True = ValidationReport(issues=(), bindings=(BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(n...=None, quality_check=('semantics', 'unit', 'CRS', 'vertical_datum', 'scale', 'time', 'quality'), status='VALIDATED'),)).valid
+
+tests/unit/test_scene_workspace.py:97: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_scene_workspace_api.py::test_scene_entity_revocation_is_checked_at_submission_and_worker
+FAILED tests/unit/test_scene_workspace.py::test_workflow_execution_preflight_rejects_missing_aoi_crs
+2 failed, 9 passed, 2 warnings in 7.32s

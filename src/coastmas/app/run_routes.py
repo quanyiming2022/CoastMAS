@@ -28,9 +28,11 @@ from coastmas.core.contracts import (
 )
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry
+from coastmas.core.scene_workspace import inspect_scene
 from coastmas.core.validation import ValidationIssue, ValidationReport, validate_workflow
 from coastmas.persistence.jobs import cancel_job, read_job, read_result, snapshot, submit_job
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
+from coastmas.persistence.scenes import scene_resources
 from coastmas.persistence.schema import AuditLog, Job, Resource, ResultBundle
 
 router = APIRouter(prefix="/api/v1", tags=["runs"])
@@ -108,7 +110,20 @@ def candidate_manifest(
             models.append(ModelSpec.model_validate(content))
         else:
             assets.append(DataAssetSpec.model_validate(content))
+    selected_assets, entities = scene_resources(session, user, project, scene)
+    known_assets = {(asset.id, asset.version) for asset in assets}
+    assets.extend(
+        asset for asset in selected_assets if (asset.id, asset.version) not in known_assets
+    )
     report = validate_workflow(workflow, models, assets, scene)
+    if entities:
+        inspection = inspect_scene(scene, [], entities)
+        if not inspection.valid:
+            report = ValidationReport(
+                report.issues
+                + tuple(ValidationIssue("SCENE_ENTITY", issue) for issue in inspection.issues),
+                report.bindings,
+            )
     manifest = RunManifest(
         scene=scene,
         workflow=workflow,

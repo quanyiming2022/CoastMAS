@@ -27,7 +27,7 @@
 ## 最新证据
 - 存储恢复后完整后端：`20260920T140404835174Z-native-storage-backend-full`，267 passed、2 warnings；真实浏览器 `20260920T140404398495Z-native-storage-browser-full`，5 passed。
 - 覆盖率 5297/6015 行、1431/2020 分支，最终分支门槛仍未通过，没有排除困难业务文件。
-- 工作流草稿预检增量：`20260920T141027639331Z-workflow-draft-preflight` 通过；前端18项测试 `20260920T142517556100Z-workflow-editor-unit` 通过；生产构建 `20260920T142324251056Z-workflow-editor-build` 通过。编辑器两条真实浏览器通过；全套浏览器 20260920T143512052605Z-workflow-studio-browser-full 为 7 passed，最新18项单元与 lint 通过。完整后端 20260920T143514654592Z-workflow-studio-backend-full：269 passed、2 warnings。
+- 工作流草稿预检增量：`20260920T141027639331Z-workflow-draft-preflight` 通过；前端18项测试 `20260920T142517556100Z-workflow-editor-unit` 通过；生产构建 `20260920T142324251056Z-workflow-editor-build` 通过。编辑器两条真实浏览器通过；全套浏览器 20260920T143512052605Z-workflow-studio-browser-full 为 7 passed，最新18项单元与 lint 通过。完整后端 20260920T143514654592Z-workflow-studio-backend-full：269 passed、2 warnings；工作流增量已提交 f9911a2。
 - 生成契约源于 Pydantic，漂移检查需纳入统一 Makefile。Vite 图表/地图包体警告、依赖弃用警告保持可见。
 
 ## 环境与继续执行
@@ -45,3 +45,7 @@
 - 知识图谱：PostgreSQL 契约投影＋NetworkX，九类关系、版本来源、权限/预算、交互邻域和筛选；契约候选不代表科学通过。真实浏览器通过，详见 knowledge-graph.md。
 - 原生 MinIO：11 资产版本/7 旧结果逐字节校验，120 秒并发 200 写/3168 读，重复源码构建二进制摘要一致；恢复后全套回归通过。过去存储崩溃和对应测试失败证据全部保留，不声称长时稳定性已充分验证。
 - 真实外部 LLM 配置问题已异步询问一次，无答复；不要重复询问或打印密钥。本地协议回归不能替代真实外部实验。
+
+- 场景工作台增量：entity_references/data_references 精确版本、场景依赖外键、目录范围/时间/实体有效期检查、AOI 绘制上传、参数表单、保存复制历史和实际运行。相关后端72项、浏览器4条通过；AOI视野与实际DEM测量范围复验通过（151408833135Z-scene-measured-extent-browser）；场景显式数据选择与真实输入一致性测试通过（151708565307Z-scene-input-selection-green）。下一项为结果对象和地理实体绑定。详情 scene-workspace.md。
+- 当前 API/worker/beat 已统一重启加载场景执行校验，日志 artifacts/logs/{api,worker,beat}-scene-final.log，三者已加载场景数据选择执行约束。所选实体快照进入产物，但完整结果对象到实体/管理结果绑定仍未完成。
+- 用户询问进度：已告知按证据关联条目 330/1202≈27%，正式PASS 12/1202≈1%，不把已映射路径等同完成功能。要求进一步节省token，后续只做局部定位/成组修复/相关回归，保留最终完整门禁。

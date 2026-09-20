@@ -1,0 +1,13 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test scene-workspace.spec.ts --grep map drawing
+
+
+Running 1 test using 1 worker
+
+(node:22501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+  1 passed (6.5s)

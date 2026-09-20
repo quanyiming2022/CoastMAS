@@ -24,8 +24,10 @@ from coastmas.adapters.storage import S3ArtifactStore
 from coastmas.core.contracts import DataAssetSpec, ModelSpec, RunManifest, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry, execute_workflow
+from coastmas.core.scene_workspace import inspect_scene
 from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
+from coastmas.persistence.scenes import scene_resources
 from coastmas.persistence.schema import Job, Resource
 
 LOGGER = logging.getLogger(__name__)
@@ -48,6 +50,9 @@ class WorkflowWorker:
 
     def _verify_manifest(self, session: Session, job: Job, manifest: RunManifest) -> None:
         require_permission(session, job.submitted_by, job.project_id, "write")
+        _, entities = scene_resources(session, job.submitted_by, job.project_id, manifest.scene)
+        if entities and not inspect_scene(manifest.scene, [], entities).valid:
+            raise ConstraintError("selected scene entity is outside the AOI or validity period")
         objects: tuple[SceneSpec | WorkflowSpec | ModelSpec | DataAssetSpec, ...] = (
             manifest.scene,
             manifest.workflow,
@@ -70,7 +75,10 @@ class WorkflowWorker:
             revision = read_resource(
                 session, user_id=job.submitted_by, identifier=item.id, version=item.version
             )
-            if revision.checksum != fingerprint(item.model_dump(mode="json")):
+            # read_resource already verifies the original serialized checksum. Compare
+            # normalized contracts so new optional defaults do not invalidate old versions.
+            normalized = type(item).model_validate(revision.spec).model_dump(mode="json")
+            if fingerprint(normalized) != fingerprint(item.model_dump(mode="json")):
                 raise ConstraintError("run input differs from immutable resource version")
 
     def run(self, job_id: str) -> None:
@@ -112,6 +120,9 @@ class WorkflowWorker:
                 self._verify_manifest(session, job, manifest)
                 project_id = job.project_id
                 input_fingerprint = job.fingerprint
+                _, selected_entities = scene_resources(
+                    session, job.submitted_by, job.project_id, manifest.scene
+                )
             heartbeat_thread = threading.Thread(
                 target=heartbeat, name="coastmas-lease", daemon=True
             )
@@ -137,6 +148,9 @@ class WorkflowWorker:
                     "executed_nodes": list(execution.executed_nodes),
                     "bindings": [binding.model_dump(mode="json") for binding in execution.bindings],
                     "run_manifest": manifest.model_dump(mode="json"),
+                    "geographic_entities": [
+                        entity.model_dump(mode="json") for entity in selected_entities
+                    ],
                     "input_fingerprint": input_fingerprint,
                     "elapsed_seconds": execution.elapsed_seconds,
                     "llm_calls": 0,

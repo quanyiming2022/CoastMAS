@@ -1,0 +1,35 @@
+{
+  "name": "scene-measured-extent-browser",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e",
+    "--",
+    "scene-workspace.spec.ts",
+    "--grep",
+    "map drawing"
+  ],
+  "started_at": "2026-09-20T15:14:08.833135+00:00",
+  "finished_at": "2026-09-20T15:14:17.449820+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "2ee55360192ca6a2949838f5cf33ee2e3093d40a3907a0e30aa6dd83cf05a436",
+  "git_commit": "f9911a203e4093c876805eef4a783e8a437b8507",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T151408833135Z-scene-measured-extent-browser.log"
+}

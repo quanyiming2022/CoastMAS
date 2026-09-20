@@ -24,6 +24,7 @@ from coastmas.core.contracts import (
     WorkflowSpec,
 )
 from coastmas.core.errors import ConstraintError
+from coastmas.core.scene_workspace import inspect_scene
 
 
 @dataclass(frozen=True)
@@ -220,6 +221,22 @@ def validate_workflow(
     workflow: WorkflowSpec, models: list[ModelSpec], assets: list[DataAssetSpec], scene: SceneSpec
 ) -> ValidationReport:
     issues: list[ValidationIssue] = []
+    try:
+        inspect_scene(scene, [], [])
+    except ConstraintError as exc:
+        issues.append(ValidationIssue("SCENE_GEOMETRY", exc.message))
+    if scene.data_references:
+        selected = {(reference.id, reference.version) for reference in scene.data_references}
+        for selected_binding in workflow.input_bindings:
+            if (selected_binding.source.id, selected_binding.source.version) not in selected:
+                issues.append(
+                    ValidationIssue(
+                        "SCENE_DATA_SELECTION",
+                        "workflow input version is not selected by this scene",
+                        selected_binding.target.node_id,
+                        selected_binding.target.variable,
+                    )
+                )
     bindings: list[BindingPlan] = []
     registry = {(model.id, model.version): model for model in models}
     data = {(asset.id, asset.version): asset for asset in assets}

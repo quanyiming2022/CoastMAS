@@ -1,0 +1,123 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_scene_draft_coverage_and_saved_references_enforce_project_and_version __
+
+authenticated = (<starlette.testclient.TestClient object at 0x11acf0260>, 'eSh5d2F3avdZ17KXzpeTosIOragjjEFdflT9p3Go4C4', '86ec247c-3af5-4d4f-8d08-6ffde789f9d4', 'f72beaa1-c252-4316-8200-b6b1b8b30309')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_9f2e0778276b415bad3266747b622e4b)
+
+    def test_scene_draft_coverage_and_saved_references_enforce_project_and_version(
+        authenticated, engine
+    ):
+        client, csrf, project, _ = authenticated
+        headers = {"X-CSRF-Token": csrf}
+        entity = {**entity_payload(), "id": "entity-" + uuid4().hex}
+        assert (
+            client.post(
+                "/api/v1/entities", headers=headers, json={"project_id": project, "spec": entity}
+            ).status_code
+            == 201
+        )
+        spec = scene(
+            id="scene-" + uuid4().hex,
+            study_area=entity["geometry"],
+            data_policy={"study_area_crs": entity["crs"]},
+            entity_references=[{"id": entity["id"], "version": 1}],
+        ).model_dump(mode="json")
+        response = client.post(
+            "/api/v1/scene-drafts/inspect", headers=headers, json={"project_id": project, "scene": spec}
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"a19e6dd1-6190-4d90-ac49-0197619e1ef6"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_scene_workspace_api.py:36: AssertionError
+_ test_worker_accepts_verified_legacy_scene_with_absent_optional_reference_fields _
+
+authenticated = (<starlette.testclient.TestClient object at 0x11ae93800>, 'OPxpDZaXrrsQg4Yh67iZ-ksJFz8MNwJ1KbpMQ-nYwew', '868269f1-9658-4b0e-ba83-071c166ae689', '42a2ffad-972d-4d4e-9cdb-51f63ed42954')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_9f2e0778276b415bad3266747b622e4b)
+actors = ('42a2ffad-972d-4d4e-9cdb-51f63ed42954', 'fdb213ff-7538-4743-9f57-7ebee28e02db', 'a83984d6-c195-4d6d-8ecc-2b0c778b642b', '868269f1-9658-4b0e-ba83-071c166ae689')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11af5d580>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-146/test_worker_accepts_verified_l0')
+
+    def test_worker_accepts_verified_legacy_scene_with_absent_optional_reference_fields(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, user = authenticated
+        runner, workflow_id, selection = setup_run(engine, actors, storage, tmp_path, client)
+        legacy = client.get("/api/v1/scenes/" + selection["scene_id"]).json()["spec"]
+        legacy["id"] = "legacy-" + uuid4().hex
+        legacy.pop("entity_references", None)
+        legacy.pop("data_references", None)
+        with Session(engine) as session, session.begin():
+            create_resource(
+                session,
+                user_id=user,
+                project_id=project,
+                kind="scene",
+                identifier=legacy["id"],
+                name=legacy["name"],
+                spec=legacy,
+            )
+        response = client.post(
+            "/api/v1/workflows/" + workflow_id + "/run",
+            headers={"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex},
+            json={**selection, "scene_id": legacy["id"]},
+        )
+        assert response.status_code == 202, response.text
+        identifier = response.json()["id"]
+        with Session(engine) as session:
+            job = session.get(Job, identifier)
+>           runner._verify_manifest(session, job, RunManifest.model_validate(job.manifest))
+
+tests/integration/test_scene_workspace_api.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.worker.runtime.WorkflowWorker object at 0x11ba9cf50>
+session = <sqlalchemy.orm.session.Session object at 0x11acdb3e0>
+job = <coastmas.persistence.schema.Job object at 0x11bba6d50>
+manifest = RunManifest(scene=SceneSpec(id='legacy-c769f0fb6ef64033b4c98c619959565c', name='scene', version=1, management_goal='sc...poral_transform=None, quality_check=(), status='VALIDATED'),), environment={'python': '3.12.14', 'platform': 'Darwin'})
+
+    def _verify_manifest(self, session: Session, job: Job, manifest: RunManifest) -> None:
+        require_permission(session, job.submitted_by, job.project_id, "write")
+        objects: tuple[SceneSpec | WorkflowSpec | ModelSpec | DataAssetSpec, ...] = (
+            manifest.scene,
+            manifest.workflow,
+            *manifest.models,
+            *manifest.data_assets,
+        )
+        for item in objects:
+            record = session.scalar(
+                select(Resource)
+                .where(Resource.id == item.id)
+                .execution_options(populate_existing=True)
+            )
+            if (
+                record is None
+                or record.project_id != job.project_id
+                or not record.enabled
+                or record.archived
+            ):
+                raise ConstraintError("run input is not an active resource in this project")
+            revision = read_resource(
+                session, user_id=job.submitted_by, identifier=item.id, version=item.version
+            )
+            if revision.checksum != fingerprint(item.model_dump(mode="json")):
+>               raise ConstraintError("run input differs from immutable resource version")
+E               coastmas.core.errors.ConstraintError: run input differs from immutable resource version
+
+src/coastmas/worker/runtime.py:74: ConstraintError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_scene_workspace_api.py::test_scene_draft_coverage_and_saved_references_enforce_project_and_version
+FAILED tests/integration/test_scene_workspace_api.py::test_worker_accepts_verified_legacy_scene_with_absent_optional_reference_fields
+2 failed, 2 warnings in 4.35s

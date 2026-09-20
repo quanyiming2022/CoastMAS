@@ -9,7 +9,7 @@ from pydantic import JsonValue
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from coastmas.core.contracts import WorkflowSpec
+from coastmas.core.contracts import SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.geography import GeographicEntity
 from coastmas.persistence.geography import materialize_entity
@@ -85,13 +85,23 @@ def fingerprint(spec: dict[str, JsonValue]) -> str:
 def workflow_references(
     session: Session, *, project_id: str, kind: str, spec: dict[str, JsonValue]
 ) -> list[tuple[str, int]]:
-    if kind != "workflow":
+    if kind == "workflow":
+        workflow = WorkflowSpec.model_validate(spec)
+        references = {(node.model_id, node.model_version, "model") for node in workflow.nodes}
+        references.update(
+            (binding.source.id, binding.source.version, "data")
+            for binding in workflow.input_bindings
+        )
+    elif kind == "scene":
+        scene = SceneSpec.model_validate(spec)
+        references = {
+            (reference.id, reference.version, "entity") for reference in scene.entity_references
+        }
+        references.update(
+            (reference.id, reference.version, "data") for reference in scene.data_references
+        )
+    else:
         return []
-    workflow = WorkflowSpec.model_validate(spec)
-    references = {(node.model_id, node.model_version, "model") for node in workflow.nodes}
-    references.update(
-        (binding.source.id, binding.source.version, "data") for binding in workflow.input_bindings
-    )
     for identifier, version, expected_kind in sorted(references):
         resource = session.scalar(
             select(Resource)
@@ -109,7 +119,7 @@ def workflow_references(
             or not resource.enabled
         ):
             raise CoastMASError(
-                "DEPENDENCY_CONFLICT", "workflow reference is unavailable in this project"
+                "DEPENDENCY_CONFLICT", "resource reference is unavailable in this project"
             )
     return sorted({(identifier, version) for identifier, version, _ in references})
 

@@ -1110,6 +1110,291 @@
         "title": "RunSelection",
         "type": "object"
       },
+      "SceneCoverage": {
+        "additionalProperties": false,
+        "properties": {
+          "footprint_wgs84": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/JsonValue"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Footprint Wgs84"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "spatial_fraction": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spatial Fraction"
+          },
+          "status": {
+            "enum": [
+              "COVERED",
+              "PARTIAL",
+              "OUTSIDE",
+              "UNKNOWN"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "temporal_coverage": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temporal Coverage"
+          }
+        },
+        "required": [
+          "reference",
+          "name",
+          "spatial_fraction",
+          "temporal_coverage",
+          "status",
+          "method"
+        ],
+        "title": "SceneCoverage",
+        "type": "object"
+      },
+      "SceneDraft": {
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "scene": {
+            "$ref": "#/components/schemas/SceneSpec"
+          }
+        },
+        "required": [
+          "project_id",
+          "scene"
+        ],
+        "title": "SceneDraft",
+        "type": "object"
+      },
+      "SceneInspection": {
+        "additionalProperties": false,
+        "properties": {
+          "data_coverage": {
+            "items": {
+              "$ref": "#/components/schemas/SceneCoverage"
+            },
+            "title": "Data Coverage",
+            "type": "array"
+          },
+          "entity_coverage": {
+            "items": {
+              "$ref": "#/components/schemas/SceneCoverage"
+            },
+            "title": "Entity Coverage",
+            "type": "array"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Issues",
+            "type": "array"
+          },
+          "study_area_wgs84": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "title": "Study Area Wgs84",
+            "type": "object"
+          },
+          "valid": {
+            "title": "Valid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "valid",
+          "study_area_wgs84",
+          "data_coverage",
+          "entity_coverage",
+          "issues"
+        ],
+        "title": "SceneInspection",
+        "type": "object"
+      },
+      "SceneSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "$ref": "#/components/schemas/ConstraintSpec"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "data_policy": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "title": "Data Policy",
+            "type": "object"
+          },
+          "data_references": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/VersionReference"
+            },
+            "maxItems": 500,
+            "title": "Data References",
+            "type": "array"
+          },
+          "entity_references": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/VersionReference"
+            },
+            "maxItems": 500,
+            "title": "Entity References",
+            "type": "array"
+          },
+          "entity_types": {
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            "title": "Entity Types",
+            "type": "array"
+          },
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "management_goal": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Management Goal",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "quality_requirements": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "title": "Quality Requirements",
+            "type": "object"
+          },
+          "required_outputs": {
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            "title": "Required Outputs",
+            "type": "array"
+          },
+          "scenario_conditions": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "title": "Scenario Conditions",
+            "type": "object"
+          },
+          "study_area": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "title": "Study Area",
+            "type": "object"
+          },
+          "time_range": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "management_goal",
+          "study_area",
+          "entity_types",
+          "time_range",
+          "scenario_conditions",
+          "constraints",
+          "required_outputs",
+          "data_policy",
+          "quality_requirements"
+        ],
+        "title": "SceneSpec",
+        "type": "object"
+      },
+      "TimeRange": {
+        "additionalProperties": false,
+        "properties": {
+          "end": {
+            "format": "date-time",
+            "title": "End",
+            "type": "string"
+          },
+          "start": {
+            "format": "date-time",
+            "title": "Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "TimeRange",
+        "type": "object"
+      },
       "UpdateRequest": {
         "additionalProperties": false,
         "properties": {
@@ -4350,6 +4635,47 @@
         "summary": "Provenance",
         "tags": [
           "runs"
+        ]
+      }
+    },
+    "/api/v1/scene-drafts/inspect": {
+      "post": {
+        "operationId": "inspect_draft_api_v1_scene_drafts_inspect_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SceneDraft"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SceneInspection"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Inspect Draft",
+        "tags": [
+          "scenes"
         ]
       }
     },

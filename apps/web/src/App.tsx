@@ -31,6 +31,7 @@ const Results = lazy(() => import("./Results"));
 const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
 );
+const SceneWorkspace = lazy(() => import("./SceneWorkspace"));
 const WorkflowEditor = lazy(() => import("./WorkflowEditor"));
 const Workflow = lazy(() => import("./Workflow"));
 const Dashboard = lazy(() => import("./Dashboard"));
@@ -142,6 +143,11 @@ export default function App() {
               <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
               <Route path="/entities" element={<Entities />} />
               <Route path="/planner" element={<Planner />} />
+              <Route path="/scenes/new" element={<SceneWorkspace />} />
+              <Route
+                path="/scenes/:id/workspace"
+                element={<SceneWorkspace />}
+              />
               <Route path="/workflows/new" element={<WorkflowEditor />} />
               <Route path="/workflows/:id/edit" element={<WorkflowEditor />} />
               <Route path="/runs" element={<Runs />} />

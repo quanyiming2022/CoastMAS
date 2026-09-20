@@ -96,7 +96,7 @@ def scene(**changes):
         scenario_conditions={"vertical_datum": "demo-datum"},
         constraints=[],
         required_outputs=["result"],
-        data_policy={},
+        data_policy={"study_area_crs": "EPSG:32650"},
         quality_requirements={},
     )
     payload.update(changes)

@@ -46,6 +46,7 @@ export default function Catalog({ kind }: { kind: CatalogKind }) {
         description="项目中的版本化资源；打开详情查看数据来源与科学约束。"
       />
       <div className="toolbar">
+        {kind === "scenes" ? <Link to="/scenes/new">新建场景</Link> : null}
         {kind === "workflows" ? (
           <Link to="/workflows/new">新建工作流</Link>
         ) : null}
@@ -149,6 +150,11 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
   });
   return (
     <>
+      {kind === "scenes" ? (
+        <Link to={`/scenes/${encodeURIComponent(id)}/workspace`}>
+          打开场景工作台
+        </Link>
+      ) : null}
       <Link to={"/" + kind}>← 返回{title}</Link>
       {query.isPending ? <Loading /> : null}
       <ErrorNotice error={query.error} />

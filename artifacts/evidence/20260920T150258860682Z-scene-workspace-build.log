@@ -1,0 +1,40 @@
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1030 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.51 kB │ gzip:   0.36 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js    508.48 kB
+dist/assets/index-BO_bDLsV.css                  9.25 kB │ gzip:   2.89 kB
+dist/assets/style-DLioOiRN.css                 15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                82.86 kB │ gzip:  10.71 kB
+dist/assets/result-data-WiCTr_td.js             1.11 kB │ gzip:   0.51 kB
+dist/assets/WorkflowGraph-C2I847b4.js           2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-D_R5Zkg-.js               2.40 kB │ gzip:   1.25 kB
+dist/assets/GeoMap-DkLDxf6d.js                  3.01 kB │ gzip:   1.58 kB
+dist/assets/Runs-DEfXY18A.js                    3.51 kB │ gzip:   1.51 kB
+dist/assets/Workflow-BUoZ_AjR.js                3.61 kB │ gzip:   1.78 kB
+dist/assets/Catalog-B-zUIzkh.js                 4.75 kB │ gzip:   2.06 kB
+dist/assets/Results-D5DgLI6A.js                 5.41 kB │ gzip:   1.99 kB
+dist/assets/KnowledgeGraph-UKYpTmRt.js          6.85 kB │ gzip:   3.08 kB
+dist/assets/Entities-C3I9U4I6.js                7.01 kB │ gzip:   2.99 kB
+dist/assets/Planner-DAP8Atyw.js                 8.25 kB │ gzip:   3.54 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js             9.08 kB │ gzip:   3.46 kB
+dist/assets/WorkflowEditor-CxxcKmN2.js         16.88 kB │ gzip:   6.45 kB
+dist/assets/SceneWorkspace-DzLyEoyM.js         17.53 kB │ gzip:   6.28 kB
+dist/assets/style-BXNiBrrI.js                 177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-BWYml07R.js             178.04 kB │ gzip:  46.87 kB
+dist/assets/index-Dm2rohDN.js                 391.71 kB │ gzip: 120.15 kB
+dist/assets/CoastalStatistics-DUmXmHoH.js     543.54 kB │ gzip: 185.03 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js         1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 279ms

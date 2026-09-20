@@ -108,29 +108,33 @@ class GeographicEntity(Contract):
             "MultiPolygon",
         }:
             raise ValueError("area entities require polygon geometry")
-        try:
-            crs = CRS.from_user_input(self.crs)
-        except CRSError as exc:
-            raise ValueError("invalid entity CRS") from exc
-        if not (crs.is_geographic or crs.is_projected) or len(crs.axis_info) != 2:
-            raise ValueError("entity CRS must be two-dimensional geographic or projected")
-        if crs.is_geographic and any(
-            not isclose(axis.unit_conversion_factor, pi / 180) for axis in crs.axis_info
-        ):
-            raise ValueError("geographic CRS axes must use degrees")
-        positions = geometry_positions(self.geometry)
-        if len(positions) > 100_000:
-            raise ValueError("entity geometry exceeds 100000 vertices")
-        if crs.is_geographic and any(abs(x) > 180 or abs(y) > 90 for x, y in positions):
-            raise ValueError("geographic coordinates must be longitude/latitude degrees")
-        polygons: tuple[PolygonCoordinates, ...] = ()
-        if isinstance(self.geometry, PolygonGeometry):
-            polygons = (self.geometry.coordinates,)
-        elif isinstance(self.geometry, MultiPolygonGeometry):
-            polygons = self.geometry.coordinates
-        if any(ring[0] != ring[-1] for polygon in polygons for ring in polygon):
-            raise ValueError("polygon rings must be explicitly closed")
-        spatial = shape(self.geometry.model_dump())
-        if spatial.is_empty or not spatial.is_valid:
-            raise ValueError(f"invalid entity geometry: {explain_validity(spatial)}")
+        validate_geometry(self.geometry, self.crs)
         return self
+
+
+def validate_geometry(geometry: Geometry, crs_name: str) -> None:
+    try:
+        crs = CRS.from_user_input(crs_name)
+    except CRSError as exc:
+        raise ValueError("invalid entity CRS") from exc
+    if not (crs.is_geographic or crs.is_projected) or len(crs.axis_info) != 2:
+        raise ValueError("entity CRS must be two-dimensional geographic or projected")
+    if crs.is_geographic and any(
+        not isclose(axis.unit_conversion_factor, pi / 180) for axis in crs.axis_info
+    ):
+        raise ValueError("geographic CRS axes must use degrees")
+    positions = geometry_positions(geometry)
+    if len(positions) > 100_000:
+        raise ValueError("entity geometry exceeds 100000 vertices")
+    if crs.is_geographic and any(abs(x) > 180 or abs(y) > 90 for x, y in positions):
+        raise ValueError("geographic coordinates must be longitude/latitude degrees")
+    polygons: tuple[PolygonCoordinates, ...] = ()
+    if isinstance(geometry, PolygonGeometry):
+        polygons = (geometry.coordinates,)
+    elif isinstance(geometry, MultiPolygonGeometry):
+        polygons = geometry.coordinates
+    if any(ring[0] != ring[-1] for polygon in polygons for ring in polygon):
+        raise ValueError("polygon rings must be explicitly closed")
+    spatial = shape(geometry.model_dump())
+    if spatial.is_empty or not spatial.is_valid:
+        raise ValueError(f"invalid entity geometry: {explain_validity(spatial)}")

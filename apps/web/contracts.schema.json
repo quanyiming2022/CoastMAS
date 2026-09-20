@@ -2088,6 +2088,127 @@
       "title": "ScaleSpec",
       "type": "object"
     },
+    "SceneCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "footprint_wgs84": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Footprint Wgs84"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "reference": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "spatial_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Spatial Fraction"
+        },
+        "status": {
+          "enum": [
+            "COVERED",
+            "PARTIAL",
+            "OUTSIDE",
+            "UNKNOWN"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "temporal_coverage": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Temporal Coverage"
+        }
+      },
+      "required": [
+        "reference",
+        "name",
+        "spatial_fraction",
+        "temporal_coverage",
+        "status",
+        "method"
+      ],
+      "title": "SceneCoverage",
+      "type": "object"
+    },
+    "SceneInspection": {
+      "additionalProperties": false,
+      "properties": {
+        "data_coverage": {
+          "items": {
+            "$ref": "#/$defs/SceneCoverage"
+          },
+          "title": "Data Coverage",
+          "type": "array"
+        },
+        "entity_coverage": {
+          "items": {
+            "$ref": "#/$defs/SceneCoverage"
+          },
+          "title": "Entity Coverage",
+          "type": "array"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "study_area_wgs84": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Study Area Wgs84",
+          "type": "object"
+        },
+        "valid": {
+          "title": "Valid",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "valid",
+        "study_area_wgs84",
+        "data_coverage",
+        "entity_coverage",
+        "issues"
+      ],
+      "title": "SceneInspection",
+      "type": "object"
+    },
     "SceneSpec": {
       "additionalProperties": false,
       "properties": {
@@ -2104,6 +2225,24 @@
           },
           "title": "Data Policy",
           "type": "object"
+        },
+        "data_references": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VersionReference"
+          },
+          "maxItems": 500,
+          "title": "Data References",
+          "type": "array"
+        },
+        "entity_references": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VersionReference"
+          },
+          "maxItems": 500,
+          "title": "Entity References",
+          "type": "array"
         },
         "entity_types": {
           "items": {
@@ -2606,6 +2745,9 @@
     "RunManifest": {
       "$ref": "#/$defs/RunManifest"
     },
+    "SceneInspection": {
+      "$ref": "#/$defs/SceneInspection"
+    },
     "SceneSpec": {
       "$ref": "#/$defs/SceneSpec"
     },
@@ -2614,6 +2756,7 @@
     }
   },
   "required": [
+    "SceneInspection",
     "GraphSnapshot",
     "GeographicEntity",
     "ModelSpec",

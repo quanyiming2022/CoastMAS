@@ -297,6 +297,14 @@ export type Models = ModelSpec[];
 export type Parameters3 = ParameterBinding[];
 export type RandomSeed = number;
 export type Constraints2 = ConstraintSpec[];
+/**
+ * @maxItems 500
+ */
+export type DataReferences = VersionReference[];
+/**
+ * @maxItems 500
+ */
+export type EntityReferences = VersionReference[];
 export type EntityTypes = string[];
 export type Id11 = string;
 export type ManagementGoal2 = string;
@@ -305,6 +313,18 @@ export type RequiredOutputs = string[];
 export type Version5 = number;
 export type SoftwareVersion = string;
 export type Timestamp = string;
+export type FootprintWgs84 = {
+  [k: string]: JsonValue;
+} | null;
+export type Method = string;
+export type Name8 = string;
+export type SpatialFraction = number | null;
+export type Status2 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
+export type TemporalCoverage = boolean | null;
+export type DataCoverage = SceneCoverage[];
+export type EntityCoverage = SceneCoverage[];
+export type Issues = string[];
+export type Valid = boolean;
 
 export interface CoastMASContracts {
   BindingPlan: BindingPlan;
@@ -319,6 +339,7 @@ export interface CoastMASContracts {
   ProviderProposal: ProviderProposal;
   ResultManifest: ResultManifest;
   RunManifest: RunManifest;
+  SceneInspection: SceneInspection;
   SceneSpec: SceneSpec;
   WorkflowSpec: WorkflowSpec;
 }
@@ -669,6 +690,8 @@ export interface Environment {
 export interface SceneSpec {
   constraints: Constraints2;
   data_policy: DataPolicy;
+  data_references?: DataReferences;
+  entity_references?: EntityReferences;
   entity_types: EntityTypes;
   id: Id11;
   management_goal: ManagementGoal2;
@@ -690,5 +713,24 @@ export interface ScenarioConditions {
   [k: string]: JsonValue;
 }
 export interface StudyArea {
+  [k: string]: JsonValue;
+}
+export interface SceneInspection {
+  data_coverage: DataCoverage;
+  entity_coverage: EntityCoverage;
+  issues: Issues;
+  study_area_wgs84: StudyAreaWgs84;
+  valid: Valid;
+}
+export interface SceneCoverage {
+  footprint_wgs84?: FootprintWgs84;
+  method: Method;
+  name: Name8;
+  reference: VersionReference;
+  spatial_fraction: SpatialFraction;
+  status: Status2;
+  temporal_coverage: TemporalCoverage;
+}
+export interface StudyAreaWgs84 {
   [k: string]: JsonValue;
 }

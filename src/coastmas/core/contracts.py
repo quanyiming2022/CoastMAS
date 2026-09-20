@@ -228,6 +228,11 @@ class DataAssetSpec(Contract):
         return self
 
 
+class VersionReference(Contract):
+    id: Name
+    version: Version
+
+
 class SceneSpec(Contract):
     id: Name
     name: Name
@@ -241,16 +246,20 @@ class SceneSpec(Contract):
     required_outputs: tuple[Name, ...]
     data_policy: dict[str, JsonValue]
     quality_requirements: dict[str, JsonValue]
+    entity_references: tuple[VersionReference, ...] = Field(default=(), max_length=500)
+    data_references: tuple[VersionReference, ...] = Field(default=(), max_length=500)
+
+    @model_validator(mode="after")
+    def unique_selected_resources(self) -> Self:
+        for references in (self.entity_references, self.data_references):
+            if len({reference.id for reference in references}) != len(references):
+                raise ValueError("each scene resource must select one exact version")
+        return self
 
 
 class BindingTarget(Contract):
     node_id: Name
     variable: Name
-
-
-class VersionReference(Contract):
-    id: Name
-    version: Version
 
 
 class BindingPlan(Contract):
@@ -383,6 +392,15 @@ class EntityBinding(Contract):
     geographic_entity_id: Name
     geographic_entity_version: Version
     management_unit_id: Name | None
+
+    @model_validator(mode="after")
+    def distinct_identifiers(self) -> Self:
+        identifiers = [self.result_object_id, self.geographic_entity_id]
+        if self.management_unit_id is not None:
+            identifiers.append(self.management_unit_id)
+        if len(set(identifiers)) != len(identifiers):
+            raise ValueError("result object, geographic entity and management unit IDs must differ")
+        return self
 
 
 class ResultManifest(Contract):

@@ -55,7 +55,12 @@ def _save(
         if existing.project_id != project or existing.kind != kind:
             raise CoastMASError("SEED_CONFLICT", "sample identity is owned by another resource")
         old = read_resource(session, user_id=owner, identifier=identifier, version=1)
-        if old.checksum != fingerprint(spec):
+        original = old.spec
+        if kind == "scene":
+            # The original checksum was verified by read_resource; optional reference
+            # defaults are normalized without rewriting the immutable source version.
+            original = SceneSpec.model_validate(original).model_dump(mode="json")
+        if fingerprint(original) != fingerprint(spec):
             raise CoastMASError("SEED_CONFLICT", "sample v1 differs; a new release is required")
         return
     create_resource(

@@ -1,0 +1,13 @@
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  9 passed (9)
+      Tests  21 passed (21)
+   Start at  23:02:56
+   Duration  1.84s (environment 71%, setup 9%, import 8%, transform 6%, tests 6%)
+
