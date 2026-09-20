@@ -1,56 +1,42 @@
-# CoastMAS 执行状态
+# CoastMAS 当前状态（未完成全范围验收）
 
-- 项目已依用户授权全量迁移到 `/Users/quanyiming/projects/CoastMAS`；原 Documents 目录已移走。始终显式指定工作目录。
-- 完整需求和执行规范已读；唯一映射 `requirements-traceability.csv`。全部 76 节与 EQ 有效，尚无完整产品交付。
-- 最近已保存提交 `473546d`（科学算法、数据库、API、worker）；本文件描述其后同批文件绑定、场景上下文与评价组件改动，最新提交以 git log -1 为准。
-- 已实现：版本化契约、DAG/科学预检、单位/CRS/语义/时间/总量守恒；综合评价/熵权/TOPSIS/多期/连通筛查；MILP、AST 栅格计算、分区统计、适宜性；固定种子及分组划分随机森林、HMAC 私有模型存储。
-- 已实现：PostgreSQL 用户/项目/成员/不可变版本/审计，幂等任务、租约、心跳、取消/失败确认与原子发布；Argon2 会话、CSRF、FastAPI 模型/数据/场景/工作流版本 API。
-- 已实现：受限 Python/CLI 子进程适配器；超时、取消、输出预算、子进程组清理；MinIO 校验与不可变写；GeoTIFF 读写/重投影及元数据验证；文件到绑定的真实数据解析。
-- 已实现：锁定注册版本的 DAG 执行器与 Celery worker；真实 Redis → 读取 MinIO → 子进程 → MinIO 结果 → PostgreSQL 发布。重复投递仅执行一次；执行中的取消及撤权停止进程且不发布。
-- 已生成所有要求的合成样例（真实 GeoTIFF、GeoJSON、CSV）。三个计算层场景有手算金标准及研究产物；不等于 UI/工作流完整演示验收。人口估计显式采用单元内均匀分布，海平面模型不称水动力模拟。
-- 最新统一测试：`20260920T105146035549Z-planning-full`，218 passed，2 项依赖弃用警告。类型/lint `20260920T085743*` 通过。软件包可安装并从 /tmp 导入，pip check 通过。
-- 覆盖率：行 88.7824%、分支 69.8546%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
-- 回归：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。
-- 计算层演示：`PYTHONPATH=src .venv/bin/python scripts/evidence.py demonstrations -- .venv/bin/python scripts/run_demonstrations.py`。
-- Docker 磁盘已由用户调整；持久 PostGIS 55432、Redis 56379、MinIO 59000 均健康。临时内存盘 PostGIS 55433 已停止。测试只创建/降级/删除自身随机临时库与临时 bucket，不清理其他项目。
-- 外部 LLM 凭证未配置；真实外部对照仍 BLOCKED。完整部署与完整 E2E 仍 NOT_RUN，参见 environment-blockers.md。
-- 证据记录包括源码/测试/迁移/部署/样例内容摘要、git commit、依赖版本与真实退出码，保留失败历史。
-- 六类适配器已实际接通：Python/CLI、固定摘要的无网络只读 Docker、固定目标且拒绝重定向的 HTTP、真实 RasterGIS、签名模型与特征顺序约束的 ML。子进程错误保留科学代码与安全调用栈；HTTP 中止保留远端状态未知。
-- 已实现投影格网真实相交面积总量守恒分配；覆盖不完整/NoData 拒绝推断未知总量。
-- 接下来：注册内置模型并把三场景拆解为可规划 DAG；规划/图谱/实体/数据导入；完整 API/UI；协同、动态评价和科研页面；契约生成/全门禁/最终文档与统一验收。
-- 特别待解决：存储孤立 attempt 对象的保留清理；worker 中完整保存适配器诊断；显式时间/跨 CRS 保守分配节点；工作流实际数据输出元数据；分支覆盖。当前接口对未实现的转换显式拒绝，不算功能通过。
-- 主执行者单独连续推进，没有启动子代理。不得重新全仓规划或重新生成已有能力；按失败/缺口局部修改。
-- 已初始化真实项目与私有演示账号（artifacts/runtime/demo-access.json，0600，不提交），API 58000 已启动。尚无完整前端。平台中断从本状态继续，不代表完成，也不声称后台继续执行。
+## 约束与工作入口
+- 项目已移动至 `/Users/quanyiming/projects/CoastMAS`（系统真实大小写 Projects）；原 Documents 目录已验证移走。用户一次委托、连续执行，不等待例行确认。主执行者单独推进，没有子代理。
+- 全部任务书和 EQ 已读。后续用 `requirements-index.md` 定位，不重新全仓规划。唯一需求映射为 `requirements-traceability.csv`；映射的 NOT_RUN 不因组件通过而批量改为 PASS。
+- 最近提交用 `git log -1` 查看；本状态只记录当前事实。所有命令显式工作目录；源码、测试、迁移、部署或样例文件在 evidence.py 运行期间不得修改。
+- 密钥 `.env` 与演示账号 `artifacts/runtime/demo-access.json` 权限 0600，忽略提交，不打印。原始私有运行日志和浏览器 trace 在 artifacts/logs、artifacts/runtime；公开 evidence 自动脱敏，保留失败历史。
 
-- 覆盖率环境已修正：coverage 7.16.1 的 a1_coverage.pth 在本机带 UF_HIDDEN，Python 会跳过；仅清除了项目 .venv 内此文件的隐藏标记。已用最小子进程证明采集 active=True，python_runner 28/29 行被采集。无业务包排除。
-- 提交前发现一份早期数据库失败日志回显本地密码，已在首次提交前脱敏并保留原退出码，私有原日志位于 gitignore 的 artifacts/logs，权限 0600。证据收集器现自动脱敏并拒绝带已配置密钥的命令参数。
+## 已实现基础
+- 严格不可变版本契约、DAG 科学预检、精确语义/Pint 单位/PyProj CRS/垂向/时间/尺度/NoData/总量守恒；未知科学规则拒绝。可信运行注册固定完整 ModelSpec 摘要，元数据导入不能自证可执行。
+- 综合评价、熵权、TOPSIS、多期比较、连通淹没筛查；AST 栅格计算/分区/适宜性、MILP、固定种子分组随机森林与签名私有模型。六类实际 Adapter（Python/CLI、Docker、HTTP、RasterGIS、ML），有进程超时/取消/资源边界。
+- PostgreSQL 用户/项目/四角色/不可变资源/引用/审计/任务/结果/规划账本；迁移至 0005。Argon2+不透明会话+CSRF，服务端权限与并发版本保护。Redis/Celery 持久派发、租约心跳、撤权取消、幂等及原子发布。
+- 真实 S3 文件校验与 SHA；GeoTIFF/COG、GeoJSON/Shapefile/GPKG、CSV/JSON/NetCDF 读写和有界检查。NetCDF IO 单线程，检查在独立进程；矢量用 spatial_support，不能假装像元分辨率。
+- 8 个内置可信模型：地形 screening/overlay/statistics，评价 normalize/weight/composite/topsis/change。3 个确定性规划 DAG 使用真实样例文件计算。人口在完整单元内均匀分布，AOI 裁剪不重新归一化，未知地形单独计量；不称水动力模拟。
+- 规划 API：模板解析、缺失条件、精确版本绑定、保存工作流；外部提供方严格 JSON Schema、无自动重试/重定向、请求/响应上限；每条规划共享默认 2 次原子预算，缓存复用重查权限及资源状态。提供方报告 tokens 才记录，缺失保持 null。
+- 项目/真实 Dashboard/账号/成员/审计 API；模型拆解导入导出/复制历史/检索匹配/启停归档；工作流预检/提交、任务取消/重试、结果下载/追溯。模型纯启停可保留已有可信资格，修改科学元数据仍需重新审批。
+- 持久初始化：8 模型、11 资产、3 场景、3 工作流；重复初始化不重置用户密码、旧版本或停用状态。`python -m coastmas {init,api,worker,beat}`。
 
-- 新增模型静态拆解（不执行上传代码）、安全 JSON/YAML 导入导出、复制、历史、启用/禁用、保护引用的归档。元数据导入不得自证 VALIDATED/EXECUTABLE。真实 API 测试通过；注册运行时审批尚未实现。
-- 新增模型检索与两级匹配：硬约束失败无分数，兼容资产逐个检查，排序权重可配置；缺失耗时为 null。生成的是单模型候选片段，不等于多模型场景规划。
-- 新增迁移 0004，保存工作流对精确模型/数据版本的不可变引用；并发引用/归档、旧 ORM 版本缓存、撤权缓存和错误被捕获后的事务原子性均有真实数据库回归证据。
+## 当前前端与实测链路
+- React/TypeScript strict、TanStack Query、生成契约+AJV/Zod；无任意 any，写请求无自动重试，CSRF/幂等/错误追踪。已接通登录、项目切换、概览、模型/数据/场景/工作流目录与详情、运行/结果中心。
+- 工作流图显示真实数据/模型/输出和节点、连接错误；选择场景预检后运行，服务端再次检查。图目前只读；完整可编辑 Studio 未完成。
+- 运行页真实轮询/取消/重试/快照；结果页真实下载、来源、离线多边形地图、分区人口图表和统计表；全部基于实际输出。地图使用 MapLibre 6 的 Vite `?worker&url` 打包，不依赖外部底图。
+- 浏览器真实链路已通过：登录→预检→Redis→独立 worker→S3/PG 发布→结果/下载；面积 80000 m²、估算人口 320、3 节点、执行阶段 LLM=0。桌面/手机截图在 `artifacts/screenshots/`。
+- 地图缺失 worker、统计未知面积字段误读、登录状态刷新与测试控件定位的失败记录均保留，修正后重跑；不能删除失败制造全绿历史。
+- 前端仍缺：规划页面、图谱/实体/地图场景编辑、模型注册及完整目录操作、可编辑工作流、动态评价/协同/研究/管理页面、场景比较/时间序列与全部操作 E2E。当前页面不等于完整 UI 验收。
 
-- 新增工作流 validate/run、jobs 列表/读取/取消/显式重试、results 列表/元数据/内容/追溯 API。服务端构建不可变快照并检查可信运行时；并发幂等提交复用同一 timestamp；重试保留快照并审计来源。远端状态未知不自动重试。
-- 新增 GeoTIFF/COG、GeoJSON、Shapefile ZIP、单层 GeoPackage、CSV、JSON、NetCDF 的真实文件检查与预览。上传实际计算 SHA，元数据登记不能自证质量；验证追加新版本；解析在有期限的独立子进程内完成。CSV/矢量列单位明确为目录声明，结构验证不等于科学准确性认证。
-- 新增依赖 fiona 1.10.1、netCDF4 1.7.4、python-multipart 0.0.32，requirements-lock.txt 已同步；严格类型通过。文件执行绑定已接通 CSV、NetCDF、GeoJSON、Shapefile、GeoPackage、COG；服务/数据库连接器仍待实现。
+## 最新证据
+- 后端完整：`20260920T114407025040Z-workspace-readiness-full`，229 passed、2 条依赖弃用警告。严格类型 `20260920T114404466768Z-workspace-readiness-types`；ruff check 通过。
+- 覆盖率当前 4982/5687 行、1319/1898 分支（约 87.60% / 69.49%）；业务分支及核心覆盖率门槛未通过。没有排除困难业务文件。
+- 前端组件/契约：`20260920T121841821255Z-web-coastal-stats-fields`，10 passed。严格类型随 production build 通过；lint 最近 `20260920T121353467038Z-web-result-refined-check`，随后少量地图/字段修改需再检查。
+- 生产构建：`20260920T121844962451Z-web-coastal-stats-build` 通过，保留图表/地图大于 500 KB 包体警告，已按需加载，未提高阈值隐藏警告。
+- 真实浏览器：`20260920T121848342743Z-web-coastal-map-chart-e2e`，2 passed，包含地图库加载、图表、下载金标准、深链接和退出后 401。只有已覆盖行为通过。
+- `scripts/export_contracts.py --check` 当前通过；生成 TypeScript 漂移检查需纳入统一 Makefile。前端 optional fsevents 安装脚本未运行，实际构建与浏览器正常。
 
-- 新增可信 Python contextual_handlers，输入仅保存的 scene/node_id/random_seed/software_version；既有二参数处理器保持兼容。真实子进程修改上下文不会回写父进程。
-- 指标框架保留实体标识、逐指标单位、方向、固定参考上下界与共享跨期权重。归一化会先转换参考单位；多期 TOPSIS 未定义共享理想点时显式拒绝，不制造可比性。
-- 已注册 normalize/weight/composite/topsis/change 五个评价组件，注册前实际执行手算金标准校验并记录测得误差。场景 B/C 核心 DAG 从真实 MinIO 读取框架，经多个真实子进程运行通过；尚未接入完整规划/UI，也未称完整场景验收通过。
-- 矢量空间尺度使用 spatial_support_m，不再要求像元分辨率。多边形支撑记录 sqrt_feature_area 及最小/最大值；绑定实际应用无 ballpark 的坐标转换。NetCDF 在进程内使用单个专用 IO 线程。
-- 场景 A 已注册 screening → overlay → statistics，真实 MinIO GeoTIFF/GeoJSON/CSV 经三个子进程 DAG 得到 80000 m²、320 人金标准。AOI 裁剪不重新归一化人口，未知 DEM 单独计量；输出为地形连通筛查而非水动力模拟。
-- TargetGridSpec 限制格网尺寸、面积与可逆变换；执行前检查支持的 CRS 和投影条件。
-- 下一步明确入口：结构化确定性规划与共享 LLM 调用预算，之后持久种子目录、统一启动、前端和研究验收。
-
-- 新增 core/planning.py：完整模板解析、三场景多节点构图、歧义数据阻断、所选数据参与工作流身份、提供方候选科学预检。三个模板均已由规划器生成 DAG 后真实计算通过。
-- 新增迁移 0005 和 planning_traces/provider_requests：默认两次共享预算、并发原子扣减、幂等、撤权、不可覆盖终态证据；请求模型/响应模型/端点/HTTP 状态/用量保留可追溯字段。
-- OpenAICompatibleProvider 无 SDK 自动重试或重定向；强制 JSON Schema，拒绝截断/拒绝/无效结果。真实外部 API 仍未配置，本地 HTTP 协议测试不算外部评测。
-- 规划 API 已支持创建、读取、解析/推荐/构图共享产物、保存工作流、读取调用账本；已验证真实评价任务结果和输入停用后的复用阻断。全范围尚未交付。
-- 下一步明确入口：保存本轮完整回归证据；实现持久样例种子、API/worker 统一启动与完整前端，继续其余必选范围。避免重写现有科学组件和规划功能。
-
-- 新增持久样例初始化：8 个可信模型、11 份真实文件资产、3 个场景和 3 个工作流；重复初始化保护既有版本与用户改动。统一 CLI 支持 init/api/worker/beat；尚未启动生产 worker/beat。
-- 新增项目/真实 Dashboard/管理员账号/成员权限/审计 API；模型启停保留既有可信运行资格，元数据导入仍不能自证可执行。worker 拒绝事务外已停用/归档的数据，即使 ORM 曾缓存旧状态。
-- 新增独立存活/依赖就绪检查，客户端连接/读取超时有界。对象存储发生过运行时 SIGSEGV，保留失败与备份证据；原镜像重启后 17 项受影响回归通过，根因尚未确认。
-- 前端依赖已锁定并安装，Pydantic JSON Schema/OpenAPI→TypeScript 生成器已落地；尚未实现界面，不算前端交付。npm audit 当前零漏洞；可选 fsevents 安装脚本未授权运行，实际构建待验证。
-- 当前接续入口：完成本轮回归与检查，保存后端启动/管理功能；按现有 API 实现前端可运行纵向链路，再完成实体/图谱/协同/评价/研究与其余必选项。不要重写科学计算与规划组件。
-
-- 本轮完整后端回归 `20260920T114407025040Z-workspace-readiness-full`：229 passed、2 warnings；严格类型 `20260920T114404466768Z-workspace-readiness-types` 通过，ruff check 通过。新增代码与前端后须重跑对应门禁。
+## 环境与继续执行
+- 本地 API/UI `http://127.0.0.1:58000`，worker 与 beat 已启动；PostGIS 55432、Redis 56379、MinIO 59000。`/health/live` 是进程存活，`/health/ready` 真实检查 DB/S3/Redis；旧 `/health` 只检查 DB。
+- Docker 磁盘用户已调整。MinIO hotfix AMD64 镜像曾 Go SIGSEGV（非 OOM）；仅本项目对象卷已私有备份，原镜像重启后完整回归和浏览器计算通过。仿真是否根因未确定，没有降级为较旧 ARM 镜像；详情 environment-blockers.md。
+- 外部 LLM 密钥仍缺失，真实外部研究实验 BLOCKED；本地协议测试不能算真实外部实验。独立开发不因此等待。
+- 最小下一步：保存本轮 UI 检查与文档；接通现有规划 API 的前端，再完成实体/图谱/协同/评价/研究等必选范围。维护已实现科学组件，不重新生成项目。
+- 其他必选缺口：时间/跨 CRS 保守分配显式节点、服务/DB 数据连接器、非内置运行审批、完整任务诊断日志、计算结果缓存、孤立存储对象保留清理、可选 GeoAI API、全部研究与性能实验、统一 Docker 部署/Makefile/完整文档和最终门禁。
+- 后端回归命令：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。前端：`npm --prefix apps/web test`、`run lint`、`run build`、`run e2e`。
+- 平台中断不代表完成，不宣称后台继续执行。只有所有必选项在最终交付代码上有证据通过才宣布完成。

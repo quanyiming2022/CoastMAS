@@ -1,0 +1,53 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 2 tests using 1 worker
+
+(node:92217) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  1) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    Test timeout of 120000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 120000ms exceeded.
+    Call log:
+      - waiting for getByLabel('运行场景', { exact: true })
+
+
+      46 |   await page
+      47 |     .getByLabel("运行场景", { exact: true })
+    > 48 |     .selectOption({ label: "Synthetic coastal inundation screening · v1" });
+         |      ^
+      49 |   await page.getByRole("button", { name: "科学预检", exact: true }).click();
+      50 |   await expect(
+      51 |     page.getByRole("button", { name: "提交运行", exact: true }),
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:48:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:92484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  1 failed
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+  1 passed (2.1m)

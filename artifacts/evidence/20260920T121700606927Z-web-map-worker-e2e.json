@@ -1,0 +1,31 @@
+{
+  "name": "web-map-worker-e2e",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e"
+  ],
+  "started_at": "2026-09-20T12:17:00.606927+00:00",
+  "finished_at": "2026-09-20T12:17:20.343922+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "8d5801f97bcd016d9e54c2e5a2b446836e2213068cc0498277096b0bbdd79e1c",
+  "git_commit": "1abdf81fcd391fbf5e5962b0af5bab9baa4c6b07",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T121700606927Z-web-map-worker-e2e.log"
+}

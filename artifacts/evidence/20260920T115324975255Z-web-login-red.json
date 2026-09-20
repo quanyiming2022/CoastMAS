@@ -1,0 +1,32 @@
+{
+  "name": "web-login-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "test",
+    "--",
+    "src/App.test.tsx"
+  ],
+  "started_at": "2026-09-20T11:53:24.975255+00:00",
+  "finished_at": "2026-09-20T11:53:28.757778+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "df3205aa0a868a740225786732d89a00c6dcb0594b947647f76253253c6b5063",
+  "git_commit": "1abdf81fcd391fbf5e5962b0af5bab9baa4c6b07",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T115324975255Z-web-login-red.log"
+}

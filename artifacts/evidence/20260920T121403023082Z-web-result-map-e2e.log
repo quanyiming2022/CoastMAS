@@ -1,0 +1,60 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 2 tests using 1 worker
+
+(node:93457) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  1) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('.geographic-map')
+    Expected: "true"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('.geographic-map') with timeout 5000ms
+      - waiting for locator('.geographic-map')
+        10 × locator resolved to <div aria-label="分析结果地图" class="geographic-map maplibregl-map">…</div>
+           - unexpected value "null"
+
+
+      66 |   await expect(page.getByText("80000", { exact: true })).toBeVisible();
+      67 |   await expect(page.getByText("320", { exact: true })).toBeVisible();
+    > 68 |   await expect(page.locator(".geographic-map")).toHaveAttribute(
+         |                                                 ^
+      69 |     "data-loaded",
+      70 |     "true",
+      71 |   );
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:68:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:93489) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  1 failed
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+  1 passed (15.3s)

@@ -1,0 +1,22 @@
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 425 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.51 kB │ gzip:   0.36 kB
+dist/assets/index-DSWMv1kV.css              7.41 kB │ gzip:   2.44 kB
+dist/assets/Workflow-DLioOiRN.css          15.41 kB │ gzip:   2.56 kB
+dist/assets/rolldown-runtime-B0Z9INg1.js    0.90 kB │ gzip:   0.51 kB
+dist/assets/Dashboard-HS34MfAC.js           2.35 kB │ gzip:   1.22 kB
+dist/assets/Runs-SoPyafCk.js                3.51 kB │ gzip:   1.51 kB
+dist/assets/Catalog-e4DVDH4M.js             4.38 kB │ gzip:   1.95 kB
+dist/assets/Results-CCYCjJMF.js             4.59 kB │ gzip:   1.68 kB
+dist/assets/contracts-DkzopB-m.js         169.65 kB │ gzip:  45.72 kB
+dist/assets/Workflow-k7uyGSnR.js          183.06 kB │ gzip:  59.51 kB
+dist/assets/index-BrxYYDt4.js             393.60 kB │ gzip: 120.91 kB
+
+✓ built in 117ms

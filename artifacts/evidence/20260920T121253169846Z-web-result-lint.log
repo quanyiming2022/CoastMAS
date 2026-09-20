@@ -1,0 +1,10 @@
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+/Users/quanyiming/Projects/CoastMAS/apps/web/src/Chart.tsx
+  10:1  error  React Hook "use" cannot be called at the top level. React Hooks must be called in a React function component or a custom React Hook function  react-hooks/rules-of-hooks
+
+✖ 1 problem (1 error, 0 warnings)
+

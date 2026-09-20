@@ -1,0 +1,31 @@
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1018 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                0.51 kB │ gzip:   0.36 kB
+dist/assets/index-r_e6Zjuz.css                 7.50 kB │ gzip:   2.47 kB
+dist/assets/Workflow-DLioOiRN.css             15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css               82.86 kB │ gzip:  10.71 kB
+dist/assets/GeoMap-CVgoHedY.js                 1.92 kB │ gzip:   1.13 kB
+dist/assets/Dashboard-9xcx162X.js              2.40 kB │ gzip:   1.25 kB
+dist/assets/Runs-43uxBiDr.js                   3.51 kB │ gzip:   1.51 kB
+dist/assets/Catalog-DdtozZ3V.js                4.38 kB │ gzip:   1.95 kB
+dist/assets/Results-DzaAWxpe.js                6.18 kB │ gzip:   2.32 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js            9.08 kB │ gzip:   3.46 kB
+dist/assets/contracts-CtIlmluj.js            169.65 kB │ gzip:  45.71 kB
+dist/assets/Workflow-hSK6tW5f.js             183.06 kB │ gzip:  59.51 kB
+dist/assets/index-B67bT3u3.js                389.91 kB │ gzip: 119.54 kB
+dist/assets/CoastalStatistics-C5jDaQtO.js    543.54 kB │ gzip: 185.04 kB
+dist/assets/maplibre-gl-BMu265k-.js        1,018.85 kB │ gzip: 274.88 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 231ms

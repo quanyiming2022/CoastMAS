@@ -1,0 +1,14 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 2 tests using 1 worker
+
+(node:94790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[2/2] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  2 passed (9.3s)

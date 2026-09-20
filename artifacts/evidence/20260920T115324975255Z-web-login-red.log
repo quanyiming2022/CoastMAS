@@ -1,0 +1,192 @@
+
+> coastmas-web@0.1.0 test
+> vitest run src/App.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/App.test.tsx (2 tests | 1 failed) 1084ms
+   × logs in from an expired session and renders server counts 1074ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx > logs in from an expired session and renders server counts
+TestingLibraryElementError: Unable to find an element with the text: 37. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"login-page"[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"login-story"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"eyebrow"[39m
+        [36m>[39m
+          [0mCOASTAL SCIENCE · REPRODUCIBLE DECISIONS[0m
+        [36m</span>[39m
+        [36m<h1>[39m
+          [0m连接模型、数据[0m
+          [36m<br />[39m
+          [0m与海岸带决策。[0m
+        [36m</h1>[39m
+        [36m<p>[39m
+          [0m让每一次分析有清晰的约束、可验证的计算和完整的来源。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"coast-lines"[39m
+        [36m>[39m
+          [0m≈[0m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"login-card"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"brand-text"[39m
+        [36m>[39m
+          [0mCoastMAS[0m
+        [36m</span>[39m
+        [36m<h2>[39m
+          [0m登录工作空间[0m
+        [36m</h2>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"muted"[39m
+        [36m>[39m
+          [0m使用管理员分配的账号继续。[0m
+        [36m</p>[39m
+        [36m<form>[39m
+          [36m<label>[39m
+            [0m邮箱[0m
+            [36m<input[39m
+              [33mautocomplete[39m=[32m"username"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mtype[39m=[32m"email"[39m
+              [33mvalue[39m=[32m"user@test.local"[39m
+            [36m/>[39m
+          [36m</label>[39m
+          [36m<label>[39m
+            [0m密码[0m
+            [36m<input[39m
+              [33mautocomplete[39m=[32m"current-password"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mtype[39m=[32m"password"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+          [36m</label>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0m登录[0m
+          [36m</button>[39m
+        [36m</form>[39m
+        [36m<small[39m
+          [33mclass[39m=[32m"muted"[39m
+        [36m>[39m
+          [0m权限与科学约束由服务端执行。[0m
+        [36m</small>[39m
+      [36m</section>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"login-page"[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"login-story"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"eyebrow"[39m
+        [36m>[39m
+          [0mCOASTAL SCIENCE · REPRODUCIBLE DECISIONS[0m
+        [36m</span>[39m
+        [36m<h1>[39m
+          [0m连接模型、数据[0m
+          [36m<br />[39m
+          [0m与海岸带决策。[0m
+        [36m</h1>[39m
+        [36m<p>[39m
+          [0m让每一次分析有清晰的约束、可验证的计算和完整的来源。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"coast-lines"[39m
+        [36m>[39m
+          [0m≈[0m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"login-card"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"brand-text"[39m
+        [36m>[39m
+          [0mCoastMAS[0m
+        [36m</span>[39m
+        [36m<h2>[39m
+          [0m登录工作空间[0m
+        [36m</h2>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"muted"[39m
+        [36m>[39m
+          [0m使用管理员分配的账号继续。[0m
+        [36m</p>[39m
+        [36m<form>[39m
+          [36m<label>[39m
+            [0m邮箱[0m
+            [36m<input[39m
+              [33mautocomplete[39m=[32m"username"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mtype[39m=[32m"email"[39m
+              [33mvalue[39m=[32m"user@test.local"[39m
+            [36m/>[39m
+          [36m</label>[39m
+          [36m<label>[39m
+            [0m密码[0m
+            [36m<input[39m
+              [33mautocomplete[39m=[32m"current-password"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mtype[39m=[32m"password"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+          [36m</label>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0m登录[0m
+          [36m</button>[39m
+        [36m</form>[39m
+        [36m<small[39m
+          [33mclass[39m=[32m"muted"[39m
+        [36m>[39m
+          [0m权限与科学约束由服务端执行。[0m
+        [36m</small>[39m
+      [36m</section>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:25:23
+     23|   fireEvent.change(screen.getByLabelText('密码'), { target: { value: 'te…
+     24|   fireEvent.click(screen.getByRole('button', { name: '登录' }));
+     25|   expect(await screen.findByText('37')).toBeInTheDocument();
+       |                       ^
+     26|   expect(screen.getByRole('combobox', { name: '当前项目' })).toHaveValue('…
+     27| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  19:53:26
+   Duration  1.73s (tests 65%, environment 24%, import 4%, setup 3%, transform 3%)
+

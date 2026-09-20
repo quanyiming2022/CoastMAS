@@ -1,0 +1,37 @@
+
+> coastmas-web@0.1.0 test
+> vitest run src/api.test.ts
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/api.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/api.test.ts [ src/api.test.ts ]
+Error: Failed to resolve import "./api" from "src/api.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/quanyiming/Projects/CoastMAS/apps/web/src/api.test.ts:3:34
+  1  |  import { afterEach, describe, expect, it, vi } from "vitest";
+  2  |  import { z } from "zod";
+  3  |  import { ApiError, request } from "./api";
+     |                                     ^
+  4  |  afterEach(() => {
+  5  |  	vi.unstubAllGlobals();
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8393:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8390:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26058:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26128:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26094:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8172:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19634:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:48:15
+   Duration  499ms (environment 86%, setup 12%, transform 2%, worker 1%)
+
