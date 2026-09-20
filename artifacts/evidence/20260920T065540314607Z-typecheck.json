@@ -1,0 +1,16 @@
+{
+  "name": "typecheck",
+  "command": [
+    ".venv/bin/mypy",
+    "src/coastmas"
+  ],
+  "started_at": "2026-09-20T06:55:40.314607+00:00",
+  "finished_at": "2026-09-20T06:55:40.759517+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "bc6418f0eaa01337f92d5cc2e19cab18c7464b8f6d558b5cb6994fabd776c017",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T065540314607Z-typecheck.log"
+}

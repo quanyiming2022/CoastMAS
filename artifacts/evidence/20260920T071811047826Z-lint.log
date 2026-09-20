@@ -1,0 +1,12 @@
+B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+   --> src/coastmas/adapters/storage.py:117:17
+    |
+115 |                 ) from mismatch
+116 |             if existing != content:
+117 |                 raise CoastMASError("IMMUTABLE_CONFLICT", "immutable artifact key already exists")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+118 |         # Read-back validates content, not just metadata supplied by a client.
+119 |         self.read(artifact)
+    |
+
+Found 1 error.

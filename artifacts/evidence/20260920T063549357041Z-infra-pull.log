@@ -1,0 +1,7 @@
+redis Pulling 
+database Pulling 
+object-storage Pulling 
+object-storage Error 
+redis Error 
+database Error 
+Error response from daemon: pull access denied for minio/minio, repository does not exist or may require 'docker login': denied: requested access to the resource is denied

@@ -1,0 +1,16 @@
+Network coastmas_default  Creating
+Network coastmas_default  Created
+Volume "coastmas_coastmas_database"  Creating
+Volume "coastmas_coastmas_database"  Created
+Volume "coastmas_coastmas_redis"  Creating
+Volume "coastmas_coastmas_redis"  Created
+Volume "coastmas_coastmas_objects"  Creating
+Volume "coastmas_coastmas_objects"  Created
+Container coastmas-redis-1  Creating
+Container coastmas-database-1  Creating
+Container coastmas-database-1  Created
+Container coastmas-redis-1  Created
+Container coastmas-database-1  Starting
+Container coastmas-redis-1  Starting
+Container coastmas-redis-1  Started
+Container coastmas-database-1  Started

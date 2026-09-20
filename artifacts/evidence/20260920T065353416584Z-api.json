@@ -1,0 +1,19 @@
+{
+  "name": "api",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_api.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T06:53:53.416584+00:00",
+  "finished_at": "2026-09-20T06:53:57.915567+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "22372fb6bcd2f571c8b2350248d70dd08ec7cc5533d7054cf42cf08c8d21f4e2",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T065353416584Z-api.log"
+}

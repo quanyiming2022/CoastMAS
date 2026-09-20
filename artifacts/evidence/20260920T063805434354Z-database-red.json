@@ -1,0 +1,19 @@
+{
+  "name": "database-red",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_persistence.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T06:38:05.434354+00:00",
+  "finished_at": "2026-09-20T06:38:08.032548+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "caffd5289c72d46f729115beaef068ca0f6644b3ff3cb36a126b9fae05ef144c",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T063805434354Z-database-red.log"
+}

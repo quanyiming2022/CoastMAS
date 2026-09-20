@@ -1,0 +1,110 @@
+................F....................................................... [ 84%]
+.............                                                            [100%]
+=================================== FAILURES ===================================
+____________ test_child_group_is_terminated_even_after_parent_exits ____________
+
+self = <coastmas.adapters.runtime.CLIAdapter object at 0x10e5cd700>
+request = RunRequest(handler='spawn', inputs={}, parameters={}, work_root=PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g5.../pytest-63/test_child_group_is_terminated0/work'), timeout_seconds=0.1, cancel=<threading.Event at 0x10e5cd7f0: unset>)
+directory = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-63/test_child_group_is_terminated0/work/coastmas-job-0dfb7bas')
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        arguments = self.arguments(request, directory)
+        environment = {
+            "PATH": os.defpath,
+            "LANG": "C.UTF-8",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPATH": str(Path(__file__).resolve().parents[2]),
+        }
+        started = time.monotonic()
+        process = subprocess.Popen(
+            arguments,
+            cwd=directory,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+            shell=False,
+        )
+        output = bytearray()
+        total = 0
+        try:
+            with selectors.DefaultSelector() as selector:
+                if process.stdout is None or process.stderr is None:
+                    raise CoastMASError("EXECUTION_ERROR", "process output channels unavailable")
+                selector.register(process.stdout, selectors.EVENT_READ, "stdout")
+                selector.register(process.stderr, selectors.EVENT_READ, "stderr")
+                while selector.get_map():
+                    if request.cancel.is_set():
+                        raise CoastMASError("CANCELLED", "execution cancelled")
+                    if time.monotonic() - started > request.timeout_seconds:
+>                       raise CoastMASError("TIMEOUT", "execution timeout")
+E                       coastmas.core.errors.CoastMASError: execution timeout
+
+src/coastmas/adapters/runtime.py:152: CoastMASError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-63/test_child_group_is_terminated0')
+
+    def test_child_group_is_terminated_even_after_parent_exits(tmp_path):
+        import time
+    
+        marker = tmp_path / "orphan-marker"
+        work = tmp_path / "work"
+        child = f"import time,pathlib;time.sleep(.6);pathlib.Path({str(marker)!r}).write_text('orphan')"
+        launcher = f"import subprocess,sys;subprocess.Popen([sys.executable,'-c',{child!r}])"
+        adapter = CLIAdapter({"spawn": (sys.executable, "-c", launcher)})
+        with pytest.raises(CoastMASError, match="timeout"):
+>           adapter.run(
+                RunRequest(
+                    handler="spawn", inputs={}, parameters={}, work_root=work, timeout_seconds=0.1
+                )
+            )
+
+tests/unit/test_adapters.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/runtime.py:197: in run
+    output, exit_code, elapsed = self.execute(request, directory)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/adapters/runtime.py:174: in execute
+    self.terminate(process)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+process = <Popen: returncode: 0 args: ['/Users/quanyiming/Projects/CoastMAS/.venv/bin/...>
+
+    @staticmethod
+    def terminate(process: subprocess.Popen[bytes]) -> None:
+        # The leader may already have exited while descendants retain its process group.
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            process.wait(timeout=2)
+            return
+        try:
+            process.wait(timeout=0.5)
+        except subprocess.TimeoutExpired:
+            # A stubborn leader receives the same bounded shutdown as its descendants.
+            process.poll()
+        try:
+>           os.killpg(process.pid, signal.SIGKILL)
+E           PermissionError: [Errno 1] Operation not permitted
+
+src/coastmas/adapters/runtime.py:115: PermissionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Coverage JSON written to file artifacts/coverage.json
+=========================== short test summary info ============================
+FAILED tests/unit/test_adapters.py::test_child_group_is_terminated_even_after_parent_exits
+1 failed, 84 passed, 2 warnings in 9.77s

@@ -1,0 +1,6 @@
+src/coastmas/core/execution.py:249: error: Incompatible types in assignment (expression has type "BindingTarget", variable has type "VariableSpec")  [assignment]
+src/coastmas/core/execution.py:250: error: "VariableSpec" has no attribute "variable"  [attr-defined]
+src/coastmas/core/execution.py:250: error: "VariableSpec" has no attribute "node_id"  [attr-defined]
+src/coastmas/core/execution.py:252: error: "VariableSpec" has no attribute "node_id"  [attr-defined]
+src/coastmas/core/execution.py:252: error: "VariableSpec" has no attribute "variable"  [attr-defined]
+Found 5 errors in 1 file (checked 30 source files)

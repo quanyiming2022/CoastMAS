@@ -1,0 +1,41 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              117.0,
+              31.631577286305287
+            ],
+            [
+              117.00421802634558,
+              31.631577216635563
+            ],
+            [
+              117.00421818921643,
+              31.635186150333112
+            ],
+            [
+              117.0,
+              31.635186220012606
+            ],
+            [
+              117.0,
+              31.631577286305287
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "properties": {
+        "label": "SYNTHETIC / DEMONSTRATION DATA",
+        "unit_id": "AOI"
+      },
+      "type": "Feature"
+    }
+  ],
+  "label": "SYNTHETIC / DEMONSTRATION DATA",
+  "name": "coastal_aoi.geojson",
+  "type": "FeatureCollection"
+}

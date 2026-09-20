@@ -1,0 +1,32 @@
+{
+  "name": "lint",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/ruff",
+    "check",
+    "src",
+    "tests",
+    "scripts",
+    "migrations"
+  ],
+  "started_at": "2026-09-20T07:45:46.245595+00:00",
+  "finished_at": "2026-09-20T07:45:46.287189+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "787ee1d98fceb8929b200e6ea5bc16170bbfafdc613dbb4b4121655ce7a25df8",
+  "git_commit": "15dd2e9104aaa0890cc80e3568c3511a8c717415",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T074546245595Z-lint.log"
+}

@@ -1,0 +1,41 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              117.00210901317462,
+              31.631577268887852
+            ],
+            [
+              117.00421802634558,
+              31.631577216635563
+            ],
+            [
+              117.00421810777736,
+              31.633381683739636
+            ],
+            [
+              117.00210905389049,
+              31.63338173599561
+            ],
+            [
+              117.00210901317462,
+              31.631577268887852
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "properties": {
+        "label": "SYNTHETIC / DEMONSTRATION DATA",
+        "unit_id": "P1"
+      },
+      "type": "Feature"
+    }
+  ],
+  "label": "SYNTHETIC / DEMONSTRATION DATA",
+  "name": "protection_zone.geojson",
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,6 @@
+....................................................................     [100%]
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Coverage JSON written to file artifacts/coverage.json
+68 passed in 1.06s

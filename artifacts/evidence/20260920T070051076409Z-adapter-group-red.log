@@ -1,0 +1,25 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_child_group_is_terminated_even_after_parent_exits ____________
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-60/test_child_group_is_terminated0')
+
+    def test_child_group_is_terminated_even_after_parent_exits(tmp_path):
+        import time
+        marker=tmp_path / "orphan-marker"
+        work=tmp_path / "work"
+        child=f"import time,pathlib;time.sleep(.6);pathlib.Path({str(marker)!r}).write_text('orphan')"
+        launcher=f"import subprocess,sys;subprocess.Popen([sys.executable,'-c',{child!r}])"
+        adapter=CLIAdapter({"spawn":(sys.executable,"-c",launcher)})
+        with pytest.raises(CoastMASError,match="timeout"):
+            adapter.run(RunRequest(handler="spawn",inputs={},parameters={},work_root=work,timeout_seconds=.1))
+        time.sleep(.7)
+>       assert not marker.exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-60/test_child_group_is_terminated0/orphan-marker').exists
+
+tests/unit/test_adapters.py:69: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_adapters.py::test_child_group_is_terminated_even_after_parent_exits
+1 failed in 1.02s

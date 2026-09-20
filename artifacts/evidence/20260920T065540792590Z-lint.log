@@ -1,0 +1,12 @@
+E501 Line too long (103 > 100)
+  --> migrations/versions/0001_resources.py:51:101
+   |
+49 |       DEFERRABLE INITIALLY DEFERRED;
+50 |     CREATE TABLE resource_dependencies (
+51 |         source_id varchar(256), source_version integer, target_id varchar(256), target_version integer,
+   |                                                                                                     ^^^
+52 |         PRIMARY KEY(source_id,source_version,target_id,target_version),
+53 |         FOREIGN KEY(source_id,source_version) REFERENCES resource_versions(resource_id,version),
+   |
+
+Found 1 error.

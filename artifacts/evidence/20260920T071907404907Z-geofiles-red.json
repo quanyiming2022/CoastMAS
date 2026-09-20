@@ -1,0 +1,19 @@
+{
+  "name": "geofiles-red",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_geofiles.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:19:07.404907+00:00",
+  "finished_at": "2026-09-20T07:19:07.815103+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "f73281c06b1481d65e792d708f30d55eadbb376a46c34c07dae349282a721073",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T071907404907Z-geofiles-red.log"
+}

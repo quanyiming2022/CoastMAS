@@ -1,0 +1,38 @@
+.....FFF                                                                 [100%]
+=================================== FAILURES ===================================
+_____________ test_heartbeat_and_failure_respect_worker_ownership ______________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_cfd9de9d8b014da18fc729dc2c4891fc)
+actors = ('abbcea05-cc57-4784-8670-1f9715bbb0bb', 'e265b2e0-2dfc-4592-8305-2c881252904a', '84482d84-34bd-4662-9788-0fd4fe558533', '3f6d199c-319e-440d-8c50-ce5cc9e2381e')
+
+    def test_heartbeat_and_failure_respect_worker_ownership(engine, actors):
+>       from coastmas.persistence.jobs import heartbeat_job, finish_failed_job
+E       ImportError: cannot import name 'heartbeat_job' from 'coastmas.persistence.jobs' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/persistence/jobs.py)
+
+tests/integration/test_jobs.py:142: ImportError
+_______________ test_cancel_acknowledged_only_by_current_worker ________________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_cfd9de9d8b014da18fc729dc2c4891fc)
+actors = ('702e8015-69e5-4eba-9100-738c65659676', '5487d253-bd66-43af-bc2c-5f99c6553d3b', '29e16663-ffa0-4025-898f-c5ecedfe8861', '1dd4804a-91c6-46ff-965e-960e5559476b')
+
+    def test_cancel_acknowledged_only_by_current_worker(engine, actors):
+>       from coastmas.persistence.jobs import heartbeat_job, finish_failed_job
+E       ImportError: cannot import name 'heartbeat_job' from 'coastmas.persistence.jobs' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/persistence/jobs.py)
+
+tests/integration/test_jobs.py:158: ImportError
+________ test_published_result_checks_current_permission_on_every_read _________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_cfd9de9d8b014da18fc729dc2c4891fc)
+actors = ('71e61386-0109-40fd-af0f-f525f1cbe7f9', '43c33b93-5bb9-4324-82df-d2f47210eee8', '3a3a689f-d837-4791-b01c-89b107bff391', 'c4d75a02-0a04-4c88-81e3-6770d2961833')
+
+    def test_published_result_checks_current_permission_on_every_read(engine, actors):
+        from sqlalchemy import delete
+>       from coastmas.persistence.jobs import read_result
+E       ImportError: cannot import name 'read_result' from 'coastmas.persistence.jobs' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/persistence/jobs.py)
+
+tests/integration/test_jobs.py:172: ImportError
+=========================== short test summary info ============================
+FAILED tests/integration/test_jobs.py::test_heartbeat_and_failure_respect_worker_ownership
+FAILED tests/integration/test_jobs.py::test_cancel_acknowledged_only_by_current_worker
+FAILED tests/integration/test_jobs.py::test_published_result_checks_current_permission_on_every_read
+3 failed, 5 passed in 2.80s

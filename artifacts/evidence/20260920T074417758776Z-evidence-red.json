@@ -1,0 +1,29 @@
+{
+  "name": "evidence-red",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_evidence.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:44:17.758776+00:00",
+  "finished_at": "2026-09-20T07:44:18.195735+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "36f62f4211499f3add360ac448adc6bfaca70544e9a50188ab7e42ab2d163a98",
+  "git_commit": "15dd2e9104aaa0890cc80e3568c3511a8c717415",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T074417758776Z-evidence-red.log"
+}

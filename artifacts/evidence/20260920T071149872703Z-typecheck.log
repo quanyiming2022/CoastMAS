@@ -1,0 +1,2 @@
+src/coastmas/domain/ml.py:64: error: Invalid self argument "ndarray[tuple[int], dtype[float64]]" to attribute function "__invert__" with type "Callable[[ArrayT], ArrayT]"  [misc]
+Found 1 error in 1 file (checked 24 source files)

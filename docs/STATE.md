@@ -1,14 +1,21 @@
 # CoastMAS 执行状态
 
-- 项目已按用户要求迁移到 `/Users/quanyiming/projects/CoastMAS`。
-- 全量需求已读，唯一追踪表 `requirements-traceability.csv`；尚未通过整章验收，全部范围保留。
-- 原需求文件未改动；架构/实施记录见 `architecture.md`、`implementation-plan.md`。
-- 已实现：版本化领域契约；DAG/字段边界；评价、熵权、TOPSIS、多期固定参考；显式基准水位的连通性筛查；单位/CRS/语义/时间/总量守恒；模型与数据硬约束预检。
-- 最近单元测试：56 passed；严格类型和 lint 已通过。证据在 `artifacts/evidence/`，包含时间、源码哈希、退出码与原始日志。
-- 注意：这些仅是已实现基础模块测试，不是全系统或科学成果最终验收；覆盖率尚未达门槛。
-- 独立 Python 3.12 虚拟环境已安装，依赖锁定在 `requirements-lock.txt`；迁移后 pip check 与测试通过。
-- Docker 守护进程可用（需要工具越过当前工作区沙箱），项目尚未部署。
-- 当前需继续：科学模型其余组件、完整绑定/空间覆盖、持久化/RBAC/审计、worker/Adapter、规划/图谱、前端、三场景、真实 E2E 和部署验收。
-- 下一工作单元：实现空间优化、栅格安全计算/分区统计等剩余确定性科学组件；随后接入持久化运行链路。
-- 尚未检查真实外部 LLM 凭证；不能将确定性测试记为真实外部实验。
-- 没有产品地址或演示账号；不得宣称完整软件完成。
+- 项目已依用户授权全量迁移到 `/Users/quanyiming/projects/CoastMAS`；原 Documents 目录已移走。始终显式指定工作目录。
+- 完整需求和执行规范已读；唯一映射 `requirements-traceability.csv`。全部 76 节与 EQ 有效，尚无完整产品交付。
+- 基线提交 `15dd2e9`；本批科学算法、数据库、适配器、API、worker 与证据待提交保存。
+- 已实现：版本化契约、DAG/科学预检、单位/CRS/语义/时间/总量守恒；综合评价/熵权/TOPSIS/多期/连通筛查；MILP、AST 栅格计算、分区统计、适宜性；固定种子及分组划分随机森林、HMAC 私有模型存储。
+- 已实现：PostgreSQL 用户/项目/成员/不可变版本/审计，幂等任务、租约、心跳、取消/失败确认与原子发布；Argon2 会话、CSRF、FastAPI 模型/数据/场景/工作流版本 API。
+- 已实现：受限 Python/CLI 子进程适配器；超时、取消、输出预算、子进程组清理；MinIO 校验与不可变写；GeoTIFF 读写/重投影及元数据验证；文件到绑定的真实数据解析。
+- 已实现：锁定注册版本的 DAG 执行器与 Celery worker；真实 Redis → 读取 MinIO → 子进程 → MinIO 结果 → PostgreSQL 发布。重复投递仅执行一次；执行中的取消及撤权停止进程且不发布。
+- 已生成所有要求的合成样例（真实 GeoTIFF、GeoJSON、CSV）。三个计算层场景有手算金标准及研究产物；不等于 UI/工作流完整演示验收。人口估计显式采用单元内均匀分布，海平面模型不称水动力模拟。
+- 最新统一测试：`20260920T073940867729Z-combined`，114 passed，2 项依赖弃用警告未屏蔽。类型与 lint：`20260920T074100*` 通过；之后仅修正导入位置和长行。
+- 覆盖率：行 87.6005%、分支 67.1053%；业务分支及核心门槛尚未通过。不得宣称完整质量门禁通过。
+- 回归：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。
+- 计算层演示：`PYTHONPATH=src .venv/bin/python scripts/evidence.py demonstrations -- .venv/bin/python scripts/run_demonstrations.py`。
+- Docker 磁盘已由用户调整；持久 PostGIS 55432、Redis 56379、MinIO 59000 均健康。临时内存盘 PostGIS 55433 已停止。测试只创建/降级/删除自身随机临时库与临时 bucket，不清理其他项目。
+- 外部 LLM 凭证未配置；真实外部对照仍 BLOCKED。完整部署与完整 E2E 仍 NOT_RUN，参见 environment-blockers.md。
+- 证据记录包括源码/测试/迁移/部署/样例内容摘要、git commit、依赖版本与真实退出码，保留失败历史。
+- 接下来：完善其余 Docker/HTTP/RasterGIS/ML 统一适配器，注册内置模型并把三场景拆解为可规划 DAG；规划/图谱/实体/数据导入；完整 API/UI；协同、动态评价和科研页面；契约生成/全门禁/最终文档与统一验收。
+- 特别待解决：存储孤立 attempt 对象的保留清理；结构化私有诊断；显式时间/保守重分配节点；工作流实际数据输出元数据；分支覆盖。当前接口对未实现的转换显式拒绝，不算功能通过。
+- 主执行者单独连续推进，没有启动子代理。不得重新全仓规划或重新生成已有能力；按失败/缺口局部修改。
+- 当前没有完整前端地址或演示账号。平台中断应从本状态继续，不代表完成，也不声称后台继续执行。

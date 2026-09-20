@@ -1,0 +1,16 @@
+
+==================================== ERRORS ====================================
+_________________ ERROR collecting tests/unit/test_evidence.py _________________
+ImportError while importing test module '/Users/quanyiming/Projects/CoastMAS/tests/unit/test_evidence.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_evidence.py:1: in <module>
+    from scripts.evidence import redact_secrets
+E   ImportError: cannot import name 'redact_secrets' from 'scripts.evidence' (/Users/quanyiming/Projects/CoastMAS/scripts/evidence.py)
+=========================== short test summary info ============================
+ERROR tests/unit/test_evidence.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.15s

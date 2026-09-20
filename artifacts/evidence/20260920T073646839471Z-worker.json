@@ -1,0 +1,29 @@
+{
+  "name": "worker",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_worker.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:36:46.839471+00:00",
+  "finished_at": "2026-09-20T07:36:54.299497+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "c71524c4cd74fd50f998eb57c6f2c9b1a414dfe5bf2474ef7d0cfe7ef3f583e1",
+  "git_commit": "15dd2e9104aaa0890cc80e3568c3511a8c717415",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T073646839471Z-worker.log"
+}

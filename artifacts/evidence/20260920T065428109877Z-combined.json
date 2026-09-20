@@ -1,0 +1,21 @@
+{
+  "name": "combined",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--cov=coastmas",
+    "--cov-branch",
+    "--cov-report=json:artifacts/coverage.json"
+  ],
+  "started_at": "2026-09-20T06:54:28.109877+00:00",
+  "finished_at": "2026-09-20T06:54:37.378746+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "7259ee04e06d5610d1c2d53aa9773182e81e3bf98a1530a2b04b58945e885b10",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T065428109877Z-combined.log"
+}

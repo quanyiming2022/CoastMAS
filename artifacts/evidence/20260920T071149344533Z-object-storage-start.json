@@ -1,0 +1,21 @@
+{
+  "name": "object-storage-start",
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "docker-compose.infra.yml",
+    "up",
+    "-d",
+    "object-storage"
+  ],
+  "started_at": "2026-09-20T07:11:49.344533+00:00",
+  "finished_at": "2026-09-20T07:11:49.781760+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "d02fbdbc979b5e94fc28841bafa55d069c6817a9dadcb8555141eb53836386ec",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T071149344533Z-object-storage-start.log"
+}

@@ -1,0 +1,2 @@
+src/coastmas/domain/raster.py:39: error: Argument 1 to "float" has incompatible type "str | bytes | int | float | complex | EllipsisType | None"; expected "str | Buffer | SupportsFloat | SupportsIndex"  [arg-type]
+Found 1 error in 1 file (checked 12 source files)

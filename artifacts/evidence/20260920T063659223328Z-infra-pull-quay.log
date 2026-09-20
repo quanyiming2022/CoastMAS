@@ -1,0 +1,52 @@
+database Pulling 
+object-storage Pulling 
+redis Pulling 
+fa0650a893c2 Pulling fs layer 
+49ceb16de0d3 Pulling fs layer 
+221a983ee5dc Pulling fs layer 
+16411f24b2ed Pulling fs layer 
+3ad70e9add39 Pulling fs layer 
+5150605ea86b Pulling fs layer 
+e6e8e27367b6 Pulling fs layer 
+315b848cddf7 Pulling fs layer 
+7b2c716625f5 Pulling fs layer 
+472754f8b8cd Pulling fs layer 
+727d74116f2d Pulling fs layer 
+89309ab6ec5c Pulling fs layer 
+ec15c40427cc Pulling fs layer 
+468aad998ee4 Pulling fs layer 
+cd093c5183d1 Pulling fs layer 
+4f4fb700ef54 Pulling fs layer 
+dd6b4c1f3061 Pulling fs layer 
+4c4edc0cb26f Pulling fs layer 
+16411f24b2ed Waiting 
+3ad70e9add39 Waiting 
+5150605ea86b Waiting 
+e6e8e27367b6 Waiting 
+727d74116f2d Waiting 
+89309ab6ec5c Waiting 
+ec15c40427cc Waiting 
+468aad998ee4 Waiting 
+cd093c5183d1 Waiting 
+4f4fb700ef54 Waiting 
+dd6b4c1f3061 Waiting 
+7b2c716625f5 Waiting 
+4c4edc0cb26f Waiting 
+472754f8b8cd Waiting 
+6e771e15690e Pulling fs layer 
+080f8dfc707b Pulling fs layer 
+cd9b8f71c9cf Pulling fs layer 
+a745a150c6e8 Pulling fs layer 
+bbb44351440e Pulling fs layer 
+91d0c6f66299 Pulling fs layer 
+4f4fb700ef54 Pulling fs layer 
+1e66f2df0912 Pulling fs layer 
+a745a150c6e8 Waiting 
+4f4fb700ef54 Waiting 
+bbb44351440e Waiting 
+1e66f2df0912 Waiting 
+91d0c6f66299 Waiting 
+6e771e15690e Waiting 
+080f8dfc707b Waiting 
+object-storage Error 
+Error response from daemon: manifest for quay.io/minio/minio:RELEASE.2025-10-15T17-29-55Z not found: manifest unknown: manifest unknown

@@ -1,0 +1,12 @@
+.......                                                                  [100%]
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Name                                     Stmts   Miss Branch BrPart  Cover
+--------------------------------------------------------------------------
+src/coastmas/adapters/__init__.py            0      0      0      0   100%
+src/coastmas/adapters/python_runner.py      19     19      4      0     0%
+src/coastmas/adapters/runtime.py           163     19     46     11    85%
+--------------------------------------------------------------------------
+TOTAL                                      182     38     50     11    76%
+7 passed in 1.39s

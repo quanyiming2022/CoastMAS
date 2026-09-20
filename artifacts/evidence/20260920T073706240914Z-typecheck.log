@@ -1,0 +1,4 @@
+src/coastmas/worker/runtime.py:53: error: "Contract" has no attribute "id"  [attr-defined]
+src/coastmas/worker/runtime.py:57: error: "Contract" has no attribute "id"  [attr-defined]
+src/coastmas/worker/runtime.py:57: error: "Contract" has no attribute "version"  [attr-defined]
+Found 3 errors in 1 file (checked 33 source files)

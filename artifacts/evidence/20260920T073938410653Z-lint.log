@@ -1,0 +1,31 @@
+E501 Line too long (103 > 100)
+   --> src/coastmas/adapters/datasource.py:106:101
+    |
+104 |                 if method not in ("nearest", "bilinear"):
+105 |                     raise ConstraintError(
+106 |                         "this grid binding needs an explicit conservative or cubic transformation node"
+    |                                                                                                     ^^^
+107 |                     )
+108 |                 grid = resample_grid(
+    |
+
+E402 Module level import not at top of file
+  --> tests/integration/conftest.py:73:1
+   |
+73 | import boto3
+   | ^^^^^^^^^^^^
+74 |
+75 | from coastmas.adapters.storage import S3ArtifactStore, local_storage_settings
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> tests/integration/conftest.py:75:1
+   |
+73 | import boto3
+74 |
+75 | from coastmas.adapters.storage import S3ArtifactStore, local_storage_settings
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Move module level imports to top of file
+
+Found 3 errors.

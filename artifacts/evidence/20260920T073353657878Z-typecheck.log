@@ -1,0 +1,2 @@
+src/coastmas/adapters/datasource.py:24: error: Need type annotation for "JSON_VALUE"  [var-annotated]
+Found 1 error in 1 file (checked 31 source files)

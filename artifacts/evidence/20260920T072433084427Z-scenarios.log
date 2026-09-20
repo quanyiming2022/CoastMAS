@@ -1,0 +1,95 @@
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_synthetic_files_and_three_scientific_scenarios ______________
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-68/test_synthetic_files_and_three0')
+
+    def test_synthetic_files_and_three_scientific_scenarios(tmp_path):
+        data = tmp_path / "data"
+        generate_samples(data)
+        manifest = json.loads((data / "manifest.json").read_text())
+        assert manifest["label"] == "SYNTHETIC / DEMONSTRATION DATA"
+        for name, digest in manifest["sha256"].items():
+            assert hashlib.sha256((data / name).read_bytes()).hexdigest() == digest
+>       result = run_screening_scenario(data, increment=0.5)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_scenarios.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/domain/scenarios.py:118: in run_screening_scenario
+    return JSON_OUTPUT.validate_python(output)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = TypeAdapter(dict[str, JsonValue])
+object = {'label': 'SYNTHETIC / DEMONSTRATION DATA', 'method': 'terrain-connectivity screening, not hydrodynamics', 'inundated_area_m2': 80000.0, 'estimated_affected_population': 320.0, ...}
+strict = None, extra = None, from_attributes = None, context = None
+experimental_allow_partial = False, by_alias = None, by_name = None
+
+    def validate_python(
+        self,
+        object: Any,
+        /,
+        *,
+        strict: bool | None = None,
+        extra: ExtraValues | None = None,
+        from_attributes: bool | None = None,
+        context: Any | None = None,
+        experimental_allow_partial: bool | Literal['off', 'on', 'trailing-strings'] = False,
+        by_alias: bool | None = None,
+        by_name: bool | None = None,
+    ) -> T:
+        """Validate a Python object against the model.
+    
+        Args:
+            object: The Python object to validate against the model.
+            strict: Whether to strictly check types.
+            extra: Whether to ignore, allow, or forbid extra data during model validation.
+                See the [`extra` configuration value][pydantic.ConfigDict.extra] for details.
+            from_attributes: Whether to extract data from object attributes.
+            context: Additional context to pass to the validator.
+            experimental_allow_partial: **Experimental** whether to enable
+                [partial validation](../concepts/experimental.md#partial-validation), e.g. to process streams.
+                * False / 'off': Default behavior, no partial validation.
+                * True / 'on': Enable partial validation.
+                * 'trailing-strings': Enable partial validation and allow trailing strings in the input.
+            by_alias: Whether to use the field's alias when validating against the provided input data.
+            by_name: Whether to use the field's name when validating against the provided input data.
+    
+        !!! note
+            When using `TypeAdapter` with a Pydantic `dataclass`, the use of the `from_attributes`
+            argument is not supported.
+    
+        Returns:
+            The validated object.
+        """
+        if by_alias is False and by_name is not True:
+            raise PydanticUserError(
+                'At least one of `by_alias` or `by_name` must be set to True.',
+                code='validate-by-alias-and-name-false',
+            )
+    
+>       return self.validator.validate_python(
+            object,
+            strict=strict,
+            extra=extra,
+            from_attributes=from_attributes,
+            context=context,
+            allow_partial=experimental_allow_partial,
+            by_alias=by_alias,
+            by_name=by_name,
+        )
+E       pydantic_core._pydantic_core.ValidationError: 4 validation errors for dict[str,json-or-python[json=any,python=tagged-union[list[...],dict[str,...],str,bool,int,float,none]]]
+E       seeds.list.0
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(0, 0), input_type=tuple]
+E       seeds.list.1
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(1, 0), input_type=tuple]
+E       seeds.list.2
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(2, 0), input_type=tuple]
+E       seeds.list.3
+E         input was not a valid JSON value [type=invalid-json-value, input_value=(3, 0), input_type=tuple]
+
+.venv/lib/python3.12/site-packages/pydantic/type_adapter.py:441: ValidationError
+=========================== short test summary info ============================
+FAILED tests/integration/test_scenarios.py::test_synthetic_files_and_three_scientific_scenarios
+1 failed, 2 passed in 0.40s

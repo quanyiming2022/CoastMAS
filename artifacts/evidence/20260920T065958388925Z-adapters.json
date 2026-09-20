@@ -1,0 +1,19 @@
+{
+  "name": "adapters",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_adapters.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T06:59:58.388925+00:00",
+  "finished_at": "2026-09-20T06:59:59.197795+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "2c9281d449e63f99d73e78f3aa65afbde26ae0aab07f4a28d5718ff09686deb8",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T065958388925Z-adapters.log"
+}

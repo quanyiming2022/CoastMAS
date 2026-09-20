@@ -1,0 +1,20 @@
+{
+  "name": "lint",
+  "command": [
+    ".venv/bin/ruff",
+    "check",
+    "src",
+    "tests",
+    "scripts",
+    "migrations"
+  ],
+  "started_at": "2026-09-20T07:04:41.011843+00:00",
+  "finished_at": "2026-09-20T07:04:41.062913+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "fec57a78f80ca664a80ac8675ca8b8a44a16dcc062fd3a1800ca677bbaa51ada",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T070441011843Z-lint.log"
+}

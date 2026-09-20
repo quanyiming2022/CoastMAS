@@ -1,0 +1,19 @@
+{
+  "name": "adapters-red",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_adapters.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T06:57:05.618432+00:00",
+  "finished_at": "2026-09-20T06:57:05.943371+00:00",
+  "exit_code": 2,
+  "status": "FAIL",
+  "source_sha256": "307097266e59e3b632900ca33e2bc07e0302400d20a0495ba5b4c658b570b057",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T065705618432Z-adapters-red.log"
+}

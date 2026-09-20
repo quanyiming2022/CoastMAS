@@ -1,0 +1,49 @@
+EEEEE..                                                                  [100%]
+==================================== ERRORS ====================================
+_______ ERROR at setup of test_idempotent_submit_and_duplicate_delivery ________
+file /Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py, line 10
+  def test_idempotent_submit_and_duplicate_delivery(engine, actors):
+E       fixture 'engine' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, cov, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py:10
+_________ ERROR at setup of test_cancellation_blocks_late_publication __________
+file /Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py, line 38
+  def test_cancellation_blocks_late_publication(engine, actors):
+E       fixture 'engine' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, cov, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py:38
+_ ERROR at setup of test_publish_is_once_only_and_stale_worker_cannot_publish __
+file /Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py, line 64
+  def test_publish_is_once_only_and_stale_worker_cannot_publish(engine, actors):
+E       fixture 'engine' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, cov, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py:64
+______ ERROR at setup of test_concurrent_identical_submission_has_one_job ______
+file /Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py, line 86
+  def test_concurrent_identical_submission_has_one_job(engine, actors):
+E       fixture 'engine' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, cov, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py:86
+____ ERROR at setup of test_expired_lease_recovery_rejects_original_worker _____
+file /Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py, line 107
+  def test_expired_lease_recovery_rejects_original_worker(engine, actors):
+E       fixture 'engine' not found
+>       available fixtures: anyio_backend, anyio_backend_name, anyio_backend_options, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, cov, doctest_namespace, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/quanyiming/Projects/CoastMAS/tests/integration/test_jobs.py:107
+=========================== short test summary info ============================
+ERROR tests/integration/test_jobs.py::test_idempotent_submit_and_duplicate_delivery
+ERROR tests/integration/test_jobs.py::test_cancellation_blocks_late_publication
+ERROR tests/integration/test_jobs.py::test_publish_is_once_only_and_stale_worker_cannot_publish
+ERROR tests/integration/test_jobs.py::test_concurrent_identical_submission_has_one_job
+ERROR tests/integration/test_jobs.py::test_expired_lease_recovery_rejects_original_worker
+2 passed, 5 errors in 2.47s

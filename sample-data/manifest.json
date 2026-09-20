@@ -1,0 +1,38 @@
+{
+  "baseline_m": 0.0,
+  "connectivity": 4,
+  "label": "SYNTHETIC / DEMONSTRATION DATA",
+  "schema_version": "1.0.0",
+  "seed": 42,
+  "seeds": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      0
+    ]
+  ],
+  "sha256": {
+    "README.md": "2637ad55950b7f7191ba4d2abecd646cff1af3571a786495d3b2cb7528e4d7bc",
+    "coastal_aoi.geojson": "73cbfb3c073a2f04828b4468aea4ffd404f6bfc161405f44de1b235b311f679d",
+    "dem.tif": "0464d36b774406d0bc897eb408696b73573d554a9debc47fcf1811ddeb1b7d6f",
+    "economic.csv": "10756ed466d90886facecfe4d2143c9672788aa7fe04064a464ed73856edd566",
+    "land_cover_t1.tif": "15aa02ad16cf0d4ed9414e6e24f7418db5cfc2e99ee84bb842c7914e6b87cd43",
+    "land_cover_t2.tif": "13576e1a85615b4aed9c47b924aac365f259c5ff0e2bf41fbb752f0248e829ac",
+    "management_units.geojson": "bf263ff472bf13873403f19c8c61c2904e6521973f86b55500b7ca0dc6699429",
+    "population.csv": "3fb8819ad4a0ff491a60b78a496bb770d97cafd8d2e7405a33c3c35a08fe8bf0",
+    "protection_zone.geojson": "7a487bb7da000bce26f201d59962a99577fe5ce4cdda9a7650eb1b6ba487dae0",
+    "tide.csv": "fc6e28a8eb0f71ac08f380e6159771cc436cb2edd9fb73fa13afbedd3311091f"
+  },
+  "vertical_datum": "synthetic-local-datum-v1"
+}

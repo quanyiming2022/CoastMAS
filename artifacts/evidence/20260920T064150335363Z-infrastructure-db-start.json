@@ -1,0 +1,22 @@
+{
+  "name": "infrastructure-db-start",
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "docker-compose.infra.yml",
+    "up",
+    "-d",
+    "database",
+    "redis"
+  ],
+  "started_at": "2026-09-20T06:41:50.335363+00:00",
+  "finished_at": "2026-09-20T06:41:50.942428+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "d0ab64d8caf491406ab9374ede1f2ce8572ba06565fa1bac4fe3fca21dac9b04",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T064150335363Z-infrastructure-db-start.log"
+}

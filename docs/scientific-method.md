@@ -19,3 +19,11 @@ Pint 用于同维单位及偏移温度转换。PyProj 强制 x/y 顺序，禁用
 - [Pint 单位转换](https://pint.readthedocs.io/en/stable/getting/tutorial.html)
 - [PyProj 坐标转换](https://pyproj4.github.io/pyproj/stable/api/transformer.html)
 - [NumPy 向量范数](https://numpy.org/doc/stable/reference/generated/numpy.linalg.norm.html)
+
+
+## 文件层与确定性演示补充
+GeoTIFF 仅接收 GTiff 内存字节，限制压缩字节和解码像元数；禁止 VRT/任意 URL。NoData 保留为 NaN/JSON null；单位、CRS 与垂向元数据必须与不可变目录一致。投影格网面积由仿射行列式乘坐标轴米制转换计算；投影畸变仍须在场景选择时审查，不把经纬度平方当平方米。
+
+参考实现接口：[Rasterio 重投影](https://rasterio.readthedocs.io/en/stable/topics/reproject.html)、[Rasterio MemoryFile](https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html)。类别量最近邻；总量场禁止用连续量插值替代面积守恒重分配。
+
+`sample-data/README.md` 说明合成数据假设，manifest 保留文件校验和。三场景计算产物保存在 artifacts/research；人口按行政单元淹没面积比例估计，不能解释为真实精确人数。固定参考范围与权重跨期复用。当前仅有计算层与通用工作流执行链的分离证据，三场景界面/规划/绑定/执行 E2E 尚待完成。

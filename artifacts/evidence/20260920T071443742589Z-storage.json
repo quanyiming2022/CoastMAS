@@ -1,0 +1,19 @@
+{
+  "name": "storage",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_storage.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:14:43.742589+00:00",
+  "finished_at": "2026-09-20T07:14:45.727691+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "834090ad43e046d4fe6cc9f1b9e6bbc22b63872d762a457379e9303e9b718620",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T071443742589Z-storage.log"
+}

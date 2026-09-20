@@ -1,0 +1,21 @@
+{
+  "name": "adapters-regression",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_adapters.py",
+    "-q",
+    "--cov=coastmas.adapters",
+    "--cov-branch"
+  ],
+  "started_at": "2026-09-20T07:07:28.894949+00:00",
+  "finished_at": "2026-09-20T07:07:30.561515+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "daee54c897c22c85318441aa701ee5fca883b4e7e84996c46c7c67f930007a3e",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T070728894949Z-adapters-regression.log"
+}

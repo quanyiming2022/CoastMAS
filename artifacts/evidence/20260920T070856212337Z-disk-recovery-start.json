@@ -1,0 +1,22 @@
+{
+  "name": "disk-recovery-start",
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "docker-compose.infra.yml",
+    "up",
+    "-d",
+    "database",
+    "redis"
+  ],
+  "started_at": "2026-09-20T07:08:56.212337+00:00",
+  "finished_at": "2026-09-20T07:08:56.705460+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "39994c936ae712a267ae5941690d802f29141bccf962bab660a31cabb73b6337",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T070856212337Z-disk-recovery-start.log"
+}

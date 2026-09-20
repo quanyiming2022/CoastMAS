@@ -1,7 +1,7 @@
 import pytest
-from factories import asset, model, scene, variable, workflow
 
 from coastmas.core.validation import validate_workflow
+from tests.factories import asset, model, scene, variable, workflow
 
 
 def report(**changes):

@@ -1,0 +1,19 @@
+{
+  "name": "adapter-group-red",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_adapters.py::test_child_group_is_terminated_even_after_parent_exits",
+    "-q"
+  ],
+  "started_at": "2026-09-20T07:00:51.076409+00:00",
+  "finished_at": "2026-09-20T07:00:52.289936+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "27fd4db64706ea713685034e0d80a8aa95e0067e29b53e84340afb776e55fa75",
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T070051076409Z-adapter-group-red.log"
+}

@@ -1,0 +1,176 @@
+...F..F                                                                  [100%]
+=================================== FAILURES ===================================
+___________ test_cli_timeout_terminates_process_and_cleans_workspace ___________
+
+self = <coastmas.adapters.runtime.CLIAdapter object at 0x10933aab0>
+request = RunRequest(handler='slow', inputs={}, parameters={}, work_root=PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55...iming/pytest-61/test_cli_timeout_terminates_pr0'), timeout_seconds=0.1, cancel=<threading.Event at 0x10933ad20: unset>)
+directory = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-61/test_cli_timeout_terminates_pr0/coastmas-job-neikx5k6')
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        arguments = self.arguments(request, directory)
+        environment = {
+            "PATH": os.defpath,
+            "LANG": "C.UTF-8",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPATH": str(Path(__file__).resolve().parents[2]),
+        }
+        started = time.monotonic()
+        process = subprocess.Popen(
+            arguments,
+            cwd=directory,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+            shell=False,
+        )
+        output = bytearray()
+        total = 0
+        try:
+            with selectors.DefaultSelector() as selector:
+                if process.stdout is None or process.stderr is None:
+                    raise CoastMASError("EXECUTION_ERROR", "process output channels unavailable")
+                selector.register(process.stdout, selectors.EVENT_READ, "stdout")
+                selector.register(process.stderr, selectors.EVENT_READ, "stderr")
+                while selector.get_map():
+                    if request.cancel.is_set():
+                        raise CoastMASError("CANCELLED", "execution cancelled")
+                    if time.monotonic() - started > request.timeout_seconds:
+>                       raise CoastMASError("TIMEOUT", "execution timeout")
+E                       coastmas.core.errors.CoastMASError: execution timeout
+
+src/coastmas/adapters/runtime.py:156: CoastMASError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-61/test_cli_timeout_terminates_pr0')
+
+    def test_cli_timeout_terminates_process_and_cleans_workspace(tmp_path):
+        adapter = CLIAdapter({"slow": (sys.executable, "-c", "import time;time.sleep(20)")})
+        with pytest.raises(CoastMASError, match="timeout"):
+>           adapter.run(
+                RunRequest(
+                    handler="slow", inputs={}, parameters={}, work_root=tmp_path, timeout_seconds=0.1
+                )
+            )
+
+tests/unit/test_adapters.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/runtime.py:201: in run
+    output, exit_code, elapsed = self.execute(request, directory)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/adapters/runtime.py:178: in execute
+    self.terminate(process)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+process = <Popen: returncode: None args: ['/Users/quanyiming/Projects/CoastMAS/.venv/b...>
+
+    @staticmethod
+    def terminate(process: subprocess.Popen[bytes]) -> None:
+        # The leader may already have exited while descendants retain its process group.
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            process.wait(timeout=2)
+            return
+        deadline = time.monotonic() + 0.5
+        while time.monotonic() < deadline:
+            process.poll()
+            try:
+>               os.killpg(process.pid, 0)
+E               PermissionError: [Errno 1] Operation not permitted
+
+src/coastmas/adapters/runtime.py:113: PermissionError
+____________ test_child_group_is_terminated_even_after_parent_exits ____________
+
+self = <coastmas.adapters.runtime.CLIAdapter object at 0x10933b5c0>
+request = RunRequest(handler='spawn', inputs={}, parameters={}, work_root=PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g5.../pytest-61/test_child_group_is_terminated0/work'), timeout_seconds=0.1, cancel=<threading.Event at 0x10933b5f0: unset>)
+directory = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-61/test_child_group_is_terminated0/work/coastmas-job-3r20znmb')
+
+    def execute(self, request: RunRequest, directory: Path) -> tuple[bytes, int, float]:
+        arguments = self.arguments(request, directory)
+        environment = {
+            "PATH": os.defpath,
+            "LANG": "C.UTF-8",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONPATH": str(Path(__file__).resolve().parents[2]),
+        }
+        started = time.monotonic()
+        process = subprocess.Popen(
+            arguments,
+            cwd=directory,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+            shell=False,
+        )
+        output = bytearray()
+        total = 0
+        try:
+            with selectors.DefaultSelector() as selector:
+                if process.stdout is None or process.stderr is None:
+                    raise CoastMASError("EXECUTION_ERROR", "process output channels unavailable")
+                selector.register(process.stdout, selectors.EVENT_READ, "stdout")
+                selector.register(process.stderr, selectors.EVENT_READ, "stderr")
+                while selector.get_map():
+                    if request.cancel.is_set():
+                        raise CoastMASError("CANCELLED", "execution cancelled")
+                    if time.monotonic() - started > request.timeout_seconds:
+>                       raise CoastMASError("TIMEOUT", "execution timeout")
+E                       coastmas.core.errors.CoastMASError: execution timeout
+
+src/coastmas/adapters/runtime.py:156: CoastMASError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-61/test_child_group_is_terminated0')
+
+    def test_child_group_is_terminated_even_after_parent_exits(tmp_path):
+        import time
+    
+        marker = tmp_path / "orphan-marker"
+        work = tmp_path / "work"
+        child = f"import time,pathlib;time.sleep(.6);pathlib.Path({str(marker)!r}).write_text('orphan')"
+        launcher = f"import subprocess,sys;subprocess.Popen([sys.executable,'-c',{child!r}])"
+        adapter = CLIAdapter({"spawn": (sys.executable, "-c", launcher)})
+        with pytest.raises(CoastMASError, match="timeout"):
+>           adapter.run(
+                RunRequest(
+                    handler="spawn", inputs={}, parameters={}, work_root=work, timeout_seconds=0.1
+                )
+            )
+
+tests/unit/test_adapters.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/runtime.py:201: in run
+    output, exit_code, elapsed = self.execute(request, directory)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/adapters/runtime.py:178: in execute
+    self.terminate(process)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+process = <Popen: returncode: 0 args: ['/Users/quanyiming/Projects/CoastMAS/.venv/bin/...>
+
+    @staticmethod
+    def terminate(process: subprocess.Popen[bytes]) -> None:
+        # The leader may already have exited while descendants retain its process group.
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            process.wait(timeout=2)
+            return
+        deadline = time.monotonic() + 0.5
+        while time.monotonic() < deadline:
+            process.poll()
+            try:
+>               os.killpg(process.pid, 0)
+E               PermissionError: [Errno 1] Operation not permitted
+
+src/coastmas/adapters/runtime.py:113: PermissionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_adapters.py::test_cli_timeout_terminates_process_and_cleans_workspace
+FAILED tests/unit/test_adapters.py::test_child_group_is_terminated_even_after_parent_exits
+2 failed, 5 passed in 0.70s
