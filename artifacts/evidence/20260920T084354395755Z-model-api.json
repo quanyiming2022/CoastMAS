@@ -1,0 +1,32 @@
+{
+  "name": "model-api",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_model_api.py",
+    "tests/integration/test_api.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T08:43:54.395755+00:00",
+  "finished_at": "2026-09-20T08:44:00.984957+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "7e21c0d9c244ae137c5f568143cd3234735986b167ec4089cb4ab63611f1b457",
+  "git_commit": "ac3d2b8edb5ab7b920915929700a18eb7ea03d70",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T084354395755Z-model-api.log"
+}

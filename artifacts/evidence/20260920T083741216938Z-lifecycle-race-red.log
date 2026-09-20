@@ -1,0 +1,60 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_______________ test_archive_cannot_race_new_workflow_reference ________________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_c43d16d44a84489bb33cbd4e9451d43f)
+actors = ('7de142d3-0197-4b04-9bce-0f3ae27ea6e0', 'd044b26c-c0b4-497b-a9e0-18e48ad0fa3c', '7a1d2f75-a045-400f-a66e-7b66fdeeaa24', '209f142e-d242-439e-9a03-991508bbb342')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ec10a40>
+
+    def test_archive_cannot_race_new_workflow_reference(engine,actors,monkeypatch):
+        from concurrent.futures import ThreadPoolExecutor
+        import threading
+        import time
+        import coastmas.persistence.resources as resources
+        user,_,_,project=actors
+        suffix=uuid4().hex
+        source=model(id="m-"+suffix)
+        data=asset(id="d-"+suffix)
+        raw=workflow().model_dump(mode="json")
+        raw["id"]="w-"+suffix
+        raw["nodes"][0]["model_id"]=source.id
+        raw["input_bindings"][0]["source"]["id"]=data.id
+        flow=workflow(**raw)
+        with Session(engine) as session,session.begin():
+            for kind,value in [("model",source),("data",data)]:
+                create_resource(session,user_id=user,project_id=project,kind=kind,identifier=value.id,name=value.name,spec=value.model_dump(mode="json"))
+        ready=threading.Event()
+        release=threading.Event()
+        original=resources.workflow_references
+        def hold_reference(*args,**kwargs):
+            result=original(*args,**kwargs)
+            ready.set()
+            assert release.wait(5)
+            return result
+        monkeypatch.setattr(resources,"workflow_references",hold_reference)
+        def create():
+            with Session(engine) as session,session.begin():
+                create_resource(session,user_id=user,project_id=project,kind="workflow",identifier=flow.id,name=flow.name,spec=flow.model_dump(mode="json"))
+        def archive():
+            try:
+                with Session(engine) as session,session.begin():
+                    archive_resource(session,user_id=user,identifier=source.id)
+            except CoastMASError as exc:
+                return exc.code
+            return "ARCHIVED"
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            writer=pool.submit(create)
+            assert ready.wait(5)
+            archiver=pool.submit(archive)
+            try:
+                time.sleep(.15)
+>               assert not archiver.done(), "archive must wait for the in-flight reference transaction"
+E               AssertionError: archive must wait for the in-flight reference transaction
+E               assert not True
+E                +  where True = done()
+E                +    where done = <Future at 0x10ec13bc0 state=finished returned str>.done
+
+tests/integration/test_resource_lifecycle.py:127: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_resource_lifecycle.py::test_archive_cannot_race_new_workflow_reference
+1 failed, 3 passed in 3.00s

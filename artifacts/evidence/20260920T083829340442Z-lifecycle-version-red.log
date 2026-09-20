@@ -1,0 +1,312 @@
+...FF                                                                    [100%]
+=================================== FAILURES ===================================
+_______________ test_archive_cannot_race_new_workflow_reference ________________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_5204823d36ba403fa7378c1c3eb658f2)
+actors = ('df2d9629-1a29-4012-9fdc-e54f93be0463', 'a3308197-33b4-4b8c-b1c9-07be914e9e17', 'eb428313-b143-468d-a743-8bb7449686b5', '6a3685ed-410a-4338-a2f7-b777673426fc')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ac74d40>
+
+    def test_archive_cannot_race_new_workflow_reference(engine,actors,monkeypatch):
+        from concurrent.futures import ThreadPoolExecutor
+        import threading
+        import time
+        import coastmas.persistence.resources as resources
+        user,_,_,project=actors
+        suffix=uuid4().hex
+        source=model(id="m-"+suffix)
+        data=asset(id="d-"+suffix)
+        raw=workflow().model_dump(mode="json")
+        raw["id"]="w-"+suffix
+        raw["nodes"][0]["model_id"]=source.id
+        raw["input_bindings"][0]["source"]["id"]=data.id
+        flow=workflow(**raw)
+        with Session(engine) as session,session.begin():
+            for kind,value in [("model",source),("data",data)]:
+                create_resource(session,user_id=user,project_id=project,kind=kind,identifier=value.id,name=value.name,spec=value.model_dump(mode="json"))
+        ready=threading.Event()
+        release=threading.Event()
+        original=resources.workflow_references
+        def hold_reference(*args,**kwargs):
+            result=original(*args,**kwargs)
+            ready.set()
+            assert release.wait(5)
+            return result
+        monkeypatch.setattr(resources,"workflow_references",hold_reference)
+        def create():
+            with Session(engine) as session,session.begin():
+                create_resource(session,user_id=user,project_id=project,kind="workflow",identifier=flow.id,name=flow.name,spec=flow.model_dump(mode="json"))
+        def archive():
+            try:
+                with Session(engine) as session,session.begin():
+                    archive_resource(session,user_id=user,identifier=source.id)
+            except CoastMASError as exc:
+                return exc.code
+            return "ARCHIVED"
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            writer=pool.submit(create)
+            assert ready.wait(5)
+            archiver=pool.submit(archive)
+            try:
+                time.sleep(.15)
+>               assert not archiver.done(), "archive must wait for the in-flight reference transaction"
+E               AssertionError: archive must wait for the in-flight reference transaction
+E               assert not True
+E                +  where True = done()
+E                +    where done = <Future at 0x10ac77260 state=finished returned str>.done
+
+tests/integration/test_resource_lifecycle.py:127: AssertionError
+____ test_update_rechecks_version_after_lock_even_with_cached_orm_identity _____
+
+self = <sqlalchemy.engine.base.Connection object at 0x10ac769c0>
+dialect = <sqlalchemy.dialects.postgresql.psycopg.PGDialect_psycopg object at 0x10ab79010>
+context = <sqlalchemy.dialects.postgresql.psycopg.PGExecutionContext_psycopg object at 0x10ac767e0>
+statement = <sqlalchemy.dialects.postgresql.psycopg.PGCompiler_psycopg object at 0x10ac2deb0>
+parameters = [{'resource_id': '308e731c7ae94f3684e21930327b40f7', 'version': 2, 'spec': Jsonb({'id': '308e731c7ae94f3684e21930327 ... (73 chars)), 'checksum': '48d663c5eb143e5b9061f28087435160a1eda0d11a7c82a18db231d713cc6bc7', ...}]
+
+    def _exec_single_context(
+        self,
+        dialect: Dialect,
+        context: ExecutionContext,
+        statement: Union[str, Compiled],
+        parameters: Optional[_AnyMultiExecuteParams],
+    ) -> CursorResult[Any]:
+        """continue the _execute_context() method for a single DBAPI
+        cursor.execute() or cursor.executemany() call.
+    
+        """
+        if dialect.bind_typing is BindTyping.SETINPUTSIZES:
+            generic_setinputsizes = context._prepare_set_input_sizes()
+    
+            if generic_setinputsizes:
+                try:
+                    dialect.do_set_input_sizes(
+                        context.cursor, generic_setinputsizes, context
+                    )
+                except BaseException as e:
+                    self._handle_dbapi_exception(
+                        e, str(statement), parameters, None, context
+                    )
+    
+        cursor, str_statement, parameters = (
+            context.cursor,
+            context.statement,
+            context.parameters,
+        )
+    
+        effective_parameters: Optional[_AnyExecuteParams]
+    
+        if not context.executemany:
+            effective_parameters = parameters[0]
+        else:
+            effective_parameters = parameters
+    
+        if self._has_events or self.engine._has_events:
+            for fn in self.dispatch.before_cursor_execute:
+                str_statement, effective_parameters = fn(
+                    self,
+                    cursor,
+                    str_statement,
+                    effective_parameters,
+                    context,
+                    context.executemany,
+                )
+    
+        if self._echo:
+            self._log_info(str_statement)
+    
+            stats = context._get_cache_stats()
+    
+            if not self.engine.hide_parameters:
+                self._log_info(
+                    "[%s] %r",
+                    stats,
+                    sql_util._repr_params(
+                        effective_parameters,
+                        batches=10,
+                        ismulti=context.executemany,
+                    ),
+                )
+            else:
+                self._log_info(
+                    "[%s] [SQL parameters hidden due to hide_parameters=True]",
+                    stats,
+                )
+    
+        evt_handled: bool = False
+        try:
+            if context.execute_style is ExecuteStyle.EXECUTEMANY:
+                effective_parameters = cast(
+                    "_CoreMultiExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_executemany:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_executemany(
+                        cursor,
+                        str_statement,
+                        effective_parameters,
+                        context,
+                    )
+            elif not effective_parameters and context.no_parameters:
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute_no_params:
+                        if fn(cursor, str_statement, context):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_execute_no_params(
+                        cursor, str_statement, context
+                    )
+            else:
+                effective_parameters = cast(
+                    "_CoreSingleExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+>                   self.dialect.do_execute(
+                        cursor, str_statement, effective_parameters, context
+                    )
+
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <psycopg.Cursor [closed] [IDLE] (host=127.0.0.1 port=55432 user=coastmas database=coastmas_test_5204823d36ba403fa7378c1c3eb658f2) at 0x10a4fbd10>
+query = 'INSERT INTO resource_versions (resource_id, version, spec, checksum, created_by) VALUES (%(resource_id)s::VARCHAR, %(...on)s::INTEGER, %(spec)s::JSONB, %(checksum)s::VARCHAR, %(created_by)s::VARCHAR) RETURNING resource_versions.created_at'
+params = {'resource_id': '308e731c7ae94f3684e21930327b40f7', 'version': 2, 'spec': Jsonb({'id': '308e731c7ae94f3684e21930327 ... (73 chars)), 'checksum': '48d663c5eb143e5b9061f28087435160a1eda0d11a7c82a18db231d713cc6bc7', ...}
+prepare = None, binary = None
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool | None = None,
+    ) -> Self:
+        """
+        Execute a query or command to the database.
+        """
+        try:
+            with self._conn.lock:
+                self._conn.wait(
+                    self._execute_gen(query, params, prepare=prepare, binary=binary)
+                )
+        except e._NO_TRACEBACK as ex:
+>           raise ex.with_traceback(None)
+E           psycopg.errors.UniqueViolation: duplicate key value violates unique constraint "resource_versions_pkey"
+E           DETAIL:  Key (resource_id, version)=(308e731c7ae94f3684e21930327b40f7, 2) already exists.
+
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: UniqueViolation
+
+The above exception was the direct cause of the following exception:
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_5204823d36ba403fa7378c1c3eb658f2)
+actors = ('14f127b3-05a2-44dd-aef9-f48f856e9bbc', 'a56c5f9f-27f0-4e4d-91f9-c024bcbc235e', '44889ab8-b34e-41a3-9816-9e303ee347f0', 'a5ea546e-b42e-4606-818d-2b72efb460d8')
+
+    def test_update_rechecks_version_after_lock_even_with_cached_orm_identity(engine,actors):
+        from coastmas.persistence.resources import update_resource
+        user,_,_,project=actors
+        identifier=uuid4().hex
+        with Session(engine) as session,session.begin():
+            create_resource(session,user_id=user,project_id=project,kind="model",identifier=identifier,name="original",spec={"id":identifier,"version":1,"name":"original"})
+        with Session(engine) as stale:
+            held=stale.get(Resource,identifier)
+            assert held.current_version==1
+            with Session(engine) as fresh,fresh.begin():
+                update_resource(fresh,user_id=user,identifier=identifier,expected_version=1,spec={"id":identifier,"version":2,"name":"new"})
+            with pytest.raises(CoastMASError,match="version conflict"):
+>               update_resource(stale,user_id=user,identifier=identifier,expected_version=1,spec={"id":identifier,"version":2,"name":"stale"})
+
+tests/integration/test_resource_lifecycle.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/persistence/resources.py:229: in update_resource
+    session.flush()
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py:1234: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <psycopg.Cursor [closed] [IDLE] (host=127.0.0.1 port=55432 user=coastmas database=coastmas_test_5204823d36ba403fa7378c1c3eb658f2) at 0x10a4fbd10>
+query = 'INSERT INTO resource_versions (resource_id, version, spec, checksum, created_by) VALUES (%(resource_id)s::VARCHAR, %(...on)s::INTEGER, %(spec)s::JSONB, %(checksum)s::VARCHAR, %(created_by)s::VARCHAR) RETURNING resource_versions.created_at'
+params = {'resource_id': '308e731c7ae94f3684e21930327b40f7', 'version': 2, 'spec': Jsonb({'id': '308e731c7ae94f3684e21930327 ... (73 chars)), 'checksum': '48d663c5eb143e5b9061f28087435160a1eda0d11a7c82a18db231d713cc6bc7', ...}
+prepare = None, binary = None
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool | None = None,
+    ) -> Self:
+        """
+        Execute a query or command to the database.
+        """
+        try:
+            with self._conn.lock:
+                self._conn.wait(
+                    self._execute_gen(query, params, prepare=prepare, binary=binary)
+                )
+        except e._NO_TRACEBACK as ex:
+>           raise ex.with_traceback(None)
+E           sqlalchemy.exc.IntegrityError: (psycopg.errors.UniqueViolation) duplicate key value violates unique constraint "resource_versions_pkey"
+E           DETAIL:  Key (resource_id, version)=(308e731c7ae94f3684e21930327b40f7, 2) already exists.
+E           [SQL: INSERT INTO resource_versions (resource_id, version, spec, checksum, created_by) VALUES (%(resource_id)s::VARCHAR, %(version)s::INTEGER, %(spec)s::JSONB, %(checksum)s::VARCHAR, %(created_by)s::VARCHAR) RETURNING resource_versions.created_at]
+E           [parameters: {'resource_id': '308e731c7ae94f3684e21930327b40f7', 'version': 2, 'spec': Jsonb({'id': '308e731c7ae94f3684e21930327 ... (73 chars)), 'checksum': '48d663c5eb143e5b9061f28087435160a1eda0d11a7c82a18db231d713cc6bc7', 'created_by': '14f127b3-05a2-44dd-aef9-f48f856e9bbc'}]
+E           (Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: IntegrityError
+=========================== short test summary info ============================
+FAILED tests/integration/test_resource_lifecycle.py::test_archive_cannot_race_new_workflow_reference
+FAILED tests/integration/test_resource_lifecycle.py::test_update_rechecks_version_after_lock_even_with_cached_orm_identity
+2 failed, 3 passed in 2.97s

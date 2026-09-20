@@ -1,27 +1,8 @@
 from uuid import uuid4
 
-import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from coastmas.app.api import create_app
-from coastmas.persistence.auth import hash_password
-from coastmas.persistence.schema import User
-
-
-@pytest.fixture
-def authenticated(engine, actors):
-    user, viewer, outsider, project = actors
-    password = "test-only-long-passphrase-" + uuid4().hex
-    with Session(engine) as session, session.begin():
-        account = session.get(User, user)
-        account.password_hash = hash_password(password)
-        email = account.email
-    with TestClient(create_app(engine)) as client:
-        response = client.post("/api/v1/auth/login", json={"email": email, "password": password})
-        assert response.status_code == 200
-        csrf = response.json()["csrf_token"]
-        yield client, csrf, project, user
 
 
 def test_authentication_and_csrf_are_required(engine, authenticated):

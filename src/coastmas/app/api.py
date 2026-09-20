@@ -3,22 +3,23 @@
 import logging
 import os
 import traceback
-from collections.abc import Iterator
 from dataclasses import asdict
-from typing import Annotated, cast
+from typing import cast
 from uuid import uuid4
 
-from fastapi import Depends, FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, SecretStr, ValidationError
 from sqlalchemy import Engine, create_engine, select, text
-from sqlalchemy.orm import Session
 from starlette.exceptions import HTTPException
 
+from coastmas.app.dependencies import CurrentUser, DatabaseSession
+from coastmas.app.model_routes import router as model_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
-from coastmas.persistence.auth import authenticate, login, logout
+from coastmas.core.model_documents import reject_embedded_credentials
+from coastmas.persistence.auth import login, logout
 from coastmas.persistence.database import local_database_url
 from coastmas.persistence.resources import (
     create_resource,
@@ -47,27 +48,6 @@ class UpdateRequest(Contract):
     spec: dict[str, JsonValue]
 
 
-def session_dependency(request: Request) -> Iterator[Session]:
-    engine = cast(Engine, request.app.state.engine)
-    with Session(engine) as session:
-        yield session
-
-
-DatabaseSession = Annotated[Session, Depends(session_dependency)]
-
-
-def user_dependency(request: Request, session: DatabaseSession) -> str:
-    return authenticate(
-        session,
-        request.cookies.get("coastmas_session"),
-        csrf_token=request.headers.get("X-CSRF-Token"),
-        require_csrf=request.method not in {"GET", "HEAD", "OPTIONS"},
-    )
-
-
-CurrentUser = Annotated[str, Depends(user_dependency)]
-
-
 def error_response(
     request: Request, code: str, message: str, status: int, details: JsonValue = None
 ) -> JSONResponse:
@@ -91,7 +71,11 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
         require_permission(session, user_id, project_id, "read")
         records = session.scalars(
             select(Resource)
-            .where(Resource.project_id == project_id, Resource.kind == kind)
+            .where(
+                Resource.project_id == project_id,
+                Resource.kind == kind,
+                Resource.archived.is_(False),
+            )
             .order_by(Resource.name)
             .limit(500)
         )
@@ -110,6 +94,16 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
         body: CreateRequest, session: DatabaseSession, user_id: CurrentUser
     ) -> dict[str, JsonValue]:
         validated = contract.model_validate(body.spec)
+        if isinstance(validated, ModelSpec):
+            reject_embedded_credentials(validated.runtime_config)
+            if (
+                validated.validation_status != "UNVALIDATED"
+                or validated.execution_status != "NOT_EXECUTABLE"
+            ):
+                raise CoastMASError(
+                    "MODEL_REGISTRATION_REQUIRED",
+                    "model execution and validation require trusted registration",
+                )
         spec = validated.model_dump(mode="json")
         identifier, name = spec.get("id"), spec.get("name")
         if not isinstance(identifier, str) or not isinstance(name, str):
@@ -144,6 +138,16 @@ def register_resource_routes(app: FastAPI, path: str, kind: str, contract: type[
         if resource is None or resource.kind != kind:
             raise CoastMASError("NOT_FOUND", "resource unavailable")
         validated = contract.model_validate(body.spec)
+        if isinstance(validated, ModelSpec):
+            reject_embedded_credentials(validated.runtime_config)
+            if (
+                validated.validation_status != "UNVALIDATED"
+                or validated.execution_status != "NOT_EXECUTABLE"
+            ):
+                raise CoastMASError(
+                    "MODEL_REGISTRATION_REQUIRED", "edited model requires trusted revalidation"
+                )
+
         result = update_resource(
             session,
             user_id=user_id,
@@ -175,6 +179,7 @@ def create_app(engine: Engine | None = None) -> FastAPI:
             "NOT_FOUND": 404,
             "VERSION_CONFLICT": 409,
             "IDEMPOTENCY_CONFLICT": 409,
+            "DEPENDENCY_CONFLICT": 409,
         }
         return error_response(
             request, exc.code, exc.message, statuses.get(exc.code, 422), exc.details
@@ -246,6 +251,7 @@ def create_app(engine: Engine | None = None) -> FastAPI:
     def current_user(user_id: CurrentUser) -> dict[str, str]:
         return {"user_id": user_id}
 
+    app.include_router(model_router)
     routes: list[tuple[str, str, type[Contract]]] = [
         ("models", "model", ModelSpec),
         ("data-assets", "data", DataAssetSpec),

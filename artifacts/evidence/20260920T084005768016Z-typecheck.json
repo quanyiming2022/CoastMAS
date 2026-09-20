@@ -1,0 +1,28 @@
+{
+  "name": "typecheck",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/mypy",
+    "src/coastmas"
+  ],
+  "started_at": "2026-09-20T08:40:05.768016+00:00",
+  "finished_at": "2026-09-20T08:40:06.242423+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "6d34529908be8dce3fac5e9c584c6eee602664de7e0fb8a24458fd1da0bc9fd5",
+  "git_commit": "ac3d2b8edb5ab7b920915929700a18eb7ea03d70",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T084005768016Z-typecheck.log"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "authorization-lifecycle",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_resource_lifecycle.py",
+    "tests/integration/test_model_api.py",
+    "tests/integration/test_jobs.py",
+    "tests/integration/test_worker.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T08:46:37.767897+00:00",
+  "finished_at": "2026-09-20T08:46:57.892728+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "6f1f3e577a5890937d22a681d1b2631443ae96e2127f98b03e0df29a1655638c",
+  "git_commit": "ac3d2b8edb5ab7b920915929700a18eb7ea03d70",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T084637767897Z-authorization-lifecycle.log"
+}

@@ -68,6 +68,7 @@ class Resource(Base):
     owner_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     current_version: Mapped[int] = mapped_column(Integer)
     enabled: Mapped[bool] = mapped_column(Boolean, default=True, server_default="true")
+    archived: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
     published: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
 
 

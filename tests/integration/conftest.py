@@ -6,10 +6,13 @@ import boto3
 import pytest
 from alembic import command
 from alembic.config import Config
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
 from coastmas.adapters.storage import S3ArtifactStore, local_storage_settings
+from coastmas.app.api import create_app
+from coastmas.persistence.auth import hash_password
 from coastmas.persistence.database import local_database_url
 from coastmas.persistence.schema import Membership, Project, User
 
@@ -90,3 +93,18 @@ def storage():
     for item in response.get("Contents", []):
         client.delete_object(Bucket=bucket, Key=item["Key"])
     client.delete_bucket(Bucket=bucket)
+
+
+@pytest.fixture
+def authenticated(engine, actors):
+    user, viewer, outsider, project = actors
+    password = "test-only-long-passphrase-" + uuid4().hex
+    with Session(engine) as session, session.begin():
+        account = session.get(User, user)
+        account.password_hash = hash_password(password)
+        email = account.email
+    with TestClient(create_app(engine)) as client:
+        response = client.post("/api/v1/auth/login", json={"email": email, "password": password})
+        assert response.status_code == 200
+        csrf = response.json()["csrf_token"]
+        yield client, csrf, project, user
