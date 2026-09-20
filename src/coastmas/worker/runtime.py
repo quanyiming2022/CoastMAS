@@ -13,6 +13,7 @@ import logging
 import threading
 from datetime import UTC, datetime
 from pathlib import Path
+from uuid import uuid4
 
 from celery import Celery  # type: ignore[import-untyped]
 from pydantic import JsonValue, TypeAdapter
@@ -21,10 +22,19 @@ from sqlalchemy.orm import Session
 
 from coastmas.adapters.datasource import StoredDataResolver
 from coastmas.adapters.storage import S3ArtifactStore
-from coastmas.core.contracts import DataAssetSpec, ModelSpec, RunManifest, SceneSpec, WorkflowSpec
+from coastmas.core.contracts import (
+    DataAssetSpec,
+    ModelSpec,
+    ResultManifest,
+    RunManifest,
+    SceneSpec,
+    WorkflowSpec,
+)
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry, execute_workflow
+from coastmas.core.result_entities import bind_result_objects
 from coastmas.core.scene_workspace import inspect_scene
+from coastmas.domain.result_views import management_objects
 from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.scenes import scene_resources
@@ -141,9 +151,19 @@ class WorkflowWorker:
             )
             if heartbeat_errors:
                 raise CoastMASError("LEASE_ERROR", "worker could not maintain its database lease")
+            result_view = bind_result_objects(
+                management_objects(
+                    job_id,
+                    manifest.workflow,
+                    manifest.models,
+                    JSON_OUTPUT.validate_python(execution.outputs),
+                ),
+                selected_entities,
+            )
             payload = JSON_OUTPUT.validate_python(
                 {
                     "outputs": execution.outputs,
+                    "result_view": result_view.model_dump(mode="json"),
                     "node_outputs": execution.node_outputs,
                     "executed_nodes": list(execution.executed_nodes),
                     "bindings": [binding.model_dump(mode="json") for binding in execution.bindings],
@@ -161,6 +181,22 @@ class WorkflowWorker:
             ).encode()
             digest = hashlib.sha256(content).hexdigest()
             artifact = self.store.put(f"{project_id}/{job_id}/{token}/{digest}.json", content)
+            result_id = str(uuid4())
+            result_manifest = ResultManifest(
+                id=result_id,
+                job_id=job_id,
+                revision=1,
+                result_type="workflow_bundle",
+                storage_uri=artifact.uri,
+                checksum=artifact.sha256,
+                entity_binding=result_view.entity_binding,
+                spatial_extent=None,
+                time_range=manifest.scene.time_range,
+                unit="per-output",
+                quality_status="VALIDATED",
+                provenance="job:" + job_id,
+                created_at=datetime.now(UTC),
+            )
             with Session(self.engine) as session, session.begin():
                 job = session.get(Job, job_id)
                 if job is None:
@@ -170,7 +206,9 @@ class WorkflowWorker:
                     session,
                     job_id=job_id,
                     worker_token=token,
+                    result_id=result_id,
                     manifest={
+                        "result_manifest": result_manifest.model_dump(mode="json"),
                         "key": artifact.key,
                         "uri": artifact.uri,
                         "bucket": artifact.bucket,

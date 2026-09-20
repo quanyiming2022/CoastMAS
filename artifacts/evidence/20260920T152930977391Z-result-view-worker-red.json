@@ -1,0 +1,32 @@
+{
+  "name": "result-view-worker-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/unit/test_result_entities.py",
+    "tests/integration/test_worker.py::test_real_redis_worker_to_postgres_and_minio_publishes_once"
+  ],
+  "started_at": "2026-09-20T15:29:30.977391+00:00",
+  "finished_at": "2026-09-20T15:29:39.855737+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "2ffddd988a222c857600616367fc745c3760b33e7a38a06666ff10539322c47c",
+  "git_commit": "5cc23a419dd086817870885a05960b5c3d985144",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T152930977391Z-result-view-worker-red.log"
+}

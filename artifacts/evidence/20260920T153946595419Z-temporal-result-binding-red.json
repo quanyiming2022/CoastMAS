@@ -1,0 +1,32 @@
+{
+  "name": "temporal-result-binding-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/unit/test_result_entities.py",
+    "tests/unit/test_scene_workspace.py"
+  ],
+  "started_at": "2026-09-20T15:39:46.595419+00:00",
+  "finished_at": "2026-09-20T15:39:48.701867+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "f94b9a14005766fd8ab04645b557f8e64cb17fa8011c94cb25851f54c91d0fe7",
+  "git_commit": "5cc23a419dd086817870885a05960b5c3d985144",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T153946595419Z-temporal-result-binding-red.log"
+}

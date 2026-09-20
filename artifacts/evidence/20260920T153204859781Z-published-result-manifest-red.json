@@ -1,0 +1,31 @@
+{
+  "name": "published-result-manifest-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/integration/test_run_api.py::test_run_api_builds_manifest_and_publishes_real_result"
+  ],
+  "started_at": "2026-09-20T15:32:04.859781+00:00",
+  "finished_at": "2026-09-20T15:32:13.290826+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "b622602c31c8139de8f0556d024ee9f00bf6cc4735de9fd3657d85762a190492",
+  "git_commit": "5cc23a419dd086817870885a05960b5c3d985144",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T153204859781Z-published-result-manifest-red.log"
+}

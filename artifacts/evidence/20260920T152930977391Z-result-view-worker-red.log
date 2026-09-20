@@ -1,0 +1,123 @@
+....FF                                                                   [100%]
+=================================== FAILURES ===================================
+__________ test_full_coastal_metrics_and_pointer_escape_are_preserved __________
+
+    def test_full_coastal_metrics_and_pointer_escape_are_preserved():
+        registered = model(
+            outputs=[
+                variable("result", data_type="json", standard_name="coastal_management_statistics")
+            ]
+        )
+        metrics = {
+            "inundated_area_m2": 20,
+            "estimated_population": 2,
+            "unknown_area_m2": 5,
+            "study_area_m2": 100,
+            "population_in_unknown_dem_area": 0.5,
+            "fraction": 0.2,
+        }
+>       objects = management_objects(
+            "job", workflow(), [registered], {"screen-node.result": {"units": {"U/~1": metrics}}}
+        )
+
+tests/unit/test_result_entities.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+job_id = 'job'
+workflow = WorkflowSpec(id='wf', name='wf', version=1, scene_type='custom', nodes=(WorkflowNode(id='screen-node', model_id='scree...olicy(timeout_seconds=60, max_retries=0), output_definition=(BindingTarget(node_id='screen-node', variable='result'),))
+models = [ModelSpec(id='screen', name='screen', display_name='Screen', version=1, model_type=<ModelType.RASTER: 'RASTER'>, desc...ted_at=datetime.datetime(2026, 1, 1, 0, 0, tzinfo=datetime.timezone.utc), enabled=True, execution_status='EXECUTABLE')]
+outputs = {'screen-node.result': {'units': {'U/~1': {'inundated_area_m2': 20, 'estimated_population': 2, 'unknown_area_m2': 5, 'study_area_m2': 100, ...}}}}
+
+    def management_objects(
+        job_id: str, workflow: WorkflowSpec, models: Sequence[ModelSpec], outputs: dict[str, JsonValue]
+    ) -> tuple[ResultObject, ...]:
+        registered = {(model.id, model.version): model for model in models}
+        nodes = {node.id: node for node in workflow.nodes}
+        result: list[ResultObject] = []
+        seen: set[str] = set()
+        for selected in workflow.output_definition:
+            key = f"{selected.node_id}.{selected.variable}"
+            if key in seen:
+                raise ConstraintError("ambiguous flattened output key")
+            seen.add(key)
+            node = nodes[selected.node_id]
+            spec = registered.get((node.model_id, node.model_version))
+            variable = (
+                next((v for v in spec.outputs if v.name == selected.variable), None) if spec else None
+            )
+            if variable is None or key not in outputs:
+                raise ConstraintError("result output lacks its pinned model declaration or value")
+            source = "/outputs/" + pointer_segment(key)
+            value = outputs[key]
+            rows: list[tuple[str | None, str, dict[str, JsonValue], dict[str, str]]] = []
+            if variable.standard_name == "coastal_management_statistics":
+                units = value.get("units") if isinstance(value, dict) else None
+                if not isinstance(units, dict):
+                    raise ConstraintError("management statistics require explicit units")
+                metric_units = {
+                    "inundated_area_m2": "m**2",
+                    "estimated_population": "person",
+                    "unknown_area_m2": "m**2",
+                }
+                for unit, metrics in units.items():
+                    if not isinstance(metrics, dict) or set(metrics) != set(metric_units):
+>                       raise ConstraintError("management statistics metrics are incomplete or unknown")
+E                       coastmas.core.errors.ConstraintError: management statistics metrics are incomplete or unknown
+
+src/coastmas/domain/result_views.py:51: ConstraintError
+_________ test_real_redis_worker_to_postgres_and_minio_publishes_once __________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_bcc559f0f2b746eb951ffbbedda01150)
+actors = ('01fd39a3-bd8e-4bb9-a180-29a7210aa1b5', '668bb7fe-d6ae-484e-b412-d1f72a166364', '555fff57-beca-4032-8487-bbef2d84d12f', 'ba13586b-6b31-4d5a-8424-0bd628642d89')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11ca9a450>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-154/test_real_redis_worker_to_post0')
+
+    def test_real_redis_worker_to_postgres_and_minio_publishes_once(engine, actors, storage, tmp_path):
+        user, _, _, project = actors
+    
+        def add(inputs, parameters):
+            return {"result": [value + parameters["increment"] for value in inputs["height"]]}
+    
+        runner, job = prepare_worker(engine, actors, storage, tmp_path, add)
+        queue = "coastmas-test-" + uuid4().hex
+        app = create_queue(runner, broker_url="redis://127.0.0.1:56379/15", queue_name=queue)
+        try:
+            with start_worker(app, perform_ping_check=False, pool="solo", shutdown_timeout=10):
+                app.send_task("coastmas.execute", args=[job.id], queue=queue)
+                app.send_task("coastmas.execute", args=[job.id], queue=queue)
+                deadline = time.monotonic() + 15
+                while time.monotonic() < deadline:
+                    with Session(engine) as session:
+                        current = read_job(session, user_id=user, job_id=job.id)
+                    if current.status in ("SUCCEEDED", "FAILED", "CANCELLED"):
+                        break
+                    time.sleep(0.1)
+                assert current.status == "SUCCEEDED", current.error
+                with Session(engine) as session:
+                    result = read_result(session, user_id=user, job_id=job.id)
+                    assert read_job(session, user_id=user, job_id=job.id).attempt == 1
+                from coastmas.adapters.storage import ArtifactRecord
+    
+                record = ArtifactRecord(storage.bucket, result["key"], result["sha256"], result["size"])
+                outputs = json.loads(storage.read(record))
+                assert outputs["outputs"] == {"screen-node.result": [1.5, 2.5]}
+                assert outputs["llm_calls"] == 0
+>               view = outputs["result_view"]
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E               KeyError: 'result_view'
+
+tests/integration/test_worker.py:117: KeyError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_result_entities.py::test_full_coastal_metrics_and_pointer_escape_are_preserved
+FAILED tests/integration/test_worker.py::test_real_redis_worker_to_postgres_and_minio_publishes_once
+2 failed, 4 passed, 2 warnings in 6.09s

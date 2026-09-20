@@ -1960,6 +1960,130 @@
       "title": "ResultManifest",
       "type": "object"
     },
+    "ResultObject": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "management_unit_id": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Management Unit Id"
+        },
+        "model": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "node_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "source_pointer": {
+          "pattern": "^/outputs/",
+          "title": "Source Pointer",
+          "type": "string"
+        },
+        "standard_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Standard Name",
+          "type": "string"
+        },
+        "units": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Units",
+          "type": "object"
+        },
+        "values": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Values",
+          "type": "object"
+        },
+        "variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Variable",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "node_id",
+        "variable",
+        "standard_name",
+        "model",
+        "management_unit_id",
+        "source_pointer"
+      ],
+      "title": "ResultObject",
+      "type": "object"
+    },
+    "ResultView": {
+      "additionalProperties": false,
+      "properties": {
+        "binding_status": {
+          "enum": [
+            "BOUND",
+            "PARTIAL",
+            "UNBOUND",
+            "NOT_APPLICABLE"
+          ],
+          "title": "Binding Status",
+          "type": "string"
+        },
+        "entity_binding": {
+          "items": {
+            "$ref": "#/$defs/EntityBinding"
+          },
+          "title": "Entity Binding",
+          "type": "array"
+        },
+        "objects": {
+          "items": {
+            "$ref": "#/$defs/ResultObject"
+          },
+          "title": "Objects",
+          "type": "array"
+        },
+        "unbound_objects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unbound Objects",
+          "type": "array"
+        }
+      },
+      "required": [
+        "objects",
+        "entity_binding",
+        "unbound_objects",
+        "binding_status"
+      ],
+      "title": "ResultView",
+      "type": "object"
+    },
     "RunManifest": {
       "additionalProperties": false,
       "properties": {
@@ -2742,6 +2866,9 @@
     "ResultManifest": {
       "$ref": "#/$defs/ResultManifest"
     },
+    "ResultView": {
+      "$ref": "#/$defs/ResultView"
+    },
     "RunManifest": {
       "$ref": "#/$defs/RunManifest"
     },
@@ -2756,6 +2883,7 @@
     }
   },
   "required": [
+    "ResultView",
     "SceneInspection",
     "GraphSnapshot",
     "GeographicEntity",

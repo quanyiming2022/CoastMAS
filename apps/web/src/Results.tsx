@@ -15,6 +15,7 @@ import {
   Panel,
 } from "./components";
 import { geographicCollection, coastalStatistics } from "./result-data";
+import ManagementResults from "./ManagementResults";
 const GeoMap = lazy(() => import("./GeoMap"));
 const CoastalStatistics = lazy(() => import("./CoastalStatistics"));
 const payloadSchema = z.object({
@@ -25,6 +26,7 @@ const payloadSchema = z.object({
   llm_calls: z.number().int().nonnegative(),
   run_manifest: contract("RunManifest"),
   input_fingerprint: z.string(),
+  result_view: contract("ResultView").optional(),
 });
 export default function Results() {
   const { projectId } = useWorkspace();
@@ -134,6 +136,11 @@ export function ResultDetail() {
               <ResultValue value={value} />
             </Panel>
           ))}
+          {result.result_view ? (
+            <ManagementResults view={result.result_view} />
+          ) : (
+            <p>此历史结果尚无实体绑定清单；原始结果及来源保持可用。</p>
+          )}
           <Panel title="来源与复现">
             <dl className="definition-grid">
               <div>

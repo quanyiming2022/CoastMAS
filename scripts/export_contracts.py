@@ -22,6 +22,7 @@ from coastmas.core.geography import GeographicEntity
 from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
+from coastmas.core.result_entities import ResultView
 from coastmas.core.scene_workspace import SceneInspection
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,7 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        ResultView,
         SceneInspection,
         GraphSnapshot,
         GeographicEntity,

@@ -1,0 +1,13 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test scene-workspace.spec.ts --grep saved scene copy
+
+
+Running 1 test using 1 worker
+
+(node:25847) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+  1 passed (9.8s)

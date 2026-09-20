@@ -49,3 +49,7 @@
 - 场景工作台增量：entity_references/data_references 精确版本、场景依赖外键、目录范围/时间/实体有效期检查、AOI 绘制上传、参数表单、保存复制历史和实际运行。相关后端72项、浏览器4条通过；AOI视野与实际DEM测量范围复验通过（151408833135Z-scene-measured-extent-browser）；场景显式数据选择与真实输入一致性测试通过（151708565307Z-scene-input-selection-green）。下一项为结果对象和地理实体绑定。详情 scene-workspace.md。
 - 当前 API/worker/beat 已统一重启加载场景执行校验，日志 artifacts/logs/{api,worker,beat}-scene-final.log，三者已加载场景数据选择执行约束。所选实体快照进入产物，但完整结果对象到实体/管理结果绑定仍未完成。
 - 用户询问进度：已告知按证据关联条目 330/1202≈27%，正式PASS 12/1202≈1%，不把已映射路径等同完成功能。要求进一步节省token，后续只做局部定位/成组修复/相关回归，保留最终完整门禁。
+
+- 结果绑定增量：新增 ResultObject/ResultView，精确匹配场景实体 management_unit_id，重复映射拒绝，缺失保持 UNBOUND/PARTIAL，通用输出 NOT_APPLICABLE；保留原始输出。实际发布 ResultManifest 与数据库 ID/字节 SHA 一致，异质单位 per-output、未知结果范围 null。前端显示固定版本与未绑定项，历史结果兼容。真实浏览器 153804904313Z-result-binding-browser 首次通过，实际 U1 绑定且原金标准不变；截图已目视检查。海岸/评价/时间变化映射和实体到期边界相关34项回归通过（154042079354Z-result-binding-backend-regression）；类型/格式/契约/前端测试与构建通过（154157535990Z-result-binding-final-checks）。详见 result-entity-binding.md。
+- 本轮服务日志改为 artifacts/logs/{api,worker,beat}-result-binding-final.log，三者已重启加载结果绑定、发布清单及时间变化/实体到期边界修复。API session96367、worker61173、beat51349；后续更新前确认无活动任务、核对进程和目录。
+- 最终当前服务浏览器复验通过：20260920T154406863514Z-result-binding-final-browser；未修改原始样例或覆盖历史结果。下一步继续结果空间联动/多期比较及剩余全范围界面，不重新规划。

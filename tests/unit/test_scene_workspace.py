@@ -132,3 +132,21 @@ def test_selected_scene_data_constrains_actual_workflow_input_versions():
     assert any(issue.code == "SCENE_DATA_SELECTION" for issue in report.issues)
     selected = scene(data_references=[{"id": "dem", "version": 1}])
     assert validate_workflow(workflow(), [model()], [asset()], selected).valid
+
+
+def test_instant_scene_at_entity_expiry_is_not_covered():
+    instant = workspace_scene(
+        time_range={"start": "2026-01-02T00:00:00Z", "end": "2026-01-02T00:00:00Z"}
+    )
+    entity = GeographicEntity(
+        id="expired",
+        name="Unit",
+        version=1,
+        type="management_unit",
+        crs="EPSG:4326",
+        geometry=instant.study_area,
+        valid_from=datetime(2026, 1, 1, tzinfo=UTC),
+        valid_to=datetime(2026, 1, 2, tzinfo=UTC),
+        management_unit_id="U1",
+    )
+    assert inspect_scene(instant, [], [entity]).entity_coverage[0].temporal_coverage is False

@@ -51,6 +51,14 @@ def test_run_api_builds_manifest_and_publishes_real_result(
     result = client.get(f"/api/v1/results/{result_id}")
     assert result.status_code == 200, result.text
     assert result.json()["job_id"] == job["id"]
+    from coastmas.core.contracts import ResultManifest
+
+    published = ResultManifest.model_validate(result.json()["manifest"]["result_manifest"])
+    assert published.id == result_id
+    assert published.job_id == job["id"]
+    assert published.checksum == result.json()["manifest"]["sha256"]
+    assert published.unit == "per-output"
+    assert published.quality_status == "VALIDATED"
     provenance = client.get(f"/api/v1/results/{result_id}/provenance").json()
     assert provenance["workflow"]["id"] == workflow_id
     assert provenance["random_seed"] == 42

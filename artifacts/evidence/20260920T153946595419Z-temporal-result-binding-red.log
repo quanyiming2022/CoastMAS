@@ -1,0 +1,52 @@
+.....F...........F                                                       [100%]
+=================================== FAILURES ===================================
+_ test_temporal_change_mapping_rejects_misalignment_and_retains_explicit_units _
+
+    def test_temporal_change_mapping_rejects_misalignment_and_retains_explicit_units():
+        registered = model(
+            outputs=[variable("result", data_type="json", standard_name="temporal_assessment_change")]
+        )
+        value = {
+            "unit_ids": ["U2", "U1"],
+            "years": [2020, 2022],
+            "change": [0.2, -0.1],
+            "trend": [0.1, -0.05],
+            "ranks": [[1, 2], [2, 1]],
+        }
+        objects = management_objects("job", workflow(), [registered], {"screen-node.result": value})
+>       assert objects[1].values == {
+               ^^^^^^^^^^
+            "years": [2020, 2022],
+            "change": -0.1,
+            "trend": -0.05,
+            "ranks": [2, 1],
+        }
+E       IndexError: tuple index out of range
+
+tests/unit/test_result_entities.py:139: IndexError
+______________ test_instant_scene_at_entity_expiry_is_not_covered ______________
+
+    def test_instant_scene_at_entity_expiry_is_not_covered():
+        instant = workspace_scene(
+            time_range={"start": "2026-01-02T00:00:00Z", "end": "2026-01-02T00:00:00Z"}
+        )
+        entity = GeographicEntity(
+            id="expired",
+            name="Unit",
+            version=1,
+            type="management_unit",
+            crs="EPSG:4326",
+            geometry=instant.study_area,
+            valid_from=datetime(2026, 1, 1, tzinfo=UTC),
+            valid_to=datetime(2026, 1, 2, tzinfo=UTC),
+            management_unit_id="U1",
+        )
+>       assert inspect_scene(instant, [], [entity]).entity_coverage[0].temporal_coverage is False
+E       AssertionError: assert True is False
+E        +  where True = SceneCoverage(reference=VersionReference(id='expired', version=1), name='Unit', spatial_fraction=None, temporal_covera...0, 0.21875], [0.0, 0.1875], [0.0, 0.15625], [0.0, 0.125], [0.0, 0.09375], [0.0, 0.0625], [0.0, 0.03125], [0.0, 0.0]]]}).temporal_coverage
+
+tests/unit/test_scene_workspace.py:152: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_result_entities.py::test_temporal_change_mapping_rejects_misalignment_and_retains_explicit_units
+FAILED tests/unit/test_scene_workspace.py::test_instant_scene_at_entity_expiry_is_not_covered
+2 failed, 16 passed in 0.37s

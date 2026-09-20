@@ -156,7 +156,10 @@ def inspect_scene(
         spatial = shape(footprint)
         intersects = area.intersects(spatial)
         temporal = entity.valid_from <= scene.time_range.start and (
-            entity.valid_to is None or entity.valid_to >= scene.time_range.end
+            entity.valid_to is None
+            or (
+                entity.valid_to > scene.time_range.start and entity.valid_to >= scene.time_range.end
+            )
         )
         status = "OUTSIDE" if not intersects else "COVERED" if temporal else "PARTIAL"
         if status != "COVERED":

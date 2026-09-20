@@ -290,6 +290,16 @@ export type StorageUri = string;
 export type End = string;
 export type Start = string;
 export type Unit3 = string;
+export type BindingStatus = 'BOUND' | 'PARTIAL' | 'UNBOUND' | 'NOT_APPLICABLE';
+export type EntityBinding2 = EntityBinding1[];
+export type Id11 = string;
+export type ManagementUnitId2 = string | null;
+export type NodeId3 = string;
+export type SourcePointer = string;
+export type StandardName2 = string;
+export type Variable2 = string;
+export type Objects = ResultObject[];
+export type UnboundObjects = string[];
 export type Bindings = BindingPlan[];
 export type ContainerImage = string;
 export type DataAssets = DataAssetSpec[];
@@ -306,7 +316,7 @@ export type DataReferences = VersionReference[];
  */
 export type EntityReferences = VersionReference[];
 export type EntityTypes = string[];
-export type Id11 = string;
+export type Id12 = string;
 export type ManagementGoal2 = string;
 export type Name7 = string;
 export type RequiredOutputs = string[];
@@ -338,6 +348,7 @@ export interface CoastMASContracts {
   ProviderPlanningArtifact: ProviderPlanningArtifact;
   ProviderProposal: ProviderProposal;
   ResultManifest: ResultManifest;
+  ResultView: ResultView;
   RunManifest: RunManifest;
   SceneInspection: SceneInspection;
   SceneSpec: SceneSpec;
@@ -671,6 +682,29 @@ export interface TimeRange {
   end: End;
   start: Start;
 }
+export interface ResultView {
+  binding_status: BindingStatus;
+  entity_binding: EntityBinding2;
+  objects: Objects;
+  unbound_objects: UnboundObjects;
+}
+export interface ResultObject {
+  id: Id11;
+  management_unit_id: ManagementUnitId2;
+  model: VersionReference;
+  node_id: NodeId3;
+  source_pointer: SourcePointer;
+  standard_name: StandardName2;
+  units?: Units;
+  values?: Values;
+  variable: Variable2;
+}
+export interface Units {
+  [k: string]: string;
+}
+export interface Values {
+  [k: string]: JsonValue;
+}
 export interface RunManifest {
   bindings: Bindings;
   container_image: ContainerImage;
@@ -693,7 +727,7 @@ export interface SceneSpec {
   data_references?: DataReferences;
   entity_references?: EntityReferences;
   entity_types: EntityTypes;
-  id: Id11;
+  id: Id12;
   management_goal: ManagementGoal2;
   name: Name7;
   quality_requirements: QualityRequirements;

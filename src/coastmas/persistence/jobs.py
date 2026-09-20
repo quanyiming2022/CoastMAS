@@ -162,7 +162,12 @@ def cancel_job(session: Session, *, user_id: str, job_id: str) -> None:
 
 
 def publish_result(
-    session: Session, *, job_id: str, worker_token: str, manifest: dict[str, JsonValue]
+    session: Session,
+    *,
+    job_id: str,
+    worker_token: str,
+    manifest: dict[str, JsonValue],
+    result_id: str | None = None,
 ) -> bool:
     job = session.scalar(select(Job).where(Job.id == job_id).with_for_update())
     now = datetime.now(UTC)
@@ -182,7 +187,10 @@ def publish_result(
     require_permission(session, job.submitted_by, job.project_id, "write")
     session.add(
         ResultBundle(
-            id=str(uuid4()), job_id=job.id, manifest=manifest, checksum=fingerprint(manifest)
+            id=result_id or str(uuid4()),
+            job_id=job.id,
+            manifest=manifest,
+            checksum=fingerprint(manifest),
         )
     )
     job.status = "SUCCEEDED"

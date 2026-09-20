@@ -171,6 +171,42 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
   test.setTimeout(120000);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  const project = await page
+    .getByRole("combobox", { name: "当前项目", exact: true })
+    .inputValue();
+  const csrf = (await page.context().cookies()).find(
+    (cookie) => cookie.name === "coastmas_csrf",
+  )!.value;
+  const units = JSON.parse(
+    await readFile(
+      new URL("../../../sample-data/management_units.geojson", import.meta.url),
+      "utf8",
+    ),
+  );
+  const entityId = `result-entity-${Date.now()}`;
+  const entityName = `结果绑定单元 ${Date.now()}`;
+  const createdEntity = await page.request.post("/api/v1/entities", {
+    headers: { "X-CSRF-Token": decodeURIComponent(csrf) },
+    data: {
+      project_id: project,
+      spec: {
+        id: entityId,
+        name: entityName,
+        version: 1,
+        type: "management_unit",
+        management_unit_id: "U1",
+        crs: "EPSG:4326",
+        geometry: units.features.find(
+          (feature: { properties: { unit_id: string } }) =>
+            feature.properties.unit_id === "U1",
+        ).geometry,
+        valid_from: "2020-01-01T00:00:00Z",
+        valid_to: null,
+        properties: { source: "synthetic binding acceptance" },
+      },
+    },
+  });
+  expect(createdEntity.status()).toBe(201);
   await page.goto("/scenes");
   await page
     .getByRole("link", {
@@ -185,6 +221,27 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
   await page
     .getByLabel("场景名称", { exact: true })
     .fill(`浏览器实际执行场景 ${Date.now()}`);
+  const entityChoice = page.getByRole("checkbox", {
+    name: entityName + " · v1",
+    exact: true,
+  });
+  for (
+    let pageNumber = 0;
+    (await entityChoice.count()) === 0 && pageNumber < 20;
+    pageNumber++
+  ) {
+    const next = page.getByRole("button", {
+      name: "下一页地理实体",
+      exact: true,
+    });
+    await expect(next).toBeEnabled();
+    const loaded = page.waitForResponse((response) =>
+      response.url().includes("/api/v1/entities?"),
+    );
+    await next.click();
+    await loaded;
+  }
+  await entityChoice.check();
   const copyEvent = page.waitForResponse(
     (response) =>
       response.url().endsWith("/api/v1/scenes") &&
@@ -225,5 +282,29 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
   expect(result.run_manifest.scene.id).toBe(scene.id);
   expect(result.run_manifest.scene.version).toBe(1);
   expect(result.llm_calls).toBe(0);
+  expect(result.result_view.binding_status).toBe("PARTIAL");
+  expect(result.result_view.entity_binding).toHaveLength(1);
+  expect(result.result_view.entity_binding[0]).toMatchObject({
+    geographic_entity_id: entityId,
+    geographic_entity_version: 1,
+    management_unit_id: "U1",
+  });
+  await expect(page.getByText("部分绑定", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText(entityId + " · v1", { exact: true }),
+  ).toBeVisible();
+  expect(result.geographic_entities[0].id).toBe(entityId);
+  const descriptor = await page.request.get(
+    "/api/v1/results/" + page.url().split("/").at(-1),
+  );
+  const published = await descriptor.json();
+  expect(published.manifest.result_manifest.id).toBe(published.id);
+  expect(published.manifest.result_manifest.entity_binding).toEqual(
+    result.result_view.entity_binding,
+  );
+  await page.screenshot({
+    path: "../../artifacts/screenshots/result-entity-binding.png",
+    fullPage: true,
+  });
   expect(errors).toEqual([]);
 });

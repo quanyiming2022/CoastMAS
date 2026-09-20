@@ -114,6 +114,10 @@ def test_real_redis_worker_to_postgres_and_minio_publishes_once(engine, actors, 
             outputs = json.loads(storage.read(record))
             assert outputs["outputs"] == {"screen-node.result": [1.5, 2.5]}
             assert outputs["llm_calls"] == 0
+            view = outputs["result_view"]
+            assert view["binding_status"] == "NOT_APPLICABLE"
+            assert view["objects"][0]["source_pointer"] == "/outputs/screen-node.result"
+            assert view["objects"][0]["model"]["id"] == job.manifest["models"][0]["id"]
             assert not list(tmp_path.iterdir())
     finally:
         app.close()

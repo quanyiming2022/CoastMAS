@@ -1,0 +1,58 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_run_api_builds_manifest_and_publishes_real_result ____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11cb70bc0>, 'iIxBbuE6yuL6hAFBA-46_ARifVo5tVF0vuNs1tLUvco', '954d8db8-a629-41a5-8fea-caeae25b3ae7', '6d33c6df-72aa-4855-bb4f-a1e3cee892d1')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_5d500d8eadc9496eabb8879e8e479d68)
+actors = ('6d33c6df-72aa-4855-bb4f-a1e3cee892d1', '4d66c71a-5e89-44a0-8c78-96668a6502ec', 'e538b153-ec14-4472-aba1-93e0ec2b667d', '954d8db8-a629-41a5-8fea-caeae25b3ae7')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11d09f320>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-156/test_run_api_builds_manifest_a0')
+
+    def test_run_api_builds_manifest_and_publishes_real_result(
+        authenticated, engine, actors, storage, tmp_path
+    ):
+        client, csrf, project, _ = authenticated
+        runner, workflow_id, body = setup_run(engine, actors, storage, tmp_path, client)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": uuid4().hex}
+        preflight = client.post(f"/api/v1/workflows/{workflow_id}/validate", headers=headers, json=body)
+        assert preflight.status_code == 200, preflight.text
+        assert preflight.json()["valid"] is True
+        response = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert response.status_code == 202, response.text
+        job = response.json()
+        assert job["status"] == "QUEUED"
+        duplicate = client.post(f"/api/v1/workflows/{workflow_id}/run", headers=headers, json=body)
+        assert duplicate.status_code == 202, duplicate.text
+        assert duplicate.json()["id"] == job["id"]
+        changed = client.post(
+            f"/api/v1/workflows/{workflow_id}/run", headers=headers, json={**body, "random_seed": 43}
+        )
+        assert changed.status_code == 409
+        runner.run(job["id"])
+        assert client.get(f"/api/v1/jobs/{job['id']}").json()["status"] == "SUCCEEDED"
+        results = client.get("/api/v1/results", params={"project_id": project}).json()
+        assert len(results) == 1
+        result_id = results[0]["id"]
+        result = client.get(f"/api/v1/results/{result_id}")
+        assert result.status_code == 200, result.text
+        assert result.json()["job_id"] == job["id"]
+        from coastmas.core.contracts import ResultManifest
+    
+>       published = ResultManifest.model_validate(result.json()["manifest"]["result_manifest"])
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'result_manifest'
+
+tests/integration/test_run_api.py:56: KeyError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_run_api.py::test_run_api_builds_manifest_and_publishes_real_result
+1 failed, 2 warnings in 5.63s

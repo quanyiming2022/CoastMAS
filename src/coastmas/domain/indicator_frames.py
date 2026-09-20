@@ -145,6 +145,25 @@ class TemporalChange(Contract):
     change_unit: Literal["1"] = "1"
     trend_unit: Literal["1/year"] = "1/year"
 
+    @model_validator(mode="after")
+    def aligned(self) -> Self:
+        count = len(self.unit_ids)
+        if (
+            count == 0
+            or len(set(self.unit_ids)) != count
+            or len(self.change) != count
+            or len(self.trend) != count
+            or len(self.years) < 2
+            or any(right <= left for left, right in zip(self.years, self.years[1:], strict=False))
+            or len(self.ranks) != len(self.years)
+            or any(
+                len(row) != count or any(rank < 1 or rank > count for rank in row)
+                for row in self.ranks
+            )
+        ):
+            raise ValueError("temporal change units, periods and ranks must align")
+        return self
+
 
 def normalize_frame(frame: IndicatorFrame) -> NormalizedFrame:
     values = np.asarray(frame.values, dtype=float)
