@@ -1,5 +1,9 @@
+import { lazy, Suspense, useState } from "react";
+import type { GeographicCollection } from "./result-data";
 import type { ResultView } from "./generated/contracts";
-import { Details, display, Panel } from "./components";
+import { Details, display, Loading, Panel } from "./components";
+
+const GeoMap = lazy(() => import("./GeoMap"));
 
 const statusLabels = {
   BOUND: "全部绑定",
@@ -21,7 +25,45 @@ const metricLabels: Record<string, string> = {
   classes: "评价等级",
   years: "年份",
 };
-export default function ManagementResults({ view }: { view: ResultView }) {
+export default function ManagementResults({
+  view,
+  geometries,
+}: {
+  view: ResultView;
+  geometries?: GeographicCollection;
+}) {
+  const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
+  const mappedEntities = new Set(
+    geometries?.features.map((feature) => feature.properties?.entity_id),
+  );
+  const mapData: GeographicCollection | undefined = geometries
+    ? {
+        ...geometries,
+        features: geometries.features.map((feature) => ({
+          ...feature,
+          properties: {
+            ...feature.properties,
+            selected: feature.properties?.entity_id === selectedEntity,
+            layer_kind:
+              feature.properties?.entity_id === selectedEntity
+                ? "aoi"
+                : "entity",
+          },
+        })),
+      }
+    : undefined;
+  function selectMapEntity(properties: Record<string, unknown>) {
+    if (
+      typeof properties.entity_id === "string" &&
+      view.entity_binding.some(
+        (binding) =>
+          binding.geographic_entity_id === properties.entity_id &&
+          binding.geographic_entity_version === properties.entity_version,
+      )
+    ) {
+      setSelectedEntity(properties.entity_id);
+    }
+  }
   const bindings = new Map(
     view.entity_binding.map((binding) => [binding.result_object_id, binding]),
   );
@@ -31,6 +73,23 @@ export default function ManagementResults({ view }: { view: ResultView }) {
       <p>
         仅按场景选中实体的管理单元标识精确关联。未绑定的结果仍保留；绑定本身不代表人工审查通过。
       </p>
+      {mapData?.features.length ? (
+        <>
+          <p>点击实体或“定位”可联动结果表。地图显示该次运行保存的实体边界。</p>
+          <button className="secondary" onClick={() => setSelectedEntity(null)}>
+            显示全部绑定实体
+          </button>
+          <Suspense fallback={<Loading />}>
+            <GeoMap
+              data={mapData}
+              label="结果绑定实体地图"
+              onFeatureClick={selectMapEntity}
+            />
+          </Suspense>
+        </>
+      ) : (
+        <p>此结果没有可显示的绑定实体几何；不推断未绑定单元的位置。</p>
+      )}
       <div className="table-scroll">
         <table>
           <thead>
@@ -45,7 +104,12 @@ export default function ManagementResults({ view }: { view: ResultView }) {
             {view.objects.map((object) => {
               const binding = bindings.get(object.id);
               return (
-                <tr key={object.id}>
+                <tr
+                  key={object.id}
+                  data-selected={
+                    binding?.geographic_entity_id === selectedEntity
+                  }
+                >
                   <td>
                     <span className="break">
                       {object.node_id} / {object.variable}
@@ -59,7 +123,23 @@ export default function ManagementResults({ view }: { view: ResultView }) {
                       }}
                     />
                   </td>
-                  <td>{object.management_unit_id ?? "不适用"}</td>
+                  <td>
+                    {object.management_unit_id ?? "不适用"}
+                    {binding &&
+                    mappedEntities.has(binding.geographic_entity_id) ? (
+                      <button
+                        className="secondary"
+                        aria-pressed={
+                          selectedEntity === binding.geographic_entity_id
+                        }
+                        onClick={() =>
+                          setSelectedEntity(binding.geographic_entity_id)
+                        }
+                      >
+                        定位 {object.management_unit_id}
+                      </button>
+                    ) : null}
+                  </td>
                   <td>
                     {binding
                       ? `${binding.geographic_entity_id} · v${binding.geographic_entity_version}`

@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from coastmas.core.errors import CoastMASError
 from coastmas.persistence.resources import create_resource, read_resource, update_resource
 from coastmas.persistence.schema import ResourceVersion
+from tests.factories import scene
 
 
 def test_resource_permissions_and_immutable_versions(engine, actors):
@@ -23,7 +24,7 @@ def test_resource_permissions_and_immutable_versions(engine, actors):
             kind="scene",
             identifier=identifier,
             name="first",
-            spec={"id": identifier, "version": 1, "value": 1},
+            spec=scene(id=identifier, version=1, management_goal="first").model_dump(mode="json"),
         )
         assert first.version == 1
     with Session(engine) as session, session.begin():
@@ -32,12 +33,14 @@ def test_resource_permissions_and_immutable_versions(engine, actors):
             user_id=owner,
             identifier=identifier,
             expected_version=1,
-            spec={"id": identifier, "version": 2, "value": 2},
+            spec=scene(id=identifier, version=2, management_goal="second").model_dump(mode="json"),
         )
         assert second.version == 2
         assert (
-            read_resource(session, user_id=viewer, identifier=identifier, version=1).spec["value"]
-            == 1
+            read_resource(session, user_id=viewer, identifier=identifier, version=1).spec[
+                "management_goal"
+            ]
+            == "first"
         )
     with Session(engine) as session, session.begin():
         with pytest.raises(CoastMASError, match="permission"):

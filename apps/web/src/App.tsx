@@ -27,6 +27,7 @@ const Runs = lazy(() => import("./Runs"));
 const RunDetail = lazy(() =>
   import("./Runs").then((module) => ({ default: module.RunDetail })),
 );
+const ResultComparison = lazy(() => import("./ResultComparison"));
 const Results = lazy(() => import("./Results"));
 const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
@@ -153,6 +154,7 @@ export default function App() {
               <Route path="/runs" element={<Runs />} />
               <Route path="/runs/:id" element={<RunDetail />} />
               <Route path="/results" element={<Results />} />
+              <Route path="/results/compare" element={<ResultComparison />} />
               <Route path="/results/:id" element={<ResultDetail />} />
               {(
                 [

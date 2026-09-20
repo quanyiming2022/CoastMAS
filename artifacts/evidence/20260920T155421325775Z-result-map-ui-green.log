@@ -1,0 +1,13 @@
+
+> coastmas-web@0.1.0 test
+> vitest run src/ManagementResults.map.test.tsx src/ManagementResults.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  23:54:22
+   Duration  1.03s (environment 53%, tests 25%, import 8%, setup 7%, transform 7%)
+

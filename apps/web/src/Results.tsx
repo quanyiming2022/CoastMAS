@@ -1,9 +1,9 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
 import { request, resultSchema } from "./api";
-import { contract } from "./contracts";
+import { payloadSchema } from "./result-payload";
 import { useWorkspace } from "./workspace";
 import {
   Details,
@@ -16,25 +16,23 @@ import {
 } from "./components";
 import { geographicCollection, coastalStatistics } from "./result-data";
 import ManagementResults from "./ManagementResults";
+const AssessmentResults = lazy(() => import("./AssessmentResults"));
 const GeoMap = lazy(() => import("./GeoMap"));
 const CoastalStatistics = lazy(() => import("./CoastalStatistics"));
-const payloadSchema = z.object({
-  outputs: z.record(z.string(), z.unknown()),
-  node_outputs: z.record(z.string(), z.unknown()),
-  executed_nodes: z.array(z.string()),
-  elapsed_seconds: z.number().nonnegative(),
-  llm_calls: z.number().int().nonnegative(),
-  run_manifest: contract("RunManifest"),
-  input_fingerprint: z.string(),
-  result_view: contract("ResultView").optional(),
-});
 export default function Results() {
   const { projectId } = useWorkspace();
+  return <ResultList key={projectId} projectId={projectId} />;
+}
+function ResultList({ projectId }: { projectId: string }) {
+  const [page, setPage] = useState(0);
+  const [selected, setSelected] = useState<string[]>([]);
   const query = useQuery({
-    queryKey: ["results", projectId],
+    queryKey: ["results", projectId, page],
     queryFn: ({ signal }) =>
       request(
-        "/results?project_id=" + encodeURIComponent(projectId),
+        "/results?project_id=" +
+          encodeURIComponent(projectId) +
+          `&limit=50&offset=${page * 50}`,
         z.array(resultSchema),
         { signal },
       ),
@@ -48,11 +46,28 @@ export default function Results() {
       {query.isPending ? <Loading /> : null}
       <ErrorNotice error={query.error} />
       <Panel title="结果版本">
+        <p>选择两份不可变结果进行对照，先选左侧，再选右侧。</p>
+        {selected.length === 2 ? (
+          <Link
+            className="button"
+            to={`/results/compare?left=${encodeURIComponent(selected[0]!)}&right=${encodeURIComponent(selected[1]!)}`}
+          >
+            比较所选结果
+          </Link>
+        ) : (
+          <p>已选择 {selected.length}/2 份结果</p>
+        )}
+        {selected.length ? (
+          <button className="secondary" onClick={() => setSelected([])}>
+            清空对比选择
+          </button>
+        ) : null}
         {query.data?.length ? (
           <div className="table-scroll">
             <table>
               <thead>
                 <tr>
+                  <th>对比</th>
                   <th>结果</th>
                   <th>任务</th>
                   <th>生成时间</th>
@@ -61,6 +76,23 @@ export default function Results() {
               <tbody>
                 {query.data.map((result) => (
                   <tr key={result.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        aria-label={`选择对比 ${result.id}`}
+                        checked={selected.includes(result.id)}
+                        disabled={
+                          selected.length >= 2 && !selected.includes(result.id)
+                        }
+                        onChange={(event) =>
+                          setSelected((current) =>
+                            event.target.checked
+                              ? [...current, result.id]
+                              : current.filter((id) => id !== result.id),
+                          )
+                        }
+                      />
+                    </td>
                     <td>
                       <Link to={"/results/" + encodeURIComponent(result.id)}>
                         {result.id.slice(0, 12)}
@@ -80,6 +112,23 @@ export default function Results() {
         ) : query.data ? (
           <Empty>尚无已发布结果。成功完成的计算将在此显示。</Empty>
         ) : null}
+        <div className="pagination">
+          <button
+            className="secondary"
+            disabled={page === 0}
+            onClick={() => setPage((current) => current - 1)}
+          >
+            上一页结果
+          </button>
+          <span>第 {page + 1} 页</span>
+          <button
+            className="secondary"
+            disabled={(query.data?.length ?? 0) < 50}
+            onClick={() => setPage((current) => current + 1)}
+          >
+            下一页结果
+          </button>
+        </div>
       </Panel>
     </>
   );
@@ -137,10 +186,19 @@ export function ResultDetail() {
             </Panel>
           ))}
           {result.result_view ? (
-            <ManagementResults view={result.result_view} />
+            <ManagementResults
+              key={id}
+              view={result.result_view}
+              geometries={result.result_entity_geometries}
+            />
           ) : (
             <p>此历史结果尚无实体绑定清单；原始结果及来源保持可用。</p>
           )}
+          {result.result_view ? (
+            <Suspense fallback={<Loading />}>
+              <AssessmentResults key={id} view={result.result_view} />
+            </Suspense>
+          ) : null}
           <Panel title="来源与复现">
             <dl className="definition-grid">
               <div>
@@ -174,7 +232,7 @@ export function ResultDetail() {
     </>
   );
 }
-function ResultValue({ value }: { value: unknown }) {
+export function ResultValue({ value }: { value: unknown }) {
   const geographic = geographicCollection.safeParse(value);
   if (geographic.success)
     return (

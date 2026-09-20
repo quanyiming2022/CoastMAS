@@ -1,0 +1,52 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test scene-workspace.spec.ts --grep actual temporal
+
+
+Running 1 test using 1 worker
+
+(node:30160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/scene-workspace.spec.ts:330:1 › actual temporal assessment exposes aligned period selection and numeric time series
+  1) e2e/scene-workspace.spec.ts:330:1 › actual temporal assessment exposes aligned period selection and numeric time series 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('table', { name: '所选年份评价结果' }).getByRole('cell', { name: '0.2', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('table', { name: '所选年份评价结果' }).getByRole('cell', { name: '0.2', exact: true }) with timeout 5000ms
+      - waiting for getByRole('table', { name: '所选年份评价结果' }).getByRole('cell', { name: '0.2', exact: true })
+
+
+      374 |   await expect(
+      375 |     table.getByRole("cell", { name: "0.2", exact: true }),
+    > 376 |   ).toBeVisible();
+          |     ^
+      377 |   await page.screenshot({
+      378 |     path: "../../artifacts/screenshots/temporal-results.png",
+      379 |     fullPage: true,
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/scene-workspace.spec.ts:376:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/scene-workspace.spec.ts:330:1 › actual temporal assessment exposes aligned period selection and numeric time series 

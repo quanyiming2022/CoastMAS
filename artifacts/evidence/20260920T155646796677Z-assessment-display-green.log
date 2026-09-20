@@ -1,0 +1,17 @@
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  12 passed (12)
+      Tests  25 passed (25)
+   Start at  23:56:48
+   Duration  2.13s (environment 67%, transform 8%, tests 8%, setup 8%, import 8%)
+
+Environment  jsdom was created 12 times · 10.28s total, 67% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

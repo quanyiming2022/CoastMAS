@@ -756,3 +756,7 @@ fieldset {
   padding: 0;
   border: 0;
 }
+
+tr[data-selected="true"] { background: #fff0db; }
+.result-comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 900px) { .result-comparison-grid { grid-template-columns: 1fr; } }

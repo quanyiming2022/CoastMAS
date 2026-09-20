@@ -1,0 +1,35 @@
+{
+  "name": "temporal-display-numeric-browser",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e",
+    "--",
+    "scene-workspace.spec.ts",
+    "--grep",
+    "actual temporal"
+  ],
+  "started_at": "2026-09-20T16:04:22.253364+00:00",
+  "finished_at": "2026-09-20T16:04:36.797008+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "20bcca775813195283cf0d391fca9049d4faf148ae7a723406d95e44d6130585",
+  "git_commit": "b9cb3a7abcf8e9dba8504b6678e4d2662f561c89",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T160422253364Z-temporal-display-numeric-browser.log"
+}

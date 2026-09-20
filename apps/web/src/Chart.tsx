@@ -24,11 +24,13 @@ export default function Chart({
   series,
   unit,
   type = "bar",
+  coordinates,
 }: {
   labels: string[];
   series: ChartSeries[];
   unit: string;
   type?: "bar" | "line";
+  coordinates?: number[];
 }) {
   const element = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -39,12 +41,22 @@ export default function Chart({
       tooltip: { trigger: "axis", renderMode: "richText" },
       legend: { bottom: 0 },
       grid: { left: 55, right: 25, top: 35, bottom: 55 },
-      xAxis: { type: "category", data: labels },
+      xAxis: coordinates
+        ? {
+            type: "value",
+            name: "年份",
+            min: "dataMin",
+            max: "dataMax",
+            axisLabel: { formatter: "{value}" },
+          }
+        : { type: "category", data: labels },
       yAxis: { type: "value", name: unit },
       series: series.map((item) => ({
         name: item.name,
         type,
-        data: item.values,
+        data: coordinates
+          ? item.values.map((value, index) => [coordinates[index], value])
+          : item.values,
         barMaxWidth: 50,
         connectNulls: false,
       })),
@@ -55,7 +67,7 @@ export default function Chart({
       resize.disconnect();
       chart.dispose();
     };
-  }, [labels, series, unit, type]);
+  }, [labels, series, unit, type, coordinates]);
   return (
     <div
       ref={element}

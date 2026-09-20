@@ -1,0 +1,23 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 11 tests using 1 worker
+
+(node:32165) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/11] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[2/11] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[3/11] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[4/11] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[5/11] e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[6/11] e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[7/11] e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[8/11] e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either
+[9/11] e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[10/11] e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage
+[11/11] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  11 passed (1.3m)

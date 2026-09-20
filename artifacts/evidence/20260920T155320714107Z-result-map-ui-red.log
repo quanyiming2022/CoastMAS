@@ -1,0 +1,246 @@
+
+> coastmas-web@0.1.0 test
+> vitest run src/ManagementResults.map.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/ManagementResults.map.test.tsx (1 test | 1 failed) 73ms
+   × links result rows and map selections using the actual pinned entity identities 73ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/ManagementResults.map.test.tsx > links result rows and map selections using the actual pinned entity identities
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "定位 U1"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "管理结果与地理实体":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  table:
+
+  Name "":
+  [36m<table />[39m
+
+  --------------------------------------------------
+  rowgroup:
+
+  Name "":
+  [36m<thead />[39m
+
+  Name "":
+  [36m<tbody />[39m
+
+  --------------------------------------------------
+  row:
+
+  Name "结果对象 管理单元 地理实体版本 指标与单位":
+  [36m<tr />[39m
+
+  Name "node / scores 对象与来源 { "id": "object1", "model": { "id": "model", "version": 1 }, "source_pointer": "/outputs/node.scores"
+  } U1 entity1 · v1":
+  [36m<tr />[39m
+
+  Name "node / scores 对象与来源 { "id": "object2", "model": { "id": "model", "version": 1 }, "source_pointer": "/outputs/node.scores"
+  } U2 entity2 · v1":
+  [36m<tr />[39m
+
+  --------------------------------------------------
+  columnheader:
+
+  Name "结果对象":
+  [36m<th />[39m
+
+  Name "管理单元":
+  [36m<th />[39m
+
+  Name "地理实体版本":
+  [36m<th />[39m
+
+  Name "指标与单位":
+  [36m<th />[39m
+
+  --------------------------------------------------
+  cell:
+
+  Name "node / scores 对象与来源 { "id": "object1", "model": { "id": "model", "version": 1 }, "source_pointer": "/outputs/node.scores"
+  }":
+  [36m<td />[39m
+
+  Name "U1":
+  [36m<td />[39m
+
+  Name "entity1 · v1":
+  [36m<td />[39m
+
+  Name "":
+  [36m<td />[39m
+
+  Name "node / scores 对象与来源 { "id": "object2", "model": { "id": "model", "version": 1 }, "source_pointer": "/outputs/node.scores"
+  }":
+  [36m<td />[39m
+
+  Name "U2":
+  [36m<td />[39m
+
+  Name "entity2 · v1":
+  [36m<td />[39m
+
+  Name "":
+  [36m<td />[39m
+
+  --------------------------------------------------
+  group:
+
+  Name "":
+  [36m<details[39m
+    [33mclass[39m=[32m"details"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<details[39m
+    [33mclass[39m=[32m"details"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0m管理结果与地理实体[0m
+      [36m</h2>[39m
+      [36m<p>[39m
+        [0m全部绑定[0m
+      [36m</p>[39m
+      [36m<p>[39m
+        [0m仅按场景选中实体的管理单元标识精确关联。未绑定的结果仍保留；绑定本身不代表人工审查通过。[0m
+      [36m</p>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-scroll"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0m结果对象[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m管理单元[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m地理实体版本[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m指标与单位[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"break"[39m
+                [36m>[39m
+                  [0mnode[0m
+                  [0m / [0m
+                  [0mscores[0m
+                [36m</span>[39m
+                [36m<details[39m
+                  [33mclass[39m=[32m"details"[39m
+                [36m>[39m
+                  [36m<summary>[39m
+                    [0m对象与来源[0m
+                  [36m</summary>[39m
+                  [36m<pre>[39m
+                    [0m{
+  "id": "object1",
+  "model": {
+    "id": "model",
+    "version": 1
+  },
+  "source_pointer": "/outputs/node.scores"
+}[0m
+                  [36m</pre>[39m
+                [36m</details>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mU1[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mentity1 · v1[0m
+              [36m</td>[39m
+              [36m<td />[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"break"[39m
+                [36m>[39m
+                  [0mnode[0m
+                  [0m / [0m
+                  [0mscores[0m
+                [36m</span>[39m
+                [36m<details[39m
+                  [33mclass[39m=[32m"details"[39m
+                [36m>[39m
+                  [36m<summary>[39m
+                    [0m对象与来源[0m
+                  [36m</summary>[39m
+                  [36m<pre>[39m
+                    [0m{
+  "id": "object2",
+  "model": {
+    "id": "model",
+    "version": 1
+  },
+  "source_pointer": "/outputs/node.scores"
+}[0m
+                  [36m</pre>[39m
+                [36m</details>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mU2[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mentity2 · v1[0m
+              [36m</td>[39m
+              [36m<td />[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/ManagementResults.map.test.tsx:15:26
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  23:53:22
+   Duration  791ms (environment 71%, tests 10%, import 7%, setup 7%, transform 5%)
+

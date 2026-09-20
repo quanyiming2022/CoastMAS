@@ -225,16 +225,18 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
     name: entityName + " · v1",
     exact: true,
   });
-  for (
-    let pageNumber = 0;
-    (await entityChoice.count()) === 0 && pageNumber < 20;
-    pageNumber++
-  ) {
+  for (let pageNumber = 0; pageNumber < 20; pageNumber++) {
     const next = page.getByRole("button", {
       name: "下一页地理实体",
       exact: true,
     });
-    await expect(next).toBeEnabled();
+    await expect
+      .poll(
+        async () =>
+          (await entityChoice.count()) > 0 || (await next.isEnabled()),
+      )
+      .toBeTruthy();
+    if (await entityChoice.count()) break;
     const loaded = page.waitForResponse((response) =>
       response.url().includes("/api/v1/entities?"),
     );
@@ -294,6 +296,40 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
     page.getByText(entityId + " · v1", { exact: true }),
   ).toBeVisible();
   expect(result.geographic_entities[0].id).toBe(entityId);
+  expect(result.result_entity_geometries.features).toHaveLength(1);
+  expect(result.result_entity_geometries.features[0].properties.entity_id).toBe(
+    entityId,
+  );
+  const resultMap = page.getByLabel("结果绑定实体地图", { exact: true });
+  await expect(resultMap).toHaveAttribute("data-loaded", "true");
+  await page.getByRole("button", { name: "定位 U1", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "定位 U1", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page
+    .getByRole("button", { name: "显示全部绑定实体", exact: true })
+    .click();
+  await expect(resultMap).toHaveAttribute("data-loaded", "true");
+  const layers = page.getByRole("group", {
+    name: "结果绑定实体地图图层控制",
+    exact: true,
+  });
+  await layers
+    .getByRole("checkbox", { name: "显示面图层", exact: true })
+    .uncheck();
+  await expect(resultMap).toHaveAttribute("data-loaded", "true");
+  await resultMap.locator("canvas").click();
+  await expect(
+    page.getByRole("button", { name: "定位 U1", exact: true }),
+  ).toHaveAttribute("aria-pressed", "false");
+  await layers
+    .getByRole("checkbox", { name: "显示面图层", exact: true })
+    .check();
+  await expect(resultMap).toHaveAttribute("data-loaded", "true");
+  await resultMap.locator("canvas").click();
+  await expect(
+    page.getByRole("button", { name: "定位 U1", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
   const descriptor = await page.request.get(
     "/api/v1/results/" + page.url().split("/").at(-1),
   );
@@ -307,4 +343,191 @@ test("saved scene copy preflights and executes the actual pinned coastal workflo
     fullPage: true,
   });
   expect(errors).toEqual([]);
+});
+
+test("actual temporal assessment exposes aligned period selection and numeric time series", async ({
+  page,
+}) => {
+  test.setTimeout(120000);
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/workflows");
+  await page
+    .getByRole("link", { name: "temporal_change", exact: true })
+    .first()
+    .click();
+  await page
+    .getByRole("combobox", { name: "运行场景", exact: true })
+    .selectOption({ label: "Synthetic assessment scenario C · v1" });
+  await page.getByRole("button", { name: "科学预检", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "提交运行", exact: true }),
+  ).toBeEnabled();
+  await page.getByRole("button", { name: "提交运行", exact: true }).click();
+  await page
+    .getByRole("link", { name: "查看不可变结果" })
+    .click({ timeout: 90000 });
+  await expect(
+    page.getByRole("heading", { name: "多期评价与时间序列", exact: true }),
+  ).toBeVisible();
+  const unit = page.getByRole("combobox", {
+    name: "评价管理单元",
+    exact: true,
+  });
+  await unit.selectOption({ label: "U1" });
+  await page
+    .getByRole("combobox", { name: "查看评价年份", exact: true })
+    .selectOption({ label: "2022" });
+  const table = page.getByRole("table", { name: "所选年份评价结果" });
+  await expect(table.getByRole("row")).toHaveCount(2);
+  await expect
+    .poll(async () =>
+      Number(
+        await table
+          .getByRole("row")
+          .nth(1)
+          .getByRole("cell")
+          .nth(2)
+          .textContent(),
+      ),
+    )
+    .toBeCloseTo(0.4, 12);
+  await expect(
+    page.getByRole("img", { name: "U1，单位：1", exact: true }).locator("svg"),
+  ).toBeVisible();
+  await page
+    .getByRole("combobox", { name: "查看评价年份", exact: true })
+    .selectOption({ label: "2020" });
+  await expect
+    .poll(async () =>
+      Number(
+        await table
+          .getByRole("row")
+          .nth(1)
+          .getByRole("cell")
+          .nth(2)
+          .textContent(),
+      ),
+    )
+    .toBeCloseTo(0.2, 12);
+  await page.screenshot({
+    path: "../../artifacts/screenshots/temporal-results.png",
+    fullPage: true,
+  });
+  expect(errors).toEqual([]);
+});
+
+test("compares real baseline and raised sea-level results without overwriting either", async ({
+  page,
+}) => {
+  test.setTimeout(150000);
+  const project = await page
+    .getByRole("combobox", { name: "当前项目", exact: true })
+    .inputValue();
+  const csrf = decodeURIComponent(
+    (await page.context().cookies()).find(
+      (cookie) => cookie.name === "coastmas_csrf",
+    )!.value,
+  );
+  const headers = { "X-CSRF-Token": csrf };
+  const catalog = await page.request.get(
+    `/api/v1/workflows?project_id=${encodeURIComponent(project)}&limit=500`,
+  );
+  expect(catalog.status()).toBe(200);
+  const entry = (await catalog.json()).find(
+    (item: { name: string }) => item.name === "coastal_impact",
+  );
+  expect(entry).toBeTruthy();
+  const originalResponse = await page.request.get(
+    `/api/v1/workflows/${encodeURIComponent(entry.id)}?version=${entry.version}`,
+  );
+  const original = (await originalResponse.json()).spec;
+  const baseline = structuredClone(original);
+  baseline.id = `comparison-baseline-${Date.now()}`;
+  baseline.name = `比较基准 ${Date.now()}`;
+  baseline.version = 1;
+  baseline.nodes.find(
+    (node: { id: string }) => node.id === "screening",
+  ).parameters.increment = 0;
+  const saved = await page.request.post("/api/v1/workflows", {
+    headers,
+    data: { project_id: project, spec: baseline },
+  });
+  expect(saved.status()).toBe(201);
+  const sceneResponse = await page.request.get(
+    `/api/v1/scenes?project_id=${encodeURIComponent(project)}&limit=500`,
+  );
+  const scene = (await sceneResponse.json()).find(
+    (item: { name: string }) =>
+      item.name === "Synthetic coastal inundation screening",
+  );
+  expect(scene).toBeTruthy();
+  const resultIds: string[] = [];
+  for (const workflow of [original, baseline]) {
+    const submitted = await page.request.post(
+      `/api/v1/workflows/${encodeURIComponent(workflow.id)}/run`,
+      {
+        headers: { ...headers, "Idempotency-Key": crypto.randomUUID() },
+        data: {
+          workflow_version: workflow.version,
+          scene_id: scene.id,
+          scene_version: scene.version,
+          random_seed: 42,
+        },
+      },
+    );
+    expect(submitted.status()).toBe(202);
+    const jobId = (await submitted.json()).id;
+    await expect
+      .poll(
+        async () =>
+          (await (await page.request.get(`/api/v1/jobs/${jobId}`)).json())
+            .status,
+        { timeout: 90000, intervals: [500, 1000] },
+      )
+      .toBe("SUCCEEDED");
+    const results = await page.request.get(
+      `/api/v1/results?project_id=${encodeURIComponent(project)}&limit=50`,
+    );
+    const result = (await results.json()).find(
+      (item: { job_id: string }) => item.job_id === jobId,
+    );
+    expect(result).toBeTruthy();
+    resultIds.push(result.id);
+  }
+  await page.goto("/results");
+  for (const id of resultIds)
+    await page
+      .getByRole("checkbox", { name: `选择对比 ${id}`, exact: true })
+      .check();
+  await page.getByRole("link", { name: "比较所选结果", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "场景结果比较", exact: true }),
+  ).toBeVisible();
+  const left = page.getByRole("region", { name: "左侧原始输出", exact: true });
+  const right = page.getByRole("region", { name: "右侧原始输出", exact: true });
+  await expect(left.getByText("80000", { exact: true })).toBeVisible();
+  await expect(left.getByText("320", { exact: true })).toBeVisible();
+  await expect(right.getByText("40000", { exact: true }).first()).toBeVisible();
+  await expect(right.getByText("160", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("table", { name: "管理指标对照表", exact: true }),
+  ).toBeVisible();
+  await expect(
+    left.getByLabel("分析结果地图", { exact: true }),
+  ).toHaveAttribute("data-loaded", "true");
+  await expect(
+    right.getByLabel("分析结果地图", { exact: true }),
+  ).toHaveAttribute("data-loaded", "true");
+  for (const [index, id] of resultIds.entries()) {
+    const result = await page.request.get(`/api/v1/results/${id}/content`);
+    expect(
+      (await result.json()).outputs["statistics.statistics"]
+        .estimated_affected_population,
+    ).toBe(index === 0 ? 320 : 160);
+  }
+  await page.screenshot({
+    path: "../../artifacts/screenshots/result-comparison.png",
+    fullPage: true,
+  });
 });

@@ -53,3 +53,5 @@
 - 结果绑定增量：新增 ResultObject/ResultView，精确匹配场景实体 management_unit_id，重复映射拒绝，缺失保持 UNBOUND/PARTIAL，通用输出 NOT_APPLICABLE；保留原始输出。实际发布 ResultManifest 与数据库 ID/字节 SHA 一致，异质单位 per-output、未知结果范围 null。前端显示固定版本与未绑定项，历史结果兼容。真实浏览器 153804904313Z-result-binding-browser 首次通过，实际 U1 绑定且原金标准不变；截图已目视检查。海岸/评价/时间变化映射和实体到期边界相关34项回归通过（154042079354Z-result-binding-backend-regression）；类型/格式/契约/前端测试与构建通过（154157535990Z-result-binding-final-checks）。详见 result-entity-binding.md。
 - 本轮服务日志改为 artifacts/logs/{api,worker,beat}-result-binding-final.log，三者已重启加载结果绑定、发布清单及时间变化/实体到期边界修复。API session96367、worker61173、beat51349；后续更新前确认无活动任务、核对进程和目录。
 - 最终当前服务浏览器复验通过：20260920T154406863514Z-result-binding-final-browser；未修改原始样例或覆盖历史结果。下一步继续结果空间联动/多期比较及剩余全范围界面，不重新规划。
+
+- 结果中心增量：结果实体历史几何/WGS84转换、地图↔表格选择、多期年份/单元筛选与数值年份折线、分页结果中心和双运行原值比较。17项相关后端、28项前端及生产构建通过；真实浏览器地图、多期(160422253364Z)、比较(161017147427Z)通过。完整后端291项通过（161755783770Z-result-center-final-backend），全浏览器11条通过（161753733719Z-result-center-final-browser）；图层控制实测通过。覆盖5633/6372行、1530/2136分支，分支约71.6%，最终门槛未满足。详情 result-center.md。worker已单独重启，session46201/log worker-result-display.log；API与beat仍用上轮日志。下一步模型/数据完整目录界面；不重新规划。

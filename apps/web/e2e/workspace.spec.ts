@@ -53,7 +53,28 @@ test("real session, seeded catalog, deep link and logout", async ({ page }) => {
     .getByRole("navigation")
     .getByRole("link", { name: "场景空间" })
     .click();
-  await expect(page.locator("tbody tr")).toHaveCount(3);
+  const sceneProject = await page
+    .getByRole("combobox", { name: "当前项目", exact: true })
+    .inputValue();
+  const sceneResponse = await page.request.get(
+    `/api/v1/scenes?project_id=${encodeURIComponent(sceneProject)}&limit=50`,
+  );
+  expect(sceneResponse.status()).toBe(200);
+  const scenes = z
+    .array(z.object({ id: z.string(), name: z.string() }))
+    .parse(await sceneResponse.json());
+  expect(scenes.map((item) => item.name)).toEqual(
+    expect.arrayContaining([
+      "Synthetic coastal inundation screening",
+      "Synthetic assessment scenario B",
+      "Synthetic assessment scenario C",
+    ]),
+  );
+  await expect(page.locator("tbody tr")).toHaveCount(scenes.length);
+  for (const scene of scenes)
+    await expect(
+      page.locator(`a[href="/scenes/${encodeURIComponent(scene.id)}"]`),
+    ).toHaveText(scene.name);
   await page
     .getByRole("navigation")
     .getByRole("link", { name: "工作流", exact: true })

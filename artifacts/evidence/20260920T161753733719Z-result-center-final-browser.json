@@ -1,0 +1,31 @@
+{
+  "name": "result-center-final-browser",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e"
+  ],
+  "started_at": "2026-09-20T16:17:53.733719+00:00",
+  "finished_at": "2026-09-20T16:19:12.604281+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "63a5fe26f7c7ff866a63c1069cf0c0dff1de1ac226ce8301d86b07347ea4b1da",
+  "git_commit": "b9cb3a7abcf8e9dba8504b6678e4d2662f561c89",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T161753733719Z-result-center-final-browser.log"
+}

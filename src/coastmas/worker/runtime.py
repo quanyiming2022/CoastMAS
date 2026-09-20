@@ -33,6 +33,7 @@ from coastmas.core.contracts import (
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry, execute_workflow
 from coastmas.core.result_entities import bind_result_objects
+from coastmas.core.result_geography import result_entity_features
 from coastmas.core.scene_workspace import inspect_scene
 from coastmas.domain.result_views import management_objects
 from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
@@ -164,6 +165,9 @@ class WorkflowWorker:
                 {
                     "outputs": execution.outputs,
                     "result_view": result_view.model_dump(mode="json"),
+                    "result_entity_geometries": result_entity_features(
+                        result_view, selected_entities
+                    ),
                     "node_outputs": execution.node_outputs,
                     "executed_nodes": list(execution.executed_nodes),
                     "bindings": [binding.model_dump(mode="json") for binding in execution.bindings],

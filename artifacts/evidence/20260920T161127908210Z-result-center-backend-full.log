@@ -1,0 +1,102 @@
+...................................................F.................... [ 24%]
+........................................................................ [ 49%]
+........................................................................ [ 74%]
+........................................................................ [ 98%]
+...                                                                      [100%]
+=================================== FAILURES ===================================
+_______________ test_resource_permissions_and_immutable_versions _______________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_75c40bba2dc84546975175a537529df2)
+actors = ('5b9aa7fd-6dd7-438c-bcfb-58aef21f5859', 'f28b1872-7fcd-42ee-97ac-a2a6b2d706a9', 'c7628e06-1840-4aea-86f4-04ee6ba93246', '73707d73-b586-4160-b5f6-d55bfe603ebb')
+
+    def test_resource_permissions_and_immutable_versions(engine, actors):
+        owner, viewer, outsider, project = actors
+        identifier = str(uuid4())
+        with Session(engine) as session, session.begin():
+>           first = create_resource(
+                session,
+                user_id=owner,
+                project_id=project,
+                kind="scene",
+                identifier=identifier,
+                name="first",
+                spec={"id": identifier, "version": 1, "value": 1},
+            )
+
+tests/integration/test_persistence.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/persistence/resources.py:162: in create_resource
+    references = workflow_references(session, project_id=project_id, kind=kind, spec=spec)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+session = <sqlalchemy.orm.session.Session object at 0x1261fa180>
+project_id = '73707d73-b586-4160-b5f6-d55bfe603ebb', kind = 'scene'
+spec = {'id': 'ef737470-fe99-42bc-a871-2f5120cf47ea', 'version': 1, 'value': 1}
+
+    def workflow_references(
+        session: Session, *, project_id: str, kind: str, spec: dict[str, JsonValue]
+    ) -> list[tuple[str, int]]:
+        if kind == "workflow":
+            workflow = WorkflowSpec.model_validate(spec)
+            references = {(node.model_id, node.model_version, "model") for node in workflow.nodes}
+            references.update(
+                (binding.source.id, binding.source.version, "data")
+                for binding in workflow.input_bindings
+            )
+        elif kind == "scene":
+>           scene = SceneSpec.model_validate(spec)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           pydantic_core._pydantic_core.ValidationError: 11 validation errors for SceneSpec
+E           name
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           management_goal
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           study_area
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           entity_types
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           time_range
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           scenario_conditions
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           constraints
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           required_outputs
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           data_policy
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           quality_requirements
+E             Field required [type=missing, input_value={'id': 'ef737470-fe99-42b...version': 1, 'value': 1}, input_type=dict]
+E               For further information visit https://errors.pydantic.dev/2.13/v/missing
+E           value
+E             Extra inputs are not permitted [type=extra_forbidden, input_value=1, input_type=int]
+E               For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+
+src/coastmas/persistence/resources.py:96: ValidationError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Coverage JSON written to file artifacts/coverage.json
+=========================== short test summary info ============================
+FAILED tests/integration/test_persistence.py::test_resource_permissions_and_immutable_versions
+1 failed, 290 passed, 2 warnings in 192.29s (0:03:12)
