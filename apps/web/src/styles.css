@@ -647,3 +647,15 @@ summary:focus-visible {
   margin-top: 4px;
   font-size: 10px;
 }
+
+.entity-form {
+  display: grid;
+  gap: 14px;
+}
+.entity-form label {
+  display: grid;
+  gap: 7px;
+}
+.entity-form button {
+  justify-self: start;
+}

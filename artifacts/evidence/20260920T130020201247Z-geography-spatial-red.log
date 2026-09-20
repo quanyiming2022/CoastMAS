@@ -1,0 +1,62 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_entity_versions_spatial_filters_and_permissions _____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11e31a2a0>, 'rHYHfTaYL0LbXaWA8ThCynwbd74NkR9sqxEX3y6mrbw', '99d67be3-3c75-4436-a11c-7bf56779fe52', '84bcb5b3-0381-4aaf-b8b6-76b9c970c20f')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_c4513bf344194b5db4c2fc595d342dea)
+
+    def test_entity_versions_spatial_filters_and_permissions(authenticated, engine):
+        client, csrf, project, _ = authenticated
+        headers = {"X-CSRF-Token": csrf}
+        spec = {**entity_payload(), "id": "geo-" + uuid4().hex}
+        created = client.post(
+            "/api/v1/entities", headers=headers, json={"project_id": project, "spec": spec}
+        )
+>       assert created.status_code == 201, created.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"f522a904-ba22-4b5b-be84-7541c8926717"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_geography_api.py:17: AssertionError
+__________ test_projected_entity_materializes_without_changing_source __________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11e9e8c80>, 'utw-jssCA3H_L--JG-Bi20OxqbL6jqm72yG3A6y83Jo', '3c41a22b-004e-47ac-81e3-639515019031', '59ffdfcc-2243-431c-94ee-87bdc7965220')
+
+    def test_projected_entity_materializes_without_changing_source(authenticated):
+        client, csrf, project, _ = authenticated
+        spec = {
+            **entity_payload(),
+            "id": "geo-" + uuid4().hex,
+            "crs": "EPSG:32650",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[500000, 3500000], [500100, 3500000], [500100, 3500100], [500000, 3500000]]
+                ],
+            },
+        }
+        response = client.post(
+            "/api/v1/entities",
+            headers={"X-CSRF-Token": csrf},
+            json={"project_id": project, "spec": spec},
+        )
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"481c4881-da1a-465c-a8aa-9f2088512b46"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_geography_api.py:93: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_geography_api.py::test_entity_versions_spatial_filters_and_permissions
+FAILED tests/integration/test_geography_api.py::test_projected_entity_materializes_without_changing_source
+2 failed, 2 warnings in 3.03s

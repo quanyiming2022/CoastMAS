@@ -9,7 +9,7 @@
 ## 已实现基础
 - 严格不可变版本契约、DAG 科学预检、精确语义/Pint 单位/PyProj CRS/垂向/时间/尺度/NoData/总量守恒；未知科学规则拒绝。可信运行注册固定完整 ModelSpec 摘要，元数据导入不能自证可执行。
 - 综合评价、熵权、TOPSIS、多期比较、连通淹没筛查；AST 栅格计算/分区/适宜性、MILP、固定种子分组随机森林与签名私有模型。六类实际 Adapter（Python/CLI、Docker、HTTP、RasterGIS、ML），有进程超时/取消/资源边界。
-- PostgreSQL 用户/项目/四角色/不可变资源/引用/审计/任务/结果/规划账本；迁移至 0005。Argon2+不透明会话+CSRF，服务端权限与并发版本保护。Redis/Celery 持久派发、租约心跳、撤权取消、幂等及原子发布。
+- PostgreSQL 用户/项目/四角色/不可变资源/引用/审计/任务/结果/规划账本；迁移至 0006。Argon2+不透明会话+CSRF，服务端权限与并发版本保护。Redis/Celery 持久派发、租约心跳、撤权取消、幂等及原子发布。
 - 真实 S3 文件校验与 SHA；GeoTIFF/COG、GeoJSON/Shapefile/GPKG、CSV/JSON/NetCDF 读写和有界检查。NetCDF IO 单线程，检查在独立进程；矢量用 spatial_support，不能假装像元分辨率。
 - 8 个内置可信模型：地形 screening/overlay/statistics，评价 normalize/weight/composite/topsis/change。3 个确定性规划 DAG 使用真实样例文件计算。人口在完整单元内均匀分布，AOI 裁剪不重新归一化，未知地形单独计量；不称水动力模拟。
 - 规划 API：模板解析、缺失条件、精确版本绑定、保存工作流；外部提供方严格 JSON Schema、无自动重试/重定向、请求/响应上限；每条规划共享默认 2 次原子预算，缓存复用重查权限及资源状态。提供方报告 tokens 才记录，缺失保持 null。
@@ -45,3 +45,7 @@
 - 发现并修复同一场景仅JSON对象键顺序不同就产生不同工作流ID的问题；旧资源保持原标识，新规划使用规范JSON摘要。相关科学/样例13项回归通过。目录展示标识片段，测试按选定唯一身份与清单核对，不假设名称唯一。
 - 会话过期和换账号清除私有查询缓存已有红绿回归。前端目前11项测试通过，最新真实浏览器 `20260920T124618439609Z-web-canonical-e2e` 3 passed。完整后端增量回归 `20260920T124636108740Z-planner-web-core-full`：231 passed、2 warnings。类型/lint 通过；入口文件仅修正格式后重新格式检查通过。
 - 已异步请求用户在项目 .env 配置外部 LLM 端点、模型与密钥，未在对话收集密钥。等待配置不阻止独立开发；未提供时继续标记真实外部实验 BLOCKED。
+
+- 新增 GeographicEntity：八类实体、严格几何/CRS/时间/身份校验；PostGIS 不可变派生空间版本与资源同事务写入，分页空间/时间/历史查询。页面支持导入、修订、历史读取与点线面地图；真实浏览器证据 20260920T130926122354Z-geography-browser 通过。详见 geographic-entities.md；完整场景工作台仍未完成。API 当前日志 api-geography.log。
+
+- 实体增量统一回归：20260920T131213156037Z-geography-backend-full，262 passed、2 warnings；20260920T131222098930Z-geography-ui-all-browser，4 passed。Python lint/format、类型、契约漂移、生产构建均通过。当前覆盖行 5128/5837，分支 1363/1944；最终覆盖门槛仍未通过。下一项：知识图谱及完整场景关系。

@@ -17,6 +17,7 @@ from starlette.exceptions import HTTPException
 from coastmas.adapters.storage import S3ArtifactStore
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
+from coastmas.app.geography_routes import router as geography_router
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
@@ -24,6 +25,7 @@ from coastmas.app.workspace_routes import router as workspace_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
+from coastmas.core.geography import GeographicEntity
 from coastmas.core.llm import LLMProvider
 from coastmas.core.model_documents import reject_embedded_credentials
 from coastmas.persistence.auth import login, logout
@@ -303,6 +305,7 @@ def create_app(
 
     app.state.artifact_store = artifact_store
     app.state.registry = registry if registry is not None else ExecutionRegistry()
+    app.include_router(geography_router)
     app.include_router(data_router)
     app.include_router(model_router)
     app.include_router(run_router)
@@ -310,6 +313,7 @@ def create_app(
     app.include_router(workspace_router)
     app.state.llm_provider = llm_provider
     routes: list[tuple[str, str, type[Contract]]] = [
+        ("entities", "entity", GeographicEntity),
         ("models", "model", ModelSpec),
         ("data-assets", "data", DataAssetSpec),
         ("scenes", "scene", SceneSpec),

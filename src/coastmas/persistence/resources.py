@@ -11,6 +11,8 @@ from sqlalchemy.orm import Session
 
 from coastmas.core.contracts import WorkflowSpec
 from coastmas.core.errors import CoastMASError
+from coastmas.core.geography import GeographicEntity
+from coastmas.persistence.geography import materialize_entity
 from coastmas.persistence.schema import (
     AuditLog,
     Membership,
@@ -178,6 +180,8 @@ def create_resource(
     )
     session.flush()
     add_dependencies(session, identifier, 1, references)
+    if kind == "entity":
+        materialize_entity(session, GeographicEntity.model_validate(spec))
     return Revision(identifier, 1, spec, checksum)
 
 
@@ -258,4 +262,6 @@ def update_resource(
     )
     session.flush()
     add_dependencies(session, identifier, next_version, references)
+    if resource.kind == "entity":
+        materialize_entity(session, GeographicEntity.model_validate(spec))
     return Revision(identifier, next_version, spec, checksum)

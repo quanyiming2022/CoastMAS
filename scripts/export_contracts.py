@@ -18,6 +18,7 @@ from coastmas.core.contracts import (
     SceneSpec,
     WorkflowSpec,
 )
+from coastmas.core.geography import GeographicEntity
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
 
@@ -29,6 +30,7 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        GeographicEntity,
         ModelSpec,
         DataAssetSpec,
         SceneSpec,

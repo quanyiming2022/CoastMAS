@@ -26,7 +26,23 @@ export const geographicCollection = z.object({
     z.object({
       type: z.literal("Feature"),
       id: z.union([z.string(), z.number()]).optional(),
-      geometry: z.union([polygon, multiPolygon]),
+      geometry: z.union([
+        polygon,
+        multiPolygon,
+        z.object({ type: z.literal("Point"), coordinates: position }),
+        z.object({
+          type: z.literal("MultiPoint"),
+          coordinates: z.array(position).min(1),
+        }),
+        z.object({
+          type: z.literal("LineString"),
+          coordinates: z.array(position).min(2),
+        }),
+        z.object({
+          type: z.literal("MultiLineString"),
+          coordinates: z.array(z.array(position).min(2)).min(1),
+        }),
+      ]),
       properties: z.record(z.string(), z.unknown()).nullable(),
     }),
   ),
