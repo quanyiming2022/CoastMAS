@@ -350,6 +350,85 @@
       "title": "DataAssetSpec",
       "type": "object"
     },
+    "DecompositionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "argv": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Argv",
+          "type": "array"
+        },
+        "components": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ModelComponent"
+          },
+          "maxItems": 500,
+          "title": "Components",
+          "type": "array"
+        },
+        "dependencies": {
+          "default": [],
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "maxItems": 5000,
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "python",
+            "pipeline",
+            "cli",
+            "declared",
+            "black_box"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "maxLength": 262144,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "title": "DecompositionRequest",
+      "type": "object"
+    },
     "EntityBinding": {
       "additionalProperties": false,
       "properties": {
@@ -983,6 +1062,158 @@
         "message"
       ],
       "title": "MissingCondition",
+      "type": "object"
+    },
+    "ModelComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "atomic": {
+          "default": false,
+          "title": "Atomic",
+          "type": "boolean"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "inputs": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "outputs": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "signature": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Signature"
+        },
+        "stage": {
+          "enum": [
+            "preprocess",
+            "compute",
+            "postprocess",
+            "validate"
+          ],
+          "title": "Stage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stage"
+      ],
+      "title": "ModelComponent",
+      "type": "object"
+    },
+    "ModelDecomposition": {
+      "additionalProperties": false,
+      "properties": {
+        "cli_arguments": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "title": "Cli Arguments",
+          "type": "object"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/ModelComponent"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "dependencies": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "executable": {
+          "const": false,
+          "default": false,
+          "title": "Executable",
+          "type": "boolean"
+        },
+        "mode": {
+          "enum": [
+            "WHITE_BOX",
+            "BLACK_BOX"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "model_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Model Name",
+          "type": "string"
+        },
+        "review_required": {
+          "const": true,
+          "default": true,
+          "title": "Review Required",
+          "type": "boolean"
+        },
+        "warnings": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model_name",
+        "mode",
+        "components",
+        "dependencies"
+      ],
+      "title": "ModelDecomposition",
       "type": "object"
     },
     "ModelSpec": {
@@ -2839,6 +3070,9 @@
     "DataAssetSpec": {
       "$ref": "#/$defs/DataAssetSpec"
     },
+    "DecompositionRequest": {
+      "$ref": "#/$defs/DecompositionRequest"
+    },
     "ExecutionJob": {
       "$ref": "#/$defs/ExecutionJob"
     },
@@ -2850,6 +3084,9 @@
     },
     "ManagementGoal": {
       "$ref": "#/$defs/ManagementGoal"
+    },
+    "ModelDecomposition": {
+      "$ref": "#/$defs/ModelDecomposition"
     },
     "ModelSpec": {
       "$ref": "#/$defs/ModelSpec"
@@ -2883,6 +3120,8 @@
     }
   },
   "required": [
+    "DecompositionRequest",
+    "ModelDecomposition",
     "ResultView",
     "SceneInspection",
     "GraphSnapshot",

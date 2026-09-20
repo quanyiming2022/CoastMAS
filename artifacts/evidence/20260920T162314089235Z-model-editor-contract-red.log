@@ -1,0 +1,36 @@
+
+> coastmas-web@0.1.0 test
+> vitest run src/model-editor.test.ts
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/model-editor.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/model-editor.test.ts [ src/model-editor.test.ts ]
+Error: Failed to resolve import "./model-editor" from "src/model-editor.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/quanyiming/Projects/CoastMAS/apps/web/src/model-editor.test.ts:2:49
+  1  |  import { expect, it } from "vitest";
+  2  |  import { freshModel, prepareModelRevision } from "./model-editor";
+     |                                                    ^
+  3  |  it("new metadata requires explicit identity and scale declarations before registration", () => {
+  4  |  	const draft = freshModel("owner", "2026-09-21T00:00:00Z");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8393:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8390:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26058:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26128:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26094:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8172:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19634:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:23:15
+   Duration  662ms (environment 88%, setup 10%, transform 2%)
+

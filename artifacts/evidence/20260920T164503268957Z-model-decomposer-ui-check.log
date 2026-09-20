@@ -1,0 +1,15 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+src/decomposition-graph.ts(24,25): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(24,52): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(26,18): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(26,39): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(27,18): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(27,32): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/decomposition-graph.ts(59,5): error TS2322: Type '{ id: string; source: unknown; target: unknown; }[]' is not assignable to type 'Edge[]'.
+  Type '{ id: string; source: unknown; target: unknown; }' is not assignable to type 'Edge'.
+    Type '{ id: string; source: unknown; target: unknown; }' is not assignable to type 'EdgeBase<Record<string, unknown>, string | undefined>'.
+      Types of property 'source' are incompatible.
+        Type 'unknown' is not assignable to type 'string'.

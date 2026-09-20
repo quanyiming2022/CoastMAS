@@ -18,6 +18,7 @@ from coastmas.core.contracts import (
     SceneSpec,
     WorkflowSpec,
 )
+from coastmas.core.decomposition import DecompositionRequest, ModelDecomposition
 from coastmas.core.geography import GeographicEntity
 from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
@@ -33,6 +34,8 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        DecompositionRequest,
+        ModelDecomposition,
         ResultView,
         SceneInspection,
         GraphSnapshot,

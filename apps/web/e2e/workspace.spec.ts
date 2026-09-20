@@ -34,8 +34,30 @@ test("real session, seeded catalog, deep link and logout", async ({ page }) => {
     .getByRole("navigation")
     .getByRole("link", { name: "模型中心" })
     .click();
-  await expect(page.locator("tbody tr")).toHaveCount(8);
-  const firstName = await page.locator("tbody tr a").first().innerText();
+  const currentProject = await page
+    .getByRole("combobox", { name: "当前项目", exact: true })
+    .inputValue();
+  const modelResponse = await page.request.get(
+    `/api/v1/models?project_id=${encodeURIComponent(currentProject)}&limit=50`,
+  );
+  expect(modelResponse.status()).toBe(200);
+  const models = z
+    .array(z.object({ id: z.string(), name: z.string() }))
+    .parse(await modelResponse.json());
+  expect(models.length).toBeGreaterThanOrEqual(8);
+  await expect(page.locator("tbody tr")).toHaveCount(models.length);
+  for (const model of models)
+    await expect(
+      page.locator(`a[href="/models/${encodeURIComponent(model.id)}"]`),
+    ).toHaveText(model.name);
+  const firstHref = await page
+    .locator("tbody tr a")
+    .first()
+    .getAttribute("href");
+  const firstModel = z
+    .object({ spec: z.object({ display_name: z.string() }) })
+    .parse(await (await page.request.get("/api/v1" + firstHref)).json());
+  const firstName = firstModel.spec.display_name;
   await page.locator("tbody tr a").first().click();
   await expect(
     page.getByRole("heading", { name: firstName, exact: true }),

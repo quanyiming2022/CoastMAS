@@ -1,0 +1,52 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test model-editor.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:33806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+  1) e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/models$/
+    Received string:  "http://127.0.0.1:58000/models/ce0e0af9-3973-4131-a258-f33b50cfdeee/edit"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="zh-CN">…</html>
+           - unexpected value "http://127.0.0.1:58000/models/ce0e0af9-3973-4131-a258-f33b50cfdeee/edit"
+
+
+      128 |   });
+      129 |   await page.getByRole("button", { name: "归档模型", exact: true }).click();
+    > 130 |   await expect(page).toHaveURL(/\/models$/);
+          |                      ^
+      131 |   await page.goto("/models/new");
+      132 |   await page
+      133 |     .getByLabel("导入 JSON / YAML 模型文件", { exact: true })
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/model-editor.spec.ts:130:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution 

@@ -55,3 +55,6 @@
 - 最终当前服务浏览器复验通过：20260920T154406863514Z-result-binding-final-browser；未修改原始样例或覆盖历史结果。下一步继续结果空间联动/多期比较及剩余全范围界面，不重新规划。
 
 - 结果中心增量：结果实体历史几何/WGS84转换、地图↔表格选择、多期年份/单元筛选与数值年份折线、分页结果中心和双运行原值比较。17项相关后端、28项前端及生产构建通过；真实浏览器地图、多期(160422253364Z)、比较(161017147427Z)通过。完整后端291项通过（161755783770Z-result-center-final-backend），全浏览器11条通过（161753733719Z-result-center-final-browser）；图层控制实测通过。覆盖5633/6372行、1530/2136分支，分支约71.6%，最终门槛未满足。详情 result-center.md。worker已单独重启，session46201/log worker-result-display.log；API与beat仍用上轮日志。下一步模型/数据完整目录界面；不重新规划。
+
+- 模型中心增量：科学字段表单/版本历史/JSON-YAML 导入导出/复制/启停/归档、服务端全目录搜索以及五种静态拆解方式已接通。34 项前端测试+类型/lint/构建通过（165155311699Z-model-center-quality），真实浏览器2条通过（165233222214Z-model-center-browser）。拆解始终 review_required=true/executable=false，非内置可信运行审批闭环仍待完成。详见 model-center.md。下一步数据上传、测量预览及版本管理界面；当前 API/worker/beat 无需重启。
+- 模型后端与生成契约复验通过：20260920T165327809610Z-model-center-backend-contracts，9 passed、2 warnings；拆解依赖图截图已目视检查。

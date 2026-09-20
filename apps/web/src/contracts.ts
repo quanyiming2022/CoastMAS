@@ -22,3 +22,15 @@ export const workflowContract = contract("WorkflowSpec");
 export const modelContract = contract("ModelSpec");
 export const sceneContract = contract("SceneSpec");
 export const planningContract = contract("PlanningArtifact");
+
+export function contractErrors(
+  name: keyof CoastMASContracts,
+  value: unknown,
+): string[] {
+  const validate = ajv.compile({ $ref: `coastmas#/$defs/${name}` });
+  if (validate(value)) return [];
+  return (validate.errors ?? []).map(
+    (error) =>
+      `${error.instancePath || "/"}: ${error.message ?? error.keyword}`,
+  );
+}

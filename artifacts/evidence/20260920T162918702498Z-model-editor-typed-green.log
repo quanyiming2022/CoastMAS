@@ -1,0 +1,5 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+src/ModelEditor.tsx(11,3): error TS6133: 'modelFieldOptions' is declared but its value is never read.

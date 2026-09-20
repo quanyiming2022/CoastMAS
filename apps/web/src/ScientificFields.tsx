@@ -5,6 +5,31 @@ function isFieldGroup(value: unknown): value is Record<string, JsonValue> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 const fieldLabels: Record<string, string> = {
+  inputs: "输入变量",
+  outputs: "输出变量",
+  parameters: "参数",
+  spatial_scale: "空间尺度",
+  temporal_scale: "时间尺度",
+  supported_geometry: "支持的几何类型",
+  supported_crs: "支持的坐标参考系",
+  constraints: "约束",
+  runtime_config: "运行配置",
+  references: "文献与依据",
+  standard_name: "标准变量名",
+  dimension: "量纲",
+  data_type: "数据类型",
+  semantic_type: "语义类型",
+  spatial_support: "空间支撑",
+  temporal_support: "时间支撑",
+  aggregation_type: "聚合语义",
+  nodata_policy: "缺失值策略",
+  required: "必填",
+  unit: "单位",
+  minimum: "最小值",
+  maximum: "最大值",
+  default: "默认值",
+  name: "名称",
+  description: "说明",
   sea_level_baseline_m: "基准海平面（m）",
   vertical_datum: "垂向基准",
   coastal_seeds: "海岸连通起点（行、列）",
@@ -22,10 +47,14 @@ export default function ScientificFields({
   values,
   onChange,
   title,
+  fixedFields = false,
+  options,
 }: {
   values: Record<string, JsonValue>;
   onChange: (value: Record<string, JsonValue>) => void;
   title: string;
+  fixedFields?: boolean;
+  options?: Record<string, readonly string[]>;
 }) {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -37,48 +66,54 @@ export default function ScientificFields({
           <JsonField
             label={fieldLabels[key] ?? key}
             value={value}
+            choices={options?.[key]}
+            options={options}
             onChange={(next) => onChange({ ...values, [key]: next })}
           />
+          {!fixedFields ? (
+            <button
+              className="secondary"
+              onClick={() => {
+                const next = { ...values };
+                delete next[key];
+                onChange(next);
+              }}
+            >
+              移除 {fieldLabels[key] ?? key}
+            </button>
+          ) : null}
+        </div>
+      ))}
+      {!fixedFields ? (
+        <div className="toolbar">
+          <label>
+            {title}新增字段名
+            <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </label>
           <button
             className="secondary"
             onClick={() => {
-              const next = { ...values };
-              delete next[key];
-              onChange(next);
+              const key = name.trim();
+              if (
+                !key ||
+                key in values ||
+                ["__proto__", "constructor", "prototype"].includes(key)
+              ) {
+                setError("字段名不能为空或重复");
+                return;
+              }
+              onChange({ ...values, [key]: null });
+              setName("");
+              setError("");
             }}
           >
-            移除 {fieldLabels[key] ?? key}
+            添加{title}字段
           </button>
         </div>
-      ))}
-      <div className="toolbar">
-        <label>
-          {title}新增字段名
-          <input
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <button
-          className="secondary"
-          onClick={() => {
-            const key = name.trim();
-            if (
-              !key ||
-              key in values ||
-              ["__proto__", "constructor", "prototype"].includes(key)
-            ) {
-              setError("字段名不能为空或重复");
-              return;
-            }
-            onChange({ ...values, [key]: null });
-            setName("");
-            setError("");
-          }}
-        >
-          添加{title}字段
-        </button>
-      </div>
+      ) : null}
       {error ? <p role="alert">{error}</p> : null}
     </fieldset>
   );
@@ -87,9 +122,13 @@ function JsonField({
   value,
   label,
   onChange,
+  choices,
+  options,
 }: {
   value: JsonValue;
   label: string;
+  choices?: readonly string[];
+  options?: Record<string, readonly string[]>;
   onChange: (next: JsonValue) => void;
 }) {
   const [kind, setKind] = useState(
@@ -103,6 +142,23 @@ function JsonField({
             ? "object"
             : "string",
   );
+  if (choices)
+    return (
+      <label>
+        {label}
+        <select
+          value={typeof value === "string" ? value : ""}
+          onChange={(event) => onChange(event.target.value || null)}
+        >
+          <option value="">请选择</option>
+          {choices.map((choice) => (
+            <option value={choice} key={choice}>
+              {choice}
+            </option>
+          ))}
+        </select>
+      </label>
+    );
   return (
     <div>
       <label>
@@ -130,6 +186,7 @@ function JsonField({
               <JsonField
                 label={`${label} ${index + 1}`}
                 value={item}
+                options={options}
                 onChange={(next) =>
                   onChange(
                     value.map((entry, position) =>
@@ -157,7 +214,12 @@ function JsonField({
         </fieldset>
       ) : null}
       {kind === "object" && isFieldGroup(value) ? (
-        <ScientificFields title={label} values={value} onChange={onChange} />
+        <ScientificFields
+          title={label}
+          values={value}
+          onChange={onChange}
+          options={options}
+        />
       ) : null}
       {kind === "number" ? (
         <label>

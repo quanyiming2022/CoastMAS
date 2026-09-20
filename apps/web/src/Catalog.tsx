@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
-import { request, resourceSchema, revisionSchema } from "./api";
+import {
+  request,
+  resourceSchema,
+  revisionSchema,
+  type ResourceSummary,
+} from "./api";
+import { modelContract } from "./contracts";
+import { modelTypes } from "./model-editor";
 import { useWorkspace } from "./workspace";
 import {
   Details,
@@ -24,21 +31,83 @@ export const catalogs = {
 export type CatalogKind = keyof typeof catalogs;
 export default function Catalog({ kind }: { kind: CatalogKind }) {
   const { projectId } = useWorkspace();
+  return (
+    <CatalogList
+      key={`${projectId}:${kind}`}
+      kind={kind}
+      projectId={projectId}
+    />
+  );
+}
+function CatalogList({
+  kind,
+  projectId,
+}: {
+  kind: CatalogKind;
+  projectId: string;
+}) {
   const [page, setPage] = useState(0);
   const [filter, setFilter] = useState("");
+  const [capability, setCapability] = useState("");
+  const [modelType, setModelType] = useState("");
+  const [enabled, setEnabled] = useState("");
+  const [search, setSearch] = useState({
+    q: "",
+    capability: "",
+    model_type: "",
+    enabled: "",
+  });
   const [title, endpoint] = catalogs[kind];
   const query = useQuery({
-    queryKey: [kind, projectId, page],
-    queryFn: ({ signal }) =>
-      request(
-        `/${endpoint}?project_id=${encodeURIComponent(projectId)}&limit=50&offset=${page * 50}`,
-        z.array(resourceSchema),
-        { signal },
-      ),
+    queryKey: [kind, projectId, page, search],
+    queryFn: async ({
+      signal,
+    }): Promise<
+      Pick<ResourceSummary, "id" | "name" | "version" | "enabled" | "summary">[]
+    > => {
+      const parameters = new URLSearchParams({
+        project_id: projectId,
+        limit: "50",
+        offset: String(page * 50),
+      });
+      if (kind === "models") {
+        for (const [key, value] of Object.entries(search))
+          if (value) parameters.set(key, value);
+        const found = await request(
+          `/models/search?${parameters}`,
+          z.array(
+            z.object({
+              id: z.string(),
+              name: z.string(),
+              version: z.number(),
+              enabled: z.boolean(),
+              spec: modelContract,
+            }),
+          ),
+          { signal },
+        );
+        return found.map(({ spec, ...item }) => ({
+          ...item,
+          summary: {
+            model_type: spec.model_type,
+            validation_status: spec.validation_status,
+            execution_status: spec.execution_status,
+          },
+        }));
+      }
+      return request(`/${endpoint}?${parameters}`, z.array(resourceSchema), {
+        signal,
+      });
+    },
   });
-  const items = query.data?.filter((item) =>
-    (item.name + " " + item.id).toLowerCase().includes(filter.toLowerCase()),
-  );
+  const items =
+    kind === "models"
+      ? query.data
+      : query.data?.filter((item) =>
+          (item.name + " " + item.id)
+            .toLowerCase()
+            .includes(filter.toLowerCase()),
+        );
   return (
     <>
       <PageTitle
@@ -46,18 +115,69 @@ export default function Catalog({ kind }: { kind: CatalogKind }) {
         description="项目中的版本化资源；打开详情查看数据来源与科学约束。"
       />
       <div className="toolbar">
+        {kind === "models" ? (
+          <Link to="/models/new">新增或导入模型</Link>
+        ) : null}
         {kind === "scenes" ? <Link to="/scenes/new">新建场景</Link> : null}
         {kind === "workflows" ? (
           <Link to="/workflows/new">新建工作流</Link>
         ) : null}
         <label>
-          筛选本页
+          {kind === "models" ? "搜索全部模型" : "筛选本页"}
           <input
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
             placeholder="名称或标识"
           />
         </label>
+        {kind === "models" ? (
+          <>
+            <Link to="/models/decompose">静态拆解模型</Link>
+            <label>
+              所需能力
+              <input
+                value={capability}
+                onChange={(event) => setCapability(event.target.value)}
+              />
+            </label>
+            <label>
+              筛选模型类型
+              <select
+                value={modelType}
+                onChange={(event) => setModelType(event.target.value)}
+              >
+                <option value="">全部类型</option>
+                {modelTypes.map((type) => (
+                  <option key={type}>{type}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              模型启用状态
+              <select
+                value={enabled}
+                onChange={(event) => setEnabled(event.target.value)}
+              >
+                <option value="">全部状态</option>
+                <option value="true">已启用</option>
+                <option value="false">已停用</option>
+              </select>
+            </label>
+            <button
+              onClick={() => {
+                setSearch({
+                  q: filter.trim(),
+                  capability: capability.trim(),
+                  model_type: modelType,
+                  enabled,
+                });
+                setPage(0);
+              }}
+            >
+              搜索模型
+            </button>
+          </>
+        ) : null}
         <button className="secondary" onClick={() => void query.refetch()}>
           刷新
         </button>
@@ -154,6 +274,9 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
         <Link to={`/scenes/${encodeURIComponent(id)}/workspace`}>
           打开场景工作台
         </Link>
+      ) : null}
+      {kind === "models" ? (
+        <Link to={`/models/${encodeURIComponent(id)}/edit`}>管理模型版本</Link>
       ) : null}
       <Link to={"/" + kind}>← 返回{title}</Link>
       {query.isPending ? <Loading /> : null}

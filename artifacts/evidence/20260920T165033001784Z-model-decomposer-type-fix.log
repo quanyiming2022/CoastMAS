@@ -1,0 +1,576 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/App.test.tsx (3 tests | 1 failed) 1742ms
+   × expires a session on protected 401 and never reuses the previous account project cache 1078ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx > expires a session on protected 401 and never reuses the previous account project cache
+TestingLibraryElementError: Unable to find a label with the text of: 邮箱
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"sidebar"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"brand"[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/dashboard"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"brand-mark"[39m
+          [36m>[39m
+            [0m≈[0m
+          [36m</span>[39m
+          [36m<span>[39m
+            [0mCoastMAS[0m
+            [36m<small>[39m
+              [0m海岸带科学协同平台[0m
+            [36m</small>[39m
+          [36m</span>[39m
+        [36m</a>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"nav-label"[39m
+        [36m>[39m
+          [0m项目工作空间[0m
+        [36m</p>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"主导航"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/dashboard"[39m
+          [36m>[39m
+            [0m项目概览[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33maria-current[39m=[32m"page"[39m
+            [33mclass[39m=[32m"active"[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/models"[39m
+          [36m>[39m
+            [0m模型中心[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/knowledge-graph"[39m
+          [36m>[39m
+            [0m知识图谱[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/planner"[39m
+          [36m>[39m
+            [0m智能规划[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/workflows"[39m
+          [36m>[39m
+            [0m工作流[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/scenes"[39m
+          [36m>[39m
+            [0m场景空间[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/entities"[39m
+          [36m>[39m
+            [0m地理实体[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/data"[39m
+          [36m>[39m
+            [0m数据目录[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/runs"[39m
+          [36m>[39m
+            [0m运行中心[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/results"[39m
+          [36m>[39m
+            [0m结果中心[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"sidebar-foot"[39m
+        [36m>[39m
+          [36m<small>[39m
+            [0mA@test.local[0m
+          [36m</small>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"secondary"[39m
+          [36m>[39m
+            [0m退出登录[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mclass[39m=[32m"main-content"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"project-bar"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"project-select"[39m
+          [36m>[39m
+            [0m当前项目[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33mid[39m=[32m"project-select"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"project-A"[39m
+            [36m>[39m
+              [0mPrivate project A[0m
+            [36m</option>[39m
+          [36m</select>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m独立版本 · 科学约束 · 可追溯结果[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"page-heading"[39m
+          [36m>[39m
+            [36m<div>[39m
+              [36m<h1>[39m
+                [0m模型中心[0m
+              [36m</h1>[39m
+              [36m<p>[39m
+                [0m项目中的版本化资源；打开详情查看数据来源与科学约束。[0m
+              [36m</p>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"toolbar"[39m
+          [36m>[39m
+            [36m<a[39m
+              [33mdata-discover[39m=[32m"true"[39m
+              [33mhref[39m=[32m"/models/new"[39m
+            [36m>[39m
+              [0m新增或导入模型[0m
+            [36m</a>[39m
+            [36m<label>[39m
+              [0m搜索全部模型[0m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"名称或标识"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</label>[39m
+            [36m<a[39m
+              [33mdata-discover[39m=[32m"true"[39m
+              [33mhref[39m=[32m"/models/decompose"[39m
+            [36m>[39m
+              [0m静态拆解模型[0m
+            [36m</a>[39m
+            [36m<label>[39m
+              [0m所需能力[0m
+              [36m<input[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</label>[39m
+            [36m<label>[39m
+              [0m筛选模型类型[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m>[39m
+                  [0m全部类型[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mSTATISTICAL[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mPROCESS[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mMACHINE_LEARNING[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mRASTER[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mGIS[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mHYBRID[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mEXTERNAL[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<label>[39m
+              [0m模型启用状态[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m>[39m
+                  [0m全部状态[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"true"[39m
+                [36m>[39m
+                  [0m已启用[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"false"[39m
+                [36m>[39m
+                  [0m已停用[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button>[39m
+              [0m搜索模型[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"secondary"[39m
+            [36m>[39m
+              [0m刷新[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"error"[39m
+            [33mrole[39m=[32m"alert"[39m
+          [36m>[39m
+            [36m<strong>[39m
+              [0m操作未完成[0m
+            [36m</strong>[39m
+            [36m<p>[39m
+              [0m无法连接服务，请检查连接后重试[0m
+            [36m</p>[39m
+            [36m<small>[39m
+              [0mNETWORK_ERROR[0m
+            [36m</small>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"sidebar"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"brand"[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/dashboard"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"brand-mark"[39m
+          [36m>[39m
+            [0m≈[0m
+          [36m</span>[39m
+          [36m<span>[39m
+            [0mCoastMAS[0m
+            [36m<small>[39m
+              [0m海岸带科学协同平台[0m
+            [36m</small>[39m
+          [36m</span>[39m
+        [36m</a>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"nav-label"[39m
+        [36m>[39m
+          [0m项目工作空间[0m
+        [36m</p>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"主导航"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/dashboard"[39m
+          [36m>[39m
+            [0m项目概览[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33maria-current[39m=[32m"page"[39m
+            [33mclass[39m=[32m"active"[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/models"[39m
+          [36m>[39m
+            [0m模型中心[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/knowledge-graph"[39m
+          [36m>[39m
+            [0m知识图谱[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/planner"[39m
+          [36m>[39m
+            [0m智能规划[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/workflows"[39m
+          [36m>[39m
+            [0m工作流[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/scenes"[39m
+          [36m>[39m
+            [0m场景空间[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/entities"[39m
+          [36m>[39m
+            [0m地理实体[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/data"[39m
+          [36m>[39m
+            [0m数据目录[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/runs"[39m
+          [36m>[39m
+            [0m运行中心[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m""[39m
+            [33mdata-discover[39m=[32m"true"[39m
+            [33mhref[39m=[32m"/results"[39m
+          [36m>[39m
+            [0m结果中心[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"sidebar-foot"[39m
+        [36m>[39m
+          [36m<small>[39m
+            [0mA@test.local[0m
+          [36m</small>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"secondary"[39m
+          [36m>[39m
+            [0m退出登录[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mclass[39m=[32m"main-content"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"project-bar"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"project-select"[39m
+          [36m>[39m
+            [0m当前项目[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33mid[39m=[32m"project-select"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"project-A"[39m
+            [36m>[39m
+              [0mPrivate project A[0m
+            [36m</option>[39m
+          [36m</select>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m独立版本 · 科学约束 · 可追溯结果[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"page-heading"[39m
+          [36m>[39m
+            [36m<div>[39m
+              [36m<h1>[39m
+                [0m模型中心[0m
+              [36m</h1>[39m
+              [36m<p>[39m
+                [0m项目中的版本化资源；打开详情查看数据来源与科学约束。[0m
+              [36m</p>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"toolbar"[39m
+          [36m>[39m
+            [36m<a[39m
+              [33mdata-discover[39m=[32m"true"[39m
+              [33mhref[39m=[32m"/models/new"[39m
+            [36m>[39m
+              [0m新增或导入模型[0m
+            [36m</a>[39m
+            [36m<label>[39m
+              [0m搜索全部模型[0m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"名称或标识"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</label>[39m
+            [36m<a[39m
+              [33mdata-discover[39m=[32m"true"[39m
+              [33mhref[39m=[32m"/models/decompose"[39m
+            [36m>[39m
+              [0m静态拆解模型[0m
+            [36m</a>[39m
+            [36m<label>[39m
+              [0m所需能力[0m
+              [36m<input[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</label>[39m
+            [36m<label>[39m
+              [0m筛选模型类型[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m>[39m
+                  [0m全部类型[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mSTATISTICAL[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mPROCESS[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mMACHINE_LEARNING[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mRASTER[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mGIS[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mHYBRID[0m
+                [36m</option>[39m
+                [36m<option>[39m
+                  [0mEXTERNAL[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<label>[39m
+              [0m模型启用状态[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m>[39m
+                  [0m全部状态[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"true"[39m
+                [36m>[39m
+                  [0m已启用[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"false"[39m
+                [36m>[39m
+                  [0m已停用[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button>[39m
+              [0m搜索模型[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"secondary"[39m
+            [36m>[39m
+              [0m刷新[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"error"[39m
+            [33mrole[39m=[32m"alert"[39m
+          [36m>[39m
+            [36m<strong>[39m
+              [0m操作未完成[0m
+            [36m</strong>[39m
+            [36m<p>[39m
+              [0m无法连接服务，请检查连接后重试[0m
+            [36m</p>[39m
+            [36m<small>[39m
+              [0mNETWORK_ERROR[0m
+            [36m</small>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/App.test.tsx:176:33
+    174|   await screen.findByText("37");
+    175|   fireEvent.click(screen.getByRole("link", { name: "模型中心" }));
+    176|   fireEvent.change(await screen.findByLabelText("邮箱"), {
+       |                                 ^
+    177|     target: { value: "B@test.local" },
+    178|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 16 passed (17)
+      Tests  1 failed | 33 passed (34)
+   Start at  00:50:39
+   Duration  2.86s (environment 58%, tests 17%, import 11%, setup 7%, transform 6%)
+
+Environment  jsdom was created 17 times · 11.40s total, 58% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

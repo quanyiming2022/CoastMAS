@@ -153,7 +153,7 @@ it("expires a session on protected 401 and never reuses the previous account pro
             provider_configured: false,
           }),
         );
-      if (input.includes("/models?")) {
+      if (input.includes("/models/search?")) {
         if (identity === "A") {
           identity = null;
           return new Response(

@@ -1,0 +1,49 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/model-editor.test.ts (2 tests | 1 failed) 25ms
+   × editing fixes the source identity and version, preserves zero and resets execution approval 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/model-editor.test.ts > editing fixes the source identity and version, preserves zero and resets execution approval
+ZodError: [
+  {
+    "code": "custom",
+    "path": [],
+    "message": "Invalid ModelSpec contract"
+  }
+]
+ ❯ prepareModelRevision src/model-editor.ts:41:24
+     39|   now: string,
+     40| ): ModelSpec {
+     41|   return modelContract.parse({
+       |                        ^
+     42|     ...draft,
+     43|     id: base?.id ?? draft.id,
+ ❯ src/model-editor.test.ts:35:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 14 passed (15)
+      Tests  1 failed | 29 passed (30)
+   Start at  00:30:51
+   Duration  2.37s (environment 62%, tests 11%, setup 10%, import 10%, transform 7%)
+
+Environment  jsdom was created 15 times · 10.88s total, 62% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

@@ -44,13 +44,35 @@ export type Unit = string;
 export type Variables = VariableSpec[];
 export type Version1 = number;
 export type VerticalDatum = string | null;
+/**
+ * @maxItems 1000
+ */
+export type Argv = string[];
+export type Atomic = boolean;
+export type Description1 = string;
+export type Id2 = string;
+export type Inputs = string[];
+export type Outputs = string[];
+export type Signature = string | null;
+export type Stage = 'preprocess' | 'compute' | 'postprocess' | 'validate';
+/**
+ * @maxItems 500
+ */
+export type Components = ModelComponent[];
+/**
+ * @maxItems 5000
+ */
+export type Dependencies = [string, string, ...unknown[]][];
+export type Kind = 'python' | 'pipeline' | 'cli' | 'declared' | 'black_box';
+export type Name2 = string;
+export type Source1 = string | null;
 export type CancelRequested = boolean;
 export type CurrentNode = string | null;
 export type Error = {
   [k: string]: JsonValue;
 } | null;
 export type FinishedAt = string | null;
-export type Id2 = string;
+export type Id3 = string;
 export type Logs = string[];
 export type Progress = number;
 export type SceneId = string;
@@ -65,32 +87,48 @@ export type Geometry =
  * @minItems 2
  * @maxItems 2
  */
-export type Coordinates = [unknown, unknown];
+export type Coordinates = [number, number, ...unknown[]];
 export type Type1 = 'Point';
 /**
  * @minItems 1
  */
-export type Coordinates1 = [[unknown, unknown], ...[unknown, unknown][]];
+export type Coordinates1 = [[number, number, ...unknown[]], ...[number, number, ...unknown[]][]];
 export type Type2 = 'MultiPoint';
 /**
  * @minItems 2
  */
-export type Coordinates2 = [[unknown, unknown], [unknown, unknown], ...[unknown, unknown][]];
+export type Coordinates2 = [
+  [number, number, ...unknown[]],
+  [number, number, ...unknown[]],
+  ...[number, number, ...unknown[]][]
+];
 export type Type3 = 'LineString';
 /**
  * @minItems 1
  */
 export type Coordinates3 = [
-  [[unknown, unknown], [unknown, unknown], ...[unknown, unknown][]],
-  ...[[unknown, unknown], [unknown, unknown], ...[unknown, unknown][]][]
+  [[number, number, ...unknown[]], [number, number, ...unknown[]], ...[number, number, ...unknown[]][]],
+  ...[[number, number, ...unknown[]], [number, number, ...unknown[]], ...[number, number, ...unknown[]][]][]
 ];
 export type Type4 = 'MultiLineString';
 /**
  * @minItems 1
  */
 export type Coordinates4 = [
-  [[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]],
-  ...[[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]][]
+  [
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    ...[number, number, ...unknown[]][]
+  ],
+  ...[
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    [number, number, ...unknown[]],
+    ...[number, number, ...unknown[]][]
+  ][]
 ];
 export type Type5 = 'Polygon';
 /**
@@ -98,18 +136,42 @@ export type Type5 = 'Polygon';
  */
 export type Coordinates5 = [
   [
-    [[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]],
-    ...[[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]][]
+    [
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      ...[number, number, ...unknown[]][]
+    ],
+    ...[
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      ...[number, number, ...unknown[]][]
+    ][]
   ],
   ...[
-    [[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]],
-    ...[[unknown, unknown], [unknown, unknown], [unknown, unknown], [unknown, unknown], ...[unknown, unknown][]][]
+    [
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      ...[number, number, ...unknown[]][]
+    ],
+    ...[
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      [number, number, ...unknown[]],
+      ...[number, number, ...unknown[]][]
+    ][]
   ][]
 ];
 export type Type6 = 'MultiPolygon';
-export type Id3 = string;
+export type Id4 = string;
 export type ManagementUnitId = string | null;
-export type Name2 = string;
+export type Name3 = string;
 export type Type7 =
   | 'coast_segment'
   | 'wetland'
@@ -123,8 +185,8 @@ export type ValidFrom = string;
 export type ValidTo = string | null;
 export type Version2 = number;
 export type Evidence = 'declaration' | 'workflow_declaration' | 'contract_candidate' | 'contract_conflict';
-export type Id4 = string;
-export type Source1 = string;
+export type Id5 = string;
+export type Source2 = string;
 export type Target = string;
 export type Type8 =
   | 'REQUIRES'
@@ -140,7 +202,7 @@ export type Type8 =
  * @maxItems 50000
  */
 export type Edges = GraphEdge[];
-export type Id5 = string;
+export type Id6 = string;
 export type Label = string;
 export type Type9 =
   | 'Objective'
@@ -163,28 +225,35 @@ export type OriginalText = string;
 export type SeaLevelIncrementM = number | null;
 export type Template = 'coastal_impact' | 'sustainability' | 'temporal_change';
 export type WeightMethod = 'equal' | 'manual' | 'entropy';
+export type Components1 = ModelComponent[];
+export type Dependencies1 = [string, string, ...unknown[]][];
+export type Executable = false;
+export type Mode = 'WHITE_BOX' | 'BLACK_BOX';
+export type ModelName = string;
+export type ReviewRequired = true;
+export type Warnings = string[];
 export type Capabilities = string[];
-export type Description1 = string;
+export type Description2 = string;
 export type Field = string;
 export type Operator = 'eq' | 'ne' | 'ge' | 'le' | 'in' | 'required';
 export type Constraints = ConstraintSpec[];
 export type CreatedAt = string;
-export type Description2 = string;
+export type Description3 = string;
 export type DisplayName = string;
 export type Enabled = boolean;
 export type ExecutionStatus = 'EXECUTABLE' | 'NOT_EXECUTABLE';
-export type Id6 = string;
-export type Inputs = VariableSpec[];
+export type Id7 = string;
+export type Inputs1 = VariableSpec[];
 export type License1 = string;
 export type ModelType = 'STATISTICAL' | 'PROCESS' | 'MACHINE_LEARNING' | 'RASTER' | 'GIS' | 'HYBRID' | 'EXTERNAL';
-export type Name3 = string;
-export type Outputs = VariableSpec[];
+export type Name4 = string;
+export type Outputs1 = VariableSpec[];
 export type Owner = string;
 export type Default = number | null;
-export type Description3 = string;
+export type Description4 = string;
 export type Maximum = number | null;
 export type Minimum = number | null;
-export type Name4 = string;
+export type Name5 = string;
 export type Required1 = boolean;
 export type Unit1 = string;
 export type Parameters = ParameterSpec[];
@@ -207,15 +276,15 @@ export type TargetVariable = string;
 export type Edges1 = WorkflowEdge[];
 export type MaxRetries = number;
 export type TimeoutSeconds = number;
-export type Id7 = string;
+export type Id8 = string;
 export type InputBindings = BindingPlan[];
-export type Name5 = string;
+export type Name6 = string;
 /**
  * @minItems 1
  */
 export type Nodes1 = [WorkflowNode, ...WorkflowNode[]];
-export type Id8 = string;
-export type Kind = 'data' | 'transform' | 'model' | 'validation' | 'output';
+export type Id9 = string;
+export type Kind1 = 'data' | 'transform' | 'model' | 'validation' | 'output';
 export type ModelId = string;
 export type ModelVersion = number;
 export type OutputDefinition = BindingTarget[];
@@ -254,8 +323,8 @@ export type InputBindings1 = ProposedBinding[];
  * @maxItems 32
  */
 export type Nodes3 = [ProposedNode, ...ProposedNode[]];
-export type Id9 = string;
-export type Name6 = string;
+export type Id10 = string;
+export type Name7 = string;
 export type Value1 = number;
 export type Parameters2 = ProposedParameter[];
 /**
@@ -280,7 +349,7 @@ export type GeographicEntityVersion = number;
 export type ManagementUnitId1 = string | null;
 export type ResultObjectId = string;
 export type EntityBinding = EntityBinding1[];
-export type Id10 = string;
+export type Id11 = string;
 export type JobId = string;
 export type Provenance = string;
 export type QualityStatus = 'RAW' | 'VALIDATED' | 'REVIEWED' | 'PUBLISHED' | 'REJECTED';
@@ -292,7 +361,7 @@ export type Start = string;
 export type Unit3 = string;
 export type BindingStatus = 'BOUND' | 'PARTIAL' | 'UNBOUND' | 'NOT_APPLICABLE';
 export type EntityBinding2 = EntityBinding1[];
-export type Id11 = string;
+export type Id12 = string;
 export type ManagementUnitId2 = string | null;
 export type NodeId3 = string;
 export type SourcePointer = string;
@@ -316,9 +385,9 @@ export type DataReferences = VersionReference[];
  */
 export type EntityReferences = VersionReference[];
 export type EntityTypes = string[];
-export type Id12 = string;
+export type Id13 = string;
 export type ManagementGoal2 = string;
-export type Name7 = string;
+export type Name8 = string;
 export type RequiredOutputs = string[];
 export type Version5 = number;
 export type SoftwareVersion = string;
@@ -327,7 +396,7 @@ export type FootprintWgs84 = {
   [k: string]: JsonValue;
 } | null;
 export type Method = string;
-export type Name8 = string;
+export type Name9 = string;
 export type SpatialFraction = number | null;
 export type Status2 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
 export type TemporalCoverage = boolean | null;
@@ -339,10 +408,12 @@ export type Valid = boolean;
 export interface CoastMASContracts {
   BindingPlan: BindingPlan;
   DataAssetSpec: DataAssetSpec;
+  DecompositionRequest: DecompositionRequest;
   ExecutionJob: ExecutionJob;
   GeographicEntity: GeographicEntity;
   GraphSnapshot: GraphSnapshot;
   ManagementGoal: ManagementGoal;
+  ModelDecomposition: ModelDecomposition;
   ModelSpec: ModelSpec;
   PlanningArtifact: PlanningArtifact;
   ProviderPlanningArtifact: ProviderPlanningArtifact;
@@ -415,12 +486,29 @@ export interface VariableSpec {
   temporal_support: TemporalSupport;
   unit: Unit;
 }
+export interface DecompositionRequest {
+  argv?: Argv;
+  components?: Components;
+  dependencies?: Dependencies;
+  kind: Kind;
+  name: Name2;
+  source?: Source1;
+}
+export interface ModelComponent {
+  atomic?: Atomic;
+  description?: Description1;
+  id: Id2;
+  inputs?: Inputs;
+  outputs?: Outputs;
+  signature?: Signature;
+  stage: Stage;
+}
 export interface ExecutionJob {
   cancel_requested?: CancelRequested;
   current_node: CurrentNode;
   error: Error;
   finished_at: FinishedAt;
-  id: Id2;
+  id: Id3;
   logs: Logs;
   progress: Progress;
   scene_id: SceneId;
@@ -432,9 +520,9 @@ export interface ExecutionJob {
 export interface GeographicEntity {
   crs: Crs1;
   geometry: Geometry;
-  id: Id3;
+  id: Id4;
   management_unit_id?: ManagementUnitId;
-  name: Name2;
+  name: Name3;
   properties?: Properties;
   type: Type7;
   valid_from: ValidFrom;
@@ -474,9 +562,9 @@ export interface GraphSnapshot {
 }
 export interface GraphEdge {
   evidence: Evidence;
-  id: Id4;
+  id: Id5;
   properties?: Properties1;
-  source: Source1;
+  source: Source2;
   target: Target;
   type: Type8;
 }
@@ -484,7 +572,7 @@ export interface Properties1 {
   [k: string]: JsonValue;
 }
 export interface GraphNode {
-  id: Id5;
+  id: Id6;
   label: Label;
   properties?: Properties2;
   resource?: VersionReference | null;
@@ -500,20 +588,33 @@ export interface ManagementGoal {
   template: Template;
   weight_method?: WeightMethod;
 }
+export interface ModelDecomposition {
+  cli_arguments?: CliArguments;
+  components: Components1;
+  dependencies: Dependencies1;
+  executable?: Executable;
+  mode: Mode;
+  model_name: ModelName;
+  review_required?: ReviewRequired;
+  warnings?: Warnings;
+}
+export interface CliArguments {
+  [k: string]: string | boolean;
+}
 export interface ModelSpec {
   capabilities: Capabilities;
   constraints: Constraints;
   created_at: CreatedAt;
-  description: Description2;
+  description: Description3;
   display_name: DisplayName;
   enabled?: Enabled;
   execution_status?: ExecutionStatus;
-  id: Id6;
-  inputs: Inputs;
+  id: Id7;
+  inputs: Inputs1;
   license: License1;
   model_type: ModelType;
-  name: Name3;
-  outputs: Outputs;
+  name: Name4;
+  outputs: Outputs1;
   owner: Owner;
   parameters: Parameters;
   references: References;
@@ -530,17 +631,17 @@ export interface ModelSpec {
   version: Version3;
 }
 export interface ConstraintSpec {
-  description: Description1;
+  description: Description2;
   field: Field;
   operator: Operator;
   value: JsonValue;
 }
 export interface ParameterSpec {
   default?: Default;
-  description?: Description3;
+  description?: Description4;
   maximum?: Maximum;
   minimum?: Minimum;
-  name: Name4;
+  name: Name5;
   required?: Required1;
   unit: Unit1;
 }
@@ -570,9 +671,9 @@ export interface WorkflowSpec {
   constraints: Constraints1;
   edges: Edges1;
   execution_policy: ExecutionPolicy;
-  id: Id7;
+  id: Id8;
   input_bindings: InputBindings;
-  name: Name5;
+  name: Name6;
   nodes: Nodes1;
   output_definition: OutputDefinition;
   parameter_bindings: ParameterBindings;
@@ -591,8 +692,8 @@ export interface ExecutionPolicy {
   timeout_seconds: TimeoutSeconds;
 }
 export interface WorkflowNode {
-  id: Id8;
-  kind?: Kind;
+  id: Id9;
+  kind?: Kind1;
   model_id: ModelId;
   model_version: ModelVersion;
   parameters?: Parameters1;
@@ -649,19 +750,19 @@ export interface ProposedBinding {
   target: BindingTarget;
 }
 export interface ProposedNode {
-  id: Id9;
+  id: Id10;
   model: VersionReference;
   parameters: Parameters2;
 }
 export interface ProposedParameter {
-  name: Name6;
+  name: Name7;
   value: Value1;
 }
 export interface ResultManifest {
   checksum: Checksum1;
   created_at: CreatedAt1;
   entity_binding: EntityBinding;
-  id: Id10;
+  id: Id11;
   job_id: JobId;
   provenance: Provenance;
   quality_status: QualityStatus;
@@ -689,7 +790,7 @@ export interface ResultView {
   unbound_objects: UnboundObjects;
 }
 export interface ResultObject {
-  id: Id11;
+  id: Id12;
   management_unit_id: ManagementUnitId2;
   model: VersionReference;
   node_id: NodeId3;
@@ -727,9 +828,9 @@ export interface SceneSpec {
   data_references?: DataReferences;
   entity_references?: EntityReferences;
   entity_types: EntityTypes;
-  id: Id12;
+  id: Id13;
   management_goal: ManagementGoal2;
-  name: Name7;
+  name: Name8;
   quality_requirements: QualityRequirements;
   required_outputs: RequiredOutputs;
   scenario_conditions: ScenarioConditions;
@@ -759,7 +860,7 @@ export interface SceneInspection {
 export interface SceneCoverage {
   footprint_wgs84?: FootprintWgs84;
   method: Method;
-  name: Name8;
+  name: Name9;
   reference: VersionReference;
   spatial_fraction: SpatialFraction;
   status: Status2;

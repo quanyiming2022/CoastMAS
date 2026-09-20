@@ -1,0 +1,9 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+src/ModelEditor.tsx(96,33): error TS2339: Property 'id' does not exist on type '{ user_id: string; email: string; is_admin: boolean; }'.
+src/ModelEditor.tsx(97,17): error TS2339: Property 'id' does not exist on type '{ user_id: string; email: string; is_admin: boolean; }'.
+src/ModelEditor.tsx(265,21): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/ModelEditor.tsx(417,22): error TS2488: Type 'unknown' must have a '[Symbol.iterator]()' method that returns an iterator.

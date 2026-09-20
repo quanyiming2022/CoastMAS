@@ -1,0 +1,14 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test model-editor.spec.ts model-decomposer.spec.ts
+
+
+Running 2 tests using 1 worker
+
+(node:37739) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+[2/2] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+  2 passed (9.7s)

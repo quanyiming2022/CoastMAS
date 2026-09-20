@@ -1,0 +1,17 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 test
+> vitest run src/Catalog.search.test.tsx src/model-editor.test.ts
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  00:41:24
+   Duration  1.09s (environment 53%, import 26%, transform 8%, setup 7%, tests 6%, worker 1%)
+

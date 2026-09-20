@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { workflowContract } from "./contracts";
+import { contract, workflowContract } from "./contracts";
 const workflow = {
   id: "workflow-1",
   name: "Test workflow",
@@ -28,4 +28,19 @@ it("validates generated contracts including nested numeric bounds and extra fiel
   expect(workflowContract.safeParse({ ...workflow, nodes: [] }).success).toBe(
     false,
   );
+});
+
+it("validates decomposition dependency pairs without loosening the generated contract", () => {
+  const validate = contract("DecompositionRequest");
+  const request = {
+    name: "test",
+    kind: "declared",
+    dependencies: [["a", "b"]],
+  };
+  expect(validate.safeParse(request).success).toBe(true);
+  for (const dependencies of [[["a"]], [["a", "b", "c"]], [["a", 0]]]) {
+    expect(validate.safeParse({ ...request, dependencies }).success).toBe(
+      false,
+    );
+  }
 });
