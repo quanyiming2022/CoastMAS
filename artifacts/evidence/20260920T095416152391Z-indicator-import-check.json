@@ -1,0 +1,31 @@
+{
+  "name": "indicator-import-check",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_indicator_frames.py",
+    "-q"
+  ],
+  "started_at": "2026-09-20T09:54:16.152391+00:00",
+  "finished_at": "2026-09-20T09:54:16.540186+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "987b383ea9d4724d639d0c40f4d616e8cf8dec4c783628e87941e7baf1812330",
+  "git_commit": "1313227cb6e0d1713590e4fdfdd1cd8218311fd8",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260920T095416152391Z-indicator-import-check.log"
+}

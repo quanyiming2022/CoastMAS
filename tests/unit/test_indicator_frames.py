@@ -1,5 +1,8 @@
 import numpy as np
 import pytest
+from pydantic import ValidationError
+
+from coastmas.core.errors import CoastMASError
 from coastmas.domain.indicator_frames import (
     IndicatorFrame,
     aggregate_frame,
@@ -7,9 +10,6 @@ from coastmas.domain.indicator_frames import (
     temporal_change,
     weight_frame,
 )
-from pydantic import ValidationError
-
-from coastmas.core.errors import CoastMASError
 
 
 def frame(periods=False):
