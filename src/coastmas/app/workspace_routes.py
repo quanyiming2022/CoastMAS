@@ -28,7 +28,7 @@ from coastmas.persistence.schema import (
 )
 
 router = APIRouter(prefix="/api/v1", tags=["workspace"])
-Role = Literal["ADMIN", "RESEARCHER", "MANAGER", "VIEWER"]
+Role = Literal["ADMIN", "RESEARCHER", "MANAGER", "VIEWER", "PUBLIC"]
 
 
 def _user(session: Session, identifier: str, *, admin: bool = False) -> User:

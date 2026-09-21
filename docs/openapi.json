@@ -158,6 +158,64 @@
         "title": "Body_upload_api_v1_data_assets_upload_post",
         "type": "object"
       },
+      "CommentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Content",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "proposal_version": {
+            "minimum": 1.0,
+            "title": "Proposal Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "proposal_version",
+          "content",
+          "idempotency_key"
+        ],
+        "title": "CommentRequest",
+        "type": "object"
+      },
+      "CompareRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "proposals": {
+            "items": {
+              "$ref": "#/components/schemas/VersionReference"
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Proposals",
+            "type": "array"
+          }
+        },
+        "required": [
+          "project_id",
+          "proposals"
+        ],
+        "title": "CompareRequest",
+        "type": "object"
+      },
       "ConstraintSpec": {
         "additionalProperties": false,
         "properties": {
@@ -587,6 +645,21 @@
           "max_retries"
         ],
         "title": "ExecutionPolicy",
+        "type": "object"
+      },
+      "ExpectedVersion": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "expected_version"
+        ],
+        "title": "ExpectedVersion",
         "type": "object"
       },
       "Extent": {
@@ -1067,7 +1140,8 @@
               "ADMIN",
               "RESEARCHER",
               "MANAGER",
-              "VIEWER"
+              "VIEWER",
+              "PUBLIC"
             ],
             "title": "Role",
             "type": "string"
@@ -1273,6 +1347,37 @@
         "title": "NewUser",
         "type": "object"
       },
+      "ObjectiveWeight": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "objective_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Objective Id",
+            "type": "string"
+          },
+          "weight": {
+            "minimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "objective_id",
+          "name",
+          "weight"
+        ],
+        "title": "ObjectiveWeight",
+        "type": "object"
+      },
       "ParameterBinding": {
         "additionalProperties": false,
         "properties": {
@@ -1377,6 +1482,187 @@
         "title": "PrepareIndicatorsRequest",
         "type": "object"
       },
+      "ProposalDraft": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "$ref": "#/components/schemas/QuantitativeConstraint"
+            },
+            "maxItems": 64,
+            "title": "Constraints",
+            "type": "array"
+          },
+          "evidence_results": {
+            "default": [],
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            "maxItems": 32,
+            "title": "Evidence Results",
+            "type": "array"
+          },
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "objectives": {
+            "items": {
+              "$ref": "#/components/schemas/ObjectiveWeight"
+            },
+            "maxItems": 32,
+            "minItems": 1,
+            "title": "Objectives",
+            "type": "array"
+          },
+          "rationale": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Rationale",
+            "type": "string"
+          },
+          "scene": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "scene",
+          "rationale",
+          "objectives",
+          "constraints"
+        ],
+        "title": "ProposalDraft",
+        "type": "object"
+      },
+      "PublicationRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          },
+          "published": {
+            "title": "Published",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "expected_version",
+          "published"
+        ],
+        "title": "PublicationRequest",
+        "type": "object"
+      },
+      "QuantitativeConstraint": {
+        "additionalProperties": false,
+        "properties": {
+          "constraint_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Constraint Id",
+            "type": "string"
+          },
+          "maximum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maximum"
+          },
+          "metric": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Metric",
+            "type": "string"
+          },
+          "minimum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Minimum"
+          },
+          "unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "constraint_id",
+          "metric",
+          "unit"
+        ],
+        "title": "QuantitativeConstraint",
+        "type": "object"
+      },
+      "ReviewRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "conclusion": {
+            "enum": [
+              "REVIEWED",
+              "RETURNED"
+            ],
+            "title": "Conclusion",
+            "type": "string"
+          },
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          },
+          "rationale": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Rationale",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_version",
+          "conclusion",
+          "rationale"
+        ],
+        "title": "ReviewRequest",
+        "type": "object"
+      },
       "RunAssessmentRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1464,6 +1750,39 @@
           "planning_trace_id"
         ],
         "title": "SaveAssessmentRequest",
+        "type": "object"
+      },
+      "SaveProposalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "anyOf": [
+              {
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Version"
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/ProposalDraft"
+          }
+        },
+        "required": [
+          "project_id",
+          "spec"
+        ],
+        "title": "SaveProposalRequest",
         "type": "object"
       },
       "SceneCoverage": {
@@ -2964,6 +3283,180 @@
           }
         },
         "summary": "Current User"
+      }
+    },
+    "/api/v1/collaboration/access": {
+      "get": {
+        "operationId": "access_api_v1_collaboration_access_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Access Api V1 Collaboration Access Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Access",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/collaboration/scenes": {
+      "get": {
+        "operationId": "scenes_api_v1_collaboration_scenes_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Scenes Api V1 Collaboration Scenes Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Scenes",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/collaboration/scenes/{identifier}/publication": {
+      "put": {
+        "operationId": "publish_scene_api_v1_collaboration_scenes__identifier__publication_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Publish Scene Api V1 Collaboration Scenes  Identifier  Publication Put",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Publish Scene",
+        "tags": [
+          "collaboration"
+        ]
       }
     },
     "/api/v1/dashboard": {
@@ -6583,6 +7076,582 @@
         "summary": "Set Member",
         "tags": [
           "workspace"
+        ]
+      }
+    },
+    "/api/v1/proposals": {
+      "get": {
+        "operationId": "list_proposals_api_v1_proposals_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response List Proposals Api V1 Proposals Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Proposals",
+        "tags": [
+          "collaboration"
+        ]
+      },
+      "post": {
+        "operationId": "save_api_v1_proposals_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveProposalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Save Api V1 Proposals Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/compare": {
+      "post": {
+        "operationId": "compare_api_v1_proposals_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Compare Api V1 Proposals Compare Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Compare",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}": {
+      "get": {
+        "operationId": "get_api_v1_proposals__identifier__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Api V1 Proposals  Identifier  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}/comments": {
+      "get": {
+        "operationId": "comments_api_v1_proposals__identifier__comments_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "title": "Version",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Comments Api V1 Proposals  Identifier  Comments Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Comments",
+        "tags": [
+          "collaboration"
+        ]
+      },
+      "post": {
+        "operationId": "comment_api_v1_proposals__identifier__comments_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Comment Api V1 Proposals  Identifier  Comments Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Comment",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}/publication": {
+      "put": {
+        "operationId": "publish_proposal_api_v1_proposals__identifier__publication_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Publish Proposal Api V1 Proposals  Identifier  Publication Put",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Publish Proposal",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}/review": {
+      "post": {
+        "operationId": "review_api_v1_proposals__identifier__review_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Review Api V1 Proposals  Identifier  Review Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Review",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}/submit": {
+      "post": {
+        "operationId": "submit_api_v1_proposals__identifier__submit_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpectedVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Submit Api V1 Proposals  Identifier  Submit Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Submit",
+        "tags": [
+          "collaboration"
+        ]
+      }
+    },
+    "/api/v1/proposals/{identifier}/versions": {
+      "get": {
+        "operationId": "versions_api_v1_proposals__identifier__versions_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Versions Api V1 Proposals  Identifier  Versions Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Versions",
+        "tags": [
+          "collaboration"
         ]
       }
     },

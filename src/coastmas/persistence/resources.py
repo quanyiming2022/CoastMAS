@@ -9,6 +9,7 @@ from pydantic import JsonValue
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from coastmas.core.collaboration import ProposalComment, ProposalSpec
 from coastmas.core.contracts import SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.geography import GeographicEntity
@@ -34,6 +35,7 @@ KINDS = {
     "indicator_framework",
     "assessment",
     "proposal",
+    "proposal_comment",
     "experiment",
     "graph_node",
     "graph_edge",
@@ -67,6 +69,7 @@ def require_permission(
         "read": {"ADMIN", "RESEARCHER", "MANAGER", "VIEWER"},
         "write": {"ADMIN", "RESEARCHER", "MANAGER"},
         "publish": {"ADMIN", "MANAGER"},
+        "participate": {"ADMIN", "RESEARCHER", "MANAGER", "PUBLIC"},
         "admin": {"ADMIN"},
     }
     if member is not None:
@@ -102,6 +105,12 @@ def workflow_references(
         references.update(
             (reference.id, reference.version, "data") for reference in scene.data_references
         )
+    elif kind == "proposal_comment":
+        comment = ProposalComment.model_validate(spec)
+        references = {(comment.proposal.id, comment.proposal.version, "proposal")}
+    elif kind == "proposal":
+        proposal = ProposalSpec.model_validate(spec)
+        references = {(proposal.scene.id, proposal.scene.version, "scene")}
     elif kind == "assessment":
         assessment = AssessmentSpec.model_validate(spec)
         references = {
@@ -162,7 +171,12 @@ def create_resource(
     name: str,
     spec: dict[str, JsonValue],
 ) -> Revision:
-    require_permission(session, user_id, project_id, "write")
+    require_permission(
+        session,
+        user_id,
+        project_id,
+        "participate" if kind in {"proposal", "proposal_comment"} else "write",
+    )
     if kind not in KINDS or spec.get("id") != identifier or spec.get("version") != 1:
         raise CoastMASError(
             "VALIDATION_ERROR", "invalid resource identity, kind or initial version"
@@ -216,7 +230,22 @@ def read_resource(
     )
     if resource is None:
         raise CoastMASError("AUTHORIZATION_ERROR", "permission denied or resource unavailable")
-    require_permission(session, user_id, resource.project_id, "read", resource.published)
+    if resource.kind == "proposal_comment":
+        comment_revision = session.get(ResourceVersion, (identifier, 1))
+        if comment_revision is None:
+            raise CoastMASError("NOT_FOUND", "comment unavailable")
+        comment = ProposalComment.model_validate(comment_revision.spec)
+        read_resource(
+            session,
+            user_id=user_id,
+            identifier=comment.proposal.id,
+            version=comment.proposal.version,
+        )
+    elif resource.kind == "proposal" and resource.owner_id == user_id:
+        # Own proposals remain readable after a reassignment to VIEWER.
+        require_permission(session, user_id, resource.project_id, "read", published=True)
+    else:
+        require_permission(session, user_id, resource.project_id, "read", resource.published)
     revision = session.get(ResourceVersion, (identifier, version or resource.current_version))
     if revision is None:
         raise CoastMASError("NOT_FOUND", "resource version unavailable")
@@ -243,7 +272,17 @@ def update_resource(
     )
     if resource is None:
         raise CoastMASError("AUTHORIZATION_ERROR", "permission denied or resource unavailable")
-    require_permission(session, user_id, resource.project_id, "write")
+    if resource.kind == "proposal_comment":
+        raise CoastMASError("VALIDATION_ERROR", "comments are immutable")
+    if resource.kind == "proposal":
+        require_permission(
+            session,
+            user_id,
+            resource.project_id,
+            "participate" if resource.owner_id == user_id else "publish",
+        )
+    else:
+        require_permission(session, user_id, resource.project_id, "write")
     if resource.archived:
         raise CoastMASError("RESOURCE_ARCHIVED", "archived resource cannot be edited")
     if resource.current_version != expected_version:
@@ -268,6 +307,9 @@ def update_resource(
         )
     )
     resource.current_version = next_version
+    if resource.kind in {"proposal", "scene"}:
+        # New scientific conditions require an explicit publication decision.
+        resource.published = False
     name = spec.get("name")
     if isinstance(name, str):
         resource.name = name

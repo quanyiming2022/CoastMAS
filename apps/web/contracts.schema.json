@@ -179,6 +179,192 @@
       "title": "BindingTarget",
       "type": "object"
     },
+    "ConstraintComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "conflicts": {
+          "items": {
+            "$ref": "#/$defs/ConstraintConflict"
+          },
+          "title": "Conflicts",
+          "type": "array"
+        },
+        "intersections": {
+          "items": {
+            "$ref": "#/$defs/ConstraintIntersection"
+          },
+          "title": "Intersections",
+          "type": "array"
+        },
+        "policy_decision": {
+          "const": false,
+          "default": false,
+          "title": "Policy Decision",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "intersections",
+        "conflicts"
+      ],
+      "title": "ConstraintComparison",
+      "type": "object"
+    },
+    "ConstraintConflict": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "EMPTY_INTERVAL",
+            "UNIT_MISMATCH",
+            "UNIT_CONVERSION_FAILED"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Maximum"
+        },
+        "metric": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Metric",
+          "type": "string"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Minimum"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ConstraintSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric",
+        "unit",
+        "minimum",
+        "maximum",
+        "sources",
+        "code"
+      ],
+      "title": "ConstraintConflict",
+      "type": "object"
+    },
+    "ConstraintIntersection": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Maximum"
+        },
+        "metric": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Metric",
+          "type": "string"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Minimum"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/ConstraintSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric",
+        "unit",
+        "minimum",
+        "maximum",
+        "sources"
+      ],
+      "title": "ConstraintIntersection",
+      "type": "object"
+    },
+    "ConstraintSource": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Constraint Id",
+          "type": "string"
+        },
+        "proposal_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Proposal Id",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "proposal_id",
+        "version",
+        "constraint_id"
+      ],
+      "title": "ConstraintSource",
+      "type": "object"
+    },
     "ConstraintSpec": {
       "additionalProperties": false,
       "properties": {
@@ -1257,6 +1443,46 @@
       "title": "GraphSnapshot",
       "type": "object"
     },
+    "HumanReview": {
+      "additionalProperties": false,
+      "properties": {
+        "conclusion": {
+          "enum": [
+            "REVIEWED",
+            "RETURNED"
+          ],
+          "title": "Conclusion",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "format": "date-time",
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Reviewer Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer_id",
+        "reviewed_at",
+        "conclusion",
+        "rationale"
+      ],
+      "title": "HumanReview",
+      "type": "object"
+    },
     "IndicatorDefinition": {
       "additionalProperties": false,
       "properties": {
@@ -2070,6 +2296,37 @@
       "title": "MultiPolygonGeometry",
       "type": "object"
     },
+    "ObjectiveWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "objective_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "weight": {
+          "minimum": 0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "objective_id",
+        "name",
+        "weight"
+      ],
+      "title": "ObjectiveWeight",
+      "type": "object"
+    },
     "ParameterBinding": {
       "additionalProperties": false,
       "properties": {
@@ -2336,6 +2593,263 @@
       "title": "PrepareIndicatorsRequest",
       "type": "object"
     },
+    "ProposalComment": {
+      "additionalProperties": false,
+      "properties": {
+        "author_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Author Id",
+          "type": "string"
+        },
+        "author_role": {
+          "enum": [
+            "ADMIN",
+            "RESEARCHER",
+            "MANAGER",
+            "PUBLIC"
+          ],
+          "title": "Author Role",
+          "type": "string"
+        },
+        "content": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Content",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "proposal",
+        "author_id",
+        "author_role",
+        "created_at",
+        "content"
+      ],
+      "title": "ProposalComment",
+      "type": "object"
+    },
+    "ProposalDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/QuantitativeConstraint"
+          },
+          "maxItems": 64,
+          "title": "Constraints",
+          "type": "array"
+        },
+        "evidence_results": {
+          "default": [],
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Evidence Results",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "objectives": {
+          "items": {
+            "$ref": "#/$defs/ObjectiveWeight"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Objectives",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "scene",
+        "rationale",
+        "objectives",
+        "constraints"
+      ],
+      "title": "ProposalDraft",
+      "type": "object"
+    },
+    "ProposalSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "author_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Author Id",
+          "type": "string"
+        },
+        "author_role": {
+          "enum": [
+            "ADMIN",
+            "RESEARCHER",
+            "MANAGER",
+            "PUBLIC"
+          ],
+          "title": "Author Role",
+          "type": "string"
+        },
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/QuantitativeConstraint"
+          },
+          "maxItems": 64,
+          "title": "Constraints",
+          "type": "array"
+        },
+        "evidence_results": {
+          "default": [],
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Evidence Results",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "objectives": {
+          "items": {
+            "$ref": "#/$defs/ObjectiveWeight"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Objectives",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "review": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HumanReview"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "status": {
+          "default": "DRAFT",
+          "enum": [
+            "DRAFT",
+            "SUBMITTED",
+            "REVIEWED",
+            "RETURNED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "scene",
+        "rationale",
+        "objectives",
+        "constraints",
+        "author_id",
+        "author_role"
+      ],
+      "title": "ProposalSpec",
+      "type": "object"
+    },
     "ProposedBinding": {
       "additionalProperties": false,
       "properties": {
@@ -2575,6 +3089,63 @@
         "rationale"
       ],
       "title": "ProviderProposal",
+      "type": "object"
+    },
+    "QuantitativeConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Constraint Id",
+          "type": "string"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "metric": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Metric",
+          "type": "string"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint_id",
+        "metric",
+        "unit"
+      ],
+      "title": "QuantitativeConstraint",
       "type": "object"
     },
     "RequiredData": {
@@ -3625,6 +4196,9 @@
     "BindingPlan": {
       "$ref": "#/$defs/BindingPlan"
     },
+    "ConstraintComparison": {
+      "$ref": "#/$defs/ConstraintComparison"
+    },
     "DataAssetSpec": {
       "$ref": "#/$defs/DataAssetSpec"
     },
@@ -3667,6 +4241,15 @@
     "PrepareIndicatorsRequest": {
       "$ref": "#/$defs/PrepareIndicatorsRequest"
     },
+    "ProposalComment": {
+      "$ref": "#/$defs/ProposalComment"
+    },
+    "ProposalDraft": {
+      "$ref": "#/$defs/ProposalDraft"
+    },
+    "ProposalSpec": {
+      "$ref": "#/$defs/ProposalSpec"
+    },
     "ProviderPlanningArtifact": {
       "$ref": "#/$defs/ProviderPlanningArtifact"
     },
@@ -3696,6 +4279,10 @@
     }
   },
   "required": [
+    "ProposalDraft",
+    "ProposalSpec",
+    "ProposalComment",
+    "ConstraintComparison",
     "IndicatorFrameworkSpec",
     "AssessmentSpec",
     "PrepareIndicatorsRequest",

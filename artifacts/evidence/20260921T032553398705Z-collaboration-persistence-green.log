@@ -1,0 +1,37 @@
+
+==================================== ERRORS ====================================
+___________ ERROR collecting tests/integration/test_collaboration.py ___________
+ImportError while importing test module '/Users/quanyiming/Projects/CoastMAS/tests/integration/test_collaboration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collaboration.py:14: in <module>
+    from tests.factories import scene
+E   ModuleNotFoundError: No module named 'tests'
+____________ ERROR collecting tests/integration/test_persistence.py ____________
+ImportError while importing test module '/Users/quanyiming/Projects/CoastMAS/tests/integration/test_persistence.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_persistence.py:13: in <module>
+    from tests.factories import scene
+E   ModuleNotFoundError: No module named 'tests'
+=============================== warnings summary ===============================
+../../projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../../projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/integration/test_collaboration.py
+ERROR tests/integration/test_persistence.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 warnings, 2 errors in 0.16s

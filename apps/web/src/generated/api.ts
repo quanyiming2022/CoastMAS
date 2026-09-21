@@ -177,6 +177,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/collaboration/access": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Access */
+        get: operations["access_api_v1_collaboration_access_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/collaboration/scenes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scenes */
+        get: operations["scenes_api_v1_collaboration_scenes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/collaboration/scenes/{identifier}/publication": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Publish Scene */
+        put: operations["publish_scene_api_v1_collaboration_scenes__identifier__publication_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/dashboard": {
         parameters: {
             query?: never;
@@ -1042,6 +1093,144 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/proposals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Proposals */
+        get: operations["list_proposals_api_v1_proposals_get"];
+        put?: never;
+        /** Save */
+        post: operations["save_api_v1_proposals_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Compare */
+        post: operations["compare_api_v1_proposals_compare_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get */
+        get: operations["get_api_v1_proposals__identifier__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}/comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Comments */
+        get: operations["comments_api_v1_proposals__identifier__comments_get"];
+        put?: never;
+        /** Comment */
+        post: operations["comment_api_v1_proposals__identifier__comments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}/publication": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Publish Proposal */
+        put: operations["publish_proposal_api_v1_proposals__identifier__publication_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Review */
+        post: operations["review_api_v1_proposals__identifier__review_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Submit */
+        post: operations["submit_api_v1_proposals__identifier__submit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/proposals/{identifier}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Versions */
+        get: operations["versions_api_v1_proposals__identifier__versions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/results": {
         parameters: {
             query?: never;
@@ -1310,6 +1499,22 @@ export interface components {
             /** Project Id */
             project_id: string;
         };
+        /** CommentRequest */
+        CommentRequest: {
+            /** Content */
+            content: string;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Proposal Version */
+            proposal_version: number;
+        };
+        /** CompareRequest */
+        CompareRequest: {
+            /** Project Id */
+            project_id: string;
+            /** Proposals */
+            proposals: components["schemas"]["VersionReference"][];
+        };
         /** ConstraintSpec */
         ConstraintSpec: {
             /** Description */
@@ -1446,6 +1651,11 @@ export interface components {
             max_retries: number;
             /** Timeout Seconds */
             timeout_seconds: number;
+        };
+        /** ExpectedVersion */
+        ExpectedVersion: {
+            /** Expected Version */
+            expected_version: number;
         };
         /** Extent */
         Extent: {
@@ -1633,7 +1843,7 @@ export interface components {
              * Role
              * @enum {string}
              */
-            role: "ADMIN" | "RESEARCHER" | "MANAGER" | "VIEWER";
+            role: "ADMIN" | "RESEARCHER" | "MANAGER" | "VIEWER" | "PUBLIC";
         };
         /** ModelComponent */
         ModelComponent: {
@@ -1720,6 +1930,15 @@ export interface components {
              */
             password: string;
         };
+        /** ObjectiveWeight */
+        ObjectiveWeight: {
+            /** Name */
+            name: string;
+            /** Objective Id */
+            objective_id: string;
+            /** Weight */
+            weight: number;
+        };
         /** ParameterBinding */
         ParameterBinding: {
             /** Node Id */
@@ -1754,6 +1973,59 @@ export interface components {
             /** Idempotency Key */
             idempotency_key: string;
         };
+        /** ProposalDraft */
+        ProposalDraft: {
+            /** Constraints */
+            constraints: components["schemas"]["QuantitativeConstraint"][];
+            /**
+             * Evidence Results
+             * @default []
+             */
+            evidence_results: string[];
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+            /** Objectives */
+            objectives: components["schemas"]["ObjectiveWeight"][];
+            /** Rationale */
+            rationale: string;
+            scene: components["schemas"]["VersionReference"];
+            /** Version */
+            version: number;
+        };
+        /** PublicationRequest */
+        PublicationRequest: {
+            /** Expected Version */
+            expected_version: number;
+            /** Published */
+            published: boolean;
+        };
+        /** QuantitativeConstraint */
+        QuantitativeConstraint: {
+            /** Constraint Id */
+            constraint_id: string;
+            /** Maximum */
+            maximum?: number | null;
+            /** Metric */
+            metric: string;
+            /** Minimum */
+            minimum?: number | null;
+            /** Unit */
+            unit: string;
+        };
+        /** ReviewRequest */
+        ReviewRequest: {
+            /**
+             * Conclusion
+             * @enum {string}
+             */
+            conclusion: "REVIEWED" | "RETURNED";
+            /** Expected Version */
+            expected_version: number;
+            /** Rationale */
+            rationale: string;
+        };
         /** RunAssessmentRequest */
         RunAssessmentRequest: {
             /** Assessment Version */
@@ -1784,6 +2056,14 @@ export interface components {
             name?: string | null;
             /** Planning Trace Id */
             planning_trace_id: string;
+        };
+        /** SaveProposalRequest */
+        SaveProposalRequest: {
+            /** Expected Version */
+            expected_version?: number | null;
+            /** Project Id */
+            project_id: string;
+            spec: components["schemas"]["ProposalDraft"];
         };
         /** SceneCoverage */
         SceneCoverage: {
@@ -2478,6 +2758,111 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
+                };
+            };
+        };
+    };
+    access_api_v1_collaboration_access_get: {
+        parameters: {
+            query: {
+                project_id: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scenes_api_v1_collaboration_scenes_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    publish_scene_api_v1_collaboration_scenes__identifier__publication_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -4699,6 +5084,364 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_proposals_api_v1_proposals_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_api_v1_proposals_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaveProposalRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    compare_api_v1_proposals_compare_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompareRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_api_v1_proposals__identifier__get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    comments_api_v1_proposals__identifier__comments_get: {
+        parameters: {
+            query: {
+                version: number;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    comment_api_v1_proposals__identifier__comments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CommentRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    publish_proposal_api_v1_proposals__identifier__publication_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PublicationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_api_v1_proposals__identifier__review_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_api_v1_proposals__identifier__submit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExpectedVersion"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    versions_api_v1_proposals__identifier__versions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
                 };
             };
             /** @description Validation Error */

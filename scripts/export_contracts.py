@@ -9,6 +9,12 @@ from sqlalchemy import create_engine
 
 from coastmas.app.api import create_app
 from coastmas.app.indicator_routes import FrameworkPlanRequest, PrepareIndicatorsRequest
+from coastmas.core.collaboration import (
+    ConstraintComparison,
+    ProposalComment,
+    ProposalDraft,
+    ProposalSpec,
+)
 from coastmas.core.contracts import (
     BindingPlan,
     DataAssetSpec,
@@ -38,6 +44,10 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        ProposalDraft,
+        ProposalSpec,
+        ProposalComment,
+        ConstraintComparison,
         IndicatorFrameworkSpec,
         AssessmentSpec,
         PrepareIndicatorsRequest,

@@ -33,6 +33,7 @@ const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
 );
 const ModelDecomposer = lazy(() => import("./ModelDecomposer"));
+const Collaboration = lazy(() => import("./Collaboration"));
 const AssessmentRecords = lazy(() => import("./AssessmentRecords"));
 const AssessmentRecord = lazy(() =>
   import("./AssessmentRecords").then((module) => ({
@@ -68,6 +69,7 @@ const navigation = [
   ["/runs", "运行中心"],
   ["/results", "结果中心"],
   ["/assessments", "评价中心"],
+  ["/collaboration", "协同方案"],
 ] as const;
 
 async function clearProtectedData(client: QueryClient): Promise<void> {
@@ -163,6 +165,7 @@ export default function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
               <Route path="/entities" element={<Entities />} />
+              <Route path="/collaboration" element={<Collaboration />} />
               <Route path="/planner" element={<Planner />} />
               <Route path="/models/decompose" element={<ModelDecomposer />} />
               <Route

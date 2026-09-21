@@ -1,0 +1,36 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_proposal_api_revisions_comparison_comments_and_review_permissions ____
+
+authenticated = (<starlette.testclient.TestClient object at 0x11e5532f0>, 'E6YkPDyb4uEB-9ZEzrvsEOBl0lItpg6LKBn5Gdf1dco', '3dd6feee-6a2f-43ae-a35c-b071ef4ca7c5', 'ae662995-4bae-4c38-b455-82cee7e964a5')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_fc4af85114e1414aa0b24e174ff2662b)
+
+    def test_proposal_api_revisions_comparison_comments_and_review_permissions(authenticated, engine):
+        client, csrf, project, owner = authenticated
+        headers={"X-CSRF-Token":csrf}
+        selected=scene(id=str(uuid4()))
+        assert client.post('/api/v1/scenes',headers=headers,json={"project_id":project,"spec":selected.model_dump(mode="json")}).status_code==201
+        proposal={"id":str(uuid4()),"name":"SYNTHETIC coastal proposal","version":1,
+            "scene":{"id":selected.id,"version":1},"rationale":"Explicit hard budget",
+            "objectives":[{"objective_id":"benefit","name":"Benefit","weight":1}],
+            "constraints":[{"constraint_id":"cost","metric":"cost","unit":"dimensionless","maximum":10}]}
+        created=client.post('/api/v1/proposals',headers=headers,json={"project_id":project,"spec":proposal})
+>       assert created.status_code==201,created.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"b52cffcf-be3f-4596-be5a-3168106737f7"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_collaboration_api.py:20: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_collaboration_api.py::test_proposal_api_revisions_comparison_comments_and_review_permissions
+1 failed, 2 warnings in 2.70s

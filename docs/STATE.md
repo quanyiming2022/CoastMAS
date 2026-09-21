@@ -32,7 +32,7 @@
 - 最新覆盖率6225/7014行≈88.8%、1656/2292分支≈72.3%；最终分支门槛未满足，未排除困难业务文件。
 
 ## 服务与恢复
-- API/UI http://127.0.0.1:58000。当前API session14304/log api-assessment-records.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
+- API/UI http://127.0.0.1:58000。当前API session13356/log api-collaboration-evidence.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
 - 基础容器 coastmas-database-1(55432)、coastmas-redis-1(56379)、coastmas-object-storage-1(59000/59001)。当前三依赖ready。中断后先检查容器/进程及 `/health/ready`，不要盲目重跑。仅恢复本项目容器，不能删除卷或处理无关项目。
 - 原生MinIO新卷coastmas_objects_native，经固定官方源码构建、SHA恢复及120秒并发验证；旧卷和私有备份保留。历史AMD64 panic未抹去，详见object-storage-recovery.md。
 - `.env`中的COASTMAS_DATA_SOURCES_CONFIG指向 artifacts/runtime/source-connectors.json（0600），demo-csv仅授权演示项目本机SYNTHETIC源。
@@ -40,7 +40,15 @@
 
 ## 后续必选缺口
 - 评价记录已实现：AssessmentSpec固定体系/数据/场景/工作流并建立FK，规划行锁内原子保存工作流与记录；运行复用统一预检和幂等任务，从真实Manifest匹配结果。新增工作流归档及重复请求保护、记录列表/预检/运行/结果分页界面。12项相关后端回归和3条真实浏览器已经通过，包含独立worker数值金标准、结果回看、固定来源导航与工作流回归。API已重启加载，worker计算代码未变。
-- 下一模块为§30协同方案版本/角色目标权重/约束冲突/意见/审核，再接§31实际优化和§43科研运行界面；已定位读取，不重新规划。
+- 协同模块增量已实现并验证，见下方检查点。下一模块为第31节实际优化及第43节科研运行界面，已定位读取，不重新规划。
 - 非内置运行审批、显式时间/跨CRS保守分配节点、完整任务诊断日志、计算缓存、孤立对象保留清理、可选GeoAI API（不得读改GeoAI源码）。
 - 外部LLM实验缺凭证，BLOCKED；已异步问过一次，无答复，不重复追问，不把本地协议当外部实验。独立工作继续。
 - 全部研究/消融/性能实验、统一Docker应用部署/Makefile（尚无）、准确运行构建身份、完整用户/运维/开发/科研文档和最终覆盖率/全链路/分支审查。只有全部必选项真实证据通过才宣布完成。
+
+## 协同增量检查点
+- 新增 core/domain/persistence/app 协同模块、Collaboration.tsx、领域/数据库/API/浏览器测试及 docs/collaboration.md。R30 的18行映射更新，最终状态仍NOT_RUN。
+- 方案固定场景版本/权重/硬约束/真实结果引用；版本外键、作者/公众权限、独立人工审核、幂等意见、显式公开与撤回；Pint单位换算后的区间比较不抵消硬约束。VIEWER只读，PUBLIC只参与公开资源及自己的方案。新scene/proposal修订撤回公开。
+- 全后端338项：20260921T033942793285Z；全浏览器17条：034148022283Z。静态ruff/mypy86源文件，前端42项/类型/lint/构建和契约漂移通过。
+- 随后自查修复VIEWER作者读权限及RunManifest完整SceneSpec引用匹配，定向回归034507133634Z、034736157071Z通过。最终真实浏览器034840135102Z通过：先独立worker海岸结果80000m²/320人，再绑定到方案与历史比较。此前完整回归早于补丁，不声称覆盖同一最终SHA。
+- 所有红测试/入口错误/同名测试模块收集失败均保留，没有通过删断言求绿。当前无验收进程，API已加载最终补丁session13356，worker算法未变继续session71412。
+- 下一步：复用domain/optimization.py的SciPy MILP/硬保护/可行性验证，接入可信catalog/worker/空间结果/界面。coastal_catalog统一合并模型，sample_bootstrap自动登记全部模型；当前23计数增加新模型时相应更新，已有23签名不可改变。domain/result_views.management_objects需接结构化优化结果。

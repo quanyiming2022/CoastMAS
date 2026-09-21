@@ -1,0 +1,42 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_private_evidence_and_scene_revisions_remain_guarded ___________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_c80dcbed309241d08c61b32d45eeff83)
+actors = ('0464fbdb-b933-4394-b295-d58757898b50', '53249717-fab5-4f1b-9cde-a72033c88fbe', 'b83fbd10-28a7-4dec-bfd2-795a3ee5ef0a', '56f25417-a582-480f-840e-b8c122a9953a')
+
+    def test_private_evidence_and_scene_revisions_remain_guarded(engine, actors):
+        from coastmas.persistence.resources import update_resource
+    
+        owner, public, outsider, project = actors
+        with Session(engine) as session, session.begin():
+            session.get(Membership, (project, public)).role = "PUBLIC"
+            selected = setup_scene(session, owner, project, published=True)
+            invalid = draft(selected.id).model_copy(update={"evidence_results": (str(uuid4()),)})
+            with pytest.raises(CoastMASError, match="actual successful result"):
+                save_proposal(session, user_id=owner, project_id=project, draft=invalid)
+            with pytest.raises(CoastMASError, match="permission"):
+                save_proposal(session, user_id=public, project_id=project, draft=invalid)
+            revised = selected.model_copy(update={"version":2,"management_goal":"Unpublished new conditions"})
+            update_resource(session,user_id=owner,identifier=selected.id,expected_version=1,spec=revised.model_dump(mode="json"))
+>           assert session.get(Resource, selected.id).published is False
+E           AssertionError: assert True is False
+E            +  where True = <coastmas.persistence.schema.Resource object at 0x11f5c8350>.published
+E            +    where <coastmas.persistence.schema.Resource object at 0x11f5c8350> = get(Resource, '9e87be11-1449-44dd-a1b1-0984325c1144')
+E            +      where get = <sqlalchemy.orm.session.Session object at 0x11cf3c3b0>.get
+E            +      and   '9e87be11-1449-44dd-a1b1-0984325c1144' = SceneSpec(id='9e87be11-1449-44dd-a1b1-0984325c1144', name='scene', version=1, management_goal='screen', study_area={'t...lt',), data_policy={'study_area_crs': 'EPSG:32650'}, quality_requirements={}, entity_references=(), data_references=()).id
+
+tests/integration/test_collaboration_persistence.py:151: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_collaboration_persistence.py::test_private_evidence_and_scene_revisions_remain_guarded
+1 failed, 2 passed, 2 warnings in 3.72s

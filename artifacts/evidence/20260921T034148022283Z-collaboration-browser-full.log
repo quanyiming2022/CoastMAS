@@ -1,0 +1,25 @@
+
+Running 17 tests using 1 worker
+
+(node:23825) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/17] e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts
+[2/17] e2e/data-sources.spec.ts:4:1 › registered HTTP source imports real immutable bytes with historical lineage
+[3/17] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+[4/17] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[5/17] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[6/17] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+[7/17] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[8/17] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+[9/17] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+[10/17] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[11/17] e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[12/17] e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[13/17] e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[14/17] e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either
+[15/17] e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[16/17] e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage
+[17/17] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  17 passed (2.0m)

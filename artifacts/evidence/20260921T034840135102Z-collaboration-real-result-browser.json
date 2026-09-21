@@ -1,0 +1,29 @@
+{
+  "name": "collaboration-real-result-browser",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    "cd apps/web && node_modules/.bin/playwright test e2e/collaboration.spec.ts"
+  ],
+  "started_at": "2026-09-21T03:48:40.135102+00:00",
+  "finished_at": "2026-09-21T03:48:56.021153+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "034289c415634a85994c974779ed5664971a6028ccea98a44b2ca8e71ac1cb93",
+  "git_commit": "69da22cefd0705f63e1ad8189b0f69ac48ca068a",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T034840135102Z-collaboration-real-result-browser.log"
+}

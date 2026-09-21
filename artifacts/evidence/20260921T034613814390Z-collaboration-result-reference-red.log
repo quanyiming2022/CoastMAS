@@ -1,0 +1,75 @@
+....F                                                                    [100%]
+=================================== FAILURES ===================================
+___________ test_result_reference_matches_full_pinned_scene_manifest ___________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_a835a0d0d9c84fbf80238265955857a9)
+actors = ('b2f9a815-ce8d-4731-93f5-03beca90929e', '92f6587b-73a9-46e4-a32e-5f1f2c3e8f66', '0876bf1b-2e08-4df9-848b-c1233d914f5e', 'a09285a4-93fd-4ebc-a451-8db7c30c9752')
+
+    def test_result_reference_matches_full_pinned_scene_manifest(engine, actors):
+        """Result-reference validation fixture; not evidence of a scientific model run."""
+        from coastmas.persistence.jobs import submit_job, claim_job, publish_result
+        from coastmas.persistence.schema import ResultBundle
+    
+        owner, viewer, outsider, project = actors
+        with Session(engine) as session, session.begin():
+            selected = setup_scene(session, owner, project)
+            job = submit_job(session,user_id=owner,project_id=project,idempotency_key=str(uuid4()),
+                             manifest={"scene":selected.model_dump(mode="json"),"test_fixture":True})
+            token = claim_job(session,job.id,lease_seconds=60)
+            assert token is not None
+            assert publish_result(session,job_id=job.id,worker_token=token,manifest={"test_fixture":True})
+            result = session.scalar(select(ResultBundle).where(ResultBundle.job_id==job.id))
+            proposal = draft(selected.id).model_copy(update={"evidence_results":(result.id,)})
+>           saved = save_proposal(session,user_id=owner,project_id=project,draft=proposal)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_collaboration_persistence.py:197: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/persistence/collaboration.py:93: in save_proposal
+    validate_evidence(session, user_id, project_id, draft)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+session = <sqlalchemy.orm.session.Session object at 0x11cc131a0>
+user_id = 'b2f9a815-ce8d-4731-93f5-03beca90929e'
+project_id = 'a09285a4-93fd-4ebc-a451-8db7c30c9752'
+draft = ProposalDraft(id='0e0b63df-7be2-41bd-afdf-32f889dab925', name='SYNTHETIC proposal', version=1, scene=VersionReference(...', metric='area', unit='m^2', minimum=0.0, maximum=None),), evidence_results=('91e03081-e5bc-4c7b-a18d-9e6e461abbd4',))
+
+    def validate_evidence(
+        session: Session, user_id: str, project_id: str, draft: ProposalDraft
+    ) -> None:
+        # A published scene permits participation, never access to unrelated private results.
+        scene = session.get(Resource, draft.scene.id)
+        if scene is None or scene.kind != "scene" or scene.project_id != project_id:
+            raise CoastMASError("DEPENDENCY_CONFLICT", "scene is unavailable in this project")
+        read_resource(session, user_id=user_id, identifier=draft.scene.id, version=draft.scene.version)
+        if draft.evidence_results:
+            require_permission(session, user_id, project_id, "read")
+        for identifier in draft.evidence_results:
+            result = session.get(ResultBundle, identifier)
+            job = session.get(Job, result.job_id) if result else None
+            if (
+                job is None
+                or job.project_id != project_id
+                or job.status != "SUCCEEDED"
+                or job.manifest.get("scene") != draft.scene.model_dump(mode="json")
+            ):
+>               raise CoastMASError(
+                    "DEPENDENCY_CONFLICT",
+                    "evidence must be an actual successful result for the pinned scene",
+                )
+E               coastmas.core.errors.CoastMASError: evidence must be an actual successful result for the pinned scene
+
+src/coastmas/persistence/collaboration.py:72: CoastMASError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_collaboration_persistence.py::test_result_reference_matches_full_pinned_scene_manifest
+1 failed, 4 passed, 2 warnings in 3.45s

@@ -1,0 +1,41 @@
+
+Running 1 test using 1 worker
+
+(node:23011) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts
+  1) e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: '协同方案', exact: true })
+
+
+       9 |   await page.getByLabel('密码',{exact:true}).fill(credentials.password);
+      10 |   await page.getByRole('button',{name:'登录',exact:true}).click();
+    > 11 |   await page.getByRole('link',{name:'协同方案',exact:true}).click();
+         |                                                         ^
+      12 |   await page.getByRole('button',{name:'新建方案',exact:true}).click();
+      13 |   const name=`SYNTHETIC 协同 ${Date.now()}`;
+      14 |   await page.getByLabel('方案名称',{exact:true}).fill(name);
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/collaboration.spec.ts:11:57
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/collaboration-stakeholder--3b4cd-opinions-and-hard-conflicts/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/collaboration-stakeholder--3b4cd-opinions-and-hard-conflicts/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/collaboration-stakeholder--3b4cd-opinions-and-hard-conflicts/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/collaboration-stakeholder--3b4cd-opinions-and-hard-conflicts/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts 

@@ -1,0 +1,50 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+____________ test_public_http_visibility_and_revision_unpublishing _____________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11b1546e0>, 'oT5jnvcqAmXgQQZOPWgnX-NtOKW2sI1YKuZuUi_qy2o', '6b7ea2cf-cf9a-485a-bec5-72a091514c4c', 'f89f39e9-3cb9-4f6d-9aae-9e442e3144d9')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_87989a8d13b444419ae3197bf0499413)
+actors = ('f89f39e9-3cb9-4f6d-9aae-9e442e3144d9', 'd20d037d-2fc4-4cd6-be0b-e1dbf9467dee', 'f289f0ef-ff1e-442a-bbf0-03754a15e286', '6b7ea2cf-cf9a-485a-bec5-72a091514c4c')
+
+    def test_public_http_visibility_and_revision_unpublishing(authenticated, engine, actors):
+        from coastmas.core.collaboration import ProposalDraft
+        from coastmas.persistence.collaboration import save_proposal, submit_proposal, review_proposal
+        from coastmas.persistence.resources import create_resource
+        from coastmas.persistence.schema import Membership, Resource
+    
+        client,csrf,project,public=authenticated
+        owner,viewer,manager,_=actors
+        headers={"X-CSRF-Token":csrf}
+        with Session(engine) as session,session.begin():
+            session.add(Membership(project_id=project,user_id=manager,role="MANAGER"))
+            selected=scene(id=str(uuid4()))
+            create_resource(session,user_id=owner,project_id=project,kind="scene",identifier=selected.id,name=selected.name,spec=selected.model_dump(mode="json"))
+            proposal=ProposalDraft(id=str(uuid4()),name="Published synthetic proposal",version=1,
+                scene={"id":selected.id,"version":1},rationale="Recorded rationale",
+                objectives=({"objective_id":"habitat","name":"Habitat","weight":1},),constraints=())
+            save_proposal(session,user_id=owner,project_id=project,draft=proposal)
+            submit_proposal(session,user_id=owner,identifier=proposal.id,expected_version=1)
+            review_proposal(session,user_id=manager,identifier=proposal.id,expected_version=2,conclusion="REVIEWED",rationale="Independent review")
+            session.get(Resource,proposal.id).published=True
+            session.get(Resource,selected.id).published=True
+            session.get(Membership,(project,owner)).role="PUBLIC"
+        available=client.get('/api/v1/collaboration/scenes',params={"project_id":project})
+>       assert available.status_code==200,available.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"45918a02-e430-45d5-bcf8-590b87d01cbd"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_collaboration_api.py:135: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_collaboration_api.py::test_public_http_visibility_and_revision_unpublishing
+1 failed, 1 passed, 2 warnings in 3.32s
