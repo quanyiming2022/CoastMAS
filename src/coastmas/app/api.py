@@ -18,6 +18,7 @@ from coastmas.adapters.storage import S3ArtifactStore
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.geography_routes import router as geography_router
+from coastmas.app.indicator_routes import router as indicator_router
 from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.planning_routes import router as planning_router
@@ -29,6 +30,7 @@ from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpe
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
 from coastmas.core.geography import GeographicEntity
+from coastmas.core.indicators import IndicatorFrameworkSpec
 from coastmas.core.llm import LLMProvider
 from coastmas.core.model_documents import reject_embedded_credentials
 from coastmas.persistence.auth import login, logout
@@ -312,6 +314,7 @@ def create_app(
     app.include_router(geography_router)
     app.include_router(data_router)
     app.include_router(source_router)
+    app.include_router(indicator_router)
     app.state.source_registry = {}
     app.include_router(model_router)
     app.include_router(run_router)
@@ -320,6 +323,7 @@ def create_app(
     app.include_router(workspace_router)
     app.state.llm_provider = llm_provider
     routes: list[tuple[str, str, type[Contract]]] = [
+        ("indicator-frameworks", "indicator_framework", IndicatorFrameworkSpec),
         ("entities", "entity", GeographicEntity),
         ("models", "model", ModelSpec),
         ("data-assets", "data", DataAssetSpec),

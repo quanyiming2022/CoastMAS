@@ -1,0 +1,108 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_framework_plan_pins_prepared_data_and_framework_weight_method ______
+
+authenticated = (<starlette.testclient.TestClient object at 0x11ed44260>, '4AEOT6EeyQgLAA0hX0l0AaOgrlluSbf7uCFYe7y3oaA', 'a3eadec1-7cd5-48ae-ba84-65987b452780', '435df1a9-0cf1-4167-8762-0b0039b3eb22')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11de2d640>
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_b53d716b3b1e45eca7d59eb68537d92b)
+
+    def test_framework_plan_pins_prepared_data_and_framework_weight_method(
+        authenticated, storage, engine
+    ):
+        from coastmas.domain.builtin_catalog import assessment_catalog
+        from tests.factories import scene
+    
+        client, csrf, project, user = authenticated
+        client.app.state.artifact_store = storage
+        catalog = assessment_catalog(project)
+        client.app.state.registry = catalog.registry
+        identifier = uuid4().hex
+        data_id = uuid4().hex
+        context = scene(
+            id=uuid4().hex,
+            required_outputs=["scores", "change"],
+            time_range={"start": "2020-01-01T00:00:00Z", "end": "2022-12-31T00:00:00Z"},
+        )
+        payload = json.dumps({"frame": observations().model_dump(mode="json")}).encode()
+        stored = storage.put(f"{project}/data/{data_id}/input.json", payload)
+        source = asset(
+            id=data_id,
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support="management_unit",
+                    temporal_support="declared_period",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2022-12-31T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        with Session(engine) as session, session.begin():
+            for kind, item in [("scene", context), ("data", source)] + [
+                ("model", model) for model in catalog.models
+            ]:
+                create_resource(
+                    session,
+                    user_id=user,
+                    project_id=project,
+                    kind=kind,
+                    identifier=item.id,
+                    name=item.name,
+                    spec=item.model_dump(mode="json"),
+                )
+        headers = {"X-CSRF-Token": csrf}
+        assert (
+            client.post(
+                "/api/v1/indicator-frameworks",
+                headers=headers,
+                json={"project_id": project, "spec": framework(id=identifier).model_dump(mode="json")},
+            ).status_code
+            == 201
+        )
+        prepared = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/prepare",
+            headers=headers,
+            json={
+                "expected_version": 1,
+                "data": {"id": data_id, "version": 1},
+                "idempotency_key": "prepare",
+            },
+        ).json()
+        body = {
+            "framework_version": 1,
+            "data": {"id": prepared["resource_id"], "version": 1},
+            "scene": {"id": context.id, "version": 1},
+            "assessment_method": "composite",
+            "idempotency_key": "plan",
+        }
+        response = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/plan", headers=headers, json=body
+        )
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"4d0e00c8-0658-42f4-b3cf-15507ebf34fa"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_framework_api.py:186: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_framework_api.py::test_framework_plan_pins_prepared_data_and_framework_weight_method
+1 failed, 1 deselected, 2 warnings in 5.73s

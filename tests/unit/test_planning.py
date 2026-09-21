@@ -219,3 +219,36 @@ def test_equivalent_scene_dictionary_order_has_same_workflow_identity():
     assert first_plan.candidate_workflow is not None
     assert second_plan.candidate_workflow is not None
     assert first_plan.candidate_workflow.id == second_plan.candidate_workflow.id
+
+
+def test_different_spatial_supports_keep_input_selection_available_until_resolved():
+    catalog, management, context = inputs()
+    grid_catalog = assessment_catalog("plan-test", spatial_support="grid")
+    for model in grid_catalog.models:
+        runtime = grid_catalog.registry.resolve(model)
+        catalog.registry.register(model, runtime.adapter, runtime.handler)
+    grid_model = next(
+        model for model in grid_catalog.models if model.runtime_config["component"] == "normalize"
+    )
+    grid = management.model_copy(update={"id": "grid-observations", "variables": grid_model.inputs})
+    models = (*catalog.models, *grid_catalog.models)
+    goal = ManagementGoal(original_text="Explicit assessment", template="sustainability")
+    unresolved = build_template_plan(goal, context, models, (management, grid), catalog.registry)
+    assert unresolved.candidate_workflow is None
+    assert any(
+        item.target.node_id == "normalize"
+        and item.target.variable == "frame"
+        and item.selected is None
+        for item in unresolved.required_data
+    )
+    resolved = build_template_plan(
+        goal,
+        context,
+        models,
+        (management, grid),
+        catalog.registry,
+        selected_data={"normalize.frame": {"id": management.id, "version": 1}},
+    )
+    assert not resolved.missing_conditions, resolved.missing_conditions
+    assert resolved.candidate_workflow is not None
+    assert all("-grid" not in node.model_id for node in resolved.candidate_workflow.nodes)

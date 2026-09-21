@@ -1,0 +1,34 @@
+{
+  "name": "assessment-spatial-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/integration/test_assessment_spatial_support.py",
+    "tests/integration/test_sample_bootstrap.py",
+    "tests/unit/test_planning.py",
+    "tests/unit/test_runtime_bootstrap.py"
+  ],
+  "started_at": "2026-09-21T02:38:51.387059+00:00",
+  "finished_at": "2026-09-21T02:39:25.983714+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "4a2686659eacccaf0d7aca9a32aa5fc9c0a3ecc484a464bffcf55d669d78ee0d",
+  "git_commit": "0d268eb844b62aed04293cdea4f268e3de0845ea",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T023851387059Z-assessment-spatial-green.log"
+}

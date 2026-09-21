@@ -1,0 +1,33 @@
+{
+  "name": "assessment-backend-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--cov=coastmas",
+    "--cov-branch",
+    "--cov-report=json:artifacts/coverage.json"
+  ],
+  "started_at": "2026-09-21T02:47:24.912482+00:00",
+  "finished_at": "2026-09-21T02:51:17.216684+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "1f422da46ae15e2d6df906087a3648eabf1d2f81f60aef34392579d9716140ee",
+  "git_commit": "0d268eb844b62aed04293cdea4f268e3de0845ea",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T024724912482Z-assessment-backend-full.log"
+}

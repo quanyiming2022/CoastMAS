@@ -1,0 +1,57 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_unknown_observation_units_are_a_scientific_error _____________
+
+    def test_unknown_observation_units_are_a_scientific_error():
+        payload = observations().model_dump(mode="json")
+        payload["columns"][1]["unit"] = "unknown_observation_unit"
+        with pytest.raises(ConstraintError, match="unit"):
+>           apply_framework(framework(), IndicatorFrame.model_validate(payload))
+
+tests/unit/test_indicator_framework.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/domain/indicator_framework.py:32: in apply_framework
+    outputs.append(calculate_arrays(indicator.formula, inputs, indicator.unit))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/domain/raster_units.py:52: in calculate_arrays
+    base = str(UNITS.Quantity(1, unit).to_base_units().units)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/quantity.py:241: in __new__
+    units = inst._REGISTRY.parse_units(units)._units
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1294: in parse_units
+    self.parse_units_as_container(input_string, as_delta, case_sensitive)
+.venv/lib/python3.12/site-packages/pint/facets/nonmultiplicative/registry.py:70: in parse_units_as_container
+    return super().parse_units_as_container(input_string, as_delta, case_sensitive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1309: in parse_units_as_container
+    return self._parse_units_as_container(input_string, as_delta, case_sensitive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:1345: in _parse_units_as_container
+    cname = self.get_name(name, case_sensitive=case_sensitive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pint.registry.UnitRegistry object at 0x108a9c290>
+name_or_alias = 'unknown_observation_unit', case_sensitive = True
+
+    def get_name(self, name_or_alias: str, case_sensitive: bool | None = None) -> str:
+        """Return the canonical name of a unit."""
+    
+        if name_or_alias == "dimensionless":
+            return ""
+    
+        try:
+            return self._units[name_or_alias].name
+        except KeyError:
+            pass
+    
+        candidates = self.parse_unit_name(name_or_alias, case_sensitive)
+        if not candidates:
+>           raise UndefinedUnitError(name_or_alias)
+E           pint.errors.UndefinedUnitError: 'unknown_observation_unit' is not defined in the unit registry
+
+.venv/lib/python3.12/site-packages/pint/facets/plain/registry.py:666: UndefinedUnitError
+=========================== short test summary info ============================
+FAILED tests/unit/test_indicator_framework.py::test_unknown_observation_units_are_a_scientific_error
+1 failed, 13 deselected in 0.51s

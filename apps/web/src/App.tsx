@@ -33,6 +33,12 @@ const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
 );
 const ModelDecomposer = lazy(() => import("./ModelDecomposer"));
+const IndicatorFrameworks = lazy(() => import("./IndicatorFrameworks"));
+const IndicatorFrameworkEditor = lazy(() =>
+  import("./IndicatorFrameworks").then((module) => ({
+    default: module.IndicatorFrameworkEditor,
+  })),
+);
 const DataSources = lazy(() => import("./DataSources"));
 const SourceEditor = lazy(() =>
   import("./DataSources").then((module) => ({ default: module.SourceEditor })),
@@ -55,6 +61,7 @@ const navigation = [
   ["/data", "数据目录"],
   ["/runs", "运行中心"],
   ["/results", "结果中心"],
+  ["/assessments", "评价中心"],
 ] as const;
 
 async function clearProtectedData(client: QueryClient): Promise<void> {
@@ -152,6 +159,15 @@ export default function App() {
               <Route path="/entities" element={<Entities />} />
               <Route path="/planner" element={<Planner />} />
               <Route path="/models/decompose" element={<ModelDecomposer />} />
+              <Route path="/assessments" element={<IndicatorFrameworks />} />
+              <Route
+                path="/assessments/new"
+                element={<IndicatorFrameworkEditor />}
+              />
+              <Route
+                path="/assessments/:id"
+                element={<IndicatorFrameworkEditor />}
+              />
               <Route path="/data-sources" element={<DataSources />} />
               <Route path="/data-sources/new" element={<SourceEditor />} />
               <Route path="/data-sources/:id" element={<SourceEditor />} />

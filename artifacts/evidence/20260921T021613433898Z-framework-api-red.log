@@ -1,0 +1,38 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_framework_versions_materialize_real_bytes_and_pin_both_dependencies ___
+
+authenticated = (<starlette.testclient.TestClient object at 0x11a44cce0>, 'wTchaQ2dOSOJoJTodKCwT_iiP_F10cmNoJjgTQJn62k', '33772191-1dde-4716-ac71-4c7bca4101b2', '82b14b69-00e0-47c2-9c86-1f6ad4e0ca95')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11a35ed20>
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_2c9a07d1142644aba4fc4153f29d6bd8)
+
+    def test_framework_versions_materialize_real_bytes_and_pin_both_dependencies(
+        authenticated, storage, engine
+    ):
+        client, csrf, project, user = authenticated
+        client.app.state.artifact_store = storage
+        headers = {"X-CSRF-Token": csrf}
+        identifier = uuid4().hex
+        spec = framework(id=identifier).model_dump(mode="json")
+        created = client.post(
+            "/api/v1/indicator-frameworks", headers=headers, json={"project_id": project, "spec": spec}
+        )
+>       assert created.status_code == 201, created.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"908e2065-dec3-4b6f-a9e3-34833cb85170"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_framework_api.py:22: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_framework_api.py::test_framework_versions_materialize_real_bytes_and_pin_both_dependencies
+1 failed, 2 warnings in 2.84s

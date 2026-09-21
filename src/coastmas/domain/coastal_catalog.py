@@ -212,6 +212,13 @@ def coastal_catalog(project_id: str, directory: Path) -> BuiltinCatalog:
         },
     )
     models = list(catalog.models)
+    # Separate immutable signatures preserve the original management-unit release.
+    for support in ("administrative_unit", "custom_polygon", "grid"):
+        variant = assessment_catalog(project_id, spatial_support=support)
+        for model in variant.models:
+            runtime = variant.registry.resolve(model)
+            catalog.registry.register(model, runtime.adapter, runtime.handler)
+            models.append(model)
     released = datetime(2026, 9, 20, tzinfo=UTC)
     for component, (inputs, outputs, name, model_type) in signatures.items():
         constraints = [

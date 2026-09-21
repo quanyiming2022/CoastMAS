@@ -143,6 +143,11 @@ small,
 .sidebar nav {
   display: grid;
   gap: 7px;
+  grid-auto-rows: max-content;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 .sidebar nav a {
   color: #bad2d5;
@@ -157,6 +162,8 @@ small,
 }
 .sidebar-foot {
   margin-top: auto;
+  flex-shrink: 0;
+  padding-top: 16px;
   display: grid;
   gap: 18px;
   overflow-wrap: anywhere;
@@ -506,6 +513,7 @@ summary:focus-visible {
     padding: 15px;
   }
   .sidebar nav {
+    flex: none;
     display: flex;
     overflow: auto;
     white-space: nowrap;

@@ -1,0 +1,45 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test indicator-framework.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:17828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+  1) e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow 
+
+    TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByLabel('运行场景', { exact: true })
+
+
+      108 |   await page
+      109 |     .getByLabel("运行场景", { exact: true })
+    > 110 |     .selectOption({ label: "Synthetic assessment scenario C · v1" });
+          |      ^
+      111 |   await page.getByRole("button", { name: "科学预检", exact: true }).click();
+      112 |   await expect(
+      113 |     page.getByText(
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/indicator-framework.spec.ts:110:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow 

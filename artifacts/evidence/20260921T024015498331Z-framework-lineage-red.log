@@ -1,0 +1,90 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_framework_versions_materialize_real_bytes_and_pin_both_dependencies ___
+
+authenticated = (<starlette.testclient.TestClient object at 0x11c851760>, '_36lHny13dt8bwgKWAixzrchyXwavswv4bSXepP0n3E', '658a2156-0425-4507-830d-921b30d3c391', 'b586b916-9fa2-4e49-ae53-43dba71cdc52')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11c8db6b0>
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_784d94485f414199b38b0a3ceae3f941)
+
+    def test_framework_versions_materialize_real_bytes_and_pin_both_dependencies(
+        authenticated, storage, engine
+    ):
+        client, csrf, project, user = authenticated
+        client.app.state.artifact_store = storage
+        headers = {"X-CSRF-Token": csrf}
+        identifier = uuid4().hex
+        spec = framework(id=identifier).model_dump(mode="json")
+        created = client.post(
+            "/api/v1/indicator-frameworks", headers=headers, json={"project_id": project, "spec": spec}
+        )
+        assert created.status_code == 201, created.text
+        payload = json.dumps({"frame": observations().model_dump(mode="json")}).encode()
+        data_id = uuid4().hex
+        stored = storage.put(f"{project}/data/{data_id}/input.json", payload)
+        data = asset(
+            id=data_id,
+            name="Synthetic observations",
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support="management_unit",
+                    temporal_support="declared_period",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2022-12-31T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        with Session(engine) as session, session.begin():
+            create_resource(
+                session,
+                user_id=user,
+                project_id=project,
+                kind="data",
+                identifier=data_id,
+                name=data.name,
+                spec=data.model_dump(mode="json"),
+            )
+        body = {
+            "expected_version": 1,
+            "data": {"id": data_id, "version": 1},
+            "idempotency_key": "prepare-once",
+        }
+        response = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/prepare", headers=headers, json=body
+        )
+        assert response.status_code == 201, response.text
+        derived = response.json()["spec"]
+        assert derived["quality"]["validated"] is True
+        content = client.get(f"/api/v1/data-assets/{derived['id']}/download").json()
+        assert content["frame"]["values"] == [[[0, 0], [1, 1]], [[1, 0], [2, 1]]]
+        assert content["framework"] == {"id": identifier, "version": 1}
+        assert content["weight_method"] == "manual"
+        lineage = client.get(f"/api/v1/indicator-frameworks/for-asset/{derived['id']}")
+>       assert lineage.status_code == 200, lineage.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"fbc24397-c4ed-4096-9ab3-d3e5c8d911fc"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_framework_api.py:74: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_framework_api.py::test_framework_versions_materialize_real_bytes_and_pin_both_dependencies
+1 failed, 1 deselected, 2 warnings in 7.21s

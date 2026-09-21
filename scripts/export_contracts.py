@@ -8,6 +8,7 @@ from pydantic.json_schema import models_json_schema
 from sqlalchemy import create_engine
 
 from coastmas.app.api import create_app
+from coastmas.app.indicator_routes import FrameworkPlanRequest, PrepareIndicatorsRequest
 from coastmas.core.contracts import (
     BindingPlan,
     DataAssetSpec,
@@ -21,6 +22,7 @@ from coastmas.core.contracts import (
 from coastmas.core.data_inspection import DataInspection
 from coastmas.core.decomposition import DecompositionRequest, ModelDecomposition
 from coastmas.core.geography import GeographicEntity
+from coastmas.core.indicators import IndicatorFrameworkSpec
 from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
@@ -36,6 +38,9 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        IndicatorFrameworkSpec,
+        PrepareIndicatorsRequest,
+        FrameworkPlanRequest,
         DataSourceSpec,
         SourceSnapshotRequest,
         DataInspection,

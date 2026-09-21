@@ -1,0 +1,182 @@
+.FFF                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[administrative_unit] _
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11c854860>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-12/test_assessment_executes_with_1')
+support = 'administrative_unit'
+
+    @pytest.mark.parametrize(
+        "support", ["management_unit", "administrative_unit", "custom_polygon", "grid"]
+    )
+    def test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models(
+        storage, tmp_path, support
+    ):
+        catalog = coastal_catalog("spatial-project", Path("sample-data"))
+        content = json.dumps({"frame": frame(periods=True).model_dump(mode="json")}).encode()
+        stored = storage.put("spatial/frame.json", content)
+        data = asset(
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support=support,
+                    temporal_support="declared_period",
+                    nodata_policy="reject",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2023-01-01T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        context = scene(
+            entity_types=[support],
+            required_outputs=["scores", "change"],
+            time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"},
+        )
+        plan = build_template_plan(
+            ManagementGoal(original_text="Explicit spatial evaluation", template="temporal_change"),
+            context,
+            catalog.models,
+            (data,),
+            catalog.registry,
+            selected_data={"normalize.frame": VersionReference(id=data.id, version=1)},
+        )
+>       assert not plan.missing_conditions, plan.missing_conditions
+E       AssertionError: (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E       assert not (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E        +  where (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame')) = PlanningArtifact(management_goal=ManagementGoal(original_text='Explicit spatial evaluation', template='temporal_change...ared scientific preflight.', 'Template applicability is limited; no claim of global optimality.'), provider_requests=0).missing_conditions
+
+tests/integration/test_assessment_spatial_support.py:60: AssertionError
+_ test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[custom_polygon] _
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11ca1ecf0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-12/test_assessment_executes_with_2')
+support = 'custom_polygon'
+
+    @pytest.mark.parametrize(
+        "support", ["management_unit", "administrative_unit", "custom_polygon", "grid"]
+    )
+    def test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models(
+        storage, tmp_path, support
+    ):
+        catalog = coastal_catalog("spatial-project", Path("sample-data"))
+        content = json.dumps({"frame": frame(periods=True).model_dump(mode="json")}).encode()
+        stored = storage.put("spatial/frame.json", content)
+        data = asset(
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support=support,
+                    temporal_support="declared_period",
+                    nodata_policy="reject",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2023-01-01T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        context = scene(
+            entity_types=[support],
+            required_outputs=["scores", "change"],
+            time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"},
+        )
+        plan = build_template_plan(
+            ManagementGoal(original_text="Explicit spatial evaluation", template="temporal_change"),
+            context,
+            catalog.models,
+            (data,),
+            catalog.registry,
+            selected_data={"normalize.frame": VersionReference(id=data.id, version=1)},
+        )
+>       assert not plan.missing_conditions, plan.missing_conditions
+E       AssertionError: (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E       assert not (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E        +  where (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame')) = PlanningArtifact(management_goal=ManagementGoal(original_text='Explicit spatial evaluation', template='temporal_change...ared scientific preflight.', 'Template applicability is limited; no claim of global optimality.'), provider_requests=0).missing_conditions
+
+tests/integration/test_assessment_spatial_support.py:60: AssertionError
+_ test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[grid] _
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11cafd670>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-12/test_assessment_executes_with_3')
+support = 'grid'
+
+    @pytest.mark.parametrize(
+        "support", ["management_unit", "administrative_unit", "custom_polygon", "grid"]
+    )
+    def test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models(
+        storage, tmp_path, support
+    ):
+        catalog = coastal_catalog("spatial-project", Path("sample-data"))
+        content = json.dumps({"frame": frame(periods=True).model_dump(mode="json")}).encode()
+        stored = storage.put("spatial/frame.json", content)
+        data = asset(
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support=support,
+                    temporal_support="declared_period",
+                    nodata_policy="reject",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2023-01-01T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        context = scene(
+            entity_types=[support],
+            required_outputs=["scores", "change"],
+            time_range={"start": "2020-01-01T00:00:00Z", "end": "2023-01-01T00:00:00Z"},
+        )
+        plan = build_template_plan(
+            ManagementGoal(original_text="Explicit spatial evaluation", template="temporal_change"),
+            context,
+            catalog.models,
+            (data,),
+            catalog.registry,
+            selected_data={"normalize.frame": VersionReference(id=data.id, version=1)},
+        )
+>       assert not plan.missing_conditions, plan.missing_conditions
+E       AssertionError: (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E       assert not (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame'))
+E        +  where (MissingCondition(code='BINDING_INCOMPATIBLE', message='data type or spatial support requires explicit transformation'...issingCondition(code='INPUT_MISSING', message='required input has no producer', node_id='normalize', variable='frame')) = PlanningArtifact(management_goal=ManagementGoal(original_text='Explicit spatial evaluation', template='temporal_change...ared scientific preflight.', 'Template applicability is limited; no claim of global optimality.'), provider_requests=0).missing_conditions
+
+tests/integration/test_assessment_spatial_support.py:60: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_assessment_spatial_support.py::test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[administrative_unit]
+FAILED tests/integration/test_assessment_spatial_support.py::test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[custom_polygon]
+FAILED tests/integration/test_assessment_spatial_support.py::test_assessment_executes_with_exact_spatial_support_and_preserves_legacy_models[grid]
+3 failed, 1 passed, 2 warnings in 5.61s

@@ -870,6 +870,71 @@
       "title": "Extent",
       "type": "object"
     },
+    "FixedNormalization": {
+      "additionalProperties": false,
+      "properties": {
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "method": {
+          "const": "fixed_minmax",
+          "default": "fixed_minmax",
+          "title": "Method",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "upper"
+      ],
+      "title": "FixedNormalization",
+      "type": "object"
+    },
+    "FrameworkPlanRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment_method": {
+          "default": "composite",
+          "enum": [
+            "composite",
+            "topsis"
+          ],
+          "title": "Assessment Method",
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "framework_version": {
+          "minimum": 1,
+          "title": "Framework Version",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        }
+      },
+      "required": [
+        "framework_version",
+        "data",
+        "scene",
+        "idempotency_key"
+      ],
+      "title": "FrameworkPlanRequest",
+      "type": "object"
+    },
     "GeographicEntity": {
       "additionalProperties": false,
       "properties": {
@@ -1142,6 +1207,181 @@
         "edges"
       ],
       "title": "GraphSnapshot",
+      "type": "object"
+    },
+    "IndicatorDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Category",
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "positive",
+            "negative"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "formula": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Formula",
+          "type": "string"
+        },
+        "indicator_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Indicator Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "normalization": {
+          "$ref": "#/$defs/FixedNormalization"
+        },
+        "source": {
+          "maxProperties": 64,
+          "minProperties": 1,
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_]{0,63}$": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            }
+          },
+          "title": "Source",
+          "type": "object"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weight"
+        },
+        "weight_method": {
+          "enum": [
+            "equal",
+            "manual",
+            "entropy"
+          ],
+          "title": "Weight Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "indicator_id",
+        "name",
+        "category",
+        "unit",
+        "direction",
+        "source",
+        "formula",
+        "normalization",
+        "weight_method"
+      ],
+      "title": "IndicatorDefinition",
+      "type": "object"
+    },
+    "IndicatorFrameworkSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "class_breaks": {
+          "default": [
+            0.25,
+            0.5,
+            0.75
+          ],
+          "items": {
+            "type": "number"
+          },
+          "title": "Class Breaks",
+          "type": "array"
+        },
+        "demo": {
+          "default": false,
+          "title": "Demo",
+          "type": "boolean"
+        },
+        "description": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "indicators": {
+          "items": {
+            "$ref": "#/$defs/IndicatorDefinition"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Indicators",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "spatial_support": {
+          "enum": [
+            "management_unit",
+            "administrative_unit",
+            "custom_polygon",
+            "grid"
+          ],
+          "title": "Spatial Support",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "description",
+        "spatial_support",
+        "indicators"
+      ],
+      "title": "IndicatorFrameworkSpec",
       "type": "object"
     },
     "JsonValue": {},
@@ -2019,6 +2259,33 @@
         "coordinates"
       ],
       "title": "PolygonGeometry",
+      "type": "object"
+    },
+    "PrepareIndicatorsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "expected_version": {
+          "minimum": 1,
+          "title": "Expected Version",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expected_version",
+        "data",
+        "idempotency_key"
+      ],
+      "title": "PrepareIndicatorsRequest",
       "type": "object"
     },
     "ProposedBinding": {
@@ -3322,11 +3589,17 @@
     "ExecutionJob": {
       "$ref": "#/$defs/ExecutionJob"
     },
+    "FrameworkPlanRequest": {
+      "$ref": "#/$defs/FrameworkPlanRequest"
+    },
     "GeographicEntity": {
       "$ref": "#/$defs/GeographicEntity"
     },
     "GraphSnapshot": {
       "$ref": "#/$defs/GraphSnapshot"
+    },
+    "IndicatorFrameworkSpec": {
+      "$ref": "#/$defs/IndicatorFrameworkSpec"
     },
     "ManagementGoal": {
       "$ref": "#/$defs/ManagementGoal"
@@ -3339,6 +3612,9 @@
     },
     "PlanningArtifact": {
       "$ref": "#/$defs/PlanningArtifact"
+    },
+    "PrepareIndicatorsRequest": {
+      "$ref": "#/$defs/PrepareIndicatorsRequest"
     },
     "ProviderPlanningArtifact": {
       "$ref": "#/$defs/ProviderPlanningArtifact"
@@ -3369,6 +3645,9 @@
     }
   },
   "required": [
+    "IndicatorFrameworkSpec",
+    "PrepareIndicatorsRequest",
+    "FrameworkPlanRequest",
     "DataSourceSpec",
     "SourceSnapshotRequest",
     "DataInspection",

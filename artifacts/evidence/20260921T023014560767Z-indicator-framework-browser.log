@@ -1,0 +1,54 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test indicator-framework.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:17642) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+  1) e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByLabel('观测数据', { exact: true }).locator('option').filter({ hasText: 'Synthetic indicator frame C' })
+    Expected: 1
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByLabel('观测数据', { exact: true }).locator('option').filter({ hasText: 'Synthetic indicator frame C' }) with timeout 5000ms
+      - waiting for getByLabel('观测数据', { exact: true }).locator('option').filter({ hasText: 'Synthetic indicator frame C' })
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      58 |   await expect(
+      59 |     select.locator("option").filter({ hasText: "Synthetic indicator frame C" }),
+    > 60 |   ).toHaveCount(1);
+         |     ^
+      61 |   const option = await select
+      62 |     .locator("option")
+      63 |     .filter({ hasText: "Synthetic indicator frame C" })
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/indicator-framework.spec.ts:60:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/indicator-framework-indica-eee6d-emporal-evaluation-workflow/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow 

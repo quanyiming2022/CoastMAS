@@ -175,8 +175,29 @@ def build_template_plan(
         raise CoastMASError("CATALOG_INVALID", "duplicate data version in planning snapshot")
     if len({(item.id, item.version) for item in models}) != len(models):
         raise CoastMASError("CATALOG_INVALID", "duplicate model version in planning snapshot")
+    assessment_supports: set[str] = set()
+    if goal.template != "coastal_impact":
+        selected_frame = selectors.get("normalize.frame")
+        assessment_supports = {
+            variable.spatial_support
+            for asset in assets
+            if selected_frame is None
+            or (asset.id, asset.version) == (selected_frame.id, selected_frame.version)
+            for variable in asset.variables
+            if variable.standard_name == "indicator_frame"
+        }
     for component in components:
         candidates = [item for item in models if item.runtime_config.get("component") == component]
+        if len(assessment_supports) == 1:
+            support = next(iter(assessment_supports))
+            candidates = [
+                item
+                for item in candidates
+                if all(
+                    variable.spatial_support == support
+                    for variable in (*item.inputs, *item.outputs)
+                )
+            ]
         trusted = []
         for model in candidates:
             if not model.enabled:
@@ -279,6 +300,16 @@ def build_template_plan(
                         variable=variable.name,
                     )
                 )
+    if goal.template != "coastal_impact" and "normalize" not in chosen:
+        # Spatial model ambiguity must not hide the input selector needed to resolve it.
+        required.append(
+            RequiredData(
+                target=BindingTarget(node_id="normalize", variable="frame"),
+                standard_name="indicator_frame",
+                selected=None,
+            )
+        )
+        consumed.add("normalize.frame")
     for key in selectors.keys() - consumed:
         missing.append(
             MissingCondition(code="SELECTION_UNKNOWN", message=f"unknown input selection: {key}")

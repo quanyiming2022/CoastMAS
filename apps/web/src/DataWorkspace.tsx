@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { z } from "zod";
 import { request, revisionSchema } from "./api";
 import { contract, contractErrors } from "./contracts";
@@ -34,7 +39,11 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
   const navigate = useNavigate();
   const client = useQueryClient();
   const [fresh] = useState(freshData);
-  const [version, setVersion] = useState(0);
+  const [parameters] = useSearchParams();
+  const [version, setVersion] = useState(() => {
+    const value = Number(parameters.get("version"));
+    return Number.isInteger(value) && value > 0 ? value : 0;
+  });
   const [draft, setDraft] = useState<Record<string, JsonValue> | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [issues, setIssues] = useState<string[]>([]);
@@ -67,6 +76,21 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
       request(
         `/data-sources/for-asset/${encodeURIComponent(id!)}?version=${base!.version}`,
         z.array(revisionSchema.extend({ spec: sourceContract })),
+        { signal },
+      ),
+  });
+  const assessmentLineage = useQuery({
+    queryKey: ["assessment-lineage", projectId, id, base?.version],
+    enabled: !!base,
+    queryFn: ({ signal }) =>
+      request(
+        `/indicator-frameworks/for-asset/${encodeURIComponent(id!)}?version=${base!.version}`,
+        z.object({
+          frameworks: z.array(
+            revisionSchema.extend({ spec: contract("IndicatorFrameworkSpec") }),
+          ),
+          observations: z.array(revisionContract),
+        }),
         { signal },
       ),
   });
@@ -281,7 +305,31 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
           </fieldset>
         </Panel>
       ) : null}
-      <ErrorNotice error={lineage.error} />
+      <ErrorNotice error={lineage.error ?? assessmentLineage.error} />
+      {assessmentLineage.data?.frameworks.length ? (
+        <Panel title="已核实的评价来源">
+          {assessmentLineage.data.frameworks.map((row) => (
+            <p key={row.resource_id}>
+              <Link
+                to={`/assessments/${encodeURIComponent(row.resource_id)}?version=${row.version}`}
+              >
+                {row.spec.name}
+              </Link>{" "}
+              · 指标体系 v{row.version}
+            </p>
+          ))}
+          {assessmentLineage.data.observations.map((row) => (
+            <p key={row.resource_id}>
+              <Link
+                to={`/data/${encodeURIComponent(row.resource_id)}/workspace?version=${row.version}`}
+              >
+                {row.spec.name}
+              </Link>{" "}
+              · 原始观测 v{row.version}
+            </p>
+          ))}
+        </Panel>
+      ) : null}
       {lineage.data?.length ? (
         <Panel title="已核实的数据来源">
           {lineage.data.map((row) => (

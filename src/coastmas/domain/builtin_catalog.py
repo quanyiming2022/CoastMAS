@@ -6,6 +6,7 @@ installed by application setup, and their complete ModelSpec snapshot is pinned.
 
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from typing import Literal
 
 import numpy as np
 from pydantic import JsonValue
@@ -157,7 +158,9 @@ def _golden_errors() -> dict[str, float]:
     return errors
 
 
-def _variable(name: str, standard: str, *, array: bool = False) -> VariableSpec:
+def _variable(
+    name: str, standard: str, *, array: bool = False, spatial: str = "management_unit"
+) -> VariableSpec:
     return VariableSpec(
         name=name,
         standard_name=standard,
@@ -166,7 +169,7 @@ def _variable(name: str, standard: str, *, array: bool = False) -> VariableSpec:
         unit="1",
         dimension="dimensionless",
         semantic_type="continuous",
-        spatial_support="management_unit",
+        spatial_support=spatial,
         temporal_support="declared_period",
         aggregation_type="intensive",
         nodata_policy="reject",
@@ -174,14 +177,19 @@ def _variable(name: str, standard: str, *, array: bool = False) -> VariableSpec:
     )
 
 
-def assessment_catalog(project_id: str) -> BuiltinCatalog:
+def assessment_catalog(
+    project_id: str,
+    spatial_support: Literal[
+        "management_unit", "administrative_unit", "custom_polygon", "grid"
+    ] = "management_unit",
+) -> BuiltinCatalog:
     """Register fixed code only after real golden computations pass; no fabricated metrics."""
     errors = _golden_errors()
-    raw = _variable("frame", "indicator_frame")
-    normalized = _variable("frame", "normalized_indicator_frame")
-    weights = _variable("weights", "indicator_weights", array=True)
-    scores = _variable("scores", "assessment_scores")
-    change = _variable("change", "temporal_assessment_change")
+    raw = _variable("frame", "indicator_frame", spatial=spatial_support)
+    normalized = _variable("frame", "normalized_indicator_frame", spatial=spatial_support)
+    weights = _variable("weights", "indicator_weights", array=True, spatial=spatial_support)
+    scores = _variable("scores", "assessment_scores", spatial=spatial_support)
+    change = _variable("change", "temporal_assessment_change", spatial=spatial_support)
     signatures = {
         "normalize": ((raw,), (normalized,), "Indicator normalization"),
         "weight": ((normalized,), (weights,), "Indicator weighting"),
@@ -201,13 +209,15 @@ def assessment_catalog(project_id: str) -> BuiltinCatalog:
     registry = ExecutionRegistry()
     models: list[ModelSpec] = []
     # Fixed component release timestamp is part of each immutable version, not run time.
-    released = datetime(2026, 9, 20, tzinfo=UTC)
+    legacy = spatial_support == "management_unit"
+    released = datetime(2026, 9, 20 if legacy else 21, tzinfo=UTC)
     for component, (inputs, outputs, name) in signatures.items():
         model = ModelSpec.model_validate(
             {
-                "id": f"builtin:{project_id}:{component}",
-                "name": name,
-                "display_name": name,
+                "id": f"builtin:{project_id}:{component}"
+                + ("" if legacy else f"-{spatial_support}"),
+                "name": name if legacy else f"{name} ({spatial_support})",
+                "display_name": name if legacy else f"{name} ({spatial_support})",
                 "version": 1,
                 "model_type": "STATISTICAL",
                 "description": "Deterministic assessment with explicit entity and unit metadata",

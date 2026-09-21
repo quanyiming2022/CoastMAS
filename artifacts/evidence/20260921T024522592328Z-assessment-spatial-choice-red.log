@@ -1,0 +1,31 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_different_spatial_supports_keep_input_selection_available_until_resolved _
+
+    def test_different_spatial_supports_keep_input_selection_available_until_resolved():
+        catalog, management, context = inputs()
+        grid_catalog = assessment_catalog("plan-test", spatial_support="grid")
+        for model in grid_catalog.models:
+            runtime = grid_catalog.registry.resolve(model)
+            catalog.registry.register(model, runtime.adapter, runtime.handler)
+        grid_model = next(
+            model for model in grid_catalog.models if model.runtime_config["component"] == "normalize"
+        )
+        grid = management.model_copy(update={"id": "grid-observations", "variables": grid_model.inputs})
+        models = (*catalog.models, *grid_catalog.models)
+        goal = ManagementGoal(original_text="Explicit assessment", template="sustainability")
+        unresolved = build_template_plan(goal, context, models, (management, grid), catalog.registry)
+        assert unresolved.candidate_workflow is None
+>       assert any(
+            item.target.node_id == "normalize"
+            and item.target.variable == "frame"
+            and item.selected is None
+            for item in unresolved.required_data
+        )
+E       assert False
+E        +  where False = any(<generator object test_different_spatial_supports_keep_input_selection_available_until_resolved.<locals>.<genexpr> at 0x1095a8c70>)
+
+tests/unit/test_planning.py:238: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_planning.py::test_different_spatial_supports_keep_input_selection_available_until_resolved
+1 failed, 8 deselected in 0.36s

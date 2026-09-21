@@ -1,0 +1,43 @@
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  20 passed (20)
+      Tests  42 passed (42)
+   Start at  10:23:11
+   Duration  2.82s (environment 59%, import 16%, tests 12%, setup 7%, transform 6%)
+
+Environment  jsdom was created 20 times · 12.23s total, 59% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+src/indicator-editor.test.ts(40,5): error TS2345: Argument of type '{ id: string; version: number; name: string; description: string; indicators: { name: string; category: string; unit: string; source: { x: string; }; normalization: { method: "fixed_minmax"; lower: number; upper: number; }; ... 4 more ...; weight_method: WeightMethod; }[]; class_breaks?: ClassBreaks; demo?: Demo; sp...' is not assignable to parameter of type 'IndicatorFrameworkSpec'.
+  Types of property 'indicators' are incompatible.
+    Type '{ name: string; category: string; unit: string; source: { x: string; }; normalization: { method: "fixed_minmax"; lower: number; upper: number; }; weight: number; direction: Direction; formula: string; indicator_id: string; weight_method: WeightMethod; }[]' is not assignable to type 'Indicators'.
+      Source provides no match for required element at position 0 in target.
+src/indicator-editor.test.ts(46,36): error TS2345: Argument of type '{ name: string; description: string; version: number; indicators: { name: string; category: string; unit: string; source: { x: string; }; normalization: { method: "fixed_minmax"; lower: number; upper: number; }; ... 4 more ...; weight_method: WeightMethod; }[]; class_breaks?: ClassBreaks; demo?: Demo; id: Id8; spati...' is not assignable to parameter of type 'IndicatorFrameworkSpec'.
+  Types of property 'indicators' are incompatible.
+    Type '{ name: string; category: string; unit: string; source: { x: string; }; normalization: { method: "fixed_minmax"; lower: number; upper: number; }; weight: number; direction: Direction; formula: string; indicator_id: string; weight_method: WeightMethod; }[]' is not assignable to type 'Indicators'.
+      Source provides no match for required element at position 0 in target.
+src/indicator-editor.ts(29,5): error TS2322: Type '[]' is not assignable to type 'Indicators'.
+  Source has 0 element(s) but target requires 1.
+src/indicator-editor.ts(49,5): error TS2322: Type '{ weight_method: WeightMethod; weight: number | null; category: string; direction: Direction; formula: string; indicator_id: string; name: string; normalization: FixedNormalization; source: Source4; unit: string; }[]' is not assignable to type 'Indicators'.
+  Source provides no match for required element at position 0 in target.
+src/IndicatorFrameworks.tsx(234,7): error TS2322: Type 'IndicatorDefinition[]' is not assignable to type 'Indicators'.
+  Source provides no match for required element at position 0 in target.
+src/IndicatorFrameworks.tsx(566,23): error TS2322: Type 'IndicatorDefinition[]' is not assignable to type 'Indicators'.
+  Source provides no match for required element at position 0 in target.
+src/IndicatorFrameworks.tsx(608,10): error TS18048: 'current.class_breaks' is possibly 'undefined'.
+src/IndicatorFrameworks.tsx(619,33): error TS18048: 'current.class_breaks' is possibly 'undefined'.

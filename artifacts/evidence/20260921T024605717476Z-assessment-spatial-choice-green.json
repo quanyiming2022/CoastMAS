@@ -1,0 +1,32 @@
+{
+  "name": "assessment-spatial-choice-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/unit/test_planning.py",
+    "tests/integration/test_assessment_spatial_support.py"
+  ],
+  "started_at": "2026-09-21T02:46:05.717476+00:00",
+  "finished_at": "2026-09-21T02:46:17.325902+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "51fe470da70b8236a0468a73f3c3a9ae6cd9f7b55c54e148d7e57647102f2eeb",
+  "git_commit": "0d268eb844b62aed04293cdea4f268e3de0845ea",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T024605717476Z-assessment-spatial-choice-green.log"
+}

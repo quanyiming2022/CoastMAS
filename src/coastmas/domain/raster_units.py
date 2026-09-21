@@ -9,11 +9,13 @@ one raster and metres in another. Output units must match the derived dimension.
 import ast
 
 import numpy as np
+import pint
 
 from coastmas.adapters.geofiles import Grid
 from coastmas.core.binding import convert_units
 from coastmas.core.contracts import UNITS
 from coastmas.core.errors import ConstraintError
+from coastmas.core.numeric import FloatArray
 from coastmas.domain.raster import raster_calculator
 
 
@@ -21,20 +23,41 @@ def calculate_grids(expression: str, rasters: dict[str, Grid], output_unit: str)
     if not rasters:
         raise ConstraintError("calculator requires at least one grid")
     template = next(iter(rasters.values()))
-    arrays = {}
-    units: dict[str, str] = {}
-    for name, grid in rasters.items():
+    for grid in rasters.values():
         if (
             grid.crs != template.crs
             or grid.transform != template.transform
             or grid.values.shape != template.values.shape
         ):
             raise ConstraintError("calculator grids must be explicitly aligned")
-        base = str(UNITS.Quantity(1, grid.unit).to_base_units().units)
-        values = grid.values.copy()
+    result = calculate_arrays(
+        expression,
+        {name: (grid.values, grid.unit) for name, grid in rasters.items()},
+        output_unit,
+    )
+    datum = template.vertical_datum if output_unit == template.unit else None
+    return Grid(result, template.crs, template.transform, output_unit, datum)
+
+
+def calculate_arrays(
+    expression: str, inputs: dict[str, tuple[FloatArray, str]], output_unit: str
+) -> FloatArray:
+    """Evaluate aligned two-dimensional values without inventing spatial metadata.
+
+    Arrays may represent periods and entities. The same bounded AST and base-unit
+    literal convention used by raster algebra applies to indicator formulas.
+    """
+    arrays = {}
+    units: dict[str, str] = {}
+    for name, (array, unit) in inputs.items():
+        try:
+            base = str(UNITS.Quantity(1, unit).to_base_units().units)
+        except (pint.UndefinedUnitError, pint.OffsetUnitCalculusError, ValueError) as exc:
+            raise ConstraintError("unknown or unsupported formula input unit") from exc
+        values = array.copy()
         known = np.isfinite(values)
         if np.any(known):
-            values[known] = convert_units(values[known], grid.unit, base)
+            values[known] = convert_units(values[known], unit, base)
         arrays[name] = values
         units[name] = base
     result = raster_calculator(expression, arrays)
@@ -98,5 +121,4 @@ def calculate_grids(expression: str, rasters: dict[str, Grid], output_unit: str)
     convert_units([1.0], result_unit, output_unit)
     if np.any(known):
         result[known] = convert_units(result[known], result_unit, output_unit)
-    datum = template.vertical_datum if output_unit == template.unit else None
-    return Grid(result, template.crs, template.transform, output_unit, datum)
+    return result

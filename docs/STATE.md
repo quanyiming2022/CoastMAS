@@ -1,76 +1,45 @@
 # CoastMAS 当前状态（未完成全范围验收）
 
-## 约束与工作入口
-- 项目已移动至 `/Users/quanyiming/projects/CoastMAS`（系统真实大小写 Projects）；原 Documents 目录已验证移走。用户一次委托、连续执行，不等待例行确认。主执行者单独推进，没有子代理。
-- 全部任务书和 EQ 已读。后续用 `requirements-index.md` 定位，不重新全仓规划。唯一需求映射为 `requirements-traceability.csv`；映射的 NOT_RUN 不因组件通过而批量改为 PASS。
-- 最近提交用 `git log -1` 查看；本状态只记录当前事实。所有命令显式工作目录；源码、测试、迁移、部署或样例文件在 evidence.py 运行期间不得修改。
-- 密钥 `.env` 与演示账号 `artifacts/runtime/demo-access.json` 权限 0600，忽略提交，不打印。原始私有运行日志和浏览器 trace 在 artifacts/logs、artifacts/runtime；公开 evidence 自动脱敏，保留失败历史。
+## 执行约束
+- 项目已移动至 `/Users/quanyiming/projects/CoastMAS`（实际大小写 Projects）；工作目录必须显式指定。用户授权一次委托连续研发，不等待例行阶段确认；默认一个主执行者，未调用子代理。
+- 完整需求和 EQ 已读，用 requirements-index.md 定位后续条目；唯一映射 requirements-traceability.csv。组件证据不等于全范围最终 PASS；不重新规划、不重造已验证算法。
+- evidence.py 在运行前后计算源码摘要；运行期间不得修改 src/tests/scripts/apps/migrations/deploy/sample-data 或构建配置。文档可更新。完整失败记录保留，不放宽断言或删测试求绿。
+- 私有 `.env`、`artifacts/runtime/demo-access.json` 和连接器配置为 0600，忽略提交，不打印。evidence 自动脱敏；提交前核查暂存差异中的 configured_secrets。API/worker 私有日志保存在 artifacts/logs。
 
-## 已实现基础
-- 严格不可变版本契约、DAG 科学预检、精确语义/Pint 单位/PyProj CRS/垂向/时间/尺度/NoData/总量守恒；未知科学规则拒绝。可信运行注册固定完整 ModelSpec 摘要，元数据导入不能自证可执行。
-- 综合评价、熵权、TOPSIS、多期比较、连通淹没筛查；AST 栅格计算/分区/适宜性、MILP、固定种子分组随机森林与签名私有模型。六类实际 Adapter（Python/CLI、Docker、HTTP、RasterGIS、ML），有进程超时/取消/资源边界。
-- PostgreSQL 用户/项目/四角色/不可变资源/引用/审计/任务/结果/规划账本；迁移至 0006。Argon2+不透明会话+CSRF，服务端权限与并发版本保护。Redis/Celery 持久派发、租约心跳、撤权取消、幂等及原子发布。
-- 真实 S3 文件校验与 SHA；GeoTIFF/COG、GeoJSON/Shapefile/GPKG、CSV/JSON/NetCDF 读写和有界检查。NetCDF IO 单线程，检查在独立进程；矢量用 spatial_support，不能假装像元分辨率。
-- 8 个内置可信模型：地形 screening/overlay/statistics，评价 normalize/weight/composite/topsis/change。3 个确定性规划 DAG 使用真实样例文件计算。人口在完整单元内均匀分布，AOI 裁剪不重新归一化，未知地形单独计量；不称水动力模拟。
-- 规划 API：模板解析、缺失条件、精确版本绑定、保存工作流；外部提供方严格 JSON Schema、无自动重试/重定向、请求/响应上限；每条规划共享默认 2 次原子预算，缓存复用重查权限及资源状态。提供方报告 tokens 才记录，缺失保持 null。
-- 项目/真实 Dashboard/账号/成员/审计 API；模型拆解导入导出/复制历史/检索匹配/启停归档；工作流预检/提交、任务取消/重试、结果下载/追溯。模型纯启停可保留已有可信资格，修改科学元数据仍需重新审批。
-- 持久初始化：8 模型、11 资产、3 场景、3 工作流；重复初始化不重置用户密码、旧版本或停用状态。`python -m coastmas {init,api,worker,beat}`。
+## 已实现与对应文档
+- 不可变 Model/Scene/Workflow/Binding/Manifest 契约，DAG 科学预检、语义/单位/CRS/垂向/时间/尺度/NoData/总量守恒；未知约束拒绝。固定 ModelSpec 摘要可信运行注册。Python/CLI/Docker/HTTP/GIS/ML 适配器、隔离超时及取消。
+- PostgreSQL/PostGIS 四角色与 PUBLIC 受限读、Argon2 会话/CSRF、版本/依赖/审计/任务/规划账本；Redis/Celery 派发、租约、幂等、撤权和 S3 原子发布。迁移0006，旧版本与用户状态保留。
+- 真实八种格式文件检查/预览/下载，项目对象隔离、上传修订/质量版本、全目录搜索；data-workspace.md。受控 HTTP/PostgreSQL 数据源配置、登记、历史、幂等导入和来源外键；data-sources.md。
+- 模型表单/导入导出/历史/复制/启停/归档/检索，五种静态拆解候选；model-center.md。非内置可信审批闭环仍待完成。
+- ReactFlow 工作流编辑、绑定/预检/保存/历史/实际运行；workflow-studio.md。场景 AOI 编辑、真实范围检查、精确实体/数据版本绑定；scene-workspace.md。
+- 八类地理实体/PostGIS不可变空间版本；geographic-entities.md。PG→NetworkX 九关系与版本来源；knowledge-graph.md。确定性三模板规划、数据歧义显式选择、外部结构化候选及原子2次预算，不能绕过科学预检。
+- 结果对象固定实体版本、实际发布 Manifest 与 SHA、历史几何地图/图表/数值时间轴/双运行原值比较；result-entity-binding.md、result-center.md。
+- 科学算法：地形连通 screening（不是水动力学）、真实叠置/人口/未知面积，固定边界评价、等权/手工/熵权、单期TOPSIS、多期变化/趋势；安全AST/有单位数组表达式、MILP、分组隔离ML。原样例金标准：A=80000 m²/320人口、baseline=40000/160；B=.2/.4/.6/.8；C变化.2、趋势.1/年。
 
-## 当前前端与实测链路
-- React/TypeScript strict、TanStack Query、生成契约+AJV/Zod；无任意 any，写请求无自动重试，CSRF/幂等/错误追踪。已接通登录、项目切换、概览、模型/数据/场景/工作流目录与详情、运行/结果中心。
-- 工作流图显示真实数据/模型/输出和节点、连接错误；选择场景预检后运行，服务端再次检查。可编辑 Studio 已接入草稿预检、拖拽端口、输入输出、参数和版本保存，真实浏览器拖入/连线/删除/参数/绑定/输出/复制/修订/历史/运行通过。
-- 运行页真实轮询/取消/重试/快照；结果页真实下载、来源、离线多边形地图、分区人口图表和统计表；全部基于实际输出。地图使用 MapLibre 6 的 Vite `?worker&url` 打包，不依赖外部底图。
-- 浏览器真实链路已通过：登录→预检→Redis→独立 worker→S3/PG 发布→结果/下载；面积 80000 m²、估算人口 320、3 节点、执行阶段 LLM=0。桌面/手机截图在 `artifacts/screenshots/`。
-- 地图缺失 worker、统计未知面积字段误读、登录状态刷新与测试控件定位的失败记录均保留，修正后重跑；不能删除失败制造全绿历史。
-- 前端仍缺：完整地图场景编辑、模型注册及完整目录操作、动态评价/协同/研究/管理页面、场景比较/时间序列与全部操作 E2E。当前页面不等于完整 UI 验收。
+## 本轮评价中心增量（已验证）
+- IndicatorFrameworkSpec/IndicatorDefinition：全字段、明确单位/固定边界、多列公式、方向/共享权重、五种 DEMO 分类；无科学边界的草稿不可保存。体系不可变CRUD/历史/归档、真实S3准备文件、双来源FK、幂等、固定权重的评价方案→保存工作流→独立worker运行。
+- `/assessments` 编辑/历史/公式输入/准备/方案界面；DataWorkspace 增加经核实的体系/观测来源及历史深链接。未运行的自动权重不伪造。
+- 四种空间支撑各有独立可信签名：management_unit、administrative_unit、custom_polygon、grid。旧5个评价签名和3个海岸签名原样保留，新增15个签名。主库已幂等初始化为23模型/11原始样例资产/3原始场景及工作流，保留用户新增数据。
+- 多种空间支撑同时存在时，规划仍提供 normalize.frame 数据选择入口；不擅自选择模型。
+- 详见 assessment-center.md。新增文件和修改均为本轮工作，上一提交0d268eb；本轮提交标识以 git log -1 为准。
 
-## 最新证据
-- 存储恢复后完整后端：`20260920T140404835174Z-native-storage-backend-full`，267 passed、2 warnings；真实浏览器 `20260920T140404398495Z-native-storage-browser-full`，5 passed。
-- 覆盖率 5297/6015 行、1431/2020 分支，最终分支门槛仍未通过，没有排除困难业务文件。
-- 工作流草稿预检增量：`20260920T141027639331Z-workflow-draft-preflight` 通过；前端18项测试 `20260920T142517556100Z-workflow-editor-unit` 通过；生产构建 `20260920T142324251056Z-workflow-editor-build` 通过。编辑器两条真实浏览器通过；全套浏览器 20260920T143512052605Z-workflow-studio-browser-full 为 7 passed，最新18项单元与 lint 通过。完整后端 20260920T143514654592Z-workflow-studio-backend-full：269 passed、2 warnings；工作流增量已提交 f9911a2。
-- 生成契约源于 Pydantic，漂移检查需纳入统一 Makefile。Vite 图表/地图包体警告、依赖弃用警告保持可见。
+## 最新已通过证据
+- 上一完整回归：20260921T015906646890Z-source-catalog-backend-full，304项；20260921T015904965192Z-source-catalog-browser-full，15条。同源SHA 9ba89332db08e47313a0bfe0c3ac08d04006f2f92f2e80b7dc06e6e91129b97b。
+- 评价领域/原栅格回归39项（021340547923Z）；版本/真实文件/来源/科学约束16项（024157396725Z-framework-lineage-green）；空间单元/旧样例/规划15项（023851387059Z-assessment-spatial-green）；混合空间支撑选择13项（024605717476Z）。
+- 真实单条浏览器：023327232017Z-indicator-framework-browser-run，编辑→文件→方案→独立worker成功→修订与只读历史。后续加强了真实分数/变化/趋势及来源链接断言，正随全套运行。
+- 最新静态质量：20260921T024726578244Z-assessment-delivery-quality，全仓ruff、81源文件mypy、生成契约漂移、前端42项测试、lint/生产构建通过。保留包体与依赖警告。
+- 本轮完整后端：20260921T024724912482Z-assessment-backend-full，325 passed、2 warnings。首次全浏览器15/16通过，发现新增导航使退出按钮超出视窗；侧栏改为可滚动，保留失败证据。20260921T025316538695Z-assessment-navigation-browser-full 全16条通过，包括评价分数/变化/趋势和历史来源链接。CSS修复后仅重测受影响前端，Python未变化，后端证据继续适用；不声称两个源码整体SHA完全相同。当前无验收进程运行。
+- 最新覆盖率6225/7014行≈88.8%、1656/2292分支≈72.3%；最终分支门槛未满足，未排除困难业务文件。
 
-## 环境与继续执行
-- 本地 API/UI `http://127.0.0.1:58000`，worker 与 beat 已启动；PostGIS 55432、Redis 56379、MinIO 59000。`/health/live` 是进程存活，`/health/ready` 真实检查 DB/S3/Redis；旧 `/health` 只检查 DB。
-- Docker 磁盘用户已调整。旧 MinIO 两次 panic 后已切换经校验的官方安全源码原生 ARM 构建，镜像/源码/二进制固定摘要，新卷 coastmas_objects_native。旧卷和私有备份保留；归因未确定。详见 object-storage-recovery.md。
-- 外部 LLM 密钥仍缺失，真实外部研究实验 BLOCKED；本地协议测试不能算真实外部实验。独立开发不因此等待。
-- 最小下一步：保存工作流编辑增量全套证据，再推进场景工作台及实体绑定。当前 API 日志 api-workflow-editor.log；worker/beat 持续运行。
-- 其他必选缺口：时间/跨 CRS 保守分配显式节点、服务/DB 数据连接器、非内置运行审批、完整任务诊断日志、计算结果缓存、孤立存储对象保留清理、可选 GeoAI API、全部研究与性能实验、统一 Docker 部署/Makefile/完整文档和最终门禁。
-- 后端回归命令：`.venv/bin/python scripts/evidence.py combined -- .venv/bin/python -m pytest -q --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json`。前端：`npm --prefix apps/web test`、`run lint`、`run build`、`run e2e`。
-- 平台中断不代表完成，不宣称后台继续执行。只有所有必选项在最终交付代码上有证据通过才宣布完成。
+## 服务与恢复
+- API/UI http://127.0.0.1:58000。当前API session22263/log api-assessment-final.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
+- 基础容器 coastmas-database-1(55432)、coastmas-redis-1(56379)、coastmas-object-storage-1(59000/59001)。当前三依赖ready。中断后先检查容器/进程及 `/health/ready`，不要盲目重跑。仅恢复本项目容器，不能删除卷或处理无关项目。
+- 原生MinIO新卷coastmas_objects_native，经固定官方源码构建、SHA恢复及120秒并发验证；旧卷和私有备份保留。历史AMD64 panic未抹去，详见object-storage-recovery.md。
+- `.env`中的COASTMAS_DATA_SOURCES_CONFIG指向 artifacts/runtime/source-connectors.json（0600），demo-csv仅授权演示项目本机SYNTHETIC源。
+- 更新服务前核对jobs无QUEUED/RUNNING，验证精确命令+cwd，正常SIGTERM退出再启动。用户任务中断不代表项目完成，不宣称后台仍在继续。
 
-## 后续已完成增量
-- 智能规划 UI：数据歧义必须选择，输入变化使旧候选不可保存；外部账本 0/2、换账号缓存清理均有真实/组件证据。规范 JSON 工作流 ID 修复保留旧版本。
-- 地理实体：八类实体、严格几何/CRS/时间/身份，PostGIS 不可变派生空间版本，分页空间/时间/历史查询；导入/修订/历史/地图真实浏览器通过。实体历史选择竞态有红绿测试；详见 geographic-entities.md。
-- 知识图谱：PostgreSQL 契约投影＋NetworkX，九类关系、版本来源、权限/预算、交互邻域和筛选；契约候选不代表科学通过。真实浏览器通过，详见 knowledge-graph.md。
-- 原生 MinIO：11 资产版本/7 旧结果逐字节校验，120 秒并发 200 写/3168 读，重复源码构建二进制摘要一致；恢复后全套回归通过。过去存储崩溃和对应测试失败证据全部保留，不声称长时稳定性已充分验证。
-- 真实外部 LLM 配置问题已异步询问一次，无答复；不要重复询问或打印密钥。本地协议回归不能替代真实外部实验。
-
-- 场景工作台增量：entity_references/data_references 精确版本、场景依赖外键、目录范围/时间/实体有效期检查、AOI 绘制上传、参数表单、保存复制历史和实际运行。相关后端72项、浏览器4条通过；AOI视野与实际DEM测量范围复验通过（151408833135Z-scene-measured-extent-browser）；场景显式数据选择与真实输入一致性测试通过（151708565307Z-scene-input-selection-green）。下一项为结果对象和地理实体绑定。详情 scene-workspace.md。
-- 当前 API/worker/beat 已统一重启加载场景执行校验，日志 artifacts/logs/{api,worker,beat}-scene-final.log，三者已加载场景数据选择执行约束。所选实体快照进入产物，但完整结果对象到实体/管理结果绑定仍未完成。
-- 用户询问进度：已告知按证据关联条目 330/1202≈27%，正式PASS 12/1202≈1%，不把已映射路径等同完成功能。要求进一步节省token，后续只做局部定位/成组修复/相关回归，保留最终完整门禁。
-
-- 结果绑定增量：新增 ResultObject/ResultView，精确匹配场景实体 management_unit_id，重复映射拒绝，缺失保持 UNBOUND/PARTIAL，通用输出 NOT_APPLICABLE；保留原始输出。实际发布 ResultManifest 与数据库 ID/字节 SHA 一致，异质单位 per-output、未知结果范围 null。前端显示固定版本与未绑定项，历史结果兼容。真实浏览器 153804904313Z-result-binding-browser 首次通过，实际 U1 绑定且原金标准不变；截图已目视检查。海岸/评价/时间变化映射和实体到期边界相关34项回归通过（154042079354Z-result-binding-backend-regression）；类型/格式/契约/前端测试与构建通过（154157535990Z-result-binding-final-checks）。详见 result-entity-binding.md。
-- 本轮服务日志改为 artifacts/logs/{api,worker,beat}-result-binding-final.log，三者已重启加载结果绑定、发布清单及时间变化/实体到期边界修复。API session96367、worker61173、beat51349；后续更新前确认无活动任务、核对进程和目录。
-- 最终当前服务浏览器复验通过：20260920T154406863514Z-result-binding-final-browser；未修改原始样例或覆盖历史结果。下一步继续结果空间联动/多期比较及剩余全范围界面，不重新规划。
-
-- 结果中心增量：结果实体历史几何/WGS84转换、地图↔表格选择、多期年份/单元筛选与数值年份折线、分页结果中心和双运行原值比较。17项相关后端、28项前端及生产构建通过；真实浏览器地图、多期(160422253364Z)、比较(161017147427Z)通过。完整后端291项通过（161755783770Z-result-center-final-backend），全浏览器11条通过（161753733719Z-result-center-final-browser）；图层控制实测通过。覆盖5633/6372行、1530/2136分支，分支约71.6%，最终门槛未满足。详情 result-center.md。worker已单独重启，session46201/log worker-result-display.log；API与beat仍用上轮日志。下一步模型/数据完整目录界面；不重新规划。
-
-- 模型中心增量：科学字段表单/版本历史/JSON-YAML 导入导出/复制/启停/归档、服务端全目录搜索以及五种静态拆解方式已接通。34 项前端测试+类型/lint/构建通过（165155311699Z-model-center-quality），真实浏览器2条通过（165233222214Z-model-center-browser）。拆解始终 review_required=true/executable=false，非内置可信运行审批闭环仍待完成。详见 model-center.md。下一步数据上传、测量预览及版本管理界面；当前 API/worker/beat 无需重启。
-- 模型后端与生成契约复验通过：20260920T165327809610Z-model-center-backend-contracts，9 passed、2 warnings；拆解依赖图截图已目视检查。
-
-- 数据工作台增量：上传/科学元数据/实际预览/修订/质量重检/历史原字节下载/依赖保护归档；37项前端及构建通过，真实CSV浏览器通过。跨项目对象地址伪造漏洞已由下载/预览/检查与worker统一校验修复，14项相关后端通过（170718632171Z-data-project-isolation-check）。详情data-workspace.md。全后端与浏览器回归正在运行，未宣布总任务完成。
-- 中断后服务已恢复：API session8596、worker58971、beat28693；日志 artifacts/logs/{api,worker,beat}-data-isolation.log。源码在evidence运行期间不得修改。模型增量已提交0ea719e，数据增量尚未提交。
-
-- 本次中断后发现三项 CoastMAS 基础容器停止，造成 data-isolation-backend-full 的 82 个环境错误和浏览器登录失败；已启动原容器，未重建或删除卷。/health/ready 三依赖恢复 ready，worker 恢复派发。data-recovered-backend-full 和 data-recovered-browser-full 为恢复后的完整回归，结果待核对；契约漂移与37项前端测试已通过（20260921T011549760003Z-data-contract-final-check）。
-
-- 数据增量恢复后完整验证：20260921T011550016130Z-data-recovered-backend-full，294 passed、2 warnings；20260921T011621349114Z-data-recovered-browser-full，14 passed；前端37项和契约漂移检查通过。覆盖5663/6403行、1535/2142分支（约71.7%），最终门槛仍未满足。API/worker/beat已加载最新代码。下一步数据目录跨页搜索筛选及连接器，不重复完整规划。
-
-- 数据全目录搜索筛选已完成：服务端名称/标识匹配、类型/格式/CRS筛选后分页，SQL通配符按字面处理，权限隔离和当前版本查询保持；10项相关后端、38项前端、严格类型及构建通过（20260921T012224607952Z-data-search-green），实际浏览器数据搜索和共享场景流程6条通过（20260921T012457765718Z-data-search-browser）。API session36152/log api-data-search.log；worker58971、beat28693不变。下一步登记和导入受管理员配置限制的 HTTP/URL/数据库数据源。
-
-- 数据源增量进行中：受控 HTTP/URL、PostgreSQL 只读快照连接器；私有管理员配置/环境秘密引用；登记/修订/历史/幂等导入/外键来源/归档保护；前端共享科学元数据表单和来源历史链接均已实现。相关后端11项、配置等8项及前端构建通过，真实浏览器 source-catalog-browser 正运行(session69448)。详见data-sources.md。新增源码尚未提交，不能宣布全范围完成。
-- 当前API session34620/log api-source-catalog.log；worker58971、beat28693不变。新增本机合成HTTP验收源session20358/log source-acceptance.log，脚本serve_acceptance_source.py。私有.env中COASTMAS_DATA_SOURCES_CONFIG指向artifacts/runtime/source-connectors.json，0600；不打印或提交秘密。
-
-- 数据源真实浏览器通过：20260921T015442008877Z-source-catalog-browser，2条（HTTP登记/重复导入同快照/零值/历史来源/修订/归档保护与本地上传共享表单）。PostgreSQL经API到S3实际CSV导入、跨项目连接器拒绝也通过（20260921T015742904951Z-source-postgres-api，9项）；全仓lint、78源文件mypy、契约漂移检查通过。source-catalog-backend-full(session57612)与source-catalog-browser-full(session48728)正在运行，期间不改源码。
-
-- 数据源增量完整回归通过：20260921T015906646890Z-source-catalog-backend-full，304 passed、2 warnings；20260921T015904965192Z-source-catalog-browser-full，15 passed。同一源码SHA 9ba89332db08e47313a0bfe0c3ac08d04006f2f92f2e80b7dc06e6e91129b97b，运行期间无源码变化。覆盖5995/6773行、1603/2230分支（约71.9%），最终分支门槛未达。下一步评价中心指标定义/体系版本管理；§29已定位读取，现有domain/indicator_frames.py和assessment.py复用，不另造算法。外部LLM实验仍缺凭证，其他独立工作继续。
+## 后续必选缺口
+- 先补齐评价记录对象及剩余完整操作核验。下一模块为§30协同方案版本/角色目标权重/约束冲突/意见/审核，再接§31实际优化和§43科研运行界面；已定位读取，不重新规划。
+- 非内置运行审批、显式时间/跨CRS保守分配节点、完整任务诊断日志、计算缓存、孤立对象保留清理、可选GeoAI API（不得读改GeoAI源码）。
+- 外部LLM实验缺凭证，BLOCKED；已异步问过一次，无答复，不重复追问，不把本地协议当外部实验。独立工作继续。
+- 全部研究/消融/性能实验、统一Docker应用部署/Makefile（尚无）、准确运行构建身份、完整用户/运维/开发/科研文档和最终覆盖率/全链路/分支审查。只有全部必选项真实证据通过才宣布完成。

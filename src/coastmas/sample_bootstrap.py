@@ -147,7 +147,11 @@ def seed_project(
     require_permission(session, owner, project, "write")
     manifest = verify_samples(directory)
     catalog = coastal_catalog(project, directory)
-    components = {str(model.runtime_config["component"]): model for model in catalog.models}
+    components = {
+        str(model.runtime_config["component"]): model
+        for model in catalog.models
+        if model.id == f"builtin:{project}:{model.runtime_config['component']}"
+    }
     for model in catalog.models:
         _save(session, owner, project, "model", model.model_dump(mode="json"))
     coastal = coastal_sample_scene(directory, identifier=f"sample:{project}:scene-A")
