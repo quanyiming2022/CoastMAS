@@ -30,13 +30,11 @@ test("upload real data, preview zero, revise, revalidate and download immutable 
   await page.goto("/data/new");
   const name = `浏览器数据 ${Date.now()}`;
   const content = "height,label\n0,zero\n2,two\n";
-  await page
-    .getByLabel("数据文件", { exact: true })
-    .setInputFiles({
-      name: "zero.csv",
-      mimeType: "text/csv",
-      buffer: Buffer.from(content),
-    });
+  await page.getByLabel("数据文件", { exact: true }).setInputFiles({
+    name: "zero.csv",
+    mimeType: "text/csv",
+    buffer: Buffer.from(content),
+  });
   await page.getByRole("textbox", { name: "数据名称", exact: true }).fill(name);
   await page
     .getByRole("textbox", { name: "数据来源", exact: true })
@@ -81,6 +79,25 @@ test("upload real data, preview zero, revise, revalidate and download immutable 
   await expect(
     page.getByRole("heading", { name: "数据版本管理", exact: true }),
   ).toBeVisible();
+  await page.goto("/data");
+  await page
+    .getByRole("textbox", { name: "搜索全部数据", exact: true })
+    .fill(name);
+  await page
+    .getByRole("combobox", { name: "文件格式筛选", exact: true })
+    .selectOption("CSV");
+  await page
+    .getByRole("combobox", { name: "数据类别筛选", exact: true })
+    .selectOption("table");
+  await page.getByRole("button", { name: "搜索数据", exact: true }).click();
+  await expect(page.locator("tbody tr")).toHaveCount(1);
+  await page.getByRole("link", { name, exact: true }).click();
+  await page
+    .getByRole("link", { name: "管理数据版本与预览", exact: true })
+    .click();
+  await expect(
+    page.getByRole("textbox", { name: "数据名称", exact: true }),
+  ).toHaveValue(name);
   await page
     .getByRole("button", { name: "读取实际文件预览", exact: true })
     .click();

@@ -83,3 +83,69 @@ it("searches the project model catalogue on the server rather than filtering a p
     await screen.findByRole("link", { name: "Remote model" }),
   ).toHaveAttribute("href", "/models/found");
 });
+
+it("searches and filters data across server pages", async () => {
+  const calls: string[] = [];
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (input: string) => {
+      calls.push(input);
+      if (input.endsWith("/projects"))
+        return new Response(
+          JSON.stringify([
+            { id: "project", name: "Project", owner_id: "owner" },
+          ]),
+        );
+      return new Response(
+        JSON.stringify(
+          input.includes("q=Remote")
+            ? [
+                {
+                  id: "remote-data",
+                  name: "Remote data",
+                  version: 1,
+                  enabled: true,
+                  published: false,
+                  summary: { type: "table", format: "CSV" },
+                },
+              ]
+            : [],
+        ),
+      );
+    }),
+  );
+  render(
+    <MemoryRouter>
+      <QueryClientProvider
+        client={
+          new QueryClient({ defaultOptions: { queries: { retry: false } } })
+        }
+      >
+        <WorkspaceProvider>
+          <Catalog kind="data" />
+        </WorkspaceProvider>
+      </QueryClientProvider>
+    </MemoryRouter>,
+  );
+  fireEvent.change(
+    await screen.findByRole("textbox", { name: "搜索全部数据" }),
+    { target: { value: "Remote" } },
+  );
+  fireEvent.change(screen.getByRole("combobox", { name: "文件格式筛选" }), {
+    target: { value: "CSV" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "搜索数据" }));
+  await waitFor(() =>
+    expect(
+      calls.some(
+        (url) =>
+          url.includes("/data-assets/search?") &&
+          url.includes("q=Remote") &&
+          url.includes("data_format=CSV"),
+      ),
+    ).toBe(true),
+  );
+  expect(
+    await screen.findByRole("link", { name: "Remote data" }),
+  ).toHaveAttribute("href", "/data/remote-data");
+});

@@ -65,3 +65,5 @@
 - 本次中断后发现三项 CoastMAS 基础容器停止，造成 data-isolation-backend-full 的 82 个环境错误和浏览器登录失败；已启动原容器，未重建或删除卷。/health/ready 三依赖恢复 ready，worker 恢复派发。data-recovered-backend-full 和 data-recovered-browser-full 为恢复后的完整回归，结果待核对；契约漂移与37项前端测试已通过（20260921T011549760003Z-data-contract-final-check）。
 
 - 数据增量恢复后完整验证：20260921T011550016130Z-data-recovered-backend-full，294 passed、2 warnings；20260921T011621349114Z-data-recovered-browser-full，14 passed；前端37项和契约漂移检查通过。覆盖5663/6403行、1535/2142分支（约71.7%），最终门槛仍未满足。API/worker/beat已加载最新代码。下一步数据目录跨页搜索筛选及连接器，不重复完整规划。
+
+- 数据全目录搜索筛选已完成：服务端名称/标识匹配、类型/格式/CRS筛选后分页，SQL通配符按字面处理，权限隔离和当前版本查询保持；10项相关后端、38项前端、严格类型及构建通过（20260921T012224607952Z-data-search-green），实际浏览器数据搜索和共享场景流程6条通过（20260921T012457765718Z-data-search-browser）。API session36152/log api-data-search.log；worker58971、beat28693不变。下一步登记和导入受管理员配置限制的 HTTP/URL/数据库数据源。

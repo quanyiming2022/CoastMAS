@@ -119,3 +119,52 @@ def test_data_download_cannot_use_forged_catalog_to_read_other_project(authentic
     for action in ("download", "preview"):
         response = client.get(f"/api/v1/data-assets/{forged.id}/{action}")
         assert response.status_code == 403, response.text
+
+
+def test_data_search_filters_before_pagination_and_escapes_wildcards(authenticated):
+    client, csrf, project, _ = authenticated
+    headers = {"X-CSRF-Token": csrf}
+    resources = []
+    for name, kind, format in [
+        ("Alpha", "raster", "GeoTIFF"),
+        ("Target%name", "table", "CSV"),
+        ("TargetOthername", "table", "CSV"),
+    ]:
+        source = asset(id=uuid4().hex, name=name, type=kind, format=format)
+        created = client.post(
+            "/api/v1/data-assets",
+            headers=headers,
+            json={"project_id": project, "spec": source.model_dump(mode="json")},
+        )
+        assert created.status_code == 201
+        resources.append(source)
+    response = client.get(
+        "/api/v1/data-assets/search", params={"project_id": project, "q": "%", "limit": 1}
+    )
+    assert response.status_code == 200, response.text
+    assert [row["id"] for row in response.json()] == [resources[1].id]
+    assert response.headers["x-total-count"] == "1"
+    filtered = client.get(
+        "/api/v1/data-assets/search",
+        params={
+            "project_id": project,
+            "data_type": "table",
+            "data_format": "CSV",
+            "crs": "EPSG:32650",
+            "offset": 1,
+            "limit": 1,
+        },
+    )
+    assert [row["id"] for row in filtered.json()] == [resources[2].id]
+    assert filtered.headers["x-total-count"] == "2"
+    assert "uri" not in filtered.json()[0]["summary"]
+    assert (
+        client.get("/api/v1/data-assets/search", params={"project_id": str(uuid4())}).status_code
+        == 403
+    )
+    assert (
+        client.get(
+            "/api/v1/data-assets/search", params={"project_id": project, "data_format": "invented"}
+        ).status_code
+        == 422
+    )

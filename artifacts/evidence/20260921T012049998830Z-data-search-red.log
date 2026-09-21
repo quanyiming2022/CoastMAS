@@ -1,0 +1,236 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_data_search_filters_before_pagination_and_escapes_wildcards _______
+tests/integration/test_data_api.py:135: in test_data_search_filters_before_pagination_and_escapes_wildcards
+    assert response.status_code == 200, response.text
+E   AssertionError: {"error_code":"NOT_FOUND","message":"resource unavailable","details":{},"request_id":"7f6c4120-e8a6-403b-b455-0d4b72a936a3"}
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_data_api.py::test_data_search_filters_before_pagination_and_escapes_wildcards
+1 failed, 5 deselected, 2 warnings in 2.82s
+
+> coastmas-web@0.1.0 test
+> vitest run src/Catalog.search.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/Catalog.search.test.tsx (2 tests | 1 failed) 1116ms
+   × searches and filters data across server pages 1007ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/Catalog.search.test.tsx > searches and filters data across server pages
+TestingLibraryElementError: Unable to find role="textbox" and name "搜索全部数据"
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"project-bar"[39m
+    [36m>[39m
+      [36m<label[39m
+        [33mfor[39m=[32m"project-select"[39m
+      [36m>[39m
+        [0m当前项目[0m
+      [36m</label>[39m
+      [36m<select[39m
+        [33mid[39m=[32m"project-select"[39m
+      [36m>[39m
+        [36m<option[39m
+          [33mvalue[39m=[32m"project"[39m
+        [36m>[39m
+          [0mProject[0m
+        [36m</option>[39m
+      [36m</select>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"muted"[39m
+      [36m>[39m
+        [0m独立版本 · 科学约束 · 可追溯结果[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"page-heading"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<h1>[39m
+            [0m数据目录[0m
+          [36m</h1>[39m
+          [36m<p>[39m
+            [0m项目中的版本化资源；打开详情查看数据来源与科学约束。[0m
+          [36m</p>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/data/new"[39m
+        [36m>[39m
+          [0m上传数据[0m
+        [36m</a>[39m
+        [36m<label>[39m
+          [0m筛选本页[0m
+          [36m<input[39m
+            [33mplaceholder[39m=[32m"名称或标识"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"secondary"[39m
+        [36m>[39m
+          [0m刷新[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0m资源 · 第 1 页[0m
+        [36m</h2>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"empty"[39m
+        [36m>[39m
+          [0m当前页没有资源。[0m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"pagination"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [0m上一页[0m
+          [36m</button>[39m
+          [36m<span>[39m
+            [0m每页最多 50 条[0m
+          [36m</span>[39m
+          [36m<button[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [0m下一页[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"project-bar"[39m
+    [36m>[39m
+      [36m<label[39m
+        [33mfor[39m=[32m"project-select"[39m
+      [36m>[39m
+        [0m当前项目[0m
+      [36m</label>[39m
+      [36m<select[39m
+        [33mid[39m=[32m"project-select"[39m
+      [36m>[39m
+        [36m<option[39m
+          [33mvalue[39m=[32m"project"[39m
+        [36m>[39m
+          [0mProject[0m
+        [36m</option>[39m
+      [36m</select>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"muted"[39m
+      [36m>[39m
+        [0m独立版本 · 科学约束 · 可追溯结果[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"page-heading"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<h1>[39m
+            [0m数据目录[0m
+          [36m</h1>[39m
+          [36m<p>[39m
+            [0m项目中的版本化资源；打开详情查看数据来源与科学约束。[0m
+          [36m</p>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/data/new"[39m
+        [36m>[39m
+          [0m上传数据[0m
+        [36m</a>[39m
+        [36m<label>[39m
+          [0m筛选本页[0m
+          [36m<input[39m
+            [33mplaceholder[39m=[32m"名称或标识"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"secondary"[39m
+        [36m>[39m
+          [0m刷新[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"panel"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0m资源 · 第 1 页[0m
+        [36m</h2>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"empty"[39m
+        [36m>[39m
+          [0m当前页没有资源。[0m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"pagination"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [0m上一页[0m
+          [36m</button>[39m
+          [36m<span>[39m
+            [0m每页最多 50 条[0m
+          [36m</span>[39m
+          [36m<button[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [0m下一页[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/Catalog.search.test.tsx:95:33
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  09:20:55
+   Duration  1.99s (tests 58%, environment 23%, import 12%, transform 4%, setup 3%)
+

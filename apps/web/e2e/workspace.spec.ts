@@ -70,7 +70,23 @@ test("real session, seeded catalog, deep link and logout", async ({ page }) => {
     .getByRole("navigation")
     .getByRole("link", { name: "数据目录" })
     .click();
-  await expect(page.locator("tbody tr")).toHaveCount(11);
+  const dataProject = await page
+    .getByRole("combobox", { name: "当前项目", exact: true })
+    .inputValue();
+  const dataResponse = await page.request.get(
+    `/api/v1/data-assets/search?project_id=${encodeURIComponent(dataProject)}&limit=50`,
+  );
+  expect(dataResponse.status()).toBe(200);
+  const dataItems = z
+    .array(z.object({ id: z.string(), name: z.string() }))
+    .parse(await dataResponse.json());
+  expect(dataItems.length).toBeGreaterThanOrEqual(11);
+  await expect(page.locator("tbody tr")).toHaveCount(dataItems.length);
+  for (const item of dataItems)
+    await expect(
+      page.locator(`a[href="/data/${encodeURIComponent(item.id)}"]`),
+    ).toHaveText(item.name);
+
   await page
     .getByRole("navigation")
     .getByRole("link", { name: "场景空间" })

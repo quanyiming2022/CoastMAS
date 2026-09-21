@@ -9,6 +9,7 @@ import {
   type ResourceSummary,
 } from "./api";
 import { modelContract } from "./contracts";
+import schema from "../contracts.schema.json";
 import { modelTypes } from "./model-editor";
 import { useWorkspace } from "./workspace";
 import {
@@ -51,11 +52,17 @@ function CatalogList({
   const [capability, setCapability] = useState("");
   const [modelType, setModelType] = useState("");
   const [enabled, setEnabled] = useState("");
+  const [dataType, setDataType] = useState("");
+  const [dataFormat, setDataFormat] = useState("");
+  const [dataCrs, setDataCrs] = useState("");
   const [search, setSearch] = useState({
     q: "",
     capability: "",
     model_type: "",
     enabled: "",
+    data_type: "",
+    data_format: "",
+    crs: "",
   });
   const [title, endpoint] = catalogs[kind];
   const query = useQuery({
@@ -95,13 +102,21 @@ function CatalogList({
           },
         }));
       }
-      return request(`/${endpoint}?${parameters}`, z.array(resourceSchema), {
-        signal,
-      });
+      if (kind === "data") {
+        for (const [key, value] of Object.entries(search))
+          if (value) parameters.set(key, value);
+      }
+      return request(
+        `/${endpoint}${kind === "data" ? "/search" : ""}?${parameters}`,
+        z.array(resourceSchema),
+        {
+          signal,
+        },
+      );
     },
   });
   const items =
-    kind === "models"
+    kind === "models" || kind === "data"
       ? query.data
       : query.data?.filter((item) =>
           (item.name + " " + item.id)
@@ -124,7 +139,11 @@ function CatalogList({
           <Link to="/workflows/new">新建工作流</Link>
         ) : null}
         <label>
-          {kind === "models" ? "搜索全部模型" : "筛选本页"}
+          {kind === "models"
+            ? "搜索全部模型"
+            : kind === "data"
+              ? "搜索全部数据"
+              : "筛选本页"}
           <input
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
@@ -171,11 +190,70 @@ function CatalogList({
                   capability: capability.trim(),
                   model_type: modelType,
                   enabled,
+                  data_type: "",
+                  data_format: "",
+                  crs: "",
                 });
                 setPage(0);
               }}
             >
               搜索模型
+            </button>
+          </>
+        ) : null}
+        {kind === "data" ? (
+          <>
+            <label>
+              数据类别筛选
+              <select
+                value={dataType}
+                onChange={(event) => setDataType(event.target.value)}
+              >
+                <option value="">全部类别</option>
+                {schema.$defs.DataAssetSpec.properties.type.enum.map(
+                  (value) => (
+                    <option key={value}>{value}</option>
+                  ),
+                )}
+              </select>
+            </label>
+            <label>
+              文件格式筛选
+              <select
+                value={dataFormat}
+                onChange={(event) => setDataFormat(event.target.value)}
+              >
+                <option value="">全部格式</option>
+                {schema.$defs.DataAssetSpec.properties.format.enum.map(
+                  (value) => (
+                    <option key={value}>{value}</option>
+                  ),
+                )}
+              </select>
+            </label>
+            <label>
+              坐标参考系筛选
+              <input
+                value={dataCrs}
+                onChange={(event) => setDataCrs(event.target.value)}
+                placeholder="例如 EPSG:32650"
+              />
+            </label>
+            <button
+              onClick={() => {
+                setPage(0);
+                setSearch({
+                  q: filter.trim(),
+                  data_type: dataType,
+                  data_format: dataFormat,
+                  crs: dataCrs.trim(),
+                  capability: "",
+                  model_type: "",
+                  enabled: "",
+                });
+              }}
+            >
+              搜索数据
             </button>
           </>
         ) : null}

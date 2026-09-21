@@ -1,0 +1,18 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test data-workspace.spec.ts workspace.spec.ts
+
+
+Running 6 tests using 1 worker
+
+(node:12425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/6] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+[2/6] e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[3/6] e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[4/6] e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[5/6] e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either
+[6/6] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  6 passed (47.4s)
