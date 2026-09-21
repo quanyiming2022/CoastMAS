@@ -392,8 +392,7 @@ def resolve_plan(
     return output
 
 
-@router.post("/{trace_id}/workflow", status_code=201)
-def save_workflow(
+def persist_planned_workflow(
     trace_id: str, request: Request, session: DatabaseSession, user_id: CurrentUser
 ) -> dict[str, JsonValue]:
     trace = read_trace(session, user_id, trace_id)
@@ -424,7 +423,6 @@ def save_workflow(
             name=workflow.name,
             spec=workflow.model_dump(mode="json"),
         )
-    session.commit()
     return {"id": workflow.id, "version": 1, "planning_trace_id": trace_id}
 
 
@@ -459,3 +457,12 @@ def request_history(
         }
         for item in records
     ]
+
+
+@router.post("/{trace_id}/workflow", status_code=201)
+def save_workflow(
+    trace_id: str, request: Request, session: DatabaseSession, user_id: CurrentUser
+) -> dict[str, JsonValue]:
+    result = persist_planned_workflow(trace_id, request, session, user_id)
+    session.commit()
+    return result

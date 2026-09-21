@@ -1,0 +1,33 @@
+{
+  "name": "workflow-archive-idempotency-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/integration/test_framework_api.py",
+    "-k",
+    "framework_plan"
+  ],
+  "started_at": "2026-09-21T03:07:30.210113+00:00",
+  "finished_at": "2026-09-21T03:07:42.268835+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "3169ec0d4f929632faeb8ff12d8e1f6ce62c7505f6659c2457b6b76695dd94f6",
+  "git_commit": "652bba9d08870dc5532cd9eb51e6de7e7bb5d64c",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T030730210113Z-workflow-archive-idempotency-red.log"
+}

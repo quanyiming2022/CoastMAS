@@ -99,23 +99,20 @@ test("indicator framework versions prepare real data and produce a temporal eval
     .selectOption({ label: "Synthetic assessment scenario C · v1" });
   await page.getByRole("button", { name: "生成评价方案", exact: true }).click();
   await expect(
-    page.getByRole("button", { name: "保存评价工作流", exact: true }),
+    page.getByRole("button", { name: "保存评价记录与工作流", exact: true }),
   ).toBeVisible();
   await page
-    .getByRole("button", { name: "保存评价工作流", exact: true })
+    .getByRole("button", { name: "保存评价记录与工作流", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/workflows\//);
-  await page
-    .getByRole("combobox", { name: "运行场景", exact: true })
-    .selectOption({ label: "Synthetic assessment scenario C · v1" });
+  await expect(page).toHaveURL(/\/assessment-records\//);
+  const assessmentUrl = page.url();
   await page.getByRole("button", { name: "科学预检", exact: true }).click();
   await expect(
-    page.getByText(
-      "本次预检通过。提交时服务端将再次检查版本、权限与科学约束。",
-      { exact: true },
-    ),
+    page.getByText("固定配置预检通过；提交时服务端会再次检查。", {
+      exact: true,
+    }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "提交运行", exact: true }).click();
+  await page.getByRole("button", { name: "提交评价运行", exact: true }).click();
   await expect(page).toHaveURL(/\/runs\//);
   await expect(page.getByText("已成功", { exact: true })).toBeVisible({
     timeout: 60000,
@@ -145,6 +142,10 @@ test("indicator framework versions prepare real data and produce a temporal eval
     expect(value).toBeCloseTo(0.2, 12);
   for (const value of result.outputs["change.change"].trend)
     expect(value).toBeCloseTo(0.1, 12);
+  await page.goto(assessmentUrl);
+  await expect(
+    page.getByRole("link", { name: "查看评价结果", exact: true }),
+  ).toBeVisible();
   await page.goto(frameworkUrl);
   await page.getByLabel("体系名称", { exact: true }).fill(name + " revised");
   await page

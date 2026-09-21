@@ -21,25 +21,26 @@
 - `/assessments` 编辑/历史/公式输入/准备/方案界面；DataWorkspace 增加经核实的体系/观测来源及历史深链接。未运行的自动权重不伪造。
 - 四种空间支撑各有独立可信签名：management_unit、administrative_unit、custom_polygon、grid。旧5个评价签名和3个海岸签名原样保留，新增15个签名。主库已幂等初始化为23模型/11原始样例资产/3原始场景及工作流，保留用户新增数据。
 - 多种空间支撑同时存在时，规划仍提供 normalize.frame 数据选择入口；不擅自选择模型。
-- 详见 assessment-center.md。新增文件和修改均为本轮工作，上一提交0d268eb；本轮提交标识以 git log -1 为准。
+- 详见 assessment-center.md。新增文件和修改均为本轮工作，评价中心基础增量已提交652bba9；随后评价记录增量也已验证，具体提交标识见 git log -1。
 
 ## 最新已通过证据
 - 上一完整回归：20260921T015906646890Z-source-catalog-backend-full，304项；20260921T015904965192Z-source-catalog-browser-full，15条。同源SHA 9ba89332db08e47313a0bfe0c3ac08d04006f2f92f2e80b7dc06e6e91129b97b。
 - 评价领域/原栅格回归39项（021340547923Z）；版本/真实文件/来源/科学约束16项（024157396725Z-framework-lineage-green）；空间单元/旧样例/规划15项（023851387059Z-assessment-spatial-green）；混合空间支撑选择13项（024605717476Z）。
 - 真实单条浏览器：023327232017Z-indicator-framework-browser-run，编辑→文件→方案→独立worker成功→修订与只读历史。后续加强了真实分数/变化/趋势及来源链接断言，正随全套运行。
 - 最新静态质量：20260921T024726578244Z-assessment-delivery-quality，全仓ruff、81源文件mypy、生成契约漂移、前端42项测试、lint/生产构建通过。保留包体与依赖警告。
-- 本轮完整后端：20260921T024724912482Z-assessment-backend-full，325 passed、2 warnings。首次全浏览器15/16通过，发现新增导航使退出按钮超出视窗；侧栏改为可滚动，保留失败证据。20260921T025316538695Z-assessment-navigation-browser-full 全16条通过，包括评价分数/变化/趋势和历史来源链接。CSS修复后仅重测受影响前端，Python未变化，后端证据继续适用；不声称两个源码整体SHA完全相同。当前无验收进程运行。
+- 本轮完整后端：20260921T024724912482Z-assessment-backend-full，325 passed、2 warnings。首次全浏览器15/16通过，发现新增导航使退出按钮超出视窗；侧栏改为可滚动，保留失败证据。20260921T025316538695Z-assessment-navigation-browser-full 全16条通过，包括评价分数/变化/趋势和历史来源链接。CSS修复后仅重测受影响前端，Python未变化，后端证据继续适用；不声称两个源码整体SHA完全相同。记录增量相关后端12项（20260921T030857627325Z）、前端42项/类型/lint/构建/契约漂移（030948580968Z）和真实浏览器3条（031145675603Z）全部通过。当前没有验收进程运行。
 - 最新覆盖率6225/7014行≈88.8%、1656/2292分支≈72.3%；最终分支门槛未满足，未排除困难业务文件。
 
 ## 服务与恢复
-- API/UI http://127.0.0.1:58000。当前API session22263/log api-assessment-final.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
+- API/UI http://127.0.0.1:58000。当前API session14304/log api-assessment-records.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
 - 基础容器 coastmas-database-1(55432)、coastmas-redis-1(56379)、coastmas-object-storage-1(59000/59001)。当前三依赖ready。中断后先检查容器/进程及 `/health/ready`，不要盲目重跑。仅恢复本项目容器，不能删除卷或处理无关项目。
 - 原生MinIO新卷coastmas_objects_native，经固定官方源码构建、SHA恢复及120秒并发验证；旧卷和私有备份保留。历史AMD64 panic未抹去，详见object-storage-recovery.md。
 - `.env`中的COASTMAS_DATA_SOURCES_CONFIG指向 artifacts/runtime/source-connectors.json（0600），demo-csv仅授权演示项目本机SYNTHETIC源。
 - 更新服务前核对jobs无QUEUED/RUNNING，验证精确命令+cwd，正常SIGTERM退出再启动。用户任务中断不代表项目完成，不宣称后台仍在继续。
 
 ## 后续必选缺口
-- 先补齐评价记录对象及剩余完整操作核验。下一模块为§30协同方案版本/角色目标权重/约束冲突/意见/审核，再接§31实际优化和§43科研运行界面；已定位读取，不重新规划。
+- 评价记录已实现：AssessmentSpec固定体系/数据/场景/工作流并建立FK，规划行锁内原子保存工作流与记录；运行复用统一预检和幂等任务，从真实Manifest匹配结果。新增工作流归档及重复请求保护、记录列表/预检/运行/结果分页界面。12项相关后端回归和3条真实浏览器已经通过，包含独立worker数值金标准、结果回看、固定来源导航与工作流回归。API已重启加载，worker计算代码未变。
+- 下一模块为§30协同方案版本/角色目标权重/约束冲突/意见/审核，再接§31实际优化和§43科研运行界面；已定位读取，不重新规划。
 - 非内置运行审批、显式时间/跨CRS保守分配节点、完整任务诊断日志、计算缓存、孤立对象保留清理、可选GeoAI API（不得读改GeoAI源码）。
 - 外部LLM实验缺凭证，BLOCKED；已异步问过一次，无答复，不重复追问，不把本地协议当外部实验。独立工作继续。
 - 全部研究/消融/性能实验、统一Docker应用部署/Makefile（尚无）、准确运行构建身份、完整用户/运维/开发/科研文档和最终覆盖率/全链路/分支审查。只有全部必选项真实证据通过才宣布完成。

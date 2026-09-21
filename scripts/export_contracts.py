@@ -22,7 +22,7 @@ from coastmas.core.contracts import (
 from coastmas.core.data_inspection import DataInspection
 from coastmas.core.decomposition import DecompositionRequest, ModelDecomposition
 from coastmas.core.geography import GeographicEntity
-from coastmas.core.indicators import IndicatorFrameworkSpec
+from coastmas.core.indicators import AssessmentSpec, IndicatorFrameworkSpec
 from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
@@ -39,6 +39,7 @@ def main() -> None:
     args = parser.parse_args()
     contracts = [
         IndicatorFrameworkSpec,
+        AssessmentSpec,
         PrepareIndicatorsRequest,
         FrameworkPlanRequest,
         DataSourceSpec,

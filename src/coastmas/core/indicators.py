@@ -5,7 +5,7 @@ from typing import Annotated, Literal, Self
 import pint
 from pydantic import Field, FiniteFloat, model_validator
 
-from coastmas.core.contracts import UNITS, Contract, Name, Version
+from coastmas.core.contracts import UNITS, Contract, Name, Version, VersionReference
 
 FormulaAlias = Annotated[str, Field(pattern=r"^[A-Za-z][A-Za-z0-9_]{0,63}$")]
 WeightMethod = Literal["equal", "manual", "entropy"]
@@ -77,3 +77,15 @@ class IndicatorFrameworkSpec(Contract):
         ):
             raise ValueError("class breaks must strictly increase inside (0,1)")
         return self
+
+
+class AssessmentSpec(Contract):
+    """A frozen evaluation configuration; run results are read from actual job manifests."""
+
+    id: Name
+    name: Name
+    version: Version
+    framework: VersionReference
+    data: VersionReference
+    scene: VersionReference
+    workflow: VersionReference

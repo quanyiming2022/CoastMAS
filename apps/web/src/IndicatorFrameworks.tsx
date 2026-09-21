@@ -54,6 +54,7 @@ function FrameworkList({ projectId }: { projectId: string }) {
       />
       <div className="toolbar">
         <Link to="/assessments/new">新建指标体系</Link>
+        <Link to="/assessment-records">查看评价记录</Link>
         <Link to="/results">查看评价结果</Link>
       </div>
       <ErrorNotice error={query.error} />

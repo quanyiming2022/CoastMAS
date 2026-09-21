@@ -1,5 +1,53 @@
 {
   "$defs": {
+    "AssessmentSpec": {
+      "additionalProperties": false,
+      "description": "A frozen evaluation configuration; run results are read from actual job manifests.",
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "framework": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "workflow": {
+          "$ref": "#/$defs/VersionReference"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "framework",
+        "data",
+        "scene",
+        "workflow"
+      ],
+      "title": "AssessmentSpec",
+      "type": "object"
+    },
     "BindingPlan": {
       "additionalProperties": false,
       "properties": {
@@ -3571,6 +3619,9 @@
   },
   "additionalProperties": false,
   "properties": {
+    "AssessmentSpec": {
+      "$ref": "#/$defs/AssessmentSpec"
+    },
     "BindingPlan": {
       "$ref": "#/$defs/BindingPlan"
     },
@@ -3646,6 +3697,7 @@
   },
   "required": [
     "IndicatorFrameworkSpec",
+    "AssessmentSpec",
     "PrepareIndicatorsRequest",
     "FrameworkPlanRequest",
     "DataSourceSpec",

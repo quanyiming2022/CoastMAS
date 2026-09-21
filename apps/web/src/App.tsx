@@ -33,6 +33,12 @@ const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
 );
 const ModelDecomposer = lazy(() => import("./ModelDecomposer"));
+const AssessmentRecords = lazy(() => import("./AssessmentRecords"));
+const AssessmentRecord = lazy(() =>
+  import("./AssessmentRecords").then((module) => ({
+    default: module.AssessmentRecord,
+  })),
+);
 const IndicatorFrameworks = lazy(() => import("./IndicatorFrameworks"));
 const IndicatorFrameworkEditor = lazy(() =>
   import("./IndicatorFrameworks").then((module) => ({
@@ -159,6 +165,14 @@ export default function App() {
               <Route path="/entities" element={<Entities />} />
               <Route path="/planner" element={<Planner />} />
               <Route path="/models/decompose" element={<ModelDecomposer />} />
+              <Route
+                path="/assessment-records"
+                element={<AssessmentRecords />}
+              />
+              <Route
+                path="/assessment-records/:id"
+                element={<AssessmentRecord />}
+              />
               <Route path="/assessments" element={<IndicatorFrameworks />} />
               <Route
                 path="/assessments/new"

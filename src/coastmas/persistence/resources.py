@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from coastmas.core.contracts import SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.geography import GeographicEntity
+from coastmas.core.indicators import AssessmentSpec
 from coastmas.persistence.geography import materialize_entity
 from coastmas.persistence.schema import (
     AuditLog,
@@ -101,6 +102,17 @@ def workflow_references(
         references.update(
             (reference.id, reference.version, "data") for reference in scene.data_references
         )
+    elif kind == "assessment":
+        assessment = AssessmentSpec.model_validate(spec)
+        references = {
+            (reference.id, reference.version, target_kind)
+            for reference, target_kind in (
+                (assessment.framework, "indicator_framework"),
+                (assessment.data, "data"),
+                (assessment.scene, "scene"),
+                (assessment.workflow, "workflow"),
+            )
+        }
     else:
         return []
     for identifier, version, expected_kind in sorted(references):

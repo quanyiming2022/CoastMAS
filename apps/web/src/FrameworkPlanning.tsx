@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { request, resourceSchema } from "./api";
-import { planningContract } from "./contracts";
+import { request, resourceSchema, revisionSchema } from "./api";
+import { planningContract, contract } from "./contracts";
 import { ErrorNotice, Panel } from "./components";
 import WorkflowGraph from "./WorkflowGraph";
 const planContract = z.object({
@@ -58,11 +58,12 @@ export default function FrameworkPlanning({
   const save = useMutation({
     mutationFn: () =>
       request(
-        `/plans/${encodeURIComponent(plan.data!.id)}/workflow`,
-        z.object({ id: z.string(), version: z.number().int().positive() }),
-        { method: "POST" },
+        "/assessments",
+        revisionSchema.extend({ spec: contract("AssessmentSpec") }),
+        { method: "POST", body: { planning_trace_id: plan.data!.id } },
       ),
-    onSuccess: (row) => navigate(`/workflows/${encodeURIComponent(row.id)}`),
+    onSuccess: (row) =>
+      navigate(`/assessment-records/${encodeURIComponent(row.resource_id)}`),
   });
   const busy = plan.isPending || save.isPending;
   return (
@@ -126,7 +127,7 @@ export default function FrameworkPlanning({
             <>
               <WorkflowGraph workflow={plan.data.artifact.candidate_workflow} />
               <button disabled={busy} onClick={() => save.mutate()}>
-                保存评价工作流
+                保存评价记录与工作流
               </button>
             </>
           ) : null}

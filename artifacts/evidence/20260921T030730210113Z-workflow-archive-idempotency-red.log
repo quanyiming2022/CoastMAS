@@ -1,0 +1,186 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_framework_plan_pins_prepared_data_and_framework_weight_method ______
+
+authenticated = (<starlette.testclient.TestClient object at 0x11ad1d3d0>, 'YLKQcKmrUCJ70AXlvh86bZ2h_80LuGRq4pdRtlUqCHA', 'a0867785-8eed-4f40-8771-bdf93dc93662', '5d775a51-30af-4dd9-a463-dfa7cff366db')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11851e3c0>
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_ae1687141b3c4647897ca00a0bf6f376)
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-19/test_framework_plan_pins_prepa0')
+
+    def test_framework_plan_pins_prepared_data_and_framework_weight_method(
+        authenticated, storage, engine, tmp_path
+    ):
+        from coastmas.domain.builtin_catalog import assessment_catalog
+        from tests.factories import scene
+    
+        client, csrf, project, user = authenticated
+        client.app.state.artifact_store = storage
+        catalog = assessment_catalog(project)
+        client.app.state.registry = catalog.registry
+        identifier = uuid4().hex
+        data_id = uuid4().hex
+        context = scene(
+            id=uuid4().hex,
+            required_outputs=["scores", "change"],
+            time_range={"start": "2020-01-01T00:00:00Z", "end": "2022-12-31T00:00:00Z"},
+        )
+        payload = json.dumps({"frame": observations().model_dump(mode="json")}).encode()
+        stored = storage.put(f"{project}/data/{data_id}/input.json", payload)
+        source = asset(
+            id=data_id,
+            type="json",
+            format="JSON",
+            uri=stored.uri,
+            checksum=stored.sha256,
+            variables=[
+                variable(
+                    name="frame",
+                    standard_name="indicator_frame",
+                    data_type="json",
+                    unit="1",
+                    dimension="dimensionless",
+                    spatial_support="management_unit",
+                    temporal_support="declared_period",
+                )
+            ],
+            time_start="2020-01-01T00:00:00Z",
+            time_end="2022-12-31T00:00:00Z",
+            quality={"validated": True, "size_bytes": stored.size},
+        )
+        with Session(engine) as session, session.begin():
+            for kind, item in [("scene", context), ("data", source)] + [
+                ("model", model) for model in catalog.models
+            ]:
+                create_resource(
+                    session,
+                    user_id=user,
+                    project_id=project,
+                    kind=kind,
+                    identifier=item.id,
+                    name=item.name,
+                    spec=item.model_dump(mode="json"),
+                )
+        headers = {"X-CSRF-Token": csrf}
+        assert (
+            client.post(
+                "/api/v1/indicator-frameworks",
+                headers=headers,
+                json={"project_id": project, "spec": framework(id=identifier).model_dump(mode="json")},
+            ).status_code
+            == 201
+        )
+        prepared = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/prepare",
+            headers=headers,
+            json={
+                "expected_version": 1,
+                "data": {"id": data_id, "version": 1},
+                "idempotency_key": "prepare",
+            },
+        ).json()
+        body = {
+            "framework_version": 1,
+            "data": {"id": prepared["resource_id"], "version": 1},
+            "scene": {"id": context.id, "version": 1},
+            "assessment_method": "composite",
+            "idempotency_key": "plan",
+        }
+        response = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/plan", headers=headers, json=body
+        )
+        assert response.status_code == 201, response.text
+        plan = response.json()["artifact"]
+        assert plan["missing_conditions"] == []
+        assert plan["management_goal"]["weight_method"] == "manual"
+        assert plan["management_goal"]["template"] == "temporal_change"
+        assert plan["candidate_workflow"]["input_bindings"][0]["source"] == body["data"]
+        assert (
+            client.post(
+                f"/api/v1/indicator-frameworks/{identifier}/plan", headers=headers, json=body
+            ).json()
+            == response.json()
+        )
+        denied = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/plan",
+            headers=headers,
+            json={**body, "data": {"id": data_id, "version": 1}, "idempotency_key": "forged"},
+        )
+        assert denied.status_code == 409
+        rejected = client.post(
+            f"/api/v1/indicator-frameworks/{identifier}/plan",
+            headers=headers,
+            json={**body, "assessment_method": "topsis", "idempotency_key": "bad-temporal"},
+        )
+        assert rejected.status_code == 422
+    
+        # Save a scientific assessment object, then execute and retrieve its actual run.
+        from coastmas.worker.runtime import WorkflowWorker
+    
+        saved = client.post(
+            "/api/v1/assessments", headers=headers, json={"planning_trace_id": response.json()["id"]}
+        )
+        assert saved.status_code == 201, saved.text
+        record = saved.json()
+        assert record["spec"]["framework"] == {"id": identifier, "version": 1}
+        assert record["spec"]["data"] == body["data"]
+        assert (
+            client.post(
+                "/api/v1/assessments",
+                headers=headers,
+                json={"planning_trace_id": response.json()["id"]},
+            ).json()
+            == record
+        )
+        assert client.get(f"/api/v1/assessments/{record['resource_id']}").json() == record
+        submitted = client.post(
+            f"/api/v1/assessments/{record['resource_id']}/run",
+            headers={**headers, "Idempotency-Key": "assessment-run"},
+            json={"assessment_version": 1, "random_seed": 7},
+        )
+        assert submitted.status_code == 202, submitted.text
+        job_id = submitted.json()["id"]
+        worker = WorkflowWorker(engine, catalog.registry, storage, work_root=tmp_path)
+        worker.run(job_id)
+        runs = client.get(f"/api/v1/assessments/{record['resource_id']}/runs?version=1")
+        assert runs.status_code == 200, runs.text
+        assert len(runs.json()) == 1
+        assert runs.json()[0]["job"]["id"] == job_id
+        assert runs.json()[0]["job"]["status"] == "SUCCEEDED"
+        result = client.get(f"/api/v1/results/{runs.json()[0]['result_id']}/content")
+        assert result.status_code == 200
+        assert result.json()["outputs"]["composite.scores"]["values"] == [[0.25, 0.375], [0.625, 0.75]]
+        assert (
+            client.delete(
+                f"/api/v1/workflows/{record['spec']['workflow']['id']}", headers=headers
+            ).status_code
+            == 409
+        )
+        copied = client.get(f"/api/v1/workflows/{record['spec']['workflow']['id']}").json()["spec"]
+        copied.update(id=uuid4().hex, name="Unreferenced workflow copy")
+        assert (
+            client.post(
+                "/api/v1/workflows", headers=headers, json={"project_id": project, "spec": copied}
+            ).status_code
+            == 201
+        )
+        for _ in range(2):
+            deleted = client.delete(f"/api/v1/workflows/{copied['id']}", headers=headers)
+>           assert deleted.status_code == 204, deleted.text
+E           AssertionError: {"error_code":"RESOURCE_UNAVAILABLE","message":"run resource is archived or disabled","details":{},"request_id":"d54a9af6-2b41-429b-9c4c-6a87db663a1d"}
+E           assert 422 == 204
+E            +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/integration/test_framework_api.py:281: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_framework_api.py::test_framework_plan_pins_prepared_data_and_framework_weight_method
+1 failed, 1 deselected, 2 warnings in 9.07s

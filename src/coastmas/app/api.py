@@ -15,6 +15,7 @@ from sqlalchemy import Engine, create_engine, func, select, text
 from starlette.exceptions import HTTPException
 
 from coastmas.adapters.storage import S3ArtifactStore
+from coastmas.app.assessment_routes import router as assessment_router
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.geography_routes import router as geography_router
@@ -315,6 +316,7 @@ def create_app(
     app.include_router(data_router)
     app.include_router(source_router)
     app.include_router(indicator_router)
+    app.include_router(assessment_router)
     app.state.source_registry = {}
     app.include_router(model_router)
     app.include_router(run_router)

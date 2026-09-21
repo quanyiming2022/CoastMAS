@@ -1,0 +1,15 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test indicator-framework.spec.ts workflow-editor.spec.ts
+
+
+Running 3 tests using 1 worker
+
+(node:21431) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+[2/3] e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[3/3] e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage
+  3 passed (30.2s)

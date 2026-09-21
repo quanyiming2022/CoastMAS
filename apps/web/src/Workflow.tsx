@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import { request, resourceSchema, revisionSchema, jobSchema } from "./api";
@@ -59,6 +59,7 @@ export default function Workflow() {
 function WorkflowWorkspace({ workflow }: { workflow: WorkflowSpec }) {
   const { projectId } = useWorkspace();
   const navigate = useNavigate();
+  const client = useQueryClient();
   const [sceneId, setSceneId] = useState("");
   const [seed, setSeed] = useState(42);
   const scenes = useQuery({
@@ -101,7 +102,17 @@ function WorkflowWorkspace({ workflow }: { workflow: WorkflowSpec }) {
       navigate("/runs/" + encodeURIComponent(job.id));
     },
   });
-  const busy = validate.isPending || run.isPending;
+  const archive = useMutation({
+    mutationFn: () =>
+      request(`/workflows/${encodeURIComponent(workflow.id)}`, z.null(), {
+        method: "DELETE",
+      }),
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ["workflows"] });
+      navigate("/workflows");
+    },
+  });
+  const busy = validate.isPending || run.isPending || archive.isPending;
   return (
     <>
       <PageTitle
@@ -111,6 +122,14 @@ function WorkflowWorkspace({ workflow }: { workflow: WorkflowSpec }) {
       <Link to={`/workflows/${encodeURIComponent(workflow.id)}/edit`}>
         编辑工作流 / 另存副本
       </Link>
+      <button
+        className="secondary"
+        disabled={busy}
+        onClick={() => archive.mutate()}
+      >
+        归档工作流
+      </button>
+      <ErrorNotice error={archive.error} />
       <Panel title="运行场景与科学预检">
         <div className="toolbar">
           <label>

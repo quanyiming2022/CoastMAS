@@ -121,7 +121,7 @@ def test_framework_versions_materialize_real_bytes_and_pin_both_dependencies(
 
 
 def test_framework_plan_pins_prepared_data_and_framework_weight_method(
-    authenticated, storage, engine
+    authenticated, storage, engine, tmp_path
 ):
     from coastmas.domain.builtin_catalog import assessment_catalog
     from tests.factories import scene
@@ -225,3 +225,57 @@ def test_framework_plan_pins_prepared_data_and_framework_weight_method(
         json={**body, "assessment_method": "topsis", "idempotency_key": "bad-temporal"},
     )
     assert rejected.status_code == 422
+
+    # Save a scientific assessment object, then execute and retrieve its actual run.
+    from coastmas.worker.runtime import WorkflowWorker
+
+    saved = client.post(
+        "/api/v1/assessments", headers=headers, json={"planning_trace_id": response.json()["id"]}
+    )
+    assert saved.status_code == 201, saved.text
+    record = saved.json()
+    assert record["spec"]["framework"] == {"id": identifier, "version": 1}
+    assert record["spec"]["data"] == body["data"]
+    assert (
+        client.post(
+            "/api/v1/assessments",
+            headers=headers,
+            json={"planning_trace_id": response.json()["id"]},
+        ).json()
+        == record
+    )
+    assert client.get(f"/api/v1/assessments/{record['resource_id']}").json() == record
+    submitted = client.post(
+        f"/api/v1/assessments/{record['resource_id']}/run",
+        headers={**headers, "Idempotency-Key": "assessment-run"},
+        json={"assessment_version": 1, "random_seed": 7},
+    )
+    assert submitted.status_code == 202, submitted.text
+    job_id = submitted.json()["id"]
+    worker = WorkflowWorker(engine, catalog.registry, storage, work_root=tmp_path)
+    worker.run(job_id)
+    runs = client.get(f"/api/v1/assessments/{record['resource_id']}/runs?version=1")
+    assert runs.status_code == 200, runs.text
+    assert len(runs.json()) == 1
+    assert runs.json()[0]["job"]["id"] == job_id
+    assert runs.json()[0]["job"]["status"] == "SUCCEEDED"
+    result = client.get(f"/api/v1/results/{runs.json()[0]['result_id']}/content")
+    assert result.status_code == 200
+    assert result.json()["outputs"]["composite.scores"]["values"] == [[0.25, 0.375], [0.625, 0.75]]
+    assert (
+        client.delete(
+            f"/api/v1/workflows/{record['spec']['workflow']['id']}", headers=headers
+        ).status_code
+        == 409
+    )
+    copied = client.get(f"/api/v1/workflows/{record['spec']['workflow']['id']}").json()["spec"]
+    copied.update(id=uuid4().hex, name="Unreferenced workflow copy")
+    assert (
+        client.post(
+            "/api/v1/workflows", headers=headers, json={"project_id": project, "spec": copied}
+        ).status_code
+        == 201
+    )
+    for _ in range(2):
+        deleted = client.delete(f"/api/v1/workflows/{copied['id']}", headers=headers)
+        assert deleted.status_code == 204, deleted.text

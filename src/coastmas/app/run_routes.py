@@ -31,6 +31,7 @@ from coastmas.core.execution import ExecutionRegistry
 from coastmas.core.scene_workspace import inspect_scene
 from coastmas.core.validation import ValidationIssue, ValidationReport, validate_workflow
 from coastmas.persistence.jobs import cancel_job, read_job, read_result, snapshot, submit_job
+from coastmas.persistence.lifecycle import archive_resource
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.scenes import scene_resources
 from coastmas.persistence.schema import AuditLog, Job, Resource, ResultBundle
@@ -450,3 +451,12 @@ def result_content(
             "ETag": '"' + checksum + '"',
         },
     )
+
+
+@router.delete("/workflows/{identifier}", status_code=204)
+def archive_workflow(identifier: str, session: DatabaseSession, user_id: CurrentUser) -> None:
+    record = session.get(Resource, identifier)
+    if record is None or record.kind != "workflow":
+        raise CoastMASError("NOT_FOUND", "workflow unavailable")
+    archive_resource(session, user_id=user_id, identifier=identifier)
+    session.commit()
