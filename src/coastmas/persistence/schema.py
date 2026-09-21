@@ -34,6 +34,7 @@ class User(Base):
 
 class Project(Base):
     __tablename__ = "projects"
+    archived: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     name: Mapped[str] = mapped_column(String(256))
     owner_id: Mapped[str] = mapped_column(ForeignKey("users.id"))

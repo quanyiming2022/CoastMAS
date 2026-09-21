@@ -1,0 +1,51 @@
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+____ test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates _____
+tests/unit/test_optical_change.py:45: in test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+_________ test_change_rejects_unaligned_or_misdated_observations[grid] _________
+tests/unit/test_optical_change.py:58: in test_change_rejects_unaligned_or_misdated_observations
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+_________ test_change_rejects_unaligned_or_misdated_observations[date] _________
+tests/unit/test_optical_change.py:58: in test_change_rejects_unaligned_or_misdated_observations
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+________ test_change_rejects_unaligned_or_misdated_observations[shape] _________
+tests/unit/test_optical_change.py:58: in test_change_rejects_unaligned_or_misdated_observations
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+______ test_change_rejects_unaligned_or_misdated_observations[duplicate] _______
+tests/unit/test_optical_change.py:58: in test_change_rejects_unaligned_or_misdated_observations
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+______ test_change_rejects_unaligned_or_misdated_observations[nonfinite] _______
+tests/unit/test_optical_change.py:58: in test_change_rejects_unaligned_or_misdated_observations
+    from coastmas.domain.remote_sensing_components import vegetation_change
+E   ImportError: cannot import name 'vegetation_change' from 'coastmas.domain.remote_sensing_components' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing_components.py)
+_________ test_image_preview_is_versioned_scoped_and_integrity_checked _________
+tests/integration/test_imagery_api.py:44: in test_image_preview_is_versioned_scoped_and_integrity_checked
+    assert response.status_code == 200, response.text
+E   AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"bd74bd8f-4a08-4635-af3c-56ac6b2c8576"}
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+FAILED tests/unit/test_optical_change.py::test_change_rejects_unaligned_or_misdated_observations[grid]
+FAILED tests/unit/test_optical_change.py::test_change_rejects_unaligned_or_misdated_observations[date]
+FAILED tests/unit/test_optical_change.py::test_change_rejects_unaligned_or_misdated_observations[shape]
+FAILED tests/unit/test_optical_change.py::test_change_rejects_unaligned_or_misdated_observations[duplicate]
+FAILED tests/unit/test_optical_change.py::test_change_rejects_unaligned_or_misdated_observations[nonfinite]
+FAILED tests/integration/test_imagery_api.py::test_image_preview_is_versioned_scoped_and_integrity_checked
+7 failed, 2 warnings in 3.85s

@@ -1,0 +1,13 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test --config acceptance.config.ts real-imagery.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:36632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] acceptance/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps
+  1 passed (10.8s)

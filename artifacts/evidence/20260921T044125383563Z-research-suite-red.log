@@ -1,0 +1,14 @@
+...FF                                                                    [100%]
+=================================== FAILURES ===================================
+__ test_suite_records_unavailable_external_arms_as_blocked_not_rule_fallback ___
+tests/unit/test_research_planning.py:57: in test_suite_records_unavailable_external_arms_as_blocked_not_rule_fallback
+    from coastmas.core.research_planning import ResearchManifest, evaluate_research
+E   ImportError: cannot import name 'ResearchManifest' from 'coastmas.core.research_planning' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/core/research_planning.py)
+_____________ test_suite_rejects_duplicates_and_obeys_cancellation _____________
+tests/unit/test_research_planning.py:78: in test_suite_rejects_duplicates_and_obeys_cancellation
+    from coastmas.core.research_planning import ResearchManifest, evaluate_research
+E   ImportError: cannot import name 'ResearchManifest' from 'coastmas.core.research_planning' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/core/research_planning.py)
+=========================== short test summary info ============================
+FAILED tests/unit/test_research_planning.py::test_suite_records_unavailable_external_arms_as_blocked_not_rule_fallback
+FAILED tests/unit/test_research_planning.py::test_suite_rejects_duplicates_and_obeys_cancellation
+2 failed, 3 passed in 0.47s

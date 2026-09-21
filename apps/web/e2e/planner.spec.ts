@@ -7,15 +7,7 @@ test("deterministic planning resolves explicit data ambiguity without external c
   const credentials = z
     .object({ email: z.string(), password: z.string() })
     .parse(
-      JSON.parse(
-        await readFile(
-          new URL(
-            "../../../artifacts/runtime/demo-access.json",
-            import.meta.url,
-          ),
-          "utf8",
-        ),
-      ),
+      JSON.parse(await readFile(process.env.COASTMAS_E2E_ACCESS_FILE!, "utf8")),
     );
   await page.goto("/login");
   await page.getByLabel("邮箱", { exact: true }).fill(credentials.email);
@@ -32,9 +24,7 @@ test("deterministic planning resolves explicit data ambiguity without external c
     .getByLabel("管理目标", { exact: true })
     .fill("海岸影响筛查：海平面上升0.5米");
   await page.getByRole("button", { name: "生成规划", exact: true }).click();
-  await expect(
-    page.getByText("DATA_AMBIGUOUS", { exact: true }),
-  ).toBeVisible();
+  await expect(page.getByText("DATA_AMBIGUOUS", { exact: true })).toBeVisible();
   await expect(
     page.getByRole("button", { name: "保存工作流", exact: true }),
   ).toBeDisabled();

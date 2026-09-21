@@ -1,0 +1,21 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_project_archive_hides_ui_records_without_deleting_history ________
+tests/integration/test_project_archive.py:15: in test_project_archive_hides_ui_records_without_deleting_history
+    assert created.status_code == 201, created.text
+E   AssertionError: {"error_code":"MODEL_REGISTRATION_REQUIRED","message":"model execution and validation require trusted registration","details":{},"request_id":"a3d71495-7ddc-4d89-93cd-93ce76a33702"}
+E   assert 422 == 201
+E    +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_project_archive.py::test_project_archive_hides_ui_records_without_deleting_history
+1 failed, 2 warnings in 3.25s

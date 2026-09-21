@@ -1,0 +1,39 @@
+{
+  "method": "independent raw COG DN, calibration and pixelwise arithmetic",
+  "absolute_tolerance": 1e-12,
+  "scenes": {
+    "yellow-river": {
+      "status": "PASS",
+      "result_id": "e842a018-f7eb-43e7-9ebe-6ef0eef23fa7",
+      "result_checksum": "7e8ebf9bfd03ba32acc93096d6d0c08a583cb721db2ba3e80ee43a947ca8736b",
+      "max_abs_error": 0.0,
+      "valid_pixels": 110142,
+      "nodata_pixels": 12978,
+      "valid_fraction": 0.8945906432748538,
+      "mean": 0.3125542728591032,
+      "llm_calls": 0
+    },
+    "jiaozhou": {
+      "status": "PASS",
+      "result_id": "15dc5068-d687-429e-80a6-6c45e412a049",
+      "result_checksum": "7a2d5d501ab517d2465d65801487932f56efdc06ccba58cf1e9acc368d842ca6",
+      "max_abs_error": 0.0,
+      "valid_pixels": 128712,
+      "nodata_pixels": 0,
+      "valid_fraction": 1.0,
+      "mean": 0.6299199862681788,
+      "llm_calls": 0
+    },
+    "yangtze": {
+      "status": "PASS",
+      "result_id": "47207ecb-aca1-47d5-ae33-84168f88d227",
+      "result_checksum": "6003c2174dbcf207bf2d8dcc8ffe55bfd726ac9cea6c56ec6b1a454fcc95a993",
+      "max_abs_error": 0.0,
+      "valid_pixels": 15031,
+      "nodata_pixels": 1353,
+      "valid_fraction": 0.91741943359375,
+      "mean": 0.02263806033016228,
+      "llm_calls": 0
+    }
+  }
+}

@@ -9,7 +9,7 @@ export default defineConfig({
   use: {
     actionTimeout: 15000,
     navigationTimeout: 15000,
-    baseURL: "http://127.0.0.1:58000",
+    baseURL: process.env.COASTMAS_E2E_URL,
     browserName: "chromium",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",

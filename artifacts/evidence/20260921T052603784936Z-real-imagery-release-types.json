@@ -1,0 +1,29 @@
+{
+  "name": "real-imagery-release-types",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import subprocess; subprocess.run(['.venv/bin/ruff','check','.'],check=True); subprocess.run(['.venv/bin/mypy','src'],check=True); subprocess.run(['.venv/bin/python','-m','pytest','tests/integration/test_imagery_api.py','tests/integration/test_real_imagery_seed.py','tests/unit/test_optical_change.py','tests/unit/test_remote_sensing.py','tests/unit/test_validation.py','-q','--tb=short'],check=True); subprocess.run(['npm','--prefix','apps/web','run','build'],check=True); subprocess.run(['npm','--prefix','apps/web','run','lint'],check=True); subprocess.run(['npm','--prefix','apps/web','test'],check=True)"
+  ],
+  "started_at": "2026-09-21T05:26:03.784936+00:00",
+  "finished_at": "2026-09-21T05:26:06.036408+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "5740387dbeba4cdcb68c0da78f3b60739a6d48c2360467ad813d21822ea35516",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T052603784936Z-real-imagery-release-types.log"
+}

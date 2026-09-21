@@ -1,3 +1,4 @@
+import { scientificLabel } from "./scientific-labels";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
@@ -173,7 +174,9 @@ function CatalogList({
               >
                 <option value="">全部类型</option>
                 {modelTypes.map((type) => (
-                  <option key={type}>{type}</option>
+                  <option key={type} value={type}>
+                    {scientificLabel(type)}
+                  </option>
                 ))}
               </select>
             </label>
@@ -293,10 +296,12 @@ function CatalogList({
                         </small>
                       </td>
                       <td>
-                        {display(
-                          item.summary.model_type ??
-                            item.summary.format ??
-                            item.summary.scene_type,
+                        {scientificLabel(
+                          display(
+                            item.summary.model_type ??
+                              item.summary.format ??
+                              item.summary.scene_type,
+                          ),
                         )}
                       </td>
                       <td>v{item.version}</td>

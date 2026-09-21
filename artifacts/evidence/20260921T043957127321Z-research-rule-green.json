@@ -1,0 +1,29 @@
+{
+  "name": "research-rule-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "/bin/zsh",
+    "-c",
+    "set -e; .venv/bin/mypy src/coastmas/core/research.py src/coastmas/core/research_planning.py; .venv/bin/python -m pytest tests/unit/test_research_metrics.py tests/unit/test_research_planning.py tests/unit/test_planning.py -q --tb=short"
+  ],
+  "started_at": "2026-09-21T04:39:57.127321+00:00",
+  "finished_at": "2026-09-21T04:40:00.058647+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "f7485b4b425cc1db2b0aa0d900ba75869a9df5efd5f44dd0373362064c8106fe",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T043957127321Z-research-rule-green.log"
+}

@@ -1,0 +1,426 @@
+All checks passed!
+Success: no issues found in 99 source files
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 2 warnings in 6.32s
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/Admin.test.tsx (1 test | 1 failed) 322ms
+   × restores an archived project through the authorized API and keeps history visible 322ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/Admin.test.tsx > restores an archived project through the authorized API and keeps history visible
+TestingLibraryElementError: Found multiple elements with the text: 历史项目
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<td>[39m
+  [0m历史项目[0m
+[36m</td>[39m
+
+Ignored nodes: comments, script, style
+[36m<option[39m
+  [33mvalue[39m=[32m"p"[39m
+[36m>[39m
+  [0m历史项目[0m
+[36m</option>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"page-heading"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<h1>[39m
+          [0m系统管理[0m
+        [36m</h1>[39m
+        [36m<p>[39m
+          [0m管理账号、项目角色和归档记录；所有操作由服务端鉴权并留下审计记录。[0m
+        [36m</p>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0m账号管理[0m
+      [36m</h2>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label>[39m
+          [0m新账号邮箱[0m
+          [36m<input[39m
+            [33mrequired[39m=[32m""[39m
+            [33mtype[39m=[32m"email"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<label>[39m
+          [0m初始密码[0m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"new-password"[39m
+            [33mmaxlength[39m=[32m"256"[39m
+            [33mminlength[39m=[32m"12"[39m
+            [33mrequired[39m=[32m""[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0m创建账号[0m
+        [36m</button>[39m
+      [36m</form>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-scroll"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0m邮箱[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m状态[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m系统角色[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m操作[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0madmin@test.local[0m
+                [36m<small[39m
+                  [33mclass[39m=[32m"resource-id"[39m
+                [36m>[39m
+                  [0mu[0m
+                [36m</small>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m已启用[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m系统管理员[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"secondary"[39m
+                  [33mdisabled[39m=[32m""[39m
+                [36m>[39m
+                  [0m停用账号[0m
+                [36m</button>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"secondary"[39m
+                  [33mdisabled[39m=[32m""[39m
+                [36m>[39m
+                  [0m取消系统管理员[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0m上一页账号[0m
+        [36m</button>[39m
+        [36m<span>[39m
+          [0m第 [0m
+          [0m1[0m
+          [0m 页[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0m下一页账号[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label>[39m
+          [0m重置密码的账号标识[0m
+          [36m<input[39m
+            [33mrequired[39m=[32m""[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<label>[39m
+          [0m新密码[0m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"new-password"[39m
+            [33mmaxlength[39m=[32m"256"[39m
+            [33mminlength[39m=[32m"12"[39m
+            [33mrequired[39m=[32m""[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0m重置密码并撤销旧会话[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0m项目与历史记录[0m
+      [36m</h2>[39m
+      [36m<p>[39m
+        [0m归档会从日常项目列表隐藏整个项目；不删除资源、运行结果和验收证据。原有访问权限保留，可随时恢复。[0m
+      [36m</p>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label>[39m
+          [0m新项目名称[0m
+          [36m<input[39m
+            [33mmaxlength[39m=[32m"256"[39m
+            [33mrequired[39m=[32m""[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0m创建项目[0m
+        [36m</button>[39m
+      [36m</form>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-scroll"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0m项目[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m状态[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m操作[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0m历史项目[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m使用中[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"归档项目 历史项目"[39m
+                  [33mclass[39m=[32m"secondary"[39m
+                [36m>[39m
+                  [0m归档项目[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0m项目成员与角色[0m
+      [36m</h2>[39m
+      [36m<label>[39m
+        [0m管理项目[0m
+        [36m<select>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m"p"[39m
+          [36m>[39m
+            [0m历史项目[0m
+          [36m</option>[39m
+        [36m</select>[39m
+      [36m</label>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-scroll"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0m成员邮箱[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m项目角色[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m账号状态[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody />[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label>[39m
+          [0m成员账号标识[0m
+          [36m<input[39m
+            [33mrequired[39m=[32m""[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<label>[39m
+          [0m项目角色[0m
+          [36m<select>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"ADMIN"[39m
+            [36m>[39m
+              [0m管理员[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"RESEARCHER"[39m
+            [36m>[39m
+              [0m研究人员[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"MANAGER"[39m
+            [36m>[39m
+              [0m管理人员[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"VIEWER"[39m
+            [36m>[39m
+              [0m只读成员[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"PUBLIC"[39m
+            [36m>[39m
+              [0m公开参与者[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<button>[39m
+          [0m保存成员角色[0m
+        [36m</button>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"panel"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0m审计记录[0m
+      [36m</h2>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-scroll"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0m时间[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m操作[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m操作者[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m对象[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0m变更记录[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody />[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0m上一页审计[0m
+        [36m</button>[39m
+        [36m<span>[39m
+          [0m第 [0m
+          [0m1[0m
+          [0m 页[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0m下一页审计[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/Admin.test.tsx:25:17
+     23|   await screen.findByRole("button", {name: "归档项目 历史项目"});
+     24|   await waitFor(() => expect(operations).toEqual([{method: "POST", bod…
+     25|   expect(screen.getByText("历史项目")).toBeTruthy();
+       |                 ^
+     26| });
+     27|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 22 passed (23)
+      Tests  1 failed | 45 passed (46)
+   Start at  13:53:03
+   Duration  2.89s (environment 58%, import 14%, tests 13%, setup 7%, transform 7%)
+
+Environment  jsdom was created 23 times · 12.69s total, 58% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['npm', '--prefix', 'apps/web', 'test']' returned non-zero exit status 1.

@@ -1,0 +1,9 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_optical_preview_preserves_nodata_alpha_and_geographic_bounds _______
+tests/unit/test_optical_change.py:82: in test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+    from coastmas.domain.optical_preview import optical_preview
+E   ModuleNotFoundError: No module named 'coastmas.domain.optical_preview'
+=========================== short test summary info ============================
+FAILED tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+1 failed, 6 deselected in 0.43s

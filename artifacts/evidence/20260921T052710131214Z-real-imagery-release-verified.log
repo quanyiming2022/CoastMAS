@@ -1,0 +1,111 @@
+Success: no issues found in 99 source files
+........................................                                 [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/real_imagery.py:309: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform = Affine(*first.transform) * Affine.translation(column, row)
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:143: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = writer(
+
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:140: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = DatasetReader(mempath, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+40 passed, 11 warnings in 21.27s
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1054 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.51 kB │ gzip:   0.36 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/index-Dnavpvux.css                   9.61 kB │ gzip:   2.99 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-BiopU5Q9.js                  0.47 kB │ gzip:   0.33 kB
+dist/assets/result-data-BM3ErR-p.js              1.11 kB │ gzip:   0.51 kB
+dist/assets/model-editor-D1epytIi.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-DVO6bvp6.js        1.86 kB │ gzip:   0.76 kB
+dist/assets/WorkflowGraph-rVlY5xxw.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-Dj02FpVG.js                2.40 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-Db7g3At3.js         2.85 kB │ gzip:   1.37 kB
+dist/assets/useQueries-C708xwB4.js               3.45 kB │ gzip:   1.49 kB
+dist/assets/Runs-Dqlzjol6.js                     3.51 kB │ gzip:   1.51 kB
+dist/assets/Workflow-DnHTlayr.js                 3.97 kB │ gzip:   1.88 kB
+dist/assets/AssessmentResults-DX-toODm.js        4.07 kB │ gzip:   1.77 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-BtQ5NvKm.js         5.12 kB │ gzip:   2.24 kB
+dist/assets/ModelDecomposer-DUdnrIFU.js          6.43 kB │ gzip:   2.95 kB
+dist/assets/KnowledgeGraph-cy4kYc9J.js           6.86 kB │ gzip:   3.09 kB
+dist/assets/Entities-Dmn_Ddw1.js                 7.04 kB │ gzip:   3.00 kB
+dist/assets/DataSources-3Pmdsb_E.js              7.33 kB │ gzip:   2.92 kB
+dist/assets/DataWorkspace-BP-Xkcfc.js            7.42 kB │ gzip:   3.06 kB
+dist/assets/AssessmentRecords-DfQUpuCP.js        7.50 kB │ gzip:   2.76 kB
+dist/assets/ModelEditor-D4utvHMB.js              7.64 kB │ gzip:   3.13 kB
+dist/assets/Catalog-DN6VMyCW.js                  8.00 kB │ gzip:   2.92 kB
+dist/assets/GeoMap-DCS4EuPE.js                   8.04 kB │ gzip:   3.59 kB
+dist/assets/Planner-BqHhOJLa.js                  8.25 kB │ gzip:   3.54 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Results-D7ixw1uF.js                 11.29 kB │ gzip:   4.25 kB
+dist/assets/WorkflowEditor-Ct_G4Dp1.js          13.60 kB │ gzip:   5.19 kB
+dist/assets/Collaboration-BxxfcP-S.js           14.22 kB │ gzip:   4.70 kB
+dist/assets/SceneWorkspace-Dygy00_N.js          14.95 kB │ gzip:   5.52 kB
+dist/assets/SpatialOptimization-Chuwpj3R.js     15.01 kB │ gzip:   5.17 kB
+dist/assets/IndicatorFrameworks-wjvwmKgT.js     15.71 kB │ gzip:   5.16 kB
+dist/assets/style-CS4fvL4G.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-BidR4vUV.js              204.13 kB │ gzip:  50.18 kB
+dist/assets/index-yAU3B_tw.js                  396.96 kB │ gzip: 121.52 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 327ms
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  22 passed (22)
+      Tests  45 passed (45)
+   Start at  13:27:41
+   Duration  2.79s (environment 60%, import 15%, tests 11%, setup 7%, transform 7%, worker 1%)
+
+Environment  jsdom was created 22 times · 11.87s total, 60% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

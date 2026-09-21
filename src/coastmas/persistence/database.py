@@ -6,7 +6,7 @@ from pathlib import Path
 from sqlalchemy.engine import URL
 
 
-def local_database_url(database: str = "coastmas") -> URL:
+def local_database_url(database: str | None = None) -> URL:
     root = Path(__file__).resolve().parents[3]
     environment = root / ".env"
     local: dict[str, str] = {}
@@ -24,5 +24,7 @@ def local_database_url(database: str = "coastmas") -> URL:
         password=password,
         host=os.environ.get("POSTGRES_HOST", "127.0.0.1"),
         port=int(os.environ.get("POSTGRES_PORT", "55432")),
-        database=database,
+        database=database
+        if database is not None
+        else os.environ.get("POSTGRES_DB", local.get("POSTGRES_DB", "coastmas")),
     )

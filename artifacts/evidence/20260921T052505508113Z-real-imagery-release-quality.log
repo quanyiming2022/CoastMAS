@@ -1,0 +1,39 @@
+E501 Line too long (107 > 100)
+   --> src/coastmas/real_imagery.py:271:101
+    |
+269 |                         "source_manifest": json.loads((path / "manifest.json").read_bytes()),
+270 |                         "source_metadata": {"uri": provenance.uri, "sha256": provenance.sha256},
+271 |                         "calibration": "STAC scale and offset; SCL 4/5/6 only; other pixels remain NoData",
+    |                                                                                                     ^^^^^^^
+272 |                     },
+273 |                     "source": acquisition.source,
+    |
+
+E501 Line too long (112 > 100)
+   --> src/coastmas/real_imagery.py:303:101
+    |
+301 |     if first.grid != second.grid:
+302 |         raise ConstraintError("two-date demo requires matching original grids")
+303 |     # A bounded central window retains native 10 m cells; it does not downsample or imply full-estuary coverage.
+    |                                                                                                     ^^^^^^^^^^^^
+304 |     width, height = min(first.width, 128), min(first.height, 128)
+305 |     column, row = (first.width - width) // 2, (first.height - height) // 2
+    |
+
+E501 Line too long (101 > 100)
+   --> src/coastmas/real_imagery.py:351:101
+    |
+349 |             "time_start": first.acquired_at,
+350 |             "time_end": second.acquired_at,
+351 |             "time_resolution": f"{(second.acquired_at - first.acquired_at).total_seconds()} seconds",
+    |                                                                                                     ^
+352 |             "variables": models["ndvi_change"].inputs,
+353 |             "quality": {
+    |
+
+Found 3 errors.
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['.venv/bin/ruff', 'check', '.']' returned non-zero exit status 1.

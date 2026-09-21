@@ -1,0 +1,12 @@
+/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+  dataset = writer(
+yellow-river S2B_50SPG_20250925_0_L2A 360 342 clear 110142
+/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+  dataset = writer(
+jiaozhou S2C_50SQF_20251027_0_L2A 372 346 clear 128712
+/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+  dataset = writer(
+yangtze-2024 S2B_51RUQ_20240901_0_L2A 384 338 clear 124600
+/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+  dataset = writer(
+yangtze-2025 S2B_51RUQ_20250906_0_L2A 384 338 clear 124240

@@ -5,7 +5,11 @@ import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import type { GeographicCollection } from "./result-data";
 import { geometryPositions } from "./geography";
 import { ErrorNotice } from "./components";
+import { basemapLabels, basemapSource, type Basemap } from "./basemaps";
 
+import { imageCoordinates, type ImageOverlay } from "./imagery";
+
+const noImages: ImageOverlay[] = [];
 const layerLabels = {
   "result-fill": "面图层",
   "result-outline": "边界与线图层",
@@ -55,8 +59,10 @@ export default function GeoMap({
   onMapClick,
   onFeatureClick,
   fitData = true,
+  images = noImages,
 }: {
   data: GeographicCollection;
+  images?: ImageOverlay[];
   label?: string;
   onMapClick?: (point: [number, number]) => void;
   fitData?: boolean;
@@ -67,11 +73,41 @@ export default function GeoMap({
     "result-outline": true,
     "entity-points": true,
   });
+  const [selectedImage, setSelectedImage] = useState("");
+  const [imageShown, setImageShown] = useState(true);
+  const [imageOpacity, setImageOpacity] = useState(0.95);
+  const overlay =
+    images.find((item) => item.url === selectedImage) ?? images[0];
+  const latestImage = useRef({ overlay, imageShown, imageOpacity });
+  const [basemap, setBasemap] = useState<Basemap>("none");
+  const [imageryDate, setImageryDate] = useState("2024-06-01");
+  const [basemapError, setBasemapError] = useState<Error | null>(null);
+  const latestBasemap = useRef({ basemap, imageryDate });
   const latestVisibility = useRef(visibility);
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LibreMap | null>(null);
   const latest = useRef({ data, fitData, onMapClick, onFeatureClick });
   const [error, setError] = useState<Error | null>(null);
+  useEffect(() => {
+    latestImage.current = { overlay, imageShown, imageOpacity };
+    const map = mapRef.current;
+    if (map?.getSource("result")) applyImage(map, latestImage.current);
+  }, [overlay, imageShown, imageOpacity]);
+  function changeBasemap(next: Basemap, date: string) {
+    try {
+      basemapSource(next, date);
+      const map = mapRef.current;
+      if (map?.getSource("result")) applyBasemap(map, next, date);
+      latestBasemap.current = { basemap: next, imageryDate: date };
+      setBasemap(next);
+      setImageryDate(date);
+      setBasemapError(null);
+    } catch (failure) {
+      setBasemapError(
+        failure instanceof Error ? failure : new Error("底图加载失败"),
+      );
+    }
+  }
   useEffect(() => {
     latestVisibility.current = visibility;
     const map = mapRef.current;
@@ -132,7 +168,12 @@ export default function GeoMap({
                         "#24a5a1",
                       ],
                     ],
-                    "fill-opacity": 0.3,
+                    "fill-opacity": [
+                      "case",
+                      ["==", ["get", "layer_kind"], "raster_boundary"],
+                      0,
+                      0.3,
+                    ],
                   },
                 },
                 {
@@ -151,7 +192,7 @@ export default function GeoMap({
                 },
               ],
             },
-            attributionControl: false,
+            attributionControl: { compact: false },
             renderWorldCopies: false,
           });
           mapRef.current = map;
@@ -161,6 +202,12 @@ export default function GeoMap({
             if (map) {
               updateData(map, latest.current.data, true);
               applyVisibility(map, latestVisibility.current);
+              applyImage(map, latestImage.current);
+              applyBasemap(
+                map,
+                latestBasemap.current.basemap,
+                latestBasemap.current.imageryDate,
+              );
             }
           });
           map.on("idle", () => {
@@ -174,7 +221,16 @@ export default function GeoMap({
             if (feature?.properties)
               latest.current.onFeatureClick?.(feature.properties);
           });
-          map.on("error", () => {
+          map.on("error", (event) => {
+            if ("sourceId" in event && event.sourceId === "internet-basemap") {
+              if (active)
+                setBasemapError(
+                  new Error(
+                    "联网底图未能加载，请检查网络或切换底图；本地场景图层仍可使用。",
+                  ),
+                );
+              return;
+            }
             if (active) {
               element.dataset.loaded = "false";
               setError(
@@ -204,6 +260,80 @@ export default function GeoMap({
   return (
     <>
       <ErrorNotice error={error} />
+      <ErrorNotice error={basemapError} />
+      <div className="toolbar">
+        <label>
+          地图底图
+          <select
+            value={basemap}
+            onChange={(event) =>
+              changeBasemap(event.target.value as Basemap, imageryDate)
+            }
+          >
+            {Object.entries(basemapLabels).map(([key, label]) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        {basemap === "nasa" ? (
+          <label>
+            底图影像日期
+            <input
+              type="date"
+              value={imageryDate}
+              onChange={(event) => changeBasemap(basemap, event.target.value)}
+            />
+          </label>
+        ) : null}
+      </div>
+      {basemap === "nasa" ? (
+        <p className="muted">
+          真实 MODIS 真彩色浏览影像，标称 250
+          m；放大不增加实际分辨率。日期和云覆盖会影响可见内容，不能替代分析数据。
+        </p>
+      ) : null}
+      {overlay ? (
+        <fieldset className="toolbar">
+          <legend>场景影像</legend>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={imageShown}
+              onChange={(event) => setImageShown(event.target.checked)}
+            />
+            显示真实影像
+          </label>
+          <label>
+            影像与采集时间
+            <select
+              value={overlay.url}
+              onChange={(event) => setSelectedImage(event.target.value)}
+            >
+              {images.map((item) => (
+                <option key={item.url} value={item.url}>
+                  {item.label} · {item.acquired_at}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            影像透明度
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={imageOpacity}
+              onChange={(event) => setImageOpacity(Number(event.target.value))}
+            />
+          </label>
+          <span>
+            {overlay.attribution} · 影像仅供显示，分析使用原始数据与质量掩膜
+          </span>
+        </fieldset>
+      ) : null}
       <fieldset className="toolbar">
         <legend>{label}图层控制</legend>
         {(Object.keys(layerLabels) as (keyof LayerVisibility)[]).map((id) => (
@@ -224,8 +354,57 @@ export default function GeoMap({
       </fieldset>
       <div ref={container} className="geographic-map" aria-label={label} />
       <p className="muted">
-        {label} · WGS 84 经纬度 · 可缩放和平移；未加载外部底图。
+        {label} · WGS 84 经纬度 · 可缩放和平移 · {basemapLabels[basemap]}
       </p>
     </>
+  );
+}
+
+function applyBasemap(map: LibreMap, kind: Basemap, date: string) {
+  const source = basemapSource(kind, date);
+  if (map.getLayer("internet-basemap")) map.removeLayer("internet-basemap");
+  if (map.getSource("internet-basemap")) map.removeSource("internet-basemap");
+  if (source) {
+    map.addSource("internet-basemap", source);
+    map.addLayer(
+      { id: "internet-basemap", source: "internet-basemap", type: "raster" },
+      map.getLayer("scene-image") ? "scene-image" : "result-fill",
+    );
+  }
+}
+
+function applyImage(
+  map: LibreMap,
+  {
+    overlay,
+    imageShown,
+    imageOpacity,
+  }: {
+    overlay: ImageOverlay | undefined;
+    imageShown: boolean;
+    imageOpacity: number;
+  },
+) {
+  if (map.getLayer("scene-image")) map.removeLayer("scene-image");
+  if (map.getSource("scene-image")) map.removeSource("scene-image");
+  if (!overlay || !imageShown) return;
+  map.addSource("scene-image", {
+    type: "image",
+    url: overlay.url,
+    coordinates: imageCoordinates(overlay.bounds) as [
+      [number, number],
+      [number, number],
+      [number, number],
+      [number, number],
+    ],
+  });
+  map.addLayer(
+    {
+      id: "scene-image",
+      source: "scene-image",
+      type: "raster",
+      paint: { "raster-opacity": imageOpacity, "raster-fade-duration": 0 },
+    },
+    "result-fill",
   );
 }

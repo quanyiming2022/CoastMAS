@@ -1,0 +1,1 @@
+{"origin": "LOCAL", "model": "qwen3:4b-instruct-2507-q4_K_M", "actual_requests": 1, "usage": {"input_tokens": 160, "output_tokens": 570, "total_tokens": 730, "cached_input_tokens": 0}, "missing_condition_count": 13, "trace_id": "4c7069f9-1e63-47ed-a758-c2a023a6328c"}

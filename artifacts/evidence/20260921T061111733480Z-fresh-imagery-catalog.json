@@ -1,0 +1,29 @@
+{
+  "name": "fresh-imagery-catalog",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "from pathlib import Path; from tempfile import TemporaryDirectory; from scripts import prepare_real_imagery as a\nwith TemporaryDirectory(prefix=\"coastmas-stac-\") as directory:\n a.SEARCH_ROOT=Path(directory)\n for name, search, bbox, selected in a.REGIONS:\n  item=a.source_item(name, search)\n  assert item[\"id\"]==a.ITEMS[name]\n  print(name, item[\"id\"], item[\"collection\"])\n"
+  ],
+  "started_at": "2026-09-21T06:11:11.733480+00:00",
+  "finished_at": "2026-09-21T06:11:16.945428+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "daa0bf00ca1ac677f7d4966bf96c8441f94ee892d78cf304d8d5cde41b56015d",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T061111733480Z-fresh-imagery-catalog.log"
+}

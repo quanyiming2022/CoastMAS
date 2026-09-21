@@ -1,0 +1,31 @@
+const names: Record<string, string> = {
+  "optical.index": "指数栅格",
+  "optical.summary": "遥感统计与科学范围",
+  "optical.preview": "遥感结果地图",
+  index_name: "指数名称",
+  valid_pixels: "有效像元数",
+  nodata_pixels: "无数据像元数",
+  minimum: "最小值",
+  maximum: "最大值",
+  mean: "平均值",
+  grid: "原生分析网格",
+  unit: "单位",
+  method_scope: "科学适用范围",
+  invalid_policy: "无效数据处理规则",
+  acquisitions: "实际采集时间",
+  source_items: "原始影像产品",
+  start: "开始时间",
+  end: "结束时间",
+  OPTIMIZATION: "优化模型",
+  STATISTICAL: "统计模型",
+  PROCESS: "过程模型",
+  MACHINE_LEARNING: "机器学习模型",
+  RASTER: "栅格模型",
+  GIS: "地理分析模型",
+  HYBRID: "组合模型",
+  remote_sensing: "遥感分析",
+  custom: "自定义",
+};
+export function scientificLabel(value: string): string {
+  return names[value] ?? value;
+}

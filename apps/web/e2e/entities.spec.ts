@@ -8,15 +8,7 @@ test("geographic entities persist revisions and render actual geometry", async (
   const credentials = z
     .object({ email: z.string(), password: z.string() })
     .parse(
-      JSON.parse(
-        await readFile(
-          new URL(
-            "../../../artifacts/runtime/demo-access.json",
-            import.meta.url,
-          ),
-          "utf8",
-        ),
-      ),
+      JSON.parse(await readFile(process.env.COASTMAS_E2E_ACCESS_FILE!, "utf8")),
     );
   await page.goto("/login");
   await page.getByLabel("邮箱", { exact: true }).fill(credentials.email);

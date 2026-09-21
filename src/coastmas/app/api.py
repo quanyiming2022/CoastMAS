@@ -20,6 +20,7 @@ from coastmas.app.collaboration_routes import router as collaboration_router
 from coastmas.app.data_routes import router as data_router
 from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.geography_routes import router as geography_router
+from coastmas.app.imagery_routes import router as imagery_router
 from coastmas.app.indicator_routes import router as indicator_router
 from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
@@ -316,6 +317,7 @@ def create_app(
     app.include_router(knowledge_graph_router)
     app.include_router(geography_router)
     app.include_router(data_router)
+    app.include_router(imagery_router)
     app.include_router(source_router)
     app.include_router(indicator_router)
     app.include_router(assessment_router)

@@ -1,0 +1,29 @@
+{
+  "name": "collection-one-live-scientific-verification",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import subprocess; subprocess.run(['.venv/bin/python','scripts/publish_real_imagery.py','--run'],check=True); subprocess.run(['.venv/bin/python','scripts/verify_real_imagery.py'],check=True)"
+  ],
+  "started_at": "2026-09-21T05:43:21.509734+00:00",
+  "finished_at": "2026-09-21T05:44:13.638734+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "ca66dbbadc0b163e9fb320e029554062f01055e8c74bca2a6bc2314781413e7a",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T054321509734Z-collection-one-live-scientific-verification.log"
+}

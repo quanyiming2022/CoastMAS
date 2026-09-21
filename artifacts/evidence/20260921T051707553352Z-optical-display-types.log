@@ -1,0 +1,10 @@
+src/coastmas/domain/remote_sensing_components.py:86: error: Argument 1 to "normalized_difference" has incompatible type "tuple[tuple[float | None, ...], ...]"; expected "Buffer | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | complex | bytes | str | _NestedSequence[complex | bytes | str]"  [arg-type]
+src/coastmas/domain/remote_sensing_components.py:86: error: Argument 2 to "normalized_difference" has incompatible type "tuple[tuple[float | None, ...], ...]"; expected "Buffer | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | complex | bytes | str | _NestedSequence[complex | bytes | str]"  [arg-type]
+src/coastmas/domain/remote_sensing_components.py:87: error: Argument 1 to "normalized_difference" has incompatible type "tuple[tuple[float | None, ...], ...]"; expected "Buffer | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | complex | bytes | str | _NestedSequence[complex | bytes | str]"  [arg-type]
+src/coastmas/domain/remote_sensing_components.py:87: error: Argument 2 to "normalized_difference" has incompatible type "tuple[tuple[float | None, ...], ...]"; expected "Buffer | _SupportsArray[dtype[Any]] | _NestedSequence[_SupportsArray[dtype[Any]]] | complex | bytes | str | _NestedSequence[complex | bytes | str]"  [arg-type]
+Found 4 errors in 1 file (checked 98 source files)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['.venv/bin/mypy', 'src']' returned non-zero exit status 1.

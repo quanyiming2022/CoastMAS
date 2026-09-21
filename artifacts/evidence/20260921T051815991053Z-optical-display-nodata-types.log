@@ -1,0 +1,46 @@
+Success: no issues found in 98 source files
+..........                                                               [100%]
+=============================== warnings summary ===============================
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:143: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = writer(
+
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:140: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = DatasetReader(mempath, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 7 warnings in 0.50s
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  22 passed (22)
+      Tests  45 passed (45)
+   Start at  13:18:24
+   Duration  2.77s (environment 61%, import 15%, tests 11%, setup 7%, transform 6%)
+
+Environment  jsdom was created 22 times · 12.20s total, 61% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

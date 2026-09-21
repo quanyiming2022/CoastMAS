@@ -1,0 +1,32 @@
+{
+  "name": "imagery-map-contract-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "test",
+    "--",
+    "src/imagery.test.ts"
+  ],
+  "started_at": "2026-09-21T05:14:01.579687+00:00",
+  "finished_at": "2026-09-21T05:14:04.106621+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "7f4f9af9c89593a3fcffb1a0a52d18baf9ae559acf9c0bb1634794b6d47be08b",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T051401579687Z-imagery-map-contract-red.log"
+}

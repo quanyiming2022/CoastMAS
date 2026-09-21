@@ -20,6 +20,7 @@ from coastmas.domain.coastal_components import (
     statistics_component,
 )
 from coastmas.domain.optimization_catalog import optimization_catalog
+from coastmas.domain.remote_sensing_catalog import remote_sensing_catalog
 from coastmas.domain.scenarios import verify_samples
 
 
@@ -216,6 +217,11 @@ def coastal_catalog(project_id: str, directory: Path) -> BuiltinCatalog:
     optimization = optimization_catalog(project_id)
     for model in optimization.models:
         runtime = optimization.registry.resolve(model)
+        catalog.registry.register(model, runtime.adapter, runtime.handler)
+        models.append(model)
+    optical = remote_sensing_catalog(project_id)
+    for model in optical.models:
+        runtime = optical.registry.resolve(model)
         catalog.registry.register(model, runtime.adapter, runtime.handler)
         models.append(model)
     # Separate immutable signatures preserve the original management-unit release.

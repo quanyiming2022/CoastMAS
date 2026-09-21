@@ -1,0 +1,11 @@
+All checks passed!
+223 files already formatted
+Success: no issues found in 99 source files
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+

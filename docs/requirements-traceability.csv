@@ -1201,3 +1201,7 @@ EQ09,execution-quality.md §9,安全底线,,,,NOT_RUN,尚未实现或验证
 EQ10,execution-quality.md §10,自动化验证：日常增量，交付全量,,,,NOT_RUN,尚未实现或验证
 EQ11,execution-quality.md §11,必选验收用例与证据,,,,NOT_RUN,尚未实现或验证
 EQ12,execution-quality.md §12,节省效果的报告方式,,,,NOT_RUN,尚未实现或验证
+USER.IMAGE,用户追加要求,三个中国典型海岸真实影像完整演示,src/coastmas/real_imagery.py;src/coastmas/domain/remote_sensing.py;apps/web/src/SceneImagery.tsx;scripts/verify_real_imagery.py,.venv/bin/python scripts/verify_real_imagery.py; npm --prefix apps/web run e2e -- --config acceptance.config.ts real-imagery.spec.ts,artifacts/evidence/20260921T054321509734Z-collection-one-live-scientific-verification.json;artifacts/evidence/20260921T061033358630Z-cleaned-real-demos-browser.json,PASS,局部公开影像指数演示；不替代原任务的海岸筛查、评价及优化科学能力
+USER.BASEMAP,用户追加要求,互联网可用底图与实际加载验证,apps/web/src/basemaps.ts;apps/web/src/GeoMap.tsx,npm --prefix apps/web run e2e -- --config acceptance.config.ts real-imagery.spec.ts,artifacts/evidence/20260921T061033358630Z-cleaned-real-demos-browser.json,PASS,底图是显示背景；联网失败显式报告
+USER.CLEANUP,用户澄清,清理界面合成样例和测试记录，保留自动化测试与历史验收证据,apps/web/src/Admin.tsx;src/coastmas/app/workspace_routes.py;scripts/e2e.py,npm --prefix apps/web run e2e -- --config acceptance.config.ts admin-cleanup.spec.ts; .venv/bin/python scripts/e2e.py,artifacts/evidence/20260921T060227416896Z-admin-cleanup-live.json;artifacts/evidence/20260921T060653925751Z-isolated-browser-run.json,PASS,可逆归档保留权限和历史，普通E2E在独立资源内执行
+USER.LABELS,用户追加要求,菜单和表格中英文名称保持一致,apps/web/src/scientific-labels.ts;apps/web/src/Admin.tsx,npm --prefix apps/web test,,NOT_RUN,新增影像模型与结果已统一中文标签；全站命名审查尚未完成

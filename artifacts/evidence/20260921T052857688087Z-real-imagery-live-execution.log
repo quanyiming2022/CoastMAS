@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/quanyiming/Projects/CoastMAS/scripts/publish_real_imagery.py", line 132, in <module>
+    main()
+  File "/Users/quanyiming/Projects/CoastMAS/scripts/publish_real_imagery.py", line 75, in main
+    preflight.raise_for_status()
+  File "/Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '405 Method Not Allowed' for url 'http://127.0.0.1:58000/api/v1/workflows/imagery:9bdf974b-5ad4-5245-a8cd-c9420690f64b:workflow:yellow-river/preflight'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405

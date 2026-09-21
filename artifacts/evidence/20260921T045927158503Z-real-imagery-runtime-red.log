@@ -1,0 +1,9 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_registered_index_component_preserves_georeference_and_actual_valid_count _
+tests/unit/test_remote_sensing.py:27: in test_registered_index_component_preserves_georeference_and_actual_valid_count
+    from coastmas.domain.remote_sensing_catalog import remote_sensing_catalog
+E   ModuleNotFoundError: No module named 'coastmas.domain.remote_sensing_catalog'
+=========================== short test summary info ============================
+FAILED tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+1 failed, 2 passed in 0.19s

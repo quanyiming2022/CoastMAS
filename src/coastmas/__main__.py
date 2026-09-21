@@ -64,7 +64,9 @@ def main() -> None:
             ),
         )
         queue = create_queue(
-            worker, broker_url=configuration_value("REDIS_URL", "redis://127.0.0.1:56379/0")
+            worker,
+            broker_url=configuration_value("REDIS_URL", "redis://127.0.0.1:56379/0"),
+            queue_name=configuration_value("COASTMAS_QUEUE_NAME", "coastmas"),
         )
         if args.service == "worker":
             queue.worker_main(["worker", "--pool=solo", "--loglevel=INFO"])

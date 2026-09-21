@@ -58,15 +58,55 @@ def _audit(
 
 
 @router.get("/projects")
-def projects(session: DatabaseSession, user_id: CurrentUser) -> list[dict[str, JsonValue]]:
+def projects(
+    session: DatabaseSession, user_id: CurrentUser, include_archived: bool = False
+) -> list[dict[str, JsonValue]]:
     account = _user(session, user_id)
     query = select(Project)
+    if not include_archived:
+        query = query.where(Project.archived.is_(False))
     if not account.is_admin:
         query = query.join(Membership).where(Membership.user_id == user_id)
     return [
-        {"id": item.id, "name": item.name, "owner_id": item.owner_id}
+        {"id": item.id, "name": item.name, "owner_id": item.owner_id, "archived": item.archived}
         for item in session.scalars(query.order_by(Project.name, Project.id))
     ]
+
+
+class ProjectArchive(Contract):
+    archived: bool
+
+
+@router.post("/projects/{project_id}/archive")
+def archive_project(
+    project_id: str,
+    body: ProjectArchive,
+    session: DatabaseSession,
+    user_id: CurrentUser,
+) -> dict[str, JsonValue]:
+    require_permission(session, user_id, project_id, "admin")
+    project = session.scalar(select(Project).where(Project.id == project_id).with_for_update())
+    require_permission(session, user_id, project_id, "admin")
+    if project is None:
+        raise CoastMASError("NOT_FOUND", "project unavailable")
+    previous = project.archived
+    project.archived = body.archived
+    if previous != body.archived:
+        _audit(
+            session,
+            user_id,
+            "ARCHIVE_PROJECT",
+            project_id,
+            {"archived": previous},
+            {"archived": body.archived},
+        )
+    session.commit()
+    return {
+        "id": project.id,
+        "name": project.name,
+        "owner_id": project.owner_id,
+        "archived": project.archived,
+    }
 
 
 class NewProject(Contract):

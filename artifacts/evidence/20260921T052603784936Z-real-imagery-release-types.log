@@ -1,0 +1,11 @@
+All checks passed!
+src/coastmas/real_imagery.py:310: error: Incompatible types in assignment (expression has type "TargetGridSpec", variable has type "Grid")  [assignment]
+src/coastmas/real_imagery.py:320: error: "Grid" has no attribute "model_dump"  [attr-defined]
+src/coastmas/real_imagery.py:351: error: Argument 1 to "_extent" has incompatible type "Grid"; expected "TargetGridSpec"  [arg-type]
+src/coastmas/real_imagery.py:377: error: Argument 5 to "_scene_workflow" has incompatible type "Grid"; expected "TargetGridSpec"  [arg-type]
+Found 4 errors in 1 file (checked 99 source files)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['.venv/bin/mypy', 'src']' returned non-zero exit status 1.

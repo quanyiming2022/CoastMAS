@@ -1,0 +1,56 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test real-imagery.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:34549) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps
+  1) e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps 
+
+    TimeoutError: page.waitForResponse: Timeout 15000ms exceeded while waiting for event "response"
+
+      35 |     }
+      36 |     if (key === "yellow-river") {
+    > 37 |       const street = page.waitForResponse((response) => response.url().startsWith("https://tile.openstreetmap.org/") && response.status() === 200);
+         |                           ^
+      38 |       await page.getByLabel("地图底图", { exact: true }).selectOption("osm");
+      39 |       await street;
+      40 |       await expect(page.getByRole("link", { name: "OpenStreetMap" })).toBeVisible();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/real-imagery.spec.ts:37:27
+
+    TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByLabel('地图底图', { exact: true })
+
+
+      36 |     if (key === "yellow-river") {
+      37 |       const street = page.waitForResponse((response) => response.url().startsWith("https://tile.openstreetmap.org/") && response.status() === 200);
+    > 38 |       await page.getByLabel("地图底图", { exact: true }).selectOption("osm");
+         |                                                      ^
+      39 |       await street;
+      40 |       await expect(page.getByRole("link", { name: "OpenStreetMap" })).toBeVisible();
+      41 |       const nasa = page.waitForResponse((response) => response.url().startsWith("https://gibs.earthdata.nasa.gov/") && response.status() === 200);
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/real-imagery.spec.ts:38:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps 

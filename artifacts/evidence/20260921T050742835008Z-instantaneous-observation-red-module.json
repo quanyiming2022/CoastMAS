@@ -1,0 +1,34 @@
+{
+  "name": "instantaneous-observation-red-module",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_validation.py",
+    "-k",
+    "instantaneous",
+    "-q",
+    "--tb=short"
+  ],
+  "started_at": "2026-09-21T05:07:42.835008+00:00",
+  "finished_at": "2026-09-21T05:07:44.814330+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "8d1a53933d60e532644bfc07b71e33a9fb1983690cef400d0eb26fb1c861ebe5",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T050742835008Z-instantaneous-observation-red-module.log"
+}

@@ -8,15 +8,7 @@ test("indicator framework versions prepare real data and produce a temporal eval
   const credentials = z
     .object({ email: z.string(), password: z.string() })
     .parse(
-      JSON.parse(
-        await readFile(
-          new URL(
-            "../../../artifacts/runtime/demo-access.json",
-            import.meta.url,
-          ),
-          "utf8",
-        ),
-      ),
+      JSON.parse(await readFile(process.env.COASTMAS_E2E_ACCESS_FILE!, "utf8")),
     );
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));

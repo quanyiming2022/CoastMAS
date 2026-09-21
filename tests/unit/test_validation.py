@@ -172,3 +172,35 @@ def test_scene_target_grid_must_be_supported_by_the_model():
     report = validate_workflow(workflow(), [model()], [asset()], context)
     assert not report.valid
     assert "CRS_UNSUPPORTED" in {issue.code for issue in report.issues}
+
+
+@pytest.mark.parametrize("invalid", [None, "scene_period", "asset_period", "meaning", "cadence"])
+def test_instantaneous_observation_requires_exact_time_and_acquisition_semantics(invalid):
+    from coastmas.core.validation import validate_asset_binding
+
+    timestamp = "2025-09-25T03:07:23.508Z"
+    observation = variable(temporal_support="acquisition")
+    candidate = model(inputs=[observation], temporal_scale={"unit": "s"})
+    data = asset(
+        variables=[observation],
+        time_start=timestamp,
+        time_end=timestamp,
+        time_resolution="instantaneous",
+    )
+    context = scene(time_range={"start": timestamp, "end": timestamp})
+    if invalid == "scene_period":
+        context = scene(time_range={"start": timestamp, "end": "2025-09-26T00:00:00Z"})
+    elif invalid == "asset_period":
+        data = data.model_copy(update={"time_end": context.time_range.end.replace(day=26)})
+    elif invalid == "meaning":
+        observation = variable(temporal_support="instant")
+        candidate = model(inputs=[observation], temporal_scale={"unit": "s"})
+        data = data.model_copy(update={"variables": (observation,)})
+    elif invalid == "cadence":
+        candidate = model(inputs=[observation])
+    result = validate_asset_binding(
+        data, observation, candidate, context, workflow().input_bindings[0]
+    )
+    assert result.valid == (invalid is None), result.issues
+    if invalid:
+        assert {issue.code for issue in result.issues} & {"TIME_COVERAGE", "TEMPORAL_SCALE"}

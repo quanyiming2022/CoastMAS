@@ -1,0 +1,34 @@
+E501 Line too long (107 > 100)
+  --> src/coastmas/domain/remote_sensing_catalog.py:55:101
+   |
+53 |                 "version": 1,
+54 |                 "model_type": "RASTER",
+55 |                 "description": "Calibrated surface-reflectance normalized difference with explicit NoData",
+   |                                                                                                     ^^^^^^^
+56 |                 "capabilities": [component],
+57 |                 "scientific_domain": ["remote_sensing"],
+   |
+
+E501 Line too long (111 > 100)
+  --> src/coastmas/domain/remote_sensing_components.py:43:101
+   |
+41 |             "grid": grid.model_dump(mode="json"),
+42 |             "unit": "1",
+43 |             "method_scope": "Optical spectral index; not validated land-cover classification or policy advice",
+   |                                                                                                     ^^^^^^^^^^^
+44 |             "invalid_policy": "nonfinite/negative reflectance and denominator <= 1e-8 remain NoData",
+45 |         },
+   |
+
+E501 Line too long (101 > 100)
+  --> src/coastmas/domain/remote_sensing_components.py:44:101
+   |
+42 |             "unit": "1",
+43 |             "method_scope": "Optical spectral index; not validated land-cover classification or policy advice",
+44 |             "invalid_policy": "nonfinite/negative reflectance and denominator <= 1e-8 remain NoData",
+   |                                                                                                     ^
+45 |         },
+46 |     }
+   |
+
+Found 3 errors.

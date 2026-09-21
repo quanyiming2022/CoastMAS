@@ -1,0 +1,25 @@
+{
+  "status": "NOT_RUN",
+  "scope": "full CoastMAS mandatory acceptance",
+  "mandatory_mapping": "docs/requirements-traceability.csv",
+  "checkpoint": "2026-09-21 real imagery, administration and isolated E2E",
+  "verified_checks": [
+    "artifacts/evidence/20260921T061021803379Z-imagery-admin-backend-full.json",
+    "artifacts/evidence/20260921T061323492550Z-imagery-admin-contracts.json",
+    "artifacts/evidence/20260921T060653925751Z-isolated-browser-run.json",
+    "artifacts/evidence/20260921T061033358630Z-cleaned-real-demos-browser.json",
+    "artifacts/evidence/20260921T060227416896Z-admin-cleanup-live.json",
+    "artifacts/evidence/20260921T054321509734Z-collection-one-live-scientific-verification.json"
+  ],
+  "remaining": [
+    "Research A/B/C execution and UI, ablations, performance experiments",
+    "Explicit temporal and cross-CRS conservative binding nodes",
+    "Approved non-builtin runtimes, complete job diagnostics, computational cache and orphan retention cleanup",
+    "Optional authorized GeoAI contract; no GeoAI source access",
+    "Unified deployment, Makefile entry points and build identity",
+    "Final coverage thresholds, full documentation and final focused review"
+  ],
+  "blocked": [
+    "External cloud LLM credentials unavailable; verified local Qwen is not external evidence"
+  ]
+}

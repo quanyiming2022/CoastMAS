@@ -1,0 +1,42 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test real-imagery.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:33565) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps
+  1) e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps 
+
+    TimeoutError: page.waitForResponse: Timeout 15000ms exceeded while waiting for event "response"
+
+      20 |   await mkdir(new URL("../../../artifacts/screenshots/", import.meta.url), { recursive: true });
+      21 |   for (const [key, scene] of Object.entries(report.scenes)) {
+    > 22 |     const loadedImage = page.waitForResponse((response) => response.url().includes("/image?version=1") && response.status() === 200);
+         |                              ^
+      23 |     await page.goto("/scenes/" + encodeURIComponent(scene.scene_id));
+      24 |     await page.getByLabel("当前项目", { exact: true }).selectOption(report.project_id);
+      25 |     await loadedImage;
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/real-imagery.spec.ts:22:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/real-imagery-three-real-im-c4824-nd-actual-internet-basemaps/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/real-imagery.spec.ts:5:1 › three real image scenes, two acquisitions, immutable results and actual internet basemaps 

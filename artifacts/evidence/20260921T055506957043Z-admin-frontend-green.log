@@ -1,0 +1,84 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  23 passed (23)
+      Tests  46 passed (46)
+   Start at  13:55:13
+   Duration  2.79s (environment 57%, import 16%, tests 12%, setup 7%, transform 6%, worker 1%)
+
+Environment  jsdom was created 23 times · 11.89s total, 57% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1056 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.59 kB │ gzip:   0.38 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/index-Dnavpvux.css                   9.61 kB │ gzip:   2.99 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-CoG_yGb3.js                  0.47 kB │ gzip:   0.33 kB
+dist/assets/scientific-labels-DqhEJHFT.js        0.77 kB │ gzip:   0.57 kB
+dist/assets/result-data-DVmai_Qs.js              1.11 kB │ gzip:   0.52 kB
+dist/assets/model-editor-D0x_KGzQ.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-DVO6bvp6.js        1.86 kB │ gzip:   0.76 kB
+dist/assets/WorkflowGraph-CSDHvHQZ.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-DiQym9QT.js                2.40 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-2B9EdzQb.js         2.85 kB │ gzip:   1.38 kB
+dist/assets/useQueries-sbIFYSIO.js               3.49 kB │ gzip:   1.51 kB
+dist/assets/Runs-DX3byL1i.js                     3.55 kB │ gzip:   1.53 kB
+dist/assets/Workflow-jrDQC0FT.js                 4.00 kB │ gzip:   1.90 kB
+dist/assets/AssessmentResults-CqrGOMg6.js        4.08 kB │ gzip:   1.77 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-2WAGCTxD.js         5.12 kB │ gzip:   2.24 kB
+dist/assets/ModelDecomposer-CixfN74E.js          6.43 kB │ gzip:   2.96 kB
+dist/assets/KnowledgeGraph-BcJnGUsn.js           6.85 kB │ gzip:   3.08 kB
+dist/assets/Entities-CFdYOXdI.js                 7.11 kB │ gzip:   3.03 kB
+dist/assets/DataSources-CjQV_ZA2.js              7.37 kB │ gzip:   2.94 kB
+dist/assets/DataWorkspace-DHAwYxAo.js            7.47 kB │ gzip:   3.09 kB
+dist/assets/removable-zVvwFZIX.js                7.51 kB │ gzip:   2.95 kB
+dist/assets/AssessmentRecords-PiS7BUyZ.js        7.54 kB │ gzip:   2.78 kB
+dist/assets/ModelEditor-C2QTQOHS.js              7.68 kB │ gzip:   3.15 kB
+dist/assets/Catalog-BHDqIHSm.js                  8.07 kB │ gzip:   2.97 kB
+dist/assets/GeoMap-BIByPsnA.js                   8.10 kB │ gzip:   3.60 kB
+dist/assets/Planner-C7m2HJe5.js                  8.24 kB │ gzip:   3.54 kB
+dist/assets/Admin-UaRuundA.js                    8.81 kB │ gzip:   2.78 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Results-CTYpgCDu.js                 11.42 kB │ gzip:   4.31 kB
+dist/assets/WorkflowEditor-wfduzX9I.js          13.63 kB │ gzip:   5.20 kB
+dist/assets/Collaboration-DMOMh9-1.js           14.26 kB │ gzip:   4.72 kB
+dist/assets/SceneWorkspace-Q2DcQoQA.js          15.01 kB │ gzip:   5.54 kB
+dist/assets/SpatialOptimization-CK1bcMPr.js     15.02 kB │ gzip:   5.19 kB
+dist/assets/IndicatorFrameworks-CPmXd8cj.js     15.75 kB │ gzip:   5.19 kB
+dist/assets/style-C0WqB7bJ.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-CDID9u7F.js              204.13 kB │ gzip:  50.18 kB
+dist/assets/index-DDxp_AON.js                  390.31 kB │ gzip: 119.55 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 284ms

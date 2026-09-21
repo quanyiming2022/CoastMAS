@@ -1,0 +1,11 @@
+F....                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_instantaneous_observation_requires_exact_time_and_acquisition_semantics[None] _
+tests/unit/test_validation.py:199: in test_instantaneous_observation_requires_exact_time_and_acquisition_semantics
+    assert result.valid == (invalid is None), result.issues
+E   AssertionError: (ValidationIssue(code='TEMPORAL_SCALE', message="'instantaneous' is not defined in the unit registry", node_id='screen-node', variable='height'),)
+E   assert False == (None is None)
+E    +  where False = ValidationReport(issues=(ValidationIssue(code='TEMPORAL_SCALE', message="'instantaneous' is not defined in the unit registry", node_id='screen-node', variable='height'),), bindings=()).valid
+=========================== short test summary info ============================
+FAILED tests/unit/test_validation.py::test_instantaneous_observation_requires_exact_time_and_acquisition_semantics[None]
+1 failed, 4 passed, 23 deselected in 0.33s

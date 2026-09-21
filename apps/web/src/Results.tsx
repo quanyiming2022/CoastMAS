@@ -17,6 +17,9 @@ import {
 import { geographicCollection, coastalStatistics } from "./result-data";
 import ManagementResults from "./ManagementResults";
 const AssessmentResults = lazy(() => import("./AssessmentResults"));
+import { opticalPreview } from "./imagery";
+import { scientificLabel } from "./scientific-labels";
+
 const GeoMap = lazy(() => import("./GeoMap"));
 const CoastalStatistics = lazy(() => import("./CoastalStatistics"));
 export default function Results() {
@@ -181,7 +184,7 @@ export function ResultDetail() {
             </div>
           </div>
           {Object.entries(result.outputs).map(([name, value]) => (
-            <Panel key={name} title={name}>
+            <Panel key={name} title={scientificLabel(name)}>
               <ResultValue value={value} />
             </Panel>
           ))}
@@ -233,6 +236,60 @@ export function ResultDetail() {
   );
 }
 export function ResultValue({ value }: { value: unknown }) {
+  const preview = opticalPreview.safeParse(value);
+  if (preview.success) {
+    const image = preview.data;
+    const [west, south, east, north] = image.bounds;
+    return (
+      <>
+        <p>
+          {image.label} · 固定色标 {image.minimum} 至 {image.maximum} ·
+          无数据透明
+        </p>
+        <Suspense fallback={<Loading />}>
+          <GeoMap
+            label="遥感计算结果地图"
+            data={{
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  properties: { layer_kind: "raster_boundary" },
+                  geometry: {
+                    type: "Polygon",
+                    coordinates: [
+                      [
+                        [west, south],
+                        [east, south],
+                        [east, north],
+                        [west, north],
+                        [west, south],
+                      ],
+                    ],
+                  },
+                },
+              ],
+            }}
+            images={[
+              {
+                ...image,
+                acquired_at: "运行清单所列采集日期",
+                attribution: "CoastMAS 指数计算；输入 Copernicus Sentinel-2",
+              },
+            ]}
+          />
+        </Suspense>
+      </>
+    );
+  }
+  const matrix = z.array(z.array(z.number().nullable())).safeParse(value);
+  if (matrix.success && matrix.data.length)
+    return (
+      <p>
+        栅格矩阵：{matrix.data.length} 行 × {matrix.data[0]?.length}{" "}
+        列。完整数值、无数据标记和网格见结果下载。
+      </p>
+    );
   const geographic = geographicCollection.safeParse(value);
   if (geographic.success)
     return (
@@ -259,7 +316,7 @@ export function ResultValue({ value }: { value: unknown }) {
             <thead>
               <tr>
                 {columns.map((column) => (
-                  <th key={column}>{column}</th>
+                  <th key={column}>{scientificLabel(column)}</th>
                 ))}
               </tr>
             </thead>
@@ -284,7 +341,7 @@ export function ResultValue({ value }: { value: unknown }) {
       <dl className="definition-grid">
         {Object.entries(record.data).map(([key, item]) => (
           <div key={key}>
-            <dt>{key}</dt>
+            <dt>{scientificLabel(key)}</dt>
             <dd>{display(item)}</dd>
           </div>
         ))}

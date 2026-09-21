@@ -64,3 +64,37 @@
 
 - 科研实现入口补充：可复用现有Job/ResultBundle的租约、取消和真实发布；Job.manifest本身是JSONB，ResearchManifest应有明确kind并独立验证，不能伪造普通WorkflowSpec包装实验。ResultManifest.result_type是Name，可真实标识research_evaluation，无需伪造模型运行。create_queue仅调用runner.run/pending，可按实际manifest类型调度新ResearchWorker，避免造第二套状态机。需要核对Results/RunDetail/重试路径的类型兼容，保持普通workflow不变。
 - 研究需求已读第43/44/68节及EQ：A规则、B仅LLM、C LLM+KG+约束；有效率、违规率、人工修订次数、延迟；错误注入binding统计；12项科研验证必须真实执行。生产create_plan对可规则解析任务不调用LLM，因此科研B/C不能假称allow_external等于真实调用。core.llm和persistence.planning保存真实请求预算/dispatch/usage，需复用。外部凭证缺失继续BLOCKED。
+
+## Research foundation checkpoint (in progress)
+- Resumed from 8e6bf12; prior model/data work already committed and superseded. No duplicate implementation. API/worker/beat restarted as PIDs 28970/28971/28972; logs artifacts/logs/{api,worker,beat}-research-resume.log. /health/ready confirms database/storage/queue ready.
+- New core/research.py defines strict observations and explicit denominators; BLOCKED/FAILED not successes, unknown manual edits/tokens stay null, external/mock/replay arms never pooled, duplicate trial identities rejected. Five red/green tests passed (20260921T043748524325Z-research-metrics-green).
+- New core/research_planning.py freezes case snapshots and invokes the actual deterministic planner plus shared workflow validation. Valid, missing-data and unrecognized-goal trials tested with prior planner regressions (20260921T043957127321Z-research-rule-green). No candidate execution or external call claimed.
+- Research integration remains unfinished: worker Job dispatch, authenticated API, A/B/C provider ledger integration, binding experiments, UI, actual research reports. External credentials remain BLOCKED. Latest source changes uncommitted; no evidence process active after the green run.
+
+
+## 真实影像与本地 Qwen 检查点（进行中）
+- 用户确认清理范围是界面合成样例与测试记录，保留自动化测试和历史证据；尚未清理。计划可逆归档，保护历史引用。
+- 黄河口、胶州湾、长江口两期 Sentinel-2 L2A 已真实下载 AOI，来源/采集时刻/校准/质量掩膜/SHA 保存在 artifacts/runtime/real-imagery；获取证据045653853670Z通过。三个完整场景尚未发布，不计完成。
+- NDVI/NDWI 可信组件通过050600327568Z局部检查；正在补齐瞬时采集约束、生产注册、场景影像显示与真实执行。
+- OSM/NASA 在线底图控件已通过前端静态与单元检查（044846122894Z），真实浏览器网络显示待验证。
+- 本机 Ollama Qwen 结构化真实调用通过045741753235Z：1次请求、提供方返回730 tokens。LOCAL来源，不能计为外部云实验或完整 B/C 对照。私有配置已保存，服务重启后加载。
+- 专门管理员界面尚未实现，已有管理员账户与服务端管理API。全范围任务仍未完成。
+
+## 校准核查发现（必须优先修复）
+- 381项全后端回归通过053253396825Z，但真实影像首轮虽任务SUCCEEDED，科学复查发现legacy sentinel-2-l2a元数据歧义，不能作为通过的科学示范。黄河口/胶州湾有效像元异常少。旧真实项目9bdf974b-5ad4-5245-a8cd-c9420690f64b需保留并隔离，不能覆盖旧结果。
+- 已探测同日同轨 Collection 1 产品，COG内部scale=.0001、offset=-.1与STAC一致；旧COG内部1/0，STAC却是.0001/-.1且boa_offset_applied=true。提供方issue71有相同异常。改用元数据一致的Collection1，加入不一致拒绝测试，再独立核算。
+- 旧真实浏览器测试053228095206Z失败因导航到场景详情而非/workspace；需要修正测试入口，不是图像网络通过。
+- 当前API/worker/beat PID33289/33304/33314，日志*-real-imagery.log。新前端已构建；尚未完成清理。
+
+## Collection 1 与管理员清理验收（2026-09-21）
+- 校准冲突已修复：强制STAC与COG校准一致，改用同日同轨Collection 1；旧项目模型禁用并可逆归档，旧数据与结果保留。接受项目f597ad33-e6bd-585e-b5a0-3a347cb16e19有3真实场景、13资产和3成功结果。
+- 获取054037882670Z、真实API/独立worker及原始DN逐像元独立核算054321509734Z通过。黄河口110142、胶州湾128712、长江口15031个有效像元，数值最大误差0，运行LLM调用均0。artifacts/research/real-imagery-crosscheck.json保存统计。
+- 真实浏览器054635635924Z通过三场景/三结果/双期切换和OSM、NASA实际HTTP200，六张截图。最新结果边界透明修改尚待重测。
+- 管理界面已实现账号、全局权限、项目成员、项目可逆归档、审计记录；前端46项/类型/lint/构建055506957043Z通过，归档数据库及API回归5项通过055248182895Z的后端子命令（该复合命令随后因前端测试失败，不能将整项记PASS）。
+- 0007迁移主库完成；API已安全重启PID35880，日志api-admin.log；worker33304、beat33314仍运行。060227416896Z-admin-cleanup-live真实浏览器PASS：合成项目与错误校准旧项目归档→恢复→再次归档，历史统计未改变，默认工作区仅3个真实场景。
+- 当前正在隔离全部普通E2E：临时数据库/存储桶/队列/端口，不再往用户项目写测试记录；真实影像和显式管理员清理移入acceptance目录，测试保留。首次入口Path.open参数错误已保留失败证据并修正，正在重跑。
+- 静态质量060554240027Z通过；新增数据库选择与禁用LLM回归060515956338Z通过。全范围任务仍未完成，研究执行/UI、覆盖率等缺口保持有效。
+
+- 隔离普通浏览器回归060653925751Z通过18/18，随机测试数据库/桶/队列/进程已清理，日志保留；用户默认工作区未被写入。清理后的真实影像浏览器061033358630Z通过，最新透明边界截图已查看。空STAC快照目录061111733480Z从互联网成功取得4个固定Collection 1产品，干净安装入口已补全。正在跑全后端，不能提前记通过。
+
+- 061021803379Z-imagery-admin-backend-full：390 passed，11项依赖/显示产品警告保留；061323492550Z契约漂移、46前端测试及生产构建通过。无验收进程运行。本轮集中自查已查看影像权限/校准、管理员归档与独立E2E资源清理路径；这不是全范围最终审查。下一步继续research真实provider/worker/API/UI，不能宣称全任务完成。

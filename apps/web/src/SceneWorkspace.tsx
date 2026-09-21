@@ -26,6 +26,8 @@ import type { SceneSpec, JsonValue } from "./generated/contracts";
 import ScientificFields from "./ScientificFields";
 import ReferencePicker from "./ReferencePicker";
 import SceneRun from "./SceneRun";
+import { useSceneImagery } from "./SceneImagery";
+
 const GeoMap = lazy(() => import("./GeoMap"));
 const inspectionContract = contract("SceneInspection");
 
@@ -104,6 +106,7 @@ function Editor({
         data_references: [],
       },
   );
+  const imagery = useSceneImagery(projectId, draft.data_references ?? []);
   const [drawing, setDrawing] = useState(false);
   const [entityTypesText, setEntityTypesText] = useState(
     initial?.entity_types.join(", ") ?? "",
@@ -371,8 +374,10 @@ function Editor({
               ? `绘制中：已选择 ${points.length} 个顶点。点击地图添加，至少三个顶点后完成。`
               : "橙色：AOI；绿色：项目实体；蓝色：所选数据目录范围。覆盖不代表有效像元或观测质量。"}
           </p>
+          <ErrorNotice error={imagery.error} />
           <Suspense fallback={<Loading />}>
             <GeoMap
+              images={imagery.data}
               data={mapData}
               label="场景研究范围地图"
               onMapClick={onMapClick}

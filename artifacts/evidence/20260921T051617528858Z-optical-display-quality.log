@@ -1,0 +1,42 @@
+UP035 [*] Import from `typing` instead: `Self`
+  --> src/coastmas/app/imagery_routes.py:8:1
+   |
+ 6 | from fastapi import APIRouter, Query, Request, Response
+ 7 | from pydantic import AwareDatetime, Field, FiniteFloat, model_validator
+ 8 | from typing_extensions import Self
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 9 |
+10 | from coastmas.adapters.storage import ArtifactRecord
+   |
+help: Import from `typing`
+  |
+7 | from pydantic import AwareDatetime, Field, FiniteFloat, model_validator
+  - from typing_extensions import Self
+8 + from typing import Self
+9 |
+  |
+
+UP035 [*] Import from `typing` instead: `Self`
+ --> src/coastmas/domain/optical_observations.py:6:1
+  |
+5 | from pydantic import AwareDatetime, Field, FiniteFloat, model_validator
+6 | from typing_extensions import Self
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 |
+8 | from coastmas.core.contracts import Contract, Name, TargetGridSpec
+  |
+help: Import from `typing`
+  |
+5 | from pydantic import AwareDatetime, Field, FiniteFloat, model_validator
+  - from typing_extensions import Self
+6 + from typing import Self
+7 |
+  |
+
+Found 2 errors.
+[*] 2 fixable with the `--fix` option.
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['.venv/bin/ruff', 'check', 'src', 'tests/unit/test_optical_change.py', 'tests/integration/test_imagery_api.py']' returned non-zero exit status 1.

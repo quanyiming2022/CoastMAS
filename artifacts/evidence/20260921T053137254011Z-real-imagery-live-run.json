@@ -1,0 +1,29 @@
+{
+  "name": "real-imagery-live-run",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "scripts/publish_real_imagery.py",
+    "--run"
+  ],
+  "started_at": "2026-09-21T05:31:37.254011+00:00",
+  "finished_at": "2026-09-21T05:32:02.000048+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "473a6b85c6b2e56674e911ed51962b32332079c0cbd10a173040bb7d49a97877",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T053137254011Z-real-imagery-live-run.log"
+}

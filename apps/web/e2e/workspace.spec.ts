@@ -8,12 +8,7 @@ const credentialsSchema = z.object({
 });
 test("real session, seeded catalog, deep link and logout", async ({ page }) => {
   const credentials = credentialsSchema.parse(
-    JSON.parse(
-      await readFile(
-        new URL("../../../artifacts/runtime/demo-access.json", import.meta.url),
-        "utf8",
-      ),
-    ),
+    JSON.parse(await readFile(process.env.COASTMAS_E2E_ACCESS_FILE!, "utf8")),
   );
   const browserErrors: string[] = [];
   page.on("pageerror", (error) => browserErrors.push(error.message));

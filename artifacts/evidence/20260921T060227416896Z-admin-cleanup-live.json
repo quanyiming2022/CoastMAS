@@ -1,0 +1,34 @@
+{
+  "name": "admin-cleanup-live",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e",
+    "--",
+    "--config",
+    "acceptance.config.ts"
+  ],
+  "started_at": "2026-09-21T06:02:27.416896+00:00",
+  "finished_at": "2026-09-21T06:02:33.259670+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "a09a8d55a9114a933af42430904dbbd0d899347b82affcfdc3d2a508e750f43e",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T060227416896Z-admin-cleanup-live.log"
+}

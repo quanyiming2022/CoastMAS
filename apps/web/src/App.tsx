@@ -20,6 +20,7 @@ import type { CatalogKind } from "./Catalog";
 const CatalogDetail = lazy(() =>
   import("./Catalog").then((module) => ({ default: module.CatalogDetail })),
 );
+const Admin = lazy(() => import("./Admin"));
 const KnowledgeGraph = lazy(() => import("./KnowledgeGraph"));
 const Entities = lazy(() => import("./Entities"));
 const Planner = lazy(() => import("./Planner"));
@@ -156,6 +157,7 @@ export default function App() {
               {title}
             </NavLink>
           ))}
+          {user.data.is_admin ? <NavLink to="/admin">系统管理</NavLink> : null}
         </nav>
         <div className="sidebar-foot">
           <small>{user.data.email}</small>
@@ -170,98 +172,113 @@ export default function App() {
       </aside>
       <main className="main-content">
         <ErrorNotice error={logout.error} />
-        <WorkspaceProvider>
+        {location.pathname === "/admin" && user.data.is_admin ? (
           <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Navigate replace to="/dashboard" />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
-              <Route path="/entities" element={<Entities />} />
-              <Route path="/optimizations" element={<SpatialOptimization />} />
-              <Route
-                path="/optimizations/new"
-                element={<SpatialOptimizationEditor />}
-              />
-              <Route
-                path="/optimizations/:id"
-                element={<SpatialOptimizationRecord />}
-              />
-              <Route path="/collaboration" element={<Collaboration />} />
-              <Route path="/planner" element={<Planner />} />
-              <Route path="/models/decompose" element={<ModelDecomposer />} />
-              <Route
-                path="/assessment-records"
-                element={<AssessmentRecords />}
-              />
-              <Route
-                path="/assessment-records/:id"
-                element={<AssessmentRecord />}
-              />
-              <Route path="/assessments" element={<IndicatorFrameworks />} />
-              <Route
-                path="/assessments/new"
-                element={<IndicatorFrameworkEditor />}
-              />
-              <Route
-                path="/assessments/:id"
-                element={<IndicatorFrameworkEditor />}
-              />
-              <Route path="/data-sources" element={<DataSources />} />
-              <Route path="/data-sources/new" element={<SourceEditor />} />
-              <Route path="/data-sources/:id" element={<SourceEditor />} />
-              <Route path="/data/new" element={<DataWorkspace />} />
-              <Route path="/data/:id/workspace" element={<DataWorkspace />} />
-              <Route path="/models/new" element={<ModelEditor />} />
-              <Route path="/models/:id/edit" element={<ModelEditor />} />
-              <Route path="/scenes/new" element={<SceneWorkspace />} />
-              <Route
-                path="/scenes/:id/workspace"
-                element={<SceneWorkspace />}
-              />
-              <Route path="/workflows/new" element={<WorkflowEditor />} />
-              <Route path="/workflows/:id/edit" element={<WorkflowEditor />} />
-              <Route path="/runs" element={<Runs />} />
-              <Route path="/runs/:id" element={<RunDetail />} />
-              <Route path="/results" element={<Results />} />
-              <Route path="/results/compare" element={<ResultComparison />} />
-              <Route path="/results/:id" element={<ResultDetail />} />
-              {(
-                [
-                  "models",
-                  "workflows",
-                  "scenes",
-                  "data",
-                ] satisfies CatalogKind[]
-              ).flatMap((kind) => [
-                <Route
-                  key={kind}
-                  path={"/" + kind}
-                  element={<Catalog kind={kind} />}
-                />,
-                <Route
-                  key={kind + "-detail"}
-                  path={`/${kind}/:id`}
-                  element={
-                    kind === "workflows" ? (
-                      <Workflow />
-                    ) : (
-                      <CatalogDetail kind={kind} />
-                    )
-                  }
-                />,
-              ])}
-              <Route
-                path="*"
-                element={
-                  <section className="panel">
-                    <h1>页面不存在</h1>
-                    <NavLink to="/dashboard">返回项目概览</NavLink>
-                  </section>
-                }
-              />
-            </Routes>
+            <Admin userId={user.data.user_id} />
           </Suspense>
-        </WorkspaceProvider>
+        ) : (
+          <WorkspaceProvider>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Navigate replace to="/dashboard" />}
+                />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
+                <Route path="/entities" element={<Entities />} />
+                <Route
+                  path="/optimizations"
+                  element={<SpatialOptimization />}
+                />
+                <Route
+                  path="/optimizations/new"
+                  element={<SpatialOptimizationEditor />}
+                />
+                <Route
+                  path="/optimizations/:id"
+                  element={<SpatialOptimizationRecord />}
+                />
+                <Route path="/collaboration" element={<Collaboration />} />
+                <Route path="/planner" element={<Planner />} />
+                <Route path="/models/decompose" element={<ModelDecomposer />} />
+                <Route
+                  path="/assessment-records"
+                  element={<AssessmentRecords />}
+                />
+                <Route
+                  path="/assessment-records/:id"
+                  element={<AssessmentRecord />}
+                />
+                <Route path="/assessments" element={<IndicatorFrameworks />} />
+                <Route
+                  path="/assessments/new"
+                  element={<IndicatorFrameworkEditor />}
+                />
+                <Route
+                  path="/assessments/:id"
+                  element={<IndicatorFrameworkEditor />}
+                />
+                <Route path="/data-sources" element={<DataSources />} />
+                <Route path="/data-sources/new" element={<SourceEditor />} />
+                <Route path="/data-sources/:id" element={<SourceEditor />} />
+                <Route path="/data/new" element={<DataWorkspace />} />
+                <Route path="/data/:id/workspace" element={<DataWorkspace />} />
+                <Route path="/models/new" element={<ModelEditor />} />
+                <Route path="/models/:id/edit" element={<ModelEditor />} />
+                <Route path="/scenes/new" element={<SceneWorkspace />} />
+                <Route
+                  path="/scenes/:id/workspace"
+                  element={<SceneWorkspace />}
+                />
+                <Route path="/workflows/new" element={<WorkflowEditor />} />
+                <Route
+                  path="/workflows/:id/edit"
+                  element={<WorkflowEditor />}
+                />
+                <Route path="/runs" element={<Runs />} />
+                <Route path="/runs/:id" element={<RunDetail />} />
+                <Route path="/results" element={<Results />} />
+                <Route path="/results/compare" element={<ResultComparison />} />
+                <Route path="/results/:id" element={<ResultDetail />} />
+                {(
+                  [
+                    "models",
+                    "workflows",
+                    "scenes",
+                    "data",
+                  ] satisfies CatalogKind[]
+                ).flatMap((kind) => [
+                  <Route
+                    key={kind}
+                    path={"/" + kind}
+                    element={<Catalog kind={kind} />}
+                  />,
+                  <Route
+                    key={kind + "-detail"}
+                    path={`/${kind}/:id`}
+                    element={
+                      kind === "workflows" ? (
+                        <Workflow />
+                      ) : (
+                        <CatalogDetail kind={kind} />
+                      )
+                    }
+                  />,
+                ])}
+                <Route
+                  path="*"
+                  element={
+                    <section className="panel">
+                      <h1>页面不存在</h1>
+                      <NavLink to="/dashboard">返回项目概览</NavLink>
+                    </section>
+                  }
+                />
+              </Routes>
+            </Suspense>
+          </WorkspaceProvider>
+        )}
       </main>
     </div>
   );

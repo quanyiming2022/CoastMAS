@@ -1,0 +1,9 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_declared_calibration_must_match_file_metadata_before_real_ingestion ___
+tests/unit/test_remote_sensing.py:57: in test_declared_calibration_must_match_file_metadata_before_real_ingestion
+    from coastmas.domain.remote_sensing import calibrated_cog_reflectance
+E   ImportError: cannot import name 'calibrated_cog_reflectance' from 'coastmas.domain.remote_sensing' (/Users/quanyiming/Projects/CoastMAS/src/coastmas/domain/remote_sensing.py)
+=========================== short test summary info ============================
+FAILED tests/unit/test_remote_sensing.py::test_declared_calibration_must_match_file_metadata_before_real_ingestion
+1 failed, 3 deselected in 0.18s

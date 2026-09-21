@@ -143,6 +143,8 @@ def object_store() -> S3ArtifactStore:
 
 
 def configured_provider() -> OpenAICompatibleProvider | None:
+    if configuration_value("COASTMAS_LLM_ENABLED", "true").lower() == "false":
+        return None
     # Missing credentials do not prevent local deterministic workflows or startup.
     try:
         key = configuration_value("LLM_API_KEY")

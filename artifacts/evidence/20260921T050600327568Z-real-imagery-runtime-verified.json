@@ -1,0 +1,29 @@
+{
+  "name": "real-imagery-runtime-verified",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import subprocess; subprocess.run(['.venv/bin/ruff','check','src/coastmas/domain/remote_sensing.py','src/coastmas/domain/remote_sensing_components.py','src/coastmas/domain/remote_sensing_catalog.py','tests/unit/test_remote_sensing.py'],check=True); subprocess.run(['.venv/bin/mypy','src/coastmas/domain/remote_sensing.py','src/coastmas/domain/remote_sensing_components.py','src/coastmas/domain/remote_sensing_catalog.py'],check=True); subprocess.run(['.venv/bin/pytest','tests/unit/test_remote_sensing.py','-q','--tb=short'],check=True)"
+  ],
+  "started_at": "2026-09-21T05:06:00.327568+00:00",
+  "finished_at": "2026-09-21T05:06:02.877094+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "0a133081369ad31741ba6c7bf0fe3dee8986a454e66c1d660ec8faf67cea3ece",
+  "git_commit": "8e6bf1226a3f08f53d2c13e027ac9a31ef133b84",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T050600327568Z-real-imagery-runtime-verified.log"
+}
