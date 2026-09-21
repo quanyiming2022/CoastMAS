@@ -1,0 +1,209 @@
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  28 passed (28)
+      Tests  57 passed (57)
+   Start at  16:21:00
+   Duration  3.65s (environment 58%, import 16%, tests 14%, setup 6%, transform 5%)
+
+Environment  jsdom was created 28 times · 15.46s total, 58% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2925 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.59 kB │ gzip:   0.38 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/index-C5jDH7EA.css                  15.67 kB │ gzip:   4.09 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-DE_t_3e9.js                  0.47 kB │ gzip:   0.34 kB
+dist/assets/temporal-editor-Ct4jvUE2.js          0.53 kB │ gzip:   0.37 kB
+dist/assets/scientific-labels-DFkRsqrz.js        0.80 kB │ gzip:   0.59 kB
+dist/assets/result-data-Cswd-_RT.js              1.11 kB │ gzip:   0.52 kB
+dist/assets/model-editor-ROw_a6Kf.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-BzNM1P9T.js        1.96 kB │ gzip:   0.78 kB
+dist/assets/WorkflowGraph-IC8Oujov.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-Bzylj2lj.js                2.39 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-UvT4cNQh.js         2.85 kB │ gzip:   1.37 kB
+dist/assets/useQueries-B2KGGN3K.js               3.49 kB │ gzip:   1.51 kB
+dist/assets/Runs-Diu8Xfos.js                     3.64 kB │ gzip:   1.57 kB
+dist/assets/Workflow-B-Yj03Hc.js                 4.04 kB │ gzip:   1.93 kB
+dist/assets/AssessmentResults-DPGcv-ml.js        4.13 kB │ gzip:   1.78 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-gVjPh2Yr.js         5.14 kB │ gzip:   2.25 kB
+dist/assets/ModelDecomposer-BM9UpEfw.js          6.40 kB │ gzip:   2.96 kB
+dist/assets/TemporalAdaptation-B2d1Ir6k.js       6.68 kB │ gzip:   2.79 kB
+dist/assets/KnowledgeGraph-C6jTpM1a.js           6.85 kB │ gzip:   3.08 kB
+dist/assets/Entities-CsDu--F-.js                 7.16 kB │ gzip:   3.03 kB
+dist/assets/removable-zVvwFZIX.js                7.51 kB │ gzip:   2.95 kB
+dist/assets/DataSources-CwzQsGr5.js              7.52 kB │ gzip:   2.99 kB
+dist/assets/DataWorkspace-_CSq_-Mt.js            7.61 kB │ gzip:   3.14 kB
+dist/assets/ModelEditor-DVpniyrf.js              7.72 kB │ gzip:   3.17 kB
+dist/assets/AssessmentRecords-h-IWmycB.js        7.74 kB │ gzip:   2.82 kB
+dist/assets/GeoMap-LvPz-dtG.js                   8.10 kB │ gzip:   3.61 kB
+dist/assets/Catalog-Dc1QAKT5.js                  8.11 kB │ gzip:   2.97 kB
+dist/assets/Planner-C3cMEpAO.js                  8.25 kB │ gzip:   3.54 kB
+dist/assets/Admin-BRZjG9LC.js                    8.83 kB │ gzip:   2.80 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Research-DOx8CNGx.js                12.13 kB │ gzip:   4.50 kB
+dist/assets/Results-ByiEEdah.js                 13.24 kB │ gzip:   4.96 kB
+dist/assets/WorkflowEditor-CAK3nfXx.js          13.63 kB │ gzip:   5.20 kB
+dist/assets/SceneWorkspace-CQvHHZMR.js          14.96 kB │ gzip:   5.53 kB
+dist/assets/Collaboration-l5P24PMh.js           14.98 kB │ gzip:   4.88 kB
+dist/assets/IndicatorFrameworks-0TB-JitG.js     15.97 kB │ gzip:   5.23 kB
+dist/assets/SpatialOptimization-BFaW-uRV.js     15.99 kB │ gzip:   5.36 kB
+dist/assets/style-DFxUpHhR.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-DeaFLAwb.js              216.40 kB │ gzip:  51.87 kB
+dist/assets/index-Dq57WUVK.js                  405.32 kB │ gzip: 124.78 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 380ms
+Isolated browser environment ready: coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright
+
+
+Running 24 tests using 1 worker
+
+(node:48346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/24] e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts
+[2/24] e2e/data-sources.spec.ts:4:1 › registered HTTP source imports real immutable bytes with historical lineage
+[3/24] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+[4/24] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[5/24] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  1) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: '退出登录' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: '退出登录' }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '退出登录' })
+
+
+       95 |   });
+       96 |   await page.setViewportSize({ width: 390, height: 844 });
+    >  97 |   await expect(page.getByRole("button", { name: "退出登录" })).toBeVisible();
+          |                                                            ^
+       98 |   await page.screenshot({
+       99 |     path: "../../artifacts/screenshots/coastal-result-mobile.png",
+      100 |     fullPage: true,
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:97:60
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:48416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/24] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+[7/24] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[8/24] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+[9/24] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+[10/24] e2e/navigation.spec.ts:12:1 › navigation visual baseline and authorized pages
+[11/24] e2e/navigation.spec.ts:83:1 › NAV-01 real route, state, permissions and drawer regression
+[12/24] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[13/24] e2e/research.spec.ts:5:1 › research UI freezes inputs and real worker publishes honest A/B/C partial report
+[14/24] e2e/scene-workspace.spec.ts:20:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[15/24] e2e/scene-workspace.spec.ts:160:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[16/24] e2e/scene-workspace.spec.ts:340:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[17/24] e2e/scene-workspace.spec.ts:412:1 › compares real baseline and raised sea-level results without overwriting either
+[18/24] e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry
+[19/24] e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result
+[20/24] e2e/ui-consistency.spec.ts:32:1 › representative UI screenshots and unchanged scientific submission semantics
+[21/24] e2e/workflow-editor.spec.ts:20:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[22/24] e2e/workflow-editor.spec.ts:131:1 › copy, revise and run a pinned workflow through actual worker and result storage
+[23/24] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+[24/24] e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile
+  2) e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+
+    Error: /planner overlapping buttons at 1440
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "多期变化评价：等权综合评价 / 生成规划",
+    + ]
+
+      134 |         layout.overlaps,
+      135 |         `${path} overlapping buttons at ${viewport.width}`,
+    > 136 |       ).toEqual([]);
+          |         ^
+      137 |       expect(layout.scopedTables, `${path} bypassed shared table`).toBe(
+      138 |         layout.tables,
+      139 |       );
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/zz-ui-coverage.spec.ts:136:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+    e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+  22 passed (2.8m)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_64470c110d904c7caf9d5c2d21ed82b5
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['.venv/bin/python', 'scripts/e2e.py']' returned non-zero exit status 1.

@@ -1,0 +1,77 @@
+[
+  {
+    "name": "collaboration-empty",
+    "width": 1440,
+    "scroll": 1440
+  },
+  {
+    "name": "collaboration-empty",
+    "width": 1366,
+    "scroll": 1366
+  },
+  {
+    "name": "collaboration-empty",
+    "width": 390,
+    "scroll": 390
+  },
+  {
+    "name": "collaboration-form",
+    "width": 1440,
+    "scroll": 1440
+  },
+  {
+    "name": "collaboration-form",
+    "width": 1366,
+    "scroll": 1366
+  },
+  {
+    "name": "collaboration-form",
+    "width": 390,
+    "scroll": 390
+  },
+  {
+    "name": "collaboration-populated",
+    "width": 1440,
+    "scroll": 1440
+  },
+  {
+    "name": "collaboration-populated",
+    "width": 1366,
+    "scroll": 1366
+  },
+  {
+    "name": "collaboration-populated",
+    "width": 390,
+    "scroll": 390
+  },
+  {
+    "name": "temporal-empty",
+    "width": 1440,
+    "scroll": 1440
+  },
+  {
+    "name": "temporal-empty",
+    "width": 1366,
+    "scroll": 1366
+  },
+  {
+    "name": "temporal-empty",
+    "width": 390,
+    "scroll": 390
+  },
+  {
+    "name": "temporal-filled",
+    "width": 1440,
+    "scroll": 1440
+  },
+  {
+    "name": "temporal-filled",
+    "width": 1366,
+    "scroll": 1366
+  },
+  {
+    "name": "temporal-filled",
+    "width": 390,
+    "scroll": 390
+  }
+]

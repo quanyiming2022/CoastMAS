@@ -1,0 +1,35 @@
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  28 passed (28)
+      Tests  58 passed (58)
+   Start at  16:45:54
+   Duration  5.03s (environment 51%, import 18%, tests 16%, setup 9%, transform 6%)
+
+Environment  jsdom was created 28 times · 19.70s total, 51% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+src/navigation.test.tsx(145,49): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+  Overload 2 of 2, '(role: ByRoleMatcher, options?: ByRoleOptions | undefined): HTMLElement', gave the following error.
+    Object literal may only specify known properties, and 'exact' does not exist in type 'ByRoleOptions'.
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/quanyiming/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['npm', '--prefix', 'apps/web', 'run', 'build']' returned non-zero exit status 2.

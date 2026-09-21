@@ -1,0 +1,54 @@
+Isolated browser environment ready: coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a/playwright ui-consistency.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:45677) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/ui-consistency.spec.ts:32:1 › representative UI screenshots and unchanged scientific submission semantics
+  1) e2e/ui-consistency.spec.ts:32:1 › representative UI screenshots and unchanged scientific submission semantics 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('UI验收方案', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('UI验收方案', { exact: true }) with timeout 5000ms
+      - waiting for getByText('UI验收方案', { exact: true })
+
+
+      114 |   const proposalBody = proposal.request().postDataJSON();
+      115 |   await page.goto("/collaboration");
+    > 116 |   await expect(page.getByText("UI验收方案", { exact: true })).toBeVisible();
+          |                                                           ^
+      117 |   await page
+      118 |     .getByRole("checkbox", { name: "选择比较 UI验收方案", exact: true })
+      119 |     .check();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/ui-consistency.spec.ts:116:59
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a/playwright/ui-consistency-representat-b3d6d-ntific-submission-semantics/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a/playwright/ui-consistency-representat-b3d6d-ntific-submission-semantics/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a/playwright/ui-consistency-representat-b3d6d-ntific-submission-semantics/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a/playwright/ui-consistency-representat-b3d6d-ntific-submission-semantics/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/ui-consistency.spec.ts:32:1 › representative UI screenshots and unchanged scientific submission semantics 
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_c4c0352ad4744745ad769cc82a6d4c4a

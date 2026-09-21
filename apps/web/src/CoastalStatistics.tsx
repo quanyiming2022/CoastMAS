@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import type { z } from "zod";
 import type { coastalStatistics } from "./result-data";
 import Chart from "./Chart";
@@ -37,28 +38,28 @@ export default function CoastalStatistics({
         ]}
         unit="人"
       />
-      <div className="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>管理单元</th>
-              <th>受淹面积（m²）</th>
-              <th>估算人口（人）</th>
-              <th>未知面积（m²）</th>
+
+      <DataTable>
+        <thead>
+          <tr>
+            <th>管理单元</th>
+            <th className="numeric">受淹面积（m²）</th>
+            <th className="numeric">估算人口（人）</th>
+            <th className="numeric">未知面积（m²）</th>
+          </tr>
+        </thead>
+        <tbody>
+          {units.map(([id, value]) => (
+            <tr key={id}>
+              <td>{id}</td>
+              <td className="numeric">{value.inundated_area_m2}</td>
+              <td className="numeric">{value.estimated_population}</td>
+              <td className="numeric">{value.unknown_area_m2}</td>
             </tr>
-          </thead>
-          <tbody>
-            {units.map(([id, value]) => (
-              <tr key={id}>
-                <td>{id}</td>
-                <td>{value.inundated_area_m2}</td>
-                <td>{value.estimated_population}</td>
-                <td>{value.unknown_area_m2}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </DataTable>
+
       <details className="details">
         <summary>计算方法与假设原文</summary>
         <p>{data.method}</p>

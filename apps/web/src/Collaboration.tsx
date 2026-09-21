@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -6,7 +7,7 @@ import { request, revisionSchema } from "./api";
 import { contract } from "./contracts";
 import type { CoastMASContracts } from "./generated/contracts";
 import { useWorkspace } from "./workspace";
-import { ErrorNotice, Loading, PageTitle, Panel } from "./components";
+import { Empty, ErrorNotice, Loading, PageTitle, Panel } from "./components";
 
 type Proposal = CoastMASContracts["ProposalSpec"];
 type Draft = CoastMASContracts["ProposalDraft"];
@@ -78,28 +79,32 @@ function Workspace({ projectId }: { projectId: string }) {
         description="记录不同参与者的目标、硬约束和意见；比较事实与模型证据。人工审核不等于政策批准，系统不自动作出政策决定。"
       />
       <ErrorNotice error={catalog.error ?? access.error} />
-      <Panel title="方案目录">
-        <button
-          disabled={!access.data || access.data.role === "VIEWER"}
-          onClick={() => {
-            setSelected(null);
-            setEditing(true);
-          }}
-        >
-          新建方案
-        </button>
+      <Panel
+        title="方案目录"
+        actions={
+          <button
+            disabled={!access.data || access.data.role === "VIEWER"}
+            onClick={() => {
+              setSelected(null);
+              setEditing(true);
+            }}
+          >
+            新建方案
+          </button>
+        }
+      >
         {catalog.isPending ? (
           <Loading />
-        ) : (
-          <table>
+        ) : catalog.data?.length ? (
+          <DataTable>
             <thead>
               <tr>
                 <th>比较</th>
                 <th>方案</th>
-                <th>版本</th>
+                <th className="numeric">版本</th>
                 <th>角色</th>
                 <th>状态</th>
-                <th>操作</th>
+                <th className="table-actions">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -124,11 +129,12 @@ function Workspace({ projectId }: { projectId: string }) {
                     />
                   </td>
                   <td>{spec.name}</td>
-                  <td>v{spec.version}</td>
+                  <td className="numeric">v{spec.version}</td>
                   <td>{spec.author_role}</td>
                   <td>{states[spec.status ?? "DRAFT"]}</td>
-                  <td>
+                  <td className="table-actions">
                     <button
+                      className="secondary"
                       onClick={() => {
                         setSelected(spec);
                         setEditing(false);
@@ -140,32 +146,46 @@ function Workspace({ projectId }: { projectId: string }) {
                 </tr>
               ))}
             </tbody>
-          </table>
-        )}
-        <button disabled={page === 0} onClick={() => setPage(page - 1)}>
-          上一页
-        </button>
-        <span>第 {page + 1} 页</span>
-        <button
-          disabled={(catalog.data?.length ?? 0) < 50}
-          onClick={() => setPage(page + 1)}
-        >
-          下一页
-        </button>
-        <button
-          disabled={!checked.length || checked.length > 20 || compare.isPending}
-          onClick={() => compare.mutate(checked)}
-        >
-          比较所选版本（{checked.length}）
-        </button>
-        <button
-          onClick={() => {
-            setChecked([]);
-            compare.reset();
-          }}
-        >
-          清除比较
-        </button>
+          </DataTable>
+        ) : !catalog.error ? (
+          <Empty>暂无协同方案</Empty>
+        ) : null}
+        <div className="selection-actions">
+          <button
+            disabled={
+              !checked.length || checked.length > 20 || compare.isPending
+            }
+            onClick={() => compare.mutate(checked)}
+          >
+            比较所选版本（{checked.length}）
+          </button>
+          <button
+            className="secondary"
+            onClick={() => {
+              setChecked([]);
+              compare.reset();
+            }}
+          >
+            清除比较
+          </button>
+        </div>
+        <div className="pagination" aria-label="方案分页">
+          <button
+            className="secondary"
+            disabled={page === 0}
+            onClick={() => setPage(page - 1)}
+          >
+            上一页
+          </button>
+          <span>第 {page + 1} 页</span>
+          <button
+            className="secondary"
+            disabled={(catalog.data?.length ?? 0) < 50}
+            onClick={() => setPage(page + 1)}
+          >
+            下一页
+          </button>
+        </div>
       </Panel>
       {editing ? (
         <Editor
@@ -197,7 +217,7 @@ function Workspace({ projectId }: { projectId: string }) {
           <p>
             权重按各方原值展示，不合并为自动决策。区间冲突不能由目标高分抵消；不同场景的范围和时期须一并判断。
           </p>
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>方案 / 版本</th>
@@ -234,7 +254,7 @@ function Workspace({ projectId }: { projectId: string }) {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </DataTable>
           {compare.data.constraints.conflicts.length === 0 ? (
             <p>未发现已录入区间的数值冲突；这不代表完整政策可行性。</p>
           ) : (
@@ -257,13 +277,13 @@ function Workspace({ projectId }: { projectId: string }) {
               </div>
             ))
           )}
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>指标</th>
                 <th>统一单位</th>
-                <th>交集下界</th>
-                <th>交集上界</th>
+                <th className="numeric">交集下界</th>
+                <th className="numeric">交集上界</th>
               </tr>
             </thead>
             <tbody>
@@ -271,12 +291,12 @@ function Workspace({ projectId }: { projectId: string }) {
                 <tr key={item.metric}>
                   <td>{item.metric}</td>
                   <td>{item.unit}</td>
-                  <td>{item.minimum ?? "无下界"}</td>
-                  <td>{item.maximum ?? "无上界"}</td>
+                  <td className="numeric">{item.minimum ?? "无下界"}</td>
+                  <td className="numeric">{item.maximum ?? "无上界"}</td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </DataTable>
         </Panel>
       ) : null}
     </>
@@ -362,6 +382,7 @@ function Editor({
   return (
     <Panel title={initial ? "修订方案" : "新建方案"}>
       <form
+        className="form-workspace form-stack"
         onSubmit={(event) => {
           event.preventDefault();
           save.mutate();
@@ -408,6 +429,7 @@ function Editor({
           </select>
         </label>
         <button
+          className="secondary"
           type="button"
           disabled={scenePage === 0}
           onClick={() => setScenePage(scenePage - 1)}
@@ -415,6 +437,7 @@ function Editor({
           上一页场景
         </button>
         <button
+          className="secondary"
           type="button"
           disabled={(scenes.data?.length ?? 0) < 50}
           onClick={() => setScenePage(scenePage + 1)}
@@ -423,7 +446,7 @@ function Editor({
         </button>
         <h3>目标及相对权重</h3>
         {objectives.map((item, index) => (
-          <fieldset key={index}>
+          <fieldset className="form-section form-grid" key={index}>
             <legend>目标 {index + 1}</legend>
             <label>
               目标标识 {index + 1}
@@ -477,6 +500,7 @@ function Editor({
               />
             </label>
             <button
+              className="danger"
               type="button"
               onClick={() =>
                 setObjectives(objectives.filter((_, i) => i !== index))
@@ -487,6 +511,7 @@ function Editor({
           </fieldset>
         ))}
         <button
+          className="secondary"
           type="button"
           onClick={() =>
             setObjectives([
@@ -539,6 +564,7 @@ function Editor({
               ),
             )}
             <button
+              className="danger"
               type="button"
               onClick={() =>
                 setConstraints(constraints.filter((_, i) => i !== index))
@@ -549,6 +575,7 @@ function Editor({
           </fieldset>
         ))}
         <button
+          className="secondary"
           type="button"
           onClick={() =>
             setConstraints([
@@ -578,7 +605,7 @@ function Editor({
         <button disabled={save.isPending || !objectives.length} type="submit">
           保存方案版本
         </button>
-        <button type="button" onClick={onCancel}>
+        <button className="secondary" type="button" onClick={onCancel}>
           取消编辑
         </button>
       </form>
@@ -722,7 +749,11 @@ function Detail({
         </p>
       ) : null}
       {history.data?.map((row) => (
-        <button key={row.version} onClick={() => setVersion(row.version)}>
+        <button
+          className="secondary"
+          key={row.version}
+          onClick={() => setVersion(row.version)}
+        >
           查看 v{row.version}
         </button>
       ))}

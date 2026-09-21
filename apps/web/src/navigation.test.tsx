@@ -129,3 +129,18 @@ it("uses only supplied authorization and remains usable if saving preferences fa
     "false",
   );
 });
+
+it("does not pull manual navigation scrolling back to the active item", () => {
+  mount();
+  const region = screen.getByRole("navigation", { name: "主导航" });
+  const active = screen.getByRole("link", { name: "模型中心" });
+  region.scrollTop = 100;
+  vi.spyOn(region, "getBoundingClientRect").mockReturnValue(
+    new DOMRect(0, 0, 200, 100),
+  );
+  vi.spyOn(active, "getBoundingClientRect").mockReturnValue(
+    new DOMRect(0, -100, 200, 40),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "场景与数据" }));
+  expect(region.scrollTop).toBe(100);
+});

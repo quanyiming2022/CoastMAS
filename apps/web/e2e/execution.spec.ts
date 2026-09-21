@@ -94,7 +94,9 @@ test("browser preflight -> Redis worker -> immutable coastal result", async ({
     fullPage: true,
   });
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "打开导航", exact: true }).click();
   await expect(page.getByRole("button", { name: "退出登录" })).toBeVisible();
+  await page.keyboard.press("Escape");
   await page.screenshot({
     path: "../../artifacts/screenshots/coastal-result-mobile.png",
     fullPage: true,

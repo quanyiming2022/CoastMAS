@@ -99,11 +99,12 @@ export default function Entities() {
               ))}
             </ul>
           )}
-          {!catalog.data?.length && !catalog.isPending && (
+          {!catalog.error && !catalog.data?.length && !catalog.isPending && (
             <p>这一页没有实体。</p>
           )}
           <div className="actions">
             <button
+              className="secondary"
               disabled={offset === 0}
               onClick={() => setOffset(Math.max(0, offset - 50))}
             >
@@ -111,6 +112,7 @@ export default function Entities() {
             </button>
             <span>第 {offset / 50 + 1} 页</span>
             <button
+              className="secondary"
               disabled={(catalog.data?.length ?? 0) < 50}
               onClick={() => setOffset(offset + 50)}
             >
@@ -167,9 +169,9 @@ export default function Entities() {
           <Suspense fallback={<Loading />}>
             <GeoMap data={map.data} label="地理实体地图" />
           </Suspense>
-        ) : (
+        ) : !map.error ? (
           <p>当前页没有可显示的空间对象。</p>
-        )}
+        ) : null}
         {map.data?.has_more && (
           <p>
             还有更多空间对象，请翻页查看。地图按实体标识排序，每页最多 50 个。

@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { lazy, Suspense, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
@@ -69,60 +70,57 @@ function ResultList({ projectId }: { projectId: string }) {
           </button>
         ) : null}
         {query.data?.length ? (
-          <div className="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>对比</th>
-                  <th>结果</th>
-                  <th>任务</th>
-                  <th>生成时间</th>
+          <DataTable>
+            <thead>
+              <tr>
+                <th>对比</th>
+                <th>结果</th>
+                <th>任务</th>
+                <th>生成时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              {query.data.map((result) => (
+                <tr key={result.id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      aria-label={`选择对比 ${result.id}`}
+                      checked={selected.includes(result.id)}
+                      disabled={
+                        result.result_type === "research_evaluation" ||
+                        (selected.length >= 2 && !selected.includes(result.id))
+                      }
+                      onChange={(event) =>
+                        setSelected((current) =>
+                          event.target.checked
+                            ? [...current, result.id]
+                            : current.filter((id) => id !== result.id),
+                        )
+                      }
+                    />
+                  </td>
+                  <td>
+                    <Link
+                      to={
+                        result.result_type === "research_evaluation"
+                          ? "/research/" + encodeURIComponent(result.job_id)
+                          : "/results/" + encodeURIComponent(result.id)
+                      }
+                    >
+                      {result.id.slice(0, 12)}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to={"/runs/" + encodeURIComponent(result.job_id)}>
+                      {result.job_id.slice(0, 12)}
+                    </Link>
+                  </td>
+                  <td>{new Date(result.created_at).toLocaleString()}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {query.data.map((result) => (
-                  <tr key={result.id}>
-                    <td>
-                      <input
-                        type="checkbox"
-                        aria-label={`选择对比 ${result.id}`}
-                        checked={selected.includes(result.id)}
-                        disabled={
-                          result.result_type === "research_evaluation" ||
-                          (selected.length >= 2 &&
-                            !selected.includes(result.id))
-                        }
-                        onChange={(event) =>
-                          setSelected((current) =>
-                            event.target.checked
-                              ? [...current, result.id]
-                              : current.filter((id) => id !== result.id),
-                          )
-                        }
-                      />
-                    </td>
-                    <td>
-                      <Link
-                        to={
-                          result.result_type === "research_evaluation"
-                            ? "/research/" + encodeURIComponent(result.job_id)
-                            : "/results/" + encodeURIComponent(result.id)
-                        }
-                      >
-                        {result.id.slice(0, 12)}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={"/runs/" + encodeURIComponent(result.job_id)}>
-                        {result.job_id.slice(0, 12)}
-                      </Link>
-                    </td>
-                    <td>{new Date(result.created_at).toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </DataTable>
         ) : query.data ? (
           <Empty>尚无已发布结果。成功完成的计算将在此显示。</Empty>
         ) : null}
@@ -324,26 +322,45 @@ export function ResultValue({ value }: { value: unknown }) {
     ].slice(0, 20);
     return (
       <>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
+        <DataTable>
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th
+                  key={column}
+                  className={
+                    rows.data.some((row) => typeof row[column] === "number") &&
+                    rows.data.every(
+                      (row) =>
+                        row[column] == null || typeof row[column] === "number",
+                    )
+                      ? "numeric"
+                      : undefined
+                  }
+                >
+                  {scientificLabel(column)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.data.slice(0, 100).map((row, index) => (
+              <tr key={index}>
                 {columns.map((column) => (
-                  <th key={column}>{scientificLabel(column)}</th>
+                  <td
+                    key={column}
+                    className={
+                      typeof row[column] === "number" ? "numeric" : undefined
+                    }
+                  >
+                    {display(row[column])}
+                  </td>
                 ))}
               </tr>
-            </thead>
-            <tbody>
-              {rows.data.slice(0, 100).map((row, index) => (
-                <tr key={index}>
-                  {columns.map((column) => (
-                    <td key={column}>{display(row[column])}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </DataTable>
+
         {rows.data.length > 100 ? <p>显示前 100 行；完整数据可下载。</p> : null}
       </>
     );

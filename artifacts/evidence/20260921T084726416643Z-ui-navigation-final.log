@@ -1,0 +1,133 @@
+..........                                                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 2 warnings in 1.45s
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  28 passed (28)
+      Tests  58 passed (58)
+   Start at  16:47:29
+   Duration  3.83s (environment 57%, import 15%, tests 13%, setup 8%, transform 6%, worker 1%)
+
+Environment  jsdom was created 28 times · 16.98s total, 57% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2925 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.59 kB │ gzip:   0.38 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/index-C5VZXGtG.css                  15.91 kB │ gzip:   4.15 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-CIZ4FfQk.js                  0.47 kB │ gzip:   0.33 kB
+dist/assets/temporal-editor-Ct4jvUE2.js          0.53 kB │ gzip:   0.37 kB
+dist/assets/scientific-labels-DFkRsqrz.js        0.80 kB │ gzip:   0.59 kB
+dist/assets/result-data-CWnTx2lq.js              1.11 kB │ gzip:   0.52 kB
+dist/assets/model-editor-ur0L5_IR.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-evIK3pjl.js        1.96 kB │ gzip:   0.77 kB
+dist/assets/WorkflowGraph-CTWBewz8.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-qTL_KVAJ.js                2.39 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-BrWEF-38.js         2.85 kB │ gzip:   1.37 kB
+dist/assets/useQueries-Djy7vA-k.js               3.49 kB │ gzip:   1.51 kB
+dist/assets/Runs-Bb6_qUaC.js                     3.64 kB │ gzip:   1.57 kB
+dist/assets/Workflow-CZSFMe0v.js                 4.04 kB │ gzip:   1.93 kB
+dist/assets/AssessmentResults-CEjnEfpO.js        4.13 kB │ gzip:   1.78 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-DPfoP0IK.js         5.14 kB │ gzip:   2.25 kB
+dist/assets/ModelDecomposer-GaOPBYCY.js          6.40 kB │ gzip:   2.95 kB
+dist/assets/TemporalAdaptation-JXycYM5i.js       6.68 kB │ gzip:   2.79 kB
+dist/assets/KnowledgeGraph-CXB7CkAG.js           6.99 kB │ gzip:   3.13 kB
+dist/assets/Entities-WqW614hp.js                 7.18 kB │ gzip:   3.04 kB
+dist/assets/removable-zVvwFZIX.js                7.51 kB │ gzip:   2.95 kB
+dist/assets/DataSources-Ca2zSD4P.js              7.52 kB │ gzip:   2.99 kB
+dist/assets/DataWorkspace-Bxy6ljh1.js            7.61 kB │ gzip:   3.14 kB
+dist/assets/ModelEditor-C2G-tHk5.js              7.72 kB │ gzip:   3.17 kB
+dist/assets/AssessmentRecords-DmcLURK9.js        7.74 kB │ gzip:   2.82 kB
+dist/assets/GeoMap-Cys8V_9A.js                   8.10 kB │ gzip:   3.61 kB
+dist/assets/Catalog-B3NNWuPI.js                  8.11 kB │ gzip:   2.96 kB
+dist/assets/Planner-Dx0i2Mj9.js                  8.25 kB │ gzip:   3.54 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Admin-DVj_AIBb.js                    9.39 kB │ gzip:   2.91 kB
+dist/assets/Research-h5K29FO9.js                12.13 kB │ gzip:   4.50 kB
+dist/assets/Results-B4boamqQ.js                 13.24 kB │ gzip:   4.96 kB
+dist/assets/WorkflowEditor-NoivJdkB.js          13.63 kB │ gzip:   5.20 kB
+dist/assets/SceneWorkspace-BgSMxfQB.js          14.96 kB │ gzip:   5.53 kB
+dist/assets/Collaboration-2LAqtL9z.js           14.98 kB │ gzip:   4.89 kB
+dist/assets/IndicatorFrameworks-CXP96Asv.js     15.97 kB │ gzip:   5.24 kB
+dist/assets/SpatialOptimization-BRI00ZvL.js     15.99 kB │ gzip:   5.36 kB
+dist/assets/style-A9ScMT19.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-DaAPRP7E.js              216.40 kB │ gzip:  51.86 kB
+dist/assets/index-DGz8pkaz.js                  405.31 kB │ gzip: 124.78 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 364ms
+Isolated browser environment ready: coastmas_e2e_d015423200394718b9e4eb635d6faaad
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_d015423200394718b9e4eb635d6faaad/playwright
+
+
+Running 24 tests using 1 worker
+
+(node:51276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/24] e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts
+[2/24] e2e/data-sources.spec.ts:4:1 › registered HTTP source imports real immutable bytes with historical lineage
+[3/24] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+[4/24] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[5/24] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[6/24] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+[7/24] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[8/24] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+[9/24] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+[10/24] e2e/navigation.spec.ts:12:1 › navigation visual baseline and authorized pages
+[11/24] e2e/navigation.spec.ts:83:1 › NAV-01 real route, state, permissions and drawer regression
+[12/24] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[13/24] e2e/research.spec.ts:5:1 › research UI freezes inputs and real worker publishes honest A/B/C partial report
+[14/24] e2e/scene-workspace.spec.ts:20:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[15/24] e2e/scene-workspace.spec.ts:160:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[16/24] e2e/scene-workspace.spec.ts:340:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[17/24] e2e/scene-workspace.spec.ts:412:1 › compares real baseline and raised sea-level results without overwriting either
+[18/24] e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry
+[19/24] e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result
+[20/24] e2e/ui-consistency.spec.ts:32:1 › representative UI screenshots and unchanged scientific submission semantics
+[21/24] e2e/workflow-editor.spec.ts:20:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[22/24] e2e/workflow-editor.spec.ts:131:1 › copy, revise and run a pinned workflow through actual worker and result storage
+[23/24] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+[24/24] e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile
+  24 passed (3.6m)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_d015423200394718b9e4eb635d6faaad

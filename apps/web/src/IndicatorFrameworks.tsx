@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import FrameworkPlanning from "./FrameworkPlanning";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -62,20 +63,20 @@ function FrameworkList({ projectId }: { projectId: string }) {
         <Loading />
       ) : (
         <Panel title="指标体系">
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>名称</th>
-                <th>当前版本</th>
-                <th>操作</th>
+                <th className="numeric">当前版本</th>
+                <th className="table-actions">操作</th>
               </tr>
             </thead>
             <tbody>
               {query.data?.map((row) => (
                 <tr key={row.id}>
                   <td>{row.name}</td>
-                  <td>v{row.version}</td>
-                  <td>
+                  <td className="numeric">v{row.version}</td>
+                  <td className="table-actions">
                     <Link to={`/assessments/${encodeURIComponent(row.id)}`}>
                       编辑与准备数据
                     </Link>
@@ -83,12 +84,13 @@ function FrameworkList({ projectId }: { projectId: string }) {
                 </tr>
               ))}
             </tbody>
-          </table>
-          {!query.data?.length ? <p>尚无指标体系。</p> : null}
+          </DataTable>
+          {!query.error && !query.data?.length ? <p>尚无指标体系。</p> : null}
         </Panel>
       )}
-      <div className="toolbar">
+      <div className="pagination">
         <button
+          className="secondary"
           disabled={!page || query.isFetching}
           onClick={() => setPage(page - 1)}
         >
@@ -96,6 +98,7 @@ function FrameworkList({ projectId }: { projectId: string }) {
         </button>
         <span>第 {page + 1} 页</span>
         <button
+          className="secondary"
           disabled={query.data?.length !== 50 || query.isFetching}
           onClick={() => setPage(page + 1)}
         >
@@ -294,7 +297,10 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
           ) : null}
         </Panel>
       ) : null}
-      <fieldset className="scene-form" disabled={historical || busy}>
+      <fieldset
+        className="scene-form form-workspace"
+        disabled={historical || busy}
+      >
         <Panel title="体系说明">
           <div className="form-grid">
             <label>
@@ -551,6 +557,7 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
               ))}
               <div className="toolbar">
                 <button
+                  className="secondary"
                   onClick={() => {
                     let alias = "input2";
                     let number = 2;
@@ -564,6 +571,7 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
                   添加公式输入
                 </button>
                 <button
+                  className="danger"
                   onClick={() =>
                     change({
                       ...current,
@@ -581,6 +589,7 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
         ))}
         <div className="toolbar">
           <button
+            className="secondary"
             onClick={() => {
               const indicator = freshIndicator();
               const method = current.indicators[0]?.weight_method ?? "manual";

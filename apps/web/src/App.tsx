@@ -296,7 +296,7 @@ function Login() {
         <span className="brand-text">CoastMAS</span>
         <h2>登录工作空间</h2>
         <p className="muted">使用管理员分配的账号继续。</p>
-        <form onSubmit={submit}>
+        <form className="form-workspace form-stack" onSubmit={submit}>
           <label>
             邮箱
             <input

@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import {
   lazy,
   Suspense,
@@ -532,51 +533,51 @@ function Editor({
           {report ? (
             <>
               <Status value={report.valid ? "VALIDATED" : "MANUAL_REVIEW"} />
-              <div className="table-scroll">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>资源版本</th>
-                      <th>空间覆盖</th>
-                      <th>时间覆盖</th>
-                      <th>状态</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...report.data_coverage, ...report.entity_coverage].map(
-                      (row) => (
-                        <tr key={row.reference.id}>
-                          <td>
-                            {row.name} · v{row.reference.version}
-                          </td>
-                          <td>
-                            {row.spatial_fraction === null
-                              ? "未提供比例 / 实体采用相交检查"
-                              : `${(row.spatial_fraction * 100).toFixed(2)}%`}
-                          </td>
-                          <td>
-                            {row.temporal_coverage === null
-                              ? "未知"
-                              : row.temporal_coverage
-                                ? "覆盖"
-                                : "不完整"}
-                          </td>
-                          <td>
+
+              <DataTable>
+                <thead>
+                  <tr>
+                    <th>资源版本</th>
+                    <th>空间覆盖</th>
+                    <th>时间覆盖</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...report.data_coverage, ...report.entity_coverage].map(
+                    (row) => (
+                      <tr key={row.reference.id}>
+                        <td>
+                          {row.name} · v{row.reference.version}
+                        </td>
+                        <td>
+                          {row.spatial_fraction === null
+                            ? "未提供比例 / 实体采用相交检查"
+                            : `${(row.spatial_fraction * 100).toFixed(2)}%`}
+                        </td>
+                        <td>
+                          {row.temporal_coverage === null
+                            ? "未知"
+                            : row.temporal_coverage
+                              ? "覆盖"
+                              : "不完整"}
+                        </td>
+                        <td>
+                          {
                             {
-                              {
-                                COVERED: "覆盖",
-                                PARTIAL: "部分覆盖",
-                                OUTSIDE: "范围外",
-                                UNKNOWN: "未知",
-                              }[row.status]
-                            }
-                          </td>
-                        </tr>
-                      ),
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                              COVERED: "覆盖",
+                              PARTIAL: "部分覆盖",
+                              OUTSIDE: "范围外",
+                              UNKNOWN: "未知",
+                            }[row.status]
+                          }
+                        </td>
+                      </tr>
+                    ),
+                  )}
+                </tbody>
+              </DataTable>
+
               {report.issues.length ? (
                 <Details title="覆盖检查说明" value={report.issues} />
               ) : null}

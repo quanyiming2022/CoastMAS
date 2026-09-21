@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -53,20 +54,20 @@ function List({ projectId }: { projectId: string }) {
         {records.isPending ? (
           <Loading />
         ) : (
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>名称</th>
-                <th>版本</th>
-                <th>操作</th>
+                <th className="numeric">版本</th>
+                <th className="table-actions">操作</th>
               </tr>
             </thead>
             <tbody>
               {records.data?.map((row) => (
                 <tr key={row.resource_id}>
                   <td>{row.spec.name}</td>
-                  <td>v{row.version}</td>
-                  <td>
+                  <td className="numeric">v{row.version}</td>
+                  <td className="table-actions">
                     <Link
                       to={`/optimizations/${encodeURIComponent(row.resource_id)}`}
                     >
@@ -76,18 +77,28 @@ function List({ projectId }: { projectId: string }) {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </DataTable>
         )}
-        <button disabled={page === 0} onClick={() => setPage(page - 1)}>
-          上一页
-        </button>
-        <span>第 {page + 1} 页</span>
-        <button
-          disabled={(records.data?.length ?? 0) < 50}
-          onClick={() => setPage(page + 1)}
-        >
-          下一页
-        </button>
+        {!records.isPending && !records.error && !records.data?.length ? (
+          <p className="empty">暂无优化配置。</p>
+        ) : null}
+        <div className="pagination">
+          <button
+            className="secondary"
+            disabled={page === 0}
+            onClick={() => setPage(page - 1)}
+          >
+            上一页
+          </button>
+          <span>第 {page + 1} 页</span>
+          <button
+            className="secondary"
+            disabled={(records.data?.length ?? 0) < 50}
+            onClick={() => setPage(page + 1)}
+          >
+            下一页
+          </button>
+        </div>
       </Panel>
     </>
   );
@@ -273,6 +284,7 @@ function Editor({ projectId }: { projectId: string }) {
           载入合成示范
         </button>
         <form
+          className="form-workspace form-stack"
           onSubmit={(event) => {
             event.preventDefault();
             save.mutate();
@@ -306,6 +318,7 @@ function Editor({ projectId }: { projectId: string }) {
             </select>
           </label>
           <button
+            className="secondary"
             type="button"
             disabled={scenePage === 0}
             onClick={() => setScenePage(scenePage - 1)}
@@ -313,6 +326,7 @@ function Editor({ projectId }: { projectId: string }) {
             上一页场景
           </button>
           <button
+            className="secondary"
             type="button"
             disabled={(scenes.data?.length ?? 0) < 50}
             onClick={() => setScenePage(scenePage + 1)}
@@ -426,6 +440,7 @@ function Editor({ projectId }: { projectId: string }) {
                 允许选择 {index + 1}
               </label>
               <button
+                className="danger"
                 type="button"
                 onClick={() => setUnits(units.filter((_, i) => i !== index))}
               >
@@ -434,6 +449,7 @@ function Editor({ projectId }: { projectId: string }) {
             </fieldset>
           ))}
           <button
+            className="secondary"
             type="button"
             disabled={units.length >= 5000}
             onClick={() => setUnits([...units, emptyCandidate()])}
@@ -619,6 +635,7 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
               提交优化运行
             </button>
             <button
+              className="danger"
               disabled={archive.isPending}
               onClick={() => archive.mutate()}
             >
@@ -639,12 +656,12 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
             ) : null}
           </Panel>
           <Panel title="真实运行记录">
-            <table>
+            <DataTable>
               <thead>
                 <tr>
                   <th>任务</th>
                   <th>运行状态</th>
-                  <th>操作</th>
+                  <th className="table-actions">操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -658,10 +675,11 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                     <td>
                       <Status value={row.job.status} />
                     </td>
-                    <td>
+                    <td className="table-actions">
                       {row.result_id ? (
                         <>
                           <button
+                            className="secondary"
                             onClick={() => setSelectedResult(row.result_id!)}
                           >
                             查看优化结果
@@ -677,16 +695,28 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                   </tr>
                 ))}
               </tbody>
-            </table>
-            <button disabled={page === 0} onClick={() => setPage(page - 1)}>
-              上一页运行
-            </button>
-            <button
-              disabled={(runs.data?.length ?? 0) < 50}
-              onClick={() => setPage(page + 1)}
-            >
-              下一页运行
-            </button>
+            </DataTable>
+            {runs.isPending ? (
+              <Loading />
+            ) : !runs.error && !runs.data?.length ? (
+              <p className="empty">暂无运行记录。</p>
+            ) : null}
+            <div className="pagination">
+              <button
+                className="secondary"
+                disabled={page === 0}
+                onClick={() => setPage(page - 1)}
+              >
+                上一页运行
+              </button>
+              <button
+                className="secondary"
+                disabled={(runs.data?.length ?? 0) < 50}
+                onClick={() => setPage(page + 1)}
+              >
+                下一页运行
+              </button>
+            </div>
           </Panel>
           {outcome ? (
             <Panel title="实际优化结果">
@@ -711,13 +741,13 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                   {outcome.totals.area} m²
                 </p>
               ) : null}
-              <table>
+              <DataTable>
                 <thead>
                   <tr>
                     <th>硬约束</th>
                     <th>方向</th>
-                    <th>边界</th>
-                    <th>实际值</th>
+                    <th className="numeric">边界</th>
+                    <th className="numeric">实际值</th>
                     <th>单位</th>
                     <th>核验</th>
                   </tr>
@@ -727,8 +757,8 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                     <tr key={name}>
                       <td>{name}</td>
                       <td>{check.relation === "le" ? "≤" : "≥"}</td>
-                      <td>{check.bound}</td>
-                      <td>{check.actual ?? "无可行值"}</td>
+                      <td className="numeric">{check.bound}</td>
+                      <td className="numeric">{check.actual ?? "无可行值"}</td>
                       <td>{check.unit}</td>
                       <td>
                         {check.satisfied === null
@@ -740,16 +770,16 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                     </tr>
                   ))}
                 </tbody>
-              </table>
-              <table>
+              </DataTable>
+              <DataTable>
                 <thead>
                   <tr>
                     <th>候选标识</th>
                     <th>硬保护</th>
-                    <th>分配</th>
-                    <th>面积 m²</th>
-                    <th>收益</th>
-                    <th>成本</th>
+                    <th className="numeric">分配</th>
+                    <th className="numeric">面积 m²</th>
+                    <th className="numeric">收益</th>
+                    <th className="numeric">成本</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -757,20 +787,20 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
                     <tr key={item.id}>
                       <td>{item.id}</td>
                       <td>{item.allowed ? "允许" : "禁止"}</td>
-                      <td>
+                      <td className="numeric">
                         {item.selected === null
                           ? "无分配"
                           : item.selected
                             ? "选中"
                             : "未选"}
                       </td>
-                      <td>{item.area}</td>
-                      <td>{item.benefit}</td>
-                      <td>{item.cost}</td>
+                      <td className="numeric">{item.area}</td>
+                      <td className="numeric">{item.benefit}</td>
+                      <td className="numeric">{item.cost}</td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </Panel>
           ) : null}
         </>

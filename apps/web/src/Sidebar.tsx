@@ -67,7 +67,7 @@ export default function Sidebar({
     if (item.bottom > bounds.bottom)
       region.scrollTop += item.bottom - bounds.bottom;
     else if (item.top < bounds.top) region.scrollTop -= bounds.top - item.top;
-  }, [location.pathname, mobile, state.expanded]);
+  }, [location.pathname, mobile]);
   const visible = navigation.filter(
     (item) => item.permission !== "admin" || isAdmin,
   );

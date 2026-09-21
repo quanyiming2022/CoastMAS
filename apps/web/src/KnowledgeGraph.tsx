@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -226,38 +227,48 @@ export default function KnowledgeGraph() {
       {current.data && (
         <section className="panel">
           <h2>关系与证据</h2>
-          <div className="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>来源</th>
-                  <th>关系</th>
-                  <th>目标</th>
-                  <th>依据</th>
+
+          <DataTable>
+            <thead>
+              <tr>
+                <th>来源</th>
+                <th>关系</th>
+                <th>目标</th>
+                <th>依据</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredEdges.slice(page * 100, (page + 1) * 100).map((edge) => (
+                <tr key={edge.id}>
+                  <td>{nodeNames.get(edge.source)}</td>
+                  <td>{relationLabels[edge.type]}</td>
+                  <td>{nodeNames.get(edge.target)}</td>
+                  <td>{evidenceLabels[edge.evidence]}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredEdges
-                  .slice(page * 100, (page + 1) * 100)
-                  .map((edge) => (
-                    <tr key={edge.id}>
-                      <td>{nodeNames.get(edge.source)}</td>
-                      <td>{relationLabels[edge.type]}</td>
-                      <td>{nodeNames.get(edge.target)}</td>
-                      <td>{evidenceLabels[edge.evidence]}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="actions">
-            <button disabled={page === 0} onClick={() => setEdgePage(page - 1)}>
+              ))}
+            </tbody>
+          </DataTable>
+
+          {filteredEdges.length === 0 ? (
+            <p className="empty">
+              {current.data.edges.length
+                ? "当前筛选无关系。"
+                : "暂无关系记录。"}
+            </p>
+          ) : null}
+          <div className="pagination">
+            <button
+              className="secondary"
+              disabled={page === 0}
+              onClick={() => setEdgePage(page - 1)}
+            >
               上一页关系
             </button>
             <span>
               共 {filteredEdges.length} 条 · 第 {page + 1} 页
             </span>
             <button
+              className="secondary"
               disabled={(page + 1) * 100 >= filteredEdges.length}
               onClick={() => setEdgePage(page + 1)}
             >

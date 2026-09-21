@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -74,12 +75,12 @@ function SourceList({ projectId }: { projectId: string }) {
       {query.isPending ? <Loading /> : null}
       {query.data ? (
         <Panel title="已登记数据源">
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>名称</th>
                 <th>来源类型</th>
-                <th>版本</th>
+                <th className="numeric">版本</th>
               </tr>
             </thead>
             <tbody>
@@ -95,18 +96,25 @@ function SourceList({ projectId }: { projectId: string }) {
                   <td>
                     {row.spec.kind === "http" ? "URL / HTTP" : "PostgreSQL"}
                   </td>
-                  <td>{row.version}</td>
+                  <td className="numeric">{row.version}</td>
                 </tr>
               ))}
             </tbody>
-          </table>
-          {query.data.length === 0 ? <p>当前筛选无数据源。</p> : null}
-          <div className="toolbar">
-            <button disabled={page === 0} onClick={() => setPage(page - 1)}>
+          </DataTable>
+          {query.data.length === 0 ? (
+            <p>{search ? "当前筛选无数据源。" : "暂无数据源。"}</p>
+          ) : null}
+          <div className="pagination">
+            <button
+              className="secondary"
+              disabled={page === 0}
+              onClick={() => setPage(page - 1)}
+            >
               上一页
             </button>
             <span>第 {page + 1} 页</span>
             <button
+              className="secondary"
               disabled={query.data.length < 50}
               onClick={() => setPage(page + 1)}
             >
@@ -322,7 +330,10 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
       ) : null}
       {!id || base ? (
         <Panel title="连接器与数据声明">
-          <fieldset disabled={busy || historical}>
+          <fieldset
+            className="form-workspace form-shell"
+            disabled={busy || historical}
+          >
             <label>
               数据源名称
               <input

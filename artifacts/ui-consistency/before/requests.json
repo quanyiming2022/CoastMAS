@@ -1,0 +1,59 @@
+{
+  "proposal": {
+    "project_id": "<PROJECT>",
+    "spec": {
+      "id": "<NEW>",
+      "name": "UI验收方案",
+      "version": 1,
+      "scene": {
+        "id": "<SCENE>",
+        "version": 1
+      },
+      "rationale": "独立测试数据；保留原有提交语义。",
+      "objectives": [
+        {
+          "objective_id": "ui-goal",
+          "name": "生态目标",
+          "weight": 1
+        }
+      ],
+      "constraints": [],
+      "evidence_results": []
+    },
+    "expected_version": null
+  },
+  "temporal": {
+    "project_id": "<PROJECT>",
+    "name": "UI时间适配",
+    "source": "SYNTHETIC isolated UI test",
+    "license": "CC0",
+    "scene": {
+      "id": "<SCENE>",
+      "version": 1
+    },
+    "request": {
+      "variable": "air_temperature",
+      "unit": "degC",
+      "output_unit": "kelvin",
+      "aggregation_type": "intensive",
+      "support": "interval",
+      "method": "mean",
+      "nodata_policy": "propagate",
+      "window_start": "2025-01-01T00:00:00Z",
+      "window_end": "2025-01-01T04:00:00Z",
+      "observations": [
+        {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2025-01-01T01:00:00Z",
+          "value": 0
+        },
+        {
+          "start": "2025-01-01T01:00:00Z",
+          "end": "2025-01-01T04:00:00Z",
+          "value": null
+        }
+      ]
+    },
+    "idempotency_key": "<KEY>"
+  }
+}

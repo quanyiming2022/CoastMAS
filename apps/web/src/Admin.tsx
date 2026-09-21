@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState, type FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
@@ -218,62 +219,70 @@ export default function Admin({ userId }: { userId: string }) {
           </label>
           <button disabled={createUser.isPending}>创建账号</button>
         </form>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>邮箱</th>
-                <th>状态</th>
-                <th>系统角色</th>
-                <th>操作</th>
+
+        <DataTable>
+          <thead>
+            <tr>
+              <th>邮箱</th>
+              <th>状态</th>
+              <th>系统角色</th>
+              <th className="table-actions">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.data?.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  {user.email}
+                  <small className="resource-id">{user.id}</small>
+                </td>
+                <td>{user.active ? "已启用" : "已停用"}</td>
+                <td>{user.is_admin ? "系统管理员" : "普通账号"}</td>
+                <td className="table-actions">
+                  <button
+                    className="secondary"
+                    disabled={change.isPending || user.id === userId}
+                    onClick={() =>
+                      change.mutate({
+                        id: user.id,
+                        values: { active: !user.active },
+                      })
+                    }
+                  >
+                    {user.active ? "停用账号" : "启用账号"}
+                  </button>
+                  <button
+                    className="secondary"
+                    disabled={change.isPending || user.id === userId}
+                    onClick={() =>
+                      change.mutate({
+                        id: user.id,
+                        values: { is_admin: !user.is_admin },
+                      })
+                    }
+                  >
+                    {user.is_admin ? "取消系统管理员" : "设为系统管理员"}
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {users.data?.map((user) => (
-                <tr key={user.id}>
-                  <td>
-                    {user.email}
-                    <small className="resource-id">{user.id}</small>
-                  </td>
-                  <td>{user.active ? "已启用" : "已停用"}</td>
-                  <td>{user.is_admin ? "系统管理员" : "普通账号"}</td>
-                  <td>
-                    <button
-                      className="secondary"
-                      disabled={change.isPending || user.id === userId}
-                      onClick={() =>
-                        change.mutate({
-                          id: user.id,
-                          values: { active: !user.active },
-                        })
-                      }
-                    >
-                      {user.active ? "停用账号" : "启用账号"}
-                    </button>
-                    <button
-                      className="secondary"
-                      disabled={change.isPending || user.id === userId}
-                      onClick={() =>
-                        change.mutate({
-                          id: user.id,
-                          values: { is_admin: !user.is_admin },
-                        })
-                      }
-                    >
-                      {user.is_admin ? "取消系统管理员" : "设为系统管理员"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="toolbar">
-          <button disabled={!page} onClick={() => setPage(page - 1)}>
+            ))}
+          </tbody>
+        </DataTable>
+        {!users.isPending && !users.error && !users.data?.length ? (
+          <p className="empty">此页暂无账号。</p>
+        ) : null}
+
+        <div className="pagination">
+          <button
+            className="secondary"
+            disabled={!page}
+            onClick={() => setPage(page - 1)}
+          >
             上一页账号
           </button>
           <span>第 {page + 1} 页</span>
           <button
+            className="secondary"
             disabled={(users.data?.length ?? 0) < 50}
             onClick={() => setPage(page + 1)}
           >
@@ -333,40 +342,43 @@ export default function Admin({ userId }: { userId: string }) {
           </label>
           <button disabled={createProject.isPending}>创建项目</button>
         </form>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>项目</th>
-                <th>状态</th>
-                <th>操作</th>
+
+        {projects.isPending ? <Loading /> : null}
+        <DataTable>
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th>状态</th>
+              <th className="table-actions">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.data?.map((item) => (
+              <tr key={item.id}>
+                <td>{item.name}</td>
+                <td>{item.archived ? "已归档" : "使用中"}</td>
+                <td className="table-actions">
+                  <button
+                    className="secondary"
+                    disabled={archive.isPending}
+                    aria-label={`${item.archived ? "恢复项目" : "归档项目"} ${item.name}`}
+                    onClick={() =>
+                      archive.mutate({
+                        id: item.id,
+                        archived: !item.archived,
+                      })
+                    }
+                  >
+                    {item.archived ? "恢复项目" : "归档项目"}
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {projects.data?.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.archived ? "已归档" : "使用中"}</td>
-                  <td>
-                    <button
-                      className="secondary"
-                      disabled={archive.isPending}
-                      aria-label={`${item.archived ? "恢复项目" : "归档项目"} ${item.name}`}
-                      onClick={() =>
-                        archive.mutate({
-                          id: item.id,
-                          archived: !item.archived,
-                        })
-                      }
-                    >
-                      {item.archived ? "恢复项目" : "归档项目"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </DataTable>
+        {!projects.isPending && !projects.error && !projects.data?.length ? (
+          <p className="empty">暂无项目。</p>
+        ) : null}
       </Panel>
       <Panel title="项目成员与角色">
         <label>
@@ -383,26 +395,33 @@ export default function Admin({ userId }: { userId: string }) {
             ))}
           </select>
         </label>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>成员邮箱</th>
-                <th>项目角色</th>
-                <th>账号状态</th>
+
+        {project && members.isPending ? <Loading /> : null}
+        <DataTable>
+          <thead>
+            <tr>
+              <th>成员邮箱</th>
+              <th>项目角色</th>
+              <th>账号状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members.data?.map((item) => (
+              <tr key={item.user_id}>
+                <td>{item.email}</td>
+                <td>{roleLabels[item.role] ?? item.role}</td>
+                <td>{item.active ? "已启用" : "已停用"}</td>
               </tr>
-            </thead>
-            <tbody>
-              {members.data?.map((item) => (
-                <tr key={item.user_id}>
-                  <td>{item.email}</td>
-                  <td>{roleLabels[item.role] ?? item.role}</td>
-                  <td>{item.active ? "已启用" : "已停用"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </DataTable>
+        {project &&
+        !members.isPending &&
+        !members.error &&
+        !members.data?.length ? (
+          <p className="empty">此项目暂无成员。</p>
+        ) : null}
+
         <form
           className="toolbar"
           onSubmit={(event) => submit(event, () => saveMember.mutate())}
@@ -434,34 +453,40 @@ export default function Admin({ userId }: { userId: string }) {
         </form>
       </Panel>
       <Panel title="审计记录">
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>时间</th>
-                <th>操作</th>
-                <th>操作者</th>
-                <th>对象</th>
-                <th>变更记录</th>
+        {audit.isPending ? <Loading /> : null}
+        <DataTable>
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th className="table-actions">操作</th>
+              <th>操作者</th>
+              <th>对象</th>
+              <th>变更记录</th>
+            </tr>
+          </thead>
+          <tbody>
+            {audit.data?.map((item) => (
+              <tr key={item.id}>
+                <td>{new Date(item.when).toLocaleString("zh-CN")}</td>
+                <td className="table-actions">
+                  {auditLabels[item.action] ?? "资源操作"}
+                </td>
+                <td className="break">{item.who}</td>
+                <td className="break">{item.resource}</td>
+                <td>
+                  <Details title="查看审计详情" value={item} />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {audit.data?.map((item) => (
-                <tr key={item.id}>
-                  <td>{new Date(item.when).toLocaleString("zh-CN")}</td>
-                  <td>{auditLabels[item.action] ?? "资源操作"}</td>
-                  <td className="break">{item.who}</td>
-                  <td className="break">{item.resource}</td>
-                  <td>
-                    <Details title="查看审计详情" value={item} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="toolbar">
+            ))}
+          </tbody>
+        </DataTable>
+        {!audit.isPending && !audit.error && !audit.data?.length ? (
+          <p className="empty">此页暂无审计记录。</p>
+        ) : null}
+
+        <div className="pagination">
           <button
+            className="secondary"
             disabled={!auditPage}
             onClick={() => setAuditPage(auditPage - 1)}
           >
@@ -469,6 +494,7 @@ export default function Admin({ userId }: { userId: string }) {
           </button>
           <span>第 {auditPage + 1} 页</span>
           <button
+            className="secondary"
             disabled={(audit.data?.length ?? 0) < 50}
             onClick={() => setAuditPage(auditPage + 1)}
           >

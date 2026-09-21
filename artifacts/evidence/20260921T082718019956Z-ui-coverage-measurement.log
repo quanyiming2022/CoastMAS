@@ -1,0 +1,54 @@
+Isolated browser environment ready: coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9/playwright zz-ui-coverage.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:49060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile
+  1) e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('main h1').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('main h1').first() with timeout 5000ms
+      - waiting for locator('main h1').first()
+
+
+      77 |   for (const [index, path] of routes.entries()) {
+      78 |     await page.goto(path);
+    > 79 |     await expect(page.locator("main h1").first()).toBeVisible();
+         |                                                   ^
+      80 |     await expect(
+      81 |       page.getByRole("heading", { name: "页面不存在", exact: true }),
+      82 |     ).toHaveCount(0);
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/zz-ui-coverage.spec.ts:79:51
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_b31c8d0fd85f49d0b256c95b613e42d9

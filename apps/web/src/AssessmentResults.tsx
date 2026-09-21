@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { lazy, Suspense, useState } from "react";
 import type { ResultView } from "./generated/contracts";
 import { assessmentGroups, type AssessmentGroup } from "./assessment-data";
@@ -90,53 +91,56 @@ function AssessmentPeriod({ group }: { group: AssessmentGroup }) {
           />
         )}
       </Suspense>
-      <div className="table-scroll">
-        <table aria-label="所选年份评价结果">
-          <thead>
-            <tr>
-              <th>管理单元</th>
-              <th>年份</th>
-              <th>分数（1）</th>
-              <th>等级</th>
+
+      <DataTable aria-label="所选年份评价结果">
+        <thead>
+          <tr>
+            <th>管理单元</th>
+            <th className="numeric">年份</th>
+            <th className="numeric">分数（1）</th>
+            <th>等级</th>
+          </tr>
+        </thead>
+        <tbody>
+          {visible.map((item) => (
+            <tr key={item.objectId}>
+              <td>{item.unitId}</td>
+              <td className="numeric">{group.years?.[period] ?? "未声明"}</td>
+              <td className="numeric">{item.scores[period]}</td>
+              <td>{item.classes[period]}</td>
             </tr>
-          </thead>
-          <tbody>
-            {visible.map((item) => (
-              <tr key={item.objectId}>
-                <td>{item.unitId}</td>
-                <td>{group.years?.[period] ?? "未声明"}</td>
-                <td>{item.scores[period]}</td>
-                <td>{item.classes[period]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </DataTable>
+
       {temporal ? (
         <details>
           <summary>完整时间序列表</summary>
-          <div className="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>年份</th>
+
+          <DataTable>
+            <thead>
+              <tr>
+                <th className="numeric">年份</th>
+                {visible.map((item) => (
+                  <th className="numeric" key={item.objectId}>
+                    {item.unitId} 分数（1）
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {group.years!.map((year, index) => (
+                <tr key={year}>
+                  <td className="numeric">{year}</td>
                   {visible.map((item) => (
-                    <th key={item.objectId}>{item.unitId} 分数（1）</th>
+                    <td className="numeric" key={item.objectId}>
+                      {item.scores[index]}
+                    </td>
                   ))}
                 </tr>
-              </thead>
-              <tbody>
-                {group.years!.map((year, index) => (
-                  <tr key={year}>
-                    <td>{year}</td>
-                    {visible.map((item) => (
-                      <td key={item.objectId}>{item.scores[index]}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </DataTable>
         </details>
       ) : null}
     </Panel>

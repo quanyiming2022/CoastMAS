@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -44,20 +45,20 @@ function RecordList({ projectId }: { projectId: string }) {
         <Loading />
       ) : (
         <Panel title="已保存评价">
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>名称</th>
-                <th>版本</th>
-                <th>操作</th>
+                <th className="numeric">版本</th>
+                <th className="table-actions">操作</th>
               </tr>
             </thead>
             <tbody>
               {query.data?.map((row) => (
                 <tr key={row.resource_id}>
                   <td>{row.spec.name}</td>
-                  <td>v{row.version}</td>
-                  <td>
+                  <td className="numeric">v{row.version}</td>
+                  <td className="table-actions">
                     <Link
                       to={`/assessment-records/${encodeURIComponent(row.resource_id)}`}
                     >
@@ -67,14 +68,15 @@ function RecordList({ projectId }: { projectId: string }) {
                 </tr>
               ))}
             </tbody>
-          </table>
-          {!query.data?.length ? (
+          </DataTable>
+          {!query.error && !query.data?.length ? (
             <p>从指标体系准备观测并保存评价方案，即可建立评价记录。</p>
           ) : null}
         </Panel>
       )}
-      <div className="toolbar">
+      <div className="pagination">
         <button
+          className="secondary"
           disabled={!page || query.isFetching}
           onClick={() => setPage(page - 1)}
         >
@@ -82,6 +84,7 @@ function RecordList({ projectId }: { projectId: string }) {
         </button>
         <span>第 {page + 1} 页</span>
         <button
+          className="secondary"
           disabled={query.data?.length !== 50 || query.isFetching}
           onClick={() => setPage(page + 1)}
         >
@@ -306,7 +309,7 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
         <button disabled={runs.isFetching} onClick={() => void runs.refetch()}>
           刷新运行记录
         </button>
-        <table>
+        <DataTable>
           <thead>
             <tr>
               <th>任务</th>
@@ -337,14 +340,15 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </DataTable>
         {runs.isPending ? (
           <Loading />
         ) : !runs.error && !runs.data?.length ? (
           <p>此页暂无匹配运行。</p>
         ) : null}
-        <div className="toolbar">
+        <div className="pagination">
           <button
+            className="secondary"
             disabled={!runPage || runs.isFetching}
             onClick={() => setRunPage(runPage - 1)}
           >
@@ -352,6 +356,7 @@ function Record({ id, projectId }: { id: string; projectId: string }) {
           </button>
           <span>第 {runPage + 1} 页</span>
           <button
+            className="secondary"
             disabled={runs.data?.length !== 50 || runs.isFetching}
             onClick={() => setRunPage(runPage + 1)}
           >

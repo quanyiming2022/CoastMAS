@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { scientificLabel } from "./scientific-labels";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -274,60 +275,59 @@ function CatalogList({
       {items ? (
         <Panel title={`资源 · 第 ${page + 1} 页`}>
           {items.length ? (
-            <div className="table-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>名称</th>
-                    <th>类型 / 格式</th>
-                    <th>版本</th>
-                    <th>状态</th>
+            <DataTable>
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>类型 / 格式</th>
+                  <th className="numeric">版本</th>
+                  <th>状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <Link to={`/${kind}/${encodeURIComponent(item.id)}`}>
+                        {item.name}
+                      </Link>
+                      <small className="resource-id" title={item.id}>
+                        …{item.id.slice(-12)}
+                      </small>
+                    </td>
+                    <td>
+                      {scientificLabel(
+                        display(
+                          item.summary.model_type ??
+                            item.summary.format ??
+                            item.summary.scene_type,
+                        ),
+                      )}
+                    </td>
+                    <td className="numeric">v{item.version}</td>
+                    <td>
+                      {!item.enabled ? (
+                        <Status value="已停用" />
+                      ) : (
+                        <Status
+                          value={String(
+                            item.summary.execution_status ??
+                              item.summary.validation_status ??
+                              "可查看",
+                          )}
+                        />
+                      )}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id}>
-                      <td>
-                        <Link to={`/${kind}/${encodeURIComponent(item.id)}`}>
-                          {item.name}
-                        </Link>
-                        <small className="resource-id" title={item.id}>
-                          …{item.id.slice(-12)}
-                        </small>
-                      </td>
-                      <td>
-                        {scientificLabel(
-                          display(
-                            item.summary.model_type ??
-                              item.summary.format ??
-                              item.summary.scene_type,
-                          ),
-                        )}
-                      </td>
-                      <td>v{item.version}</td>
-                      <td>
-                        {!item.enabled ? (
-                          <Status value="已停用" />
-                        ) : (
-                          <Status
-                            value={String(
-                              item.summary.execution_status ??
-                                item.summary.validation_status ??
-                                "可查看",
-                            )}
-                          />
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </DataTable>
           ) : (
             <Empty>{filter ? "当前页没有匹配项。" : "当前页没有资源。"}</Empty>
           )}
           <div className="pagination">
             <button
+              className="secondary"
               disabled={page === 0}
               onClick={() => setPage((value) => value - 1)}
             >
@@ -335,6 +335,7 @@ function CatalogList({
             </button>
             <span>每页最多 50 条</span>
             <button
+              className="secondary"
               disabled={(query.data?.length ?? 0) < 50}
               onClick={() => setPage((value) => value + 1)}
             >

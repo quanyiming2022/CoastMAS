@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -37,34 +38,32 @@ export default function Runs() {
       <ErrorNotice error={query.error} />
       <Panel title="最近任务">
         {query.data?.length ? (
-          <div className="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>任务</th>
-                  <th>状态</th>
-                  <th>进度</th>
-                  <th>执行尝试</th>
+          <DataTable>
+            <thead>
+              <tr>
+                <th>任务</th>
+                <th>状态</th>
+                <th className="numeric">进度</th>
+                <th className="numeric">执行尝试</th>
+              </tr>
+            </thead>
+            <tbody>
+              {query.data.map((job) => (
+                <tr key={job.id}>
+                  <td>
+                    <Link to={"/runs/" + encodeURIComponent(job.id)}>
+                      {job.id.slice(0, 12)}
+                    </Link>
+                  </td>
+                  <td>
+                    <Status value={job.status} />
+                  </td>
+                  <td className="numeric">{Math.round(job.progress * 100)}%</td>
+                  <td className="numeric">{job.attempt}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {query.data.map((job) => (
-                  <tr key={job.id}>
-                    <td>
-                      <Link to={"/runs/" + encodeURIComponent(job.id)}>
-                        {job.id.slice(0, 12)}
-                      </Link>
-                    </td>
-                    <td>
-                      <Status value={job.status} />
-                    </td>
-                    <td>{Math.round(job.progress * 100)}%</td>
-                    <td>{job.attempt}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </DataTable>
         ) : query.data ? (
           <Empty>尚无任务。请从工作流提交运行。</Empty>
         ) : null}

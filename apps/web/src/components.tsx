@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, ComponentProps } from "react";
 import { ApiError } from "./api";
 
 const labels: Record<string, string> = {
@@ -65,13 +65,18 @@ export function PageTitle({
 export function Panel({
   title,
   children,
+  actions,
 }: {
   title: string;
   children: ReactNode;
+  actions?: ReactNode;
 }) {
   return (
     <section className="panel">
-      <h2>{title}</h2>
+      <div className="panel-heading">
+        <h2>{title}</h2>
+        {actions}
+      </div>
       {children}
     </section>
   );
@@ -95,4 +100,20 @@ export function display(value: unknown): string {
         typeof value === "boolean"
       ? String(value)
       : JSON.stringify(value);
+}
+
+export function DataTable({ className, ...props }: ComponentProps<"table">) {
+  return (
+    <div
+      className="table-scroll"
+      tabIndex={0}
+      role="region"
+      aria-label={(props["aria-label"] ?? "数据表格") + "（可横向滚动）"}
+    >
+      <table
+        className={["data-table", className].filter(Boolean).join(" ")}
+        {...props}
+      />
+    </div>
+  );
 }

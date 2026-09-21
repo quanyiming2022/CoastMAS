@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useQueries } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { request } from "./api";
@@ -127,43 +128,41 @@ export default function ResultComparison() {
               不同模型、参考框架或数据范围可能导致不可比；本页提供原值并列对照，科学变化指标以相应模型的验证输出为准。
             </p>
             {rows.length ? (
-              <div className="table-scroll">
-                <table aria-label="管理指标对照表">
-                  <thead>
-                    <tr>
-                      <th>来源 / 管理单元 / 指标</th>
-                      <th>左侧原值</th>
-                      <th>右侧原值</th>
-                      <th>单位核对</th>
+              <DataTable aria-label="管理指标对照表">
+                <thead>
+                  <tr>
+                    <th>来源 / 管理单元 / 指标</th>
+                    <th className="numeric">左侧原值</th>
+                    <th className="numeric">右侧原值</th>
+                    <th>单位核对</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.id}>
+                      <td>
+                        {row.nodeId} / {row.variable}
+                        <br />
+                        {row.managementUnit ?? "无管理标识"} / {row.metric}
+                        <small className="break">{row.standardName}</small>
+                      </td>
+                      <td className="numeric">
+                        <Value value={row.left} />
+                      </td>
+                      <td className="numeric">
+                        <Value value={row.right} />
+                      </td>
+                      <td>
+                        {!row.left || !row.right
+                          ? "单侧缺项"
+                          : row.sameUnit
+                            ? "单位相同"
+                            : "单位不同或未声明"}
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {rows.map((row) => (
-                      <tr key={row.id}>
-                        <td>
-                          {row.nodeId} / {row.variable}
-                          <br />
-                          {row.managementUnit ?? "无管理标识"} / {row.metric}
-                          <small className="break">{row.standardName}</small>
-                        </td>
-                        <td>
-                          <Value value={row.left} />
-                        </td>
-                        <td>
-                          <Value value={row.right} />
-                        </td>
-                        <td>
-                          {!row.left || !row.right
-                            ? "单侧缺项"
-                            : row.sameUnit
-                              ? "单位相同"
-                              : "单位不同或未声明"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </DataTable>
             ) : (
               <p>没有可对齐的结构化管理指标；下方保留两侧原始输出。</p>
             )}

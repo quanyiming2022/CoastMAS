@@ -86,7 +86,7 @@ export default function SceneRun({ scene }: { scene: SceneSpec }) {
             ))}
         </select>
       </label>
-      <div className="toolbar">
+      <div className="pagination">
         <button
           className="secondary"
           disabled={page === 0 || run.isPending || validate.isPending}

@@ -2,7 +2,7 @@
   "status": "NOT_RUN",
   "scope": "full CoastMAS mandatory acceptance",
   "mandatory_mapping": "docs/requirements-traceability.csv",
-  "checkpoint": "2026-09-21 research worker/API/UI, isolated full regression, local Qwen trial",
+  "checkpoint": "2026-09-21 verified sitewide UI and NAV-01; full mandatory R&D remains incomplete",
   "verified_checks": [
     "artifacts/evidence/20260921T061021803379Z-imagery-admin-backend-full.json",
     "artifacts/evidence/20260921T061323492550Z-imagery-admin-contracts.json",
@@ -12,18 +12,26 @@
     "artifacts/evidence/20260921T054321509734Z-collection-one-live-scientific-verification.json",
     "artifacts/evidence/20260921T064524240630Z-research-regression-backend.json",
     "artifacts/evidence/20260921T064753734560Z-research-regression-browser.json",
-    "artifacts/evidence/20260921T064514959214Z-local-qwen-research-live.json"
+    "artifacts/evidence/20260921T064514959214Z-local-qwen-research-live.json",
+    "artifacts/evidence/20260921T073226129507Z-temporal-regression-backend.json",
+    "artifacts/evidence/20260921T073247442736Z-temporal-regression-browser.json",
+    "artifacts/evidence/20260921T074116104778Z-temporal-boundary-display-final.json",
+    "artifacts/evidence/20260921T080914753753Z-navigation-browser-retry.json",
+    "artifacts/evidence/20260921T081700784472Z-ui-representative-after.json",
+    "artifacts/evidence/20260921T084726416643Z-ui-navigation-final.json",
+    "artifacts/evidence/20260921T085413062004Z-ui-visual-final.json"
   ],
   "remaining": [
     "Observed manual corrections, full binding injections, ablations, performance experiments and twelve-item research validation",
-    "Explicit temporal and cross-CRS conservative binding nodes",
+    "Cross-CRS conservative binding nodes",
     "Approved non-builtin runtimes, complete job diagnostics, computational cache and orphan retention cleanup",
     "Optional authorized GeoAI contract; no GeoAI source access",
     "Unified deployment, Makefile entry points and build identity",
-    "Final coverage thresholds, full documentation and final focused review"
+    "Final coverage thresholds, full documentation and final focused review",
+    "Load verified frontend document-delivery fix during a later maintenance/deployment safe point; running API was deliberately not restarted"
   ],
   "blocked": [
-    "External cloud LLM credentials unavailable; verified local Qwen is not external evidence"
+    "Optional EXTERNAL cloud experiment unconfigured; requirement allows verified LOCAL LLM, so this is not a mandatory LOCAL experiment blocker"
   ],
   "local_llm_findings": {
     "cases": 1,
@@ -32,5 +40,19 @@
     "B_valid": false,
     "C_valid": false,
     "generalization": "No overall quality or savings inference from one case"
+  },
+  "ui_navigation": {
+    "status": "PASS",
+    "scope": "isolated tests and reviewed screenshots",
+    "frontend_tests": 58,
+    "document_delivery_tests": 10,
+    "browser_scenarios": 24,
+    "covered_paths": 42,
+    "coverage_screenshots": 126,
+    "live_api_document_delivery": "PENDING_LOAD_NO_RESTART",
+    "evidence": [
+      "artifacts/evidence/20260921T084726416643Z-ui-navigation-final.json",
+      "artifacts/evidence/20260921T085413062004Z-ui-visual-final.json"
+    ]
   }
 }

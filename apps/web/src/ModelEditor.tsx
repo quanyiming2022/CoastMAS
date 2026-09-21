@@ -330,7 +330,10 @@ function Editor({
           <p>正在查看不可变历史版本。选择当前最新版本后编辑。</p>
         ) : null}
       </Panel>
-      <fieldset disabled={historical || busy}>
+      <fieldset
+        className="form-workspace form-shell"
+        disabled={historical || busy}
+      >
         <legend>模型科学契约</legend>
         <label>
           模型名称

@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useRef, useState, type ChangeEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -224,33 +225,33 @@ function DecompositionResult({
           <Controls />
         </ReactFlow>
       </div>
-      <div className="table-scroll">
-        <table aria-label="拆解组件">
-          <thead>
-            <tr>
-              <th>组件</th>
-              <th>阶段</th>
-              <th>输入</th>
-              <th>输出</th>
-              <th>保留原子性</th>
+
+      <DataTable aria-label="拆解组件">
+        <thead>
+          <tr>
+            <th>组件</th>
+            <th>阶段</th>
+            <th>输入</th>
+            <th>输出</th>
+            <th>保留原子性</th>
+          </tr>
+        </thead>
+        <tbody>
+          {result.components.map((component) => (
+            <tr key={component.id}>
+              <td>
+                {component.id}
+                <small className="break">{component.signature}</small>
+              </td>
+              <td>{stageLabels[component.stage]}</td>
+              <td>{component.inputs?.join("、") || "未声明"}</td>
+              <td>{component.outputs?.join("、") || "未声明"}</td>
+              <td>{component.atomic ? "是" : "否"}</td>
             </tr>
-          </thead>
-          <tbody>
-            {result.components.map((component) => (
-              <tr key={component.id}>
-                <td>
-                  {component.id}
-                  <small className="break">{component.signature}</small>
-                </td>
-                <td>{stageLabels[component.stage]}</td>
-                <td>{component.inputs?.join("、") || "未声明"}</td>
-                <td>{component.outputs?.join("、") || "未声明"}</td>
-                <td>{component.atomic ? "是" : "否"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </DataTable>
+
       {Object.keys(result.cli_arguments ?? {}).length ? (
         <dl className="definition-grid">
           {Object.entries(result.cli_arguments ?? {}).map(([key, value]) => (
@@ -261,7 +262,9 @@ function DecompositionResult({
           ))}
         </dl>
       ) : null}
-      <button onClick={download}>下载拆解候选</button>
+      <button className="secondary" onClick={download}>
+        下载拆解候选
+      </button>
     </Panel>
   );
 }

@@ -1,0 +1,57 @@
+Isolated browser environment ready: coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65/playwright execution.spec.ts temporal.spec.ts zz-ui-coverage.spec.ts
+
+
+Running 3 tests using 1 worker
+
+(node:50121) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/3] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[2/3] e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result
+[3/3] e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile
+  1) e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+
+    Error: /results/compare?left=3d760477-c603-484b-bb73-5310475a5555&right=56e3448f-3aaf-4b47-a13e-32449cc726c0 persistent page overflow at 390
+
+    /results/compare?left=3d760477-c603-484b-bb73-5310475a5555&right=56e3448f-3aaf-4b47-a13e-32449cc726c0 persistent page overflow at 390
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 391
+    Received:    658
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      100 |           message: `${path} persistent page overflow at ${viewport.width}`,
+      101 |         })
+    > 102 |         .toBeLessThanOrEqual(viewport.width + 1);
+          |          ^
+      103 |       await page.evaluate(() => window.scrollTo(0, 0));
+      104 |       const layout = await page.evaluate(() => {
+      105 |         const buttons = [
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/zz-ui-coverage.spec.ts:102:10
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65/playwright/zz-ui-coverage-all-existin-16bc0-lies-fit-desktop-and-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/zz-ui-coverage.spec.ts:4:1 › all existing business pages and editor families fit desktop and mobile 
+  2 passed (58.5s)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_a6e8e42c20b4414f81dfcc250cc7eb65

@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -279,12 +280,12 @@ function ResearchWorkspace({ projectId }: { projectId: string }) {
       </Panel>
       <Panel title="科研任务记录">
         {jobs.data?.length ? (
-          <table>
+          <DataTable>
             <thead>
               <tr>
                 <th>任务</th>
                 <th>状态</th>
-                <th>进度</th>
+                <th className="numeric">进度</th>
               </tr>
             </thead>
             <tbody>
@@ -298,20 +299,27 @@ function ResearchWorkspace({ projectId }: { projectId: string }) {
                   <td>
                     <Status value={j.status} />
                   </td>
-                  <td>{Math.round(j.progress * 100)}%</td>
+                  <td className="numeric">{Math.round(j.progress * 100)}%</td>
                 </tr>
               ))}
             </tbody>
-          </table>
-        ) : (
+          </DataTable>
+        ) : jobs.isPending ? (
+          <Loading />
+        ) : !jobs.error ? (
           <Empty>尚无科研任务。</Empty>
-        )}
+        ) : null}
         <div className="pagination">
-          <button disabled={page === 0} onClick={() => setPage(page - 1)}>
+          <button
+            className="secondary"
+            disabled={page === 0}
+            onClick={() => setPage(page - 1)}
+          >
             上一页
           </button>
           <span>第{page + 1}页</span>
           <button
+            className="secondary"
             disabled={!jobs.data || jobs.data.length < 50}
             onClick={() => setPage(page + 1)}
           >

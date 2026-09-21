@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { request, dashboardSchema } from "./api";
@@ -53,32 +54,32 @@ export default function Dashboard() {
           <div className="two-columns">
             <Panel title="最近运行">
               {query.data.recent_runs.length ? (
-                <div className="table-scroll">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>任务</th>
-                        <th>状态</th>
-                        <th>进度</th>
+                <DataTable>
+                  <thead>
+                    <tr>
+                      <th>任务</th>
+                      <th>状态</th>
+                      <th className="numeric">进度</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {query.data.recent_runs.map((run) => (
+                      <tr key={run.id}>
+                        <td>
+                          <Link to={"/runs/" + encodeURIComponent(run.id)}>
+                            {run.id.slice(0, 8)}
+                          </Link>
+                        </td>
+                        <td>
+                          <Status value={run.status} />
+                        </td>
+                        <td className="numeric">
+                          {Math.round(run.progress * 100)}%
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {query.data.recent_runs.map((run) => (
-                        <tr key={run.id}>
-                          <td>
-                            <Link to={"/runs/" + encodeURIComponent(run.id)}>
-                              {run.id.slice(0, 8)}
-                            </Link>
-                          </td>
-                          <td>
-                            <Status value={run.status} />
-                          </td>
-                          <td>{Math.round(run.progress * 100)}%</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </DataTable>
               ) : (
                 <Empty>
                   尚无运行记录。打开工作流，完成预检后即可提交计算。

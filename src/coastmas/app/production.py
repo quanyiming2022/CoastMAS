@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from redis import Redis
 from sqlalchemy import create_engine, text
@@ -62,15 +62,23 @@ def create_production_app() -> FastAPI:
         configuration_value("COASTMAS_WEB_DIRECTORY", str(project_root() / "apps/web/dist"))
     ).resolve()
 
+    register_web(app, distribution)
+    return app
+
+
+def register_web(app: FastAPI, distribution: Path) -> None:
+    """Serve frontend documents without confusing dotted resource IDs with assets."""
+
     @app.get("/{path:path}", include_in_schema=False)
-    def web(path: str) -> FileResponse:
+    def web(path: str, request: Request) -> FileResponse:
         if path == "api" or path.startswith("api/"):
             raise HTTPException(status_code=404, detail="API route not found")
         target = (distribution / path).resolve()
         if not target.is_relative_to(distribution):
             raise HTTPException(status_code=404, detail="Page not found")
         if not target.is_file():
-            if Path(path).suffix:
+            document_request = "text/html" in request.headers.get("accept", "")
+            if Path(path).suffix and (not document_request or path.startswith("assets/")):
                 raise HTTPException(status_code=404, detail="Asset not found")
             target = distribution / "index.html"
         if not target.is_file():
@@ -78,5 +86,3 @@ def create_production_app() -> FastAPI:
         return FileResponse(
             target, headers={"Cache-Control": "no-cache", "X-Content-Type-Options": "nosniff"}
         )
-
-    return app

@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { lazy, Suspense, useState } from "react";
 import type { GeographicCollection } from "./result-data";
 import type { ResultView } from "./generated/contracts";
@@ -90,84 +91,77 @@ export default function ManagementResults({
       ) : (
         <p>此结果没有可显示的绑定实体几何；不推断未绑定单元的位置。</p>
       )}
-      <div className="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>结果对象</th>
-              <th>管理单元</th>
-              <th>地理实体版本</th>
-              <th>指标与单位</th>
-            </tr>
-          </thead>
-          <tbody>
-            {view.objects.map((object) => {
-              const binding = bindings.get(object.id);
-              return (
-                <tr
-                  key={object.id}
-                  data-selected={
-                    binding?.geographic_entity_id === selectedEntity
-                  }
-                >
-                  <td>
-                    <span className="break">
-                      {object.node_id} / {object.variable}
-                    </span>
-                    <Details
-                      title="对象与来源"
-                      value={{
-                        id: object.id,
-                        model: object.model,
-                        source_pointer: object.source_pointer,
-                      }}
-                    />
-                  </td>
-                  <td>
-                    {object.management_unit_id ?? "不适用"}
-                    {binding &&
-                    mappedEntities.has(binding.geographic_entity_id) ? (
-                      <button
-                        className="secondary"
-                        aria-pressed={
-                          selectedEntity === binding.geographic_entity_id
-                        }
-                        onClick={() =>
-                          setSelectedEntity(binding.geographic_entity_id)
-                        }
-                      >
-                        定位 {object.management_unit_id}
-                      </button>
-                    ) : null}
-                  </td>
-                  <td>
-                    {binding
-                      ? `${binding.geographic_entity_id} · v${binding.geographic_entity_version}`
-                      : object.management_unit_id
-                        ? "未绑定地理实体"
-                        : "不适用"}
-                  </td>
-                  <td>
-                    {Object.entries(object.values ?? {}).map(
-                      ([name, value]) => (
-                        <div key={name}>
-                          <span>{metricLabels[name] ?? name}：</span>
-                          <span>
-                            {display(value)}
-                            {object.units?.[name]
-                              ? ` ${object.units[name]}`
-                              : ""}
-                          </span>
-                        </div>
-                      ),
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+
+      <DataTable>
+        <thead>
+          <tr>
+            <th>结果对象</th>
+            <th>管理单元</th>
+            <th className="numeric">地理实体版本</th>
+            <th>指标与单位</th>
+          </tr>
+        </thead>
+        <tbody>
+          {view.objects.map((object) => {
+            const binding = bindings.get(object.id);
+            return (
+              <tr
+                key={object.id}
+                data-selected={binding?.geographic_entity_id === selectedEntity}
+              >
+                <td>
+                  <span className="break">
+                    {object.node_id} / {object.variable}
+                  </span>
+                  <Details
+                    title="对象与来源"
+                    value={{
+                      id: object.id,
+                      model: object.model,
+                      source_pointer: object.source_pointer,
+                    }}
+                  />
+                </td>
+                <td>
+                  {object.management_unit_id ?? "不适用"}
+                  {binding &&
+                  mappedEntities.has(binding.geographic_entity_id) ? (
+                    <button
+                      className="secondary"
+                      aria-pressed={
+                        selectedEntity === binding.geographic_entity_id
+                      }
+                      onClick={() =>
+                        setSelectedEntity(binding.geographic_entity_id)
+                      }
+                    >
+                      定位 {object.management_unit_id}
+                    </button>
+                  ) : null}
+                </td>
+                <td className="numeric">
+                  {binding
+                    ? `${binding.geographic_entity_id} · v${binding.geographic_entity_version}`
+                    : object.management_unit_id
+                      ? "未绑定地理实体"
+                      : "不适用"}
+                </td>
+                <td>
+                  {Object.entries(object.values ?? {}).map(([name, value]) => (
+                    <div key={name}>
+                      <span>{metricLabels[name] ?? name}：</span>
+                      <span>
+                        {display(value)}
+                        {object.units?.[name] ? ` ${object.units[name]}` : ""}
+                      </span>
+                    </div>
+                  ))}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </DataTable>
     </Panel>
   );
 }

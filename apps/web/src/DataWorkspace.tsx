@@ -1,3 +1,4 @@
+import { DataTable } from "./components";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -277,7 +278,10 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
       ) : null}
       {!id || base ? (
         <Panel title="数据科学元数据">
-          <fieldset disabled={busy || historical}>
+          <fieldset
+            className="form-workspace form-shell"
+            disabled={busy || historical}
+          >
             {!id ? (
               <label>
                 数据文件
@@ -371,26 +375,43 @@ function Preview({ value }: { value: Record<string, JsonValue> }) {
   ) {
     const columns = [...new Set(rows.flatMap((row) => Object.keys(row)))];
     return (
-      <div className="table-scroll">
-        <table aria-label="数据预览行">
-          <thead>
-            <tr>
+      <DataTable aria-label="数据预览行">
+        <thead>
+          <tr>
+            {columns.map((key) => (
+              <th
+                key={key}
+                className={
+                  rows.some((row) => typeof row[key] === "number") &&
+                  rows.every(
+                    (row) => row[key] == null || typeof row[key] === "number",
+                  )
+                    ? "numeric"
+                    : undefined
+                }
+              >
+                {key}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr key={index}>
               {columns.map((key) => (
-                <th key={key}>{key}</th>
+                <td
+                  key={key}
+                  className={
+                    typeof row[key] === "number" ? "numeric" : undefined
+                  }
+                >
+                  {JSON.stringify(row[key] ?? null)}
+                </td>
               ))}
             </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                {columns.map((key) => (
-                  <td key={key}>{JSON.stringify(row[key] ?? null)}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </DataTable>
     );
   }
   return <Details title="文件预览内容" value={value} />;
