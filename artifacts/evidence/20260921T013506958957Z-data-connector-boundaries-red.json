@@ -1,0 +1,32 @@
+{
+  "name": "data-connector-boundaries-red",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/integration/test_source_connectors.py",
+    "-q",
+    "--tb=short"
+  ],
+  "started_at": "2026-09-21T01:35:06.958957+00:00",
+  "finished_at": "2026-09-21T01:35:16.224554+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "c882b28544d492ea13c81d26c00d58e20937df73197fe1cb228d4204ef685fb3",
+  "git_commit": "0f12df505b5fe5fcf85b2505bb099d5ca67e878f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T013506958957Z-data-connector-boundaries-red.log"
+}

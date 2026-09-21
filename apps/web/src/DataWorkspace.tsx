@@ -2,19 +2,13 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
-import schema from "../contracts.schema.json";
 import { request, revisionSchema } from "./api";
 import { contract, contractErrors } from "./contracts";
 import { useWorkspace } from "./workspace";
-import {
-  dataContract,
-  freshData,
-  prepareDataRevision,
-  newDataVariable,
-} from "./data-editor";
-import { modelFieldOptions } from "./model-editor";
+import { dataContract, freshData, prepareDataRevision } from "./data-editor";
 import type { JsonValue } from "./generated/contracts";
-import ScientificFields from "./ScientificFields";
+import { sourceContract } from "./source-editor";
+import DataMetadataForm from "./DataMetadataForm";
 import {
   Details,
   ErrorNotice,
@@ -66,6 +60,16 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
       ),
   });
   const base = query.data?.spec;
+  const lineage = useQuery({
+    queryKey: ["data-lineage", projectId, id, base?.version],
+    enabled: !!base,
+    queryFn: ({ signal }) =>
+      request(
+        `/data-sources/for-asset/${encodeURIComponent(id!)}?version=${base!.version}`,
+        z.array(revisionSchema.extend({ spec: sourceContract })),
+        { signal },
+      ),
+  });
   const current: Record<string, JsonValue> = draft ?? { ...(base ?? fresh) };
   const preview = useQuery({
     queryKey: ["data-preview", projectId, id, base?.version],
@@ -78,10 +82,6 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
         { signal },
       ),
   });
-  function update(key: string, value: JsonValue) {
-    setDraft({ ...current, [key]: value });
-    setIssues([]);
-  }
   async function saved(revision: z.infer<typeof revisionContract>) {
     client.setQueryData(
       ["data-workspace", projectId, revision.resource_id, 0],
@@ -163,7 +163,6 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
   });
   const busy = save.isPending || validate.isPending || archive.isPending;
   const historical = version !== 0;
-  const variables = Array.isArray(current.variables) ? current.variables : [];
   if (id && query.isPending) return <Loading />;
   return (
     <>
@@ -265,81 +264,13 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
                 />
               </label>
             ) : null}
-            {(
-              [
-                ["name", "数据名称"],
-                ["source", "数据来源"],
-                ["license", "许可证"],
-              ] as const
-            ).map(([key, label]) => (
-              <label key={key}>
-                {label}
-                <input
-                  value={String(current[key] ?? "")}
-                  onChange={(event) => update(key, event.target.value)}
-                />
-              </label>
-            ))}
-            <label>
-              数据类别
-              <select
-                value={String(current.type)}
-                onChange={(event) => update("type", event.target.value)}
-              >
-                {schema.$defs.DataAssetSpec.properties.type.enum
-                  .filter((type) => !["service", "database"].includes(type))
-                  .map((type) => (
-                    <option key={type}>{type}</option>
-                  ))}
-              </select>
-            </label>
-            <label>
-              文件格式
-              <select
-                value={String(current.format)}
-                onChange={(event) => update("format", event.target.value)}
-              >
-                {schema.$defs.DataAssetSpec.properties.format.enum
-                  .filter((format) => !["HTTP", "DATABASE"].includes(format))
-                  .map((format) => (
-                    <option key={format}>{format}</option>
-                  ))}
-              </select>
-            </label>
-            <p>
-              未知坐标、范围或时期保持未设置；栅格和矢量必须与实际文件一致。上传最多
-              64 MiB。Shapefile 使用包含配套文件的 ZIP。
-            </p>
-            <ScientificFields
-              title="空间与时间声明"
-              fixedFields
-              values={Object.fromEntries(
-                [
-                  "crs",
-                  "vertical_datum",
-                  "spatial_extent",
-                  "time_start",
-                  "time_end",
-                  "time_resolution",
-                ].map((key) => [key, current[key] ?? null]),
-              )}
-              onChange={(next) => setDraft({ ...current, ...next })}
+            <DataMetadataForm
+              values={current}
+              onChange={(next) => {
+                setDraft(next);
+                setIssues([]);
+              }}
             />
-            <ScientificFields
-              title="变量定义"
-              fixedFields
-              options={modelFieldOptions}
-              values={{ variables }}
-              onChange={(next) => update("variables", next.variables!)}
-            />
-            <button
-              className="secondary"
-              onClick={() =>
-                update("variables", [...variables, newDataVariable()])
-              }
-            >
-              添加数据变量
-            </button>
             <button disabled={busy || historical} onClick={() => save.mutate()}>
               {save.isPending
                 ? "正在读取与保存…"
@@ -348,6 +279,21 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
                   : "上传并检查数据"}
             </button>
           </fieldset>
+        </Panel>
+      ) : null}
+      <ErrorNotice error={lineage.error} />
+      {lineage.data?.length ? (
+        <Panel title="已核实的数据来源">
+          {lineage.data.map((row) => (
+            <p key={`${row.resource_id}:${row.version}`}>
+              <Link
+                to={`/data-sources/${encodeURIComponent(row.resource_id)}?version=${row.version}`}
+              >
+                {row.spec.name}
+              </Link>{" "}
+              · 固定来源版本 {row.version} · {row.spec.kind}
+            </p>
+          ))}
         </Panel>
       ) : null}
       {base ? (

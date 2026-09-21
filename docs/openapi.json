@@ -236,6 +236,161 @@
         "title": "CreateRequest",
         "type": "object"
       },
+      "CreateSourceRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/DataSourceSpec"
+          }
+        },
+        "required": [
+          "project_id",
+          "spec"
+        ],
+        "title": "CreateSourceRequest",
+        "type": "object"
+      },
+      "DataAssetMetadata": {
+        "additionalProperties": false,
+        "properties": {
+          "crs": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Crs"
+          },
+          "format": {
+            "enum": [
+              "GeoTIFF",
+              "COG",
+              "GeoJSON",
+              "Shapefile",
+              "GeoPackage",
+              "CSV",
+              "NetCDF",
+              "JSON"
+            ],
+            "title": "Format",
+            "type": "string"
+          },
+          "license": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "License",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source",
+            "type": "string"
+          },
+          "spatial_extent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Extent"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "time_end": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time End"
+          },
+          "time_resolution": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time Resolution"
+          },
+          "time_start": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time Start"
+          },
+          "type": {
+            "enum": [
+              "raster",
+              "vector",
+              "table",
+              "json"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "variables": {
+            "items": {
+              "$ref": "#/components/schemas/VariableSpec"
+            },
+            "title": "Variables",
+            "type": "array"
+          },
+          "vertical_datum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vertical Datum"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "format",
+          "variables",
+          "source",
+          "license"
+        ],
+        "title": "DataAssetMetadata",
+        "type": "object"
+      },
       "DataInspection": {
         "additionalProperties": false,
         "properties": {
@@ -259,6 +414,58 @@
           "preview"
         ],
         "title": "DataInspection",
+        "type": "object"
+      },
+      "DataSourceSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "connector_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Connector Id",
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "http",
+              "postgresql"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "output": {
+            "$ref": "#/components/schemas/DataAssetMetadata"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "connector_id",
+          "kind",
+          "output"
+        ],
+        "title": "DataSourceSpec",
         "type": "object"
       },
       "DecompositionRequest": {
@@ -380,6 +587,35 @@
           "max_retries"
         ],
         "title": "ExecutionPolicy",
+        "type": "object"
+      },
+      "Extent": {
+        "additionalProperties": false,
+        "properties": {
+          "east": {
+            "title": "East",
+            "type": "number"
+          },
+          "north": {
+            "title": "North",
+            "type": "number"
+          },
+          "south": {
+            "title": "South",
+            "type": "number"
+          },
+          "west": {
+            "title": "West",
+            "type": "number"
+          }
+        },
+        "required": [
+          "west",
+          "south",
+          "east",
+          "north"
+        ],
+        "title": "Extent",
         "type": "object"
       },
       "GraphEdge": {
@@ -1374,6 +1610,29 @@
         "title": "SceneSpec",
         "type": "object"
       },
+      "SourceSnapshotRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          },
+          "idempotency_key": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Idempotency Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_version",
+          "idempotency_key"
+        ],
+        "title": "SourceSnapshotRequest",
+        "type": "object"
+      },
       "TimeRange": {
         "additionalProperties": false,
         "properties": {
@@ -1416,6 +1675,25 @@
           "spec"
         ],
         "title": "UpdateRequest",
+        "type": "object"
+      },
+      "UpdateSourceRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/DataSourceSpec"
+          }
+        },
+        "required": [
+          "expected_version",
+          "spec"
+        ],
+        "title": "UpdateSourceRequest",
         "type": "object"
       },
       "UserChange": {
@@ -1515,6 +1793,117 @@
           "type"
         ],
         "title": "ValidationError",
+        "type": "object"
+      },
+      "VariableSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "aggregation_type": {
+            "enum": [
+              "intensive",
+              "extensive",
+              "categorical",
+              "instantaneous"
+            ],
+            "title": "Aggregation Type",
+            "type": "string"
+          },
+          "data_type": {
+            "enum": [
+              "raster",
+              "vector",
+              "table",
+              "scalar",
+              "array",
+              "json"
+            ],
+            "title": "Data Type",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "dimension": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Dimension",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "nodata_policy": {
+            "enum": [
+              "reject",
+              "mask",
+              "propagate"
+            ],
+            "title": "Nodata Policy",
+            "type": "string"
+          },
+          "required": {
+            "title": "Required",
+            "type": "boolean"
+          },
+          "semantic_type": {
+            "enum": [
+              "continuous",
+              "categorical",
+              "extensive"
+            ],
+            "title": "Semantic Type",
+            "type": "string"
+          },
+          "spatial_support": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Spatial Support",
+            "type": "string"
+          },
+          "standard_name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Standard Name",
+            "type": "string"
+          },
+          "temporal_support": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Temporal Support",
+            "type": "string"
+          },
+          "unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "standard_name",
+          "description",
+          "data_type",
+          "unit",
+          "dimension",
+          "semantic_type",
+          "spatial_support",
+          "temporal_support",
+          "aggregation_type",
+          "nodata_policy",
+          "required"
+        ],
+        "title": "VariableSpec",
         "type": "object"
       },
       "VersionReference": {
@@ -2785,6 +3174,502 @@
         "summary": "History",
         "tags": [
           "data"
+        ]
+      }
+    },
+    "/api/v1/data-sources": {
+      "get": {
+        "operationId": "list_sources_api_v1_data_sources_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 256,
+              "title": "Q",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response List Sources Api V1 Data Sources Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Sources",
+        "tags": [
+          "data sources"
+        ]
+      },
+      "post": {
+        "operationId": "create_source_api_v1_data_sources_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSourceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Create Source Api V1 Data Sources Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Source",
+        "tags": [
+          "data sources"
+        ]
+      }
+    },
+    "/api/v1/data-sources/connectors": {
+      "get": {
+        "operationId": "connectors_api_v1_data_sources_connectors_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Connectors Api V1 Data Sources Connectors Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Connectors",
+        "tags": [
+          "data sources"
+        ]
+      }
+    },
+    "/api/v1/data-sources/for-asset/{identifier}": {
+      "get": {
+        "operationId": "source_lineage_api_v1_data_sources_for_asset__identifier__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Source Lineage Api V1 Data Sources For Asset  Identifier  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Source Lineage",
+        "tags": [
+          "data sources"
+        ]
+      }
+    },
+    "/api/v1/data-sources/{identifier}": {
+      "delete": {
+        "operationId": "archive_api_v1_data_sources__identifier__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Archive",
+        "tags": [
+          "data sources"
+        ]
+      },
+      "get": {
+        "operationId": "get_source_api_v1_data_sources__identifier__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Source Api V1 Data Sources  Identifier  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Source",
+        "tags": [
+          "data sources"
+        ]
+      },
+      "put": {
+        "operationId": "revise_source_api_v1_data_sources__identifier__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSourceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Revise Source Api V1 Data Sources  Identifier  Put",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Revise Source",
+        "tags": [
+          "data sources"
+        ]
+      }
+    },
+    "/api/v1/data-sources/{identifier}/snapshots": {
+      "post": {
+        "operationId": "import_snapshot_api_v1_data_sources__identifier__snapshots_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceSnapshotRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Import Snapshot Api V1 Data Sources  Identifier  Snapshots Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Import Snapshot",
+        "tags": [
+          "data sources"
+        ]
+      }
+    },
+    "/api/v1/data-sources/{identifier}/versions": {
+      "get": {
+        "operationId": "history_api_v1_data_sources__identifier__versions_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response History Api V1 Data Sources  Identifier  Versions Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "History",
+        "tags": [
+          "data sources"
         ]
       }
     },

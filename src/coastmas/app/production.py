@@ -7,6 +7,7 @@ from fastapi.responses import FileResponse
 from redis import Redis
 from sqlalchemy import create_engine, text
 
+from coastmas.adapters.source_registry import load_sources
 from coastmas.app.api import create_app
 from coastmas.app.readiness import register_readiness
 from coastmas.configuration import configuration_value
@@ -28,6 +29,8 @@ def create_production_app() -> FastAPI:
         object_store(),
         configured_provider(),
     )
+    sources = configuration_value("COASTMAS_DATA_SOURCES_CONFIG", "disabled")
+    app.state.source_registry = load_sources(None if sources == "disabled" else Path(sources))
     # A separate small pool keeps readiness bounded even if the application pool is busy.
     probe_engine = create_engine(
         local_database_url(),

@@ -1,0 +1,12 @@
+E501 Line too long (103 > 100)
+  --> tests/integration/test_source_connectors.py:55:101
+   |
+53 |         connection.execute(
+54 |             text(
+55 |                 "CREATE TABLE source_measurements (id integer primary key, height numeric, label text)"
+   |                                                                                                     ^^^
+56 |             )
+57 |         )
+   |
+
+Found 1 error.

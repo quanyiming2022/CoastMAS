@@ -170,6 +170,146 @@
       "title": "ConstraintSpec",
       "type": "object"
     },
+    "DataAssetMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Crs"
+        },
+        "format": {
+          "enum": [
+            "GeoTIFF",
+            "COG",
+            "GeoJSON",
+            "Shapefile",
+            "GeoPackage",
+            "CSV",
+            "NetCDF",
+            "JSON"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "license": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "License",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source",
+          "type": "string"
+        },
+        "spatial_extent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Extent"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "time_end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time End"
+        },
+        "time_resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Resolution"
+        },
+        "time_start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Start"
+        },
+        "type": {
+          "enum": [
+            "raster",
+            "vector",
+            "table",
+            "json"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "variables": {
+          "items": {
+            "$ref": "#/$defs/VariableSpec"
+          },
+          "title": "Variables",
+          "type": "array"
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vertical Datum"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "format",
+        "variables",
+        "source",
+        "license"
+      ],
+      "title": "DataAssetMetadata",
+      "type": "object"
+    },
     "DataAssetSpec": {
       "additionalProperties": false,
       "properties": {
@@ -373,6 +513,58 @@
         "preview"
       ],
       "title": "DataInspection",
+      "type": "object"
+    },
+    "DataSourceSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "connector_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Connector Id",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "http",
+            "postgresql"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "output": {
+          "$ref": "#/$defs/DataAssetMetadata"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "connector_id",
+        "kind",
+        "output"
+      ],
+      "title": "DataSourceSpec",
       "type": "object"
     },
     "DecompositionRequest": {
@@ -2712,6 +2904,29 @@
       "title": "SceneSpec",
       "type": "object"
     },
+    "SourceSnapshotRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_version": {
+          "minimum": 1,
+          "title": "Expected Version",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expected_version",
+        "idempotency_key"
+      ],
+      "title": "SourceSnapshotRequest",
+      "type": "object"
+    },
     "TaskGraph": {
       "additionalProperties": false,
       "properties": {
@@ -3098,6 +3313,9 @@
     "DataInspection": {
       "$ref": "#/$defs/DataInspection"
     },
+    "DataSourceSpec": {
+      "$ref": "#/$defs/DataSourceSpec"
+    },
     "DecompositionRequest": {
       "$ref": "#/$defs/DecompositionRequest"
     },
@@ -3143,11 +3361,16 @@
     "SceneSpec": {
       "$ref": "#/$defs/SceneSpec"
     },
+    "SourceSnapshotRequest": {
+      "$ref": "#/$defs/SourceSnapshotRequest"
+    },
     "WorkflowSpec": {
       "$ref": "#/$defs/WorkflowSpec"
     }
   },
   "required": [
+    "DataSourceSpec",
+    "SourceSnapshotRequest",
     "DataInspection",
     "DecompositionRequest",
     "ModelDecomposition",

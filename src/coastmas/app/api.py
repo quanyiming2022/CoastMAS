@@ -23,6 +23,7 @@ from coastmas.app.model_routes import router as model_router
 from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
 from coastmas.app.scene_routes import router as scene_router
+from coastmas.app.source_routes import router as source_router
 from coastmas.app.workspace_routes import router as workspace_router
 from coastmas.core.contracts import Contract, DataAssetSpec, ModelSpec, SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
@@ -310,6 +311,8 @@ def create_app(
     app.include_router(knowledge_graph_router)
     app.include_router(geography_router)
     app.include_router(data_router)
+    app.include_router(source_router)
+    app.state.source_registry = {}
     app.include_router(model_router)
     app.include_router(run_router)
     app.include_router(scene_router)

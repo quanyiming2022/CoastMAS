@@ -25,6 +25,7 @@ from coastmas.persistence.schema import (
 KINDS = {
     "model",
     "data",
+    "data_source",
     "entity",
     "scene",
     "workflow",

@@ -26,6 +26,7 @@ from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
 from coastmas.core.result_entities import ResultView
 from coastmas.core.scene_workspace import SceneInspection
+from coastmas.core.source_catalog import DataSourceSpec, SourceSnapshotRequest
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -35,6 +36,8 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        DataSourceSpec,
+        SourceSnapshotRequest,
         DataInspection,
         DecompositionRequest,
         ModelDecomposition,

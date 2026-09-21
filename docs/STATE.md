@@ -67,3 +67,10 @@
 - 数据增量恢复后完整验证：20260921T011550016130Z-data-recovered-backend-full，294 passed、2 warnings；20260921T011621349114Z-data-recovered-browser-full，14 passed；前端37项和契约漂移检查通过。覆盖5663/6403行、1535/2142分支（约71.7%），最终门槛仍未满足。API/worker/beat已加载最新代码。下一步数据目录跨页搜索筛选及连接器，不重复完整规划。
 
 - 数据全目录搜索筛选已完成：服务端名称/标识匹配、类型/格式/CRS筛选后分页，SQL通配符按字面处理，权限隔离和当前版本查询保持；10项相关后端、38项前端、严格类型及构建通过（20260921T012224607952Z-data-search-green），实际浏览器数据搜索和共享场景流程6条通过（20260921T012457765718Z-data-search-browser）。API session36152/log api-data-search.log；worker58971、beat28693不变。下一步登记和导入受管理员配置限制的 HTTP/URL/数据库数据源。
+
+- 数据源增量进行中：受控 HTTP/URL、PostgreSQL 只读快照连接器；私有管理员配置/环境秘密引用；登记/修订/历史/幂等导入/外键来源/归档保护；前端共享科学元数据表单和来源历史链接均已实现。相关后端11项、配置等8项及前端构建通过，真实浏览器 source-catalog-browser 正运行(session69448)。详见data-sources.md。新增源码尚未提交，不能宣布全范围完成。
+- 当前API session34620/log api-source-catalog.log；worker58971、beat28693不变。新增本机合成HTTP验收源session20358/log source-acceptance.log，脚本serve_acceptance_source.py。私有.env中COASTMAS_DATA_SOURCES_CONFIG指向artifacts/runtime/source-connectors.json，0600；不打印或提交秘密。
+
+- 数据源真实浏览器通过：20260921T015442008877Z-source-catalog-browser，2条（HTTP登记/重复导入同快照/零值/历史来源/修订/归档保护与本地上传共享表单）。PostgreSQL经API到S3实际CSV导入、跨项目连接器拒绝也通过（20260921T015742904951Z-source-postgres-api，9项）；全仓lint、78源文件mypy、契约漂移检查通过。source-catalog-backend-full(session57612)与source-catalog-browser-full(session48728)正在运行，期间不改源码。
+
+- 数据源增量完整回归通过：20260921T015906646890Z-source-catalog-backend-full，304 passed、2 warnings；20260921T015904965192Z-source-catalog-browser-full，15 passed。同一源码SHA 9ba89332db08e47313a0bfe0c3ac08d04006f2f92f2e80b7dc06e6e91129b97b，运行期间无源码变化。覆盖5995/6773行、1603/2230分支（约71.9%），最终分支门槛未达。下一步评价中心指标定义/体系版本管理；§29已定位读取，现有domain/indicator_frames.py和assessment.py复用，不另造算法。外部LLM实验仍缺凭证，其他独立工作继续。

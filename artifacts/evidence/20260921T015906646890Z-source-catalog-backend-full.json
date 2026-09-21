@@ -1,0 +1,29 @@
+{
+  "name": "source-catalog-backend-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "/bin/zsh",
+    "-c",
+    "set -e; curl --fail --silent http://127.0.0.1:58000/health/ready; .venv/bin/python -m pytest -q --tb=short --cov=coastmas --cov-branch --cov-report=json:artifacts/coverage.json"
+  ],
+  "started_at": "2026-09-21T01:59:06.646890+00:00",
+  "finished_at": "2026-09-21T02:02:46.630157+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "9ba89332db08e47313a0bfe0c3ac08d04006f2f92f2e80b7dc06e6e91129b97b",
+  "git_commit": "0f12df505b5fe5fcf85b2505bb099d5ca67e878f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T015906646890Z-source-catalog-backend-full.log"
+}

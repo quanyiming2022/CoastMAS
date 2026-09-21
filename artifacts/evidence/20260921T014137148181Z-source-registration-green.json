@@ -1,0 +1,29 @@
+{
+  "name": "source-registration-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "/bin/zsh",
+    "-c",
+    "set -e; .venv/bin/ruff check src/coastmas/core/source_catalog.py src/coastmas/adapters/source_registry.py src/coastmas/app/source_routes.py tests/integration/test_source_api.py; .venv/bin/mypy src/coastmas; .venv/bin/python -m pytest tests/integration/test_source_api.py tests/integration/test_source_connectors.py tests/integration/test_data_api.py -q --tb=short"
+  ],
+  "started_at": "2026-09-21T01:41:37.148181+00:00",
+  "finished_at": "2026-09-21T01:42:02.849755+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "70f40615ac2c40ec831a55aaac933885d527586fab6784f0c09e7c131610cf92",
+  "git_commit": "0f12df505b5fe5fcf85b2505bb099d5ca67e878f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T014137148181Z-source-registration-green.log"
+}

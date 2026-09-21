@@ -130,7 +130,12 @@ function CatalogList({
         description="项目中的版本化资源；打开详情查看数据来源与科学约束。"
       />
       <div className="toolbar">
-        {kind === "data" ? <Link to="/data/new">上传数据</Link> : null}
+        {kind === "data" ? (
+          <>
+            <Link to="/data/new">上传数据</Link>
+            <Link to="/data-sources">外部数据源</Link>
+          </>
+        ) : null}
         {kind === "models" ? (
           <Link to="/models/new">新增或导入模型</Link>
         ) : null}

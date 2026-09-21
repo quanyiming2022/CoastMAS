@@ -1,0 +1,4 @@
+All checks passed!
+src/coastmas/adapters/source_connectors.py:124: error: Argument 1 to "select" has incompatible type "ColumnElement[bool] | bool"; expected "TypedColumnsClauseRole[Any] | ColumnsClauseRole | SQLCoreOperations[Any] | Literal['*', 1] | type[Any] | Inspectable[_HasClauseElement[Any]] | _HasClauseElement[Any]"  [arg-type]
+src/coastmas/adapters/source_connectors.py:124: error: Argument 1 to "case" has incompatible type "tuple[ColumnElement[bool] | bool, None]"; expected "tuple[ColumnElement[bool] | _HasClauseElement[bool] | SQLCoreOperations[bool] | ExpressionElementRole[bool] | TypedColumnsClauseRole[bool] | Callable[[], ColumnElement[bool]] | LambdaElement, Any] | Mapping[Any, Any]"  [arg-type]
+Found 2 errors in 1 file (checked 1 source file)

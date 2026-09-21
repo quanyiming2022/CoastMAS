@@ -1,0 +1,29 @@
+{
+  "name": "source-catalog-browser",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "/bin/zsh",
+    "-c",
+    "set -e; curl --fail --silent http://127.0.0.1:58000/health/ready; npm --prefix apps/web run e2e -- data-sources.spec.ts data-workspace.spec.ts"
+  ],
+  "started_at": "2026-09-21T01:54:42.008877+00:00",
+  "finished_at": "2026-09-21T01:54:57.800743+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "0145eb8c3321029a748a55a5857ecf1028b511c9b4a62b924c800c31a01be701",
+  "git_commit": "0f12df505b5fe5fcf85b2505bb099d5ca67e878f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T015442008877Z-source-catalog-browser.log"
+}
