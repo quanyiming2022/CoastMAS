@@ -69,6 +69,10 @@ const WorkflowEditor = lazy(() => import("./WorkflowEditor"));
 const Workflow = lazy(() => import("./Workflow"));
 const Dashboard = lazy(() => import("./Dashboard"));
 const Catalog = lazy(() => import("./Catalog"));
+const Research = lazy(() => import("./Research"));
+const ResearchDetail = lazy(() =>
+  import("./Research").then((module) => ({ default: module.ResearchDetail })),
+);
 const navigation = [
   ["/dashboard", "项目概览"],
   ["/models", "模型中心"],
@@ -83,6 +87,7 @@ const navigation = [
   ["/assessments", "评价中心"],
   ["/collaboration", "协同方案"],
   ["/optimizations", "空间优化"],
+  ["/research", "科研评估"],
 ] as const;
 
 async function clearProtectedData(client: QueryClient): Promise<void> {
@@ -236,6 +241,8 @@ export default function App() {
                   path="/workflows/:id/edit"
                   element={<WorkflowEditor />}
                 />
+                <Route path="/research" element={<Research />} />
+                <Route path="/research/:id" element={<ResearchDetail />} />
                 <Route path="/runs" element={<Runs />} />
                 <Route path="/runs/:id" element={<RunDetail />} />
                 <Route path="/results" element={<Results />} />

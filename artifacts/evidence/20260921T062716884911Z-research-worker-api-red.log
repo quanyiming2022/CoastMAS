@@ -1,0 +1,59 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_research_job_publishes_partial_report_without_fake_external_success ___
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_5597ba3da1c849d6bbc50c0ce84824f9)
+actors = ('548ce254-9fb4-4a05-80d0-be1f6e7edef1', '8e743c13-ba82-4d82-a46f-1ae25b041668', '0acf8b3a-7dd1-46d0-b883-89fb26daf5ca', '437cfc2d-7eb2-4899-85fa-24f15e17cb1c')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11eb5bbc0>
+authenticated = (<starlette.testclient.TestClient object at 0x12062e690>, '0dhj3YelyflhNYkGQIMPV35WlEEUveAo7WYOw1QqqS0', '437cfc2d-7eb2-4899-85fa-24f15e17cb1c', '548ce254-9fb4-4a05-80d0-be1f6e7edef1')
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-35/test_research_job_publishes_pa0')
+
+    def test_research_job_publishes_partial_report_without_fake_external_success(
+        engine, actors, storage, authenticated, tmp_path
+    ):
+        client, csrf, seeded, body = setup_research(engine, actors, storage, authenticated)
+        headers = {"X-CSRF-Token": csrf, "Idempotency-Key": "research-fixed"}
+        response = client.post("/api/v1/research", json=body, headers=headers)
+>       assert response.status_code == 202, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"83c01c77-6d46-48e0-b61b-38e955f60a09"}
+E       assert 404 == 202
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_research_execution.py:46: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  rasterio._env:features.py:148 CPLE_AppDefined in DeprecationWarning: 'Memory' driver is deprecated since GDAL 3.11. Use 'MEM' onwards. Further messages of this type will be suppressed.
+___________ test_research_rechecks_current_access_before_worker_runs ___________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_5597ba3da1c849d6bbc50c0ce84824f9)
+actors = ('cf7a8689-d018-4066-baab-64ac623d8753', '98edd887-3353-476a-ab45-57518fa9c622', 'ab4f9971-964b-4094-9d9f-bda157b276ed', '5e51a13c-43a4-4dae-9e7e-b18f9bd77337')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11fa75670>
+authenticated = (<starlette.testclient.TestClient object at 0x120a46f00>, 'cHHJouiut-rdAiGoL8ripLk6zcU-k7XIdIbSh5i5_M8', '5e51a13c-43a4-4dae-9e7e-b18f9bd77337', 'cf7a8689-d018-4066-baab-64ac623d8753')
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-35/test_research_rechecks_current0')
+
+    def test_research_rechecks_current_access_before_worker_runs(
+        engine, actors, storage, authenticated, tmp_path
+    ):
+        client, csrf, seeded, body = setup_research(engine, actors, storage, authenticated)
+        response = client.post(
+            "/api/v1/research", json=body, headers={"X-CSRF-Token": csrf, "Idempotency-Key": "revoked"}
+        )
+>       assert response.status_code == 202, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"d98abe8c-b70d-4067-a517-07e62473feca"}
+E       assert 404 == 202
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_research_execution.py:83: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_execution.py::test_research_job_publishes_partial_report_without_fake_external_success
+FAILED tests/integration/test_research_execution.py::test_research_rechecks_current_access_before_worker_runs
+2 failed, 2 warnings in 26.99s

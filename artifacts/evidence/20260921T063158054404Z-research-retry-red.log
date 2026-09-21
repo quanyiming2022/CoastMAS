@@ -1,0 +1,51 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_______ test_cancelled_research_retries_same_frozen_evaluation_identity ________
+
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_2e0f6c2bd2fb41e78d9bae80fea43352)
+actors = ('a4126f92-e6ec-4886-98e2-0f8cea0cf42b', '48d8e465-f33e-476f-bed4-1d7717f0fc07', '1415dd44-4d2f-40eb-85e2-41bfc53bda43', '2b546c60-060a-4182-84df-02e8830a0bcc')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x122daf680>
+authenticated = (<starlette.testclient.TestClient object at 0x12299b320>, '8p-rgCfOI4FBHFmvPppGEwiyEyDvZAy-_RUNc_FFzeY', '2b546c60-060a-4182-84df-02e8830a0bcc', 'a4126f92-e6ec-4886-98e2-0f8cea0cf42b')
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-37/test_cancelled_research_retrie0')
+
+    def test_cancelled_research_retries_same_frozen_evaluation_identity(
+        engine, actors, storage, authenticated, tmp_path
+    ):
+        client, csrf, seeded, body = setup_research(engine, actors, storage, authenticated)
+        response = client.post(
+            "/api/v1/research",
+            json=body,
+            headers={"X-CSRF-Token": csrf, "Idempotency-Key": "cancelled-research"},
+        )
+        assert response.status_code == 202, response.text
+        original = response.json()
+        cancelled = client.post(
+            "/api/v1/jobs/" + original["id"] + "/cancel", headers={"X-CSRF-Token": csrf}
+        )
+        assert cancelled.status_code == 200
+        worker = WorkflowWorker(engine, seeded.catalog.registry, storage, work_root=tmp_path)
+        worker.run(original["id"])
+        assert client.get("/api/v1/jobs/" + original["id"]).json()["status"] == "CANCELLED"
+        retry = client.post(
+            "/api/v1/jobs/" + original["id"] + "/retry",
+            headers={"X-CSRF-Token": csrf, "Idempotency-Key": "research-retry"},
+        )
+>       assert retry.status_code == 202, retry.text
+E       AssertionError: {"error_code":"VALIDATION_ERROR","message":"request does not match contract","details":[{"location":["scene"],"type":"missing"},{"location":["workflow"],"type":"missing"},{"location":["models"],"type":"missing"},{"location":["data_assets"],"type":"missing"},{"location":["parameters"],"type":"missing"},{"location":["software_version"],"type":"missing"},{"location":["container_image"],"type":"missing"},{"location":["timestamp"],"type":"missing"},{"location":["random_seed"],"type":"missing"},{"location":["bindings"],"type":"missing"},{"location":["environment"],"type":"missing"},{"location":["kind"],"type":"extra_forbidden"},{"location":["cases"],"type":"extra_forbidden"},{"location":["provider"],"type":"extra_forbidden"},{"location":["experiments"],"type":"extra_forbidden"},{"location":["repetitions"],"type":"extra_forbidden"},{"location":["evaluation_id"],"type":"extra_forbidden"},{"location":["schema_version"],"type":"extra_forbidden"},{"location":["request_checksum"],"type":"extra_forbidden"}],"request_id":"42e227d4-1546-422e-a6d0-9b8576d55684"}
+E       assert 422 == 202
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/integration/test_research_execution.py:116: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_execution.py::test_cancelled_research_retries_same_frozen_evaluation_identity
+1 failed, 2 passed, 2 warnings in 40.64s

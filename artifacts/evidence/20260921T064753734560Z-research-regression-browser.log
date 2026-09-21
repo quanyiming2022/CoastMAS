@@ -1,0 +1,33 @@
+Isolated browser environment ready: coastmas_e2e_6e441a0ade2c4d4a9a841d1098f47649
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_6e441a0ade2c4d4a9a841d1098f47649/playwright
+
+
+Running 19 tests using 1 worker
+
+(node:39838) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/19] e2e/collaboration.spec.ts:5:1 › stakeholder proposal preserves versions, opinions and hard conflicts
+[2/19] e2e/data-sources.spec.ts:4:1 › registered HTTP source imports real immutable bytes with historical lineage
+[3/19] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+[4/19] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+[5/19] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+[6/19] e2e/indicator-framework.spec.ts:4:1 › indicator framework versions prepare real data and produce a temporal evaluation workflow
+[7/19] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+[8/19] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+[9/19] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+[10/19] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+[11/19] e2e/research.spec.ts:5:1 › research UI freezes inputs and real worker publishes honest A/B/C partial report
+[12/19] e2e/scene-workspace.spec.ts:20:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+[13/19] e2e/scene-workspace.spec.ts:160:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+[14/19] e2e/scene-workspace.spec.ts:340:1 › actual temporal assessment exposes aligned period selection and numeric time series
+[15/19] e2e/scene-workspace.spec.ts:412:1 › compares real baseline and raised sea-level results without overwriting either
+[16/19] e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry
+[17/19] e2e/workflow-editor.spec.ts:20:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+[18/19] e2e/workflow-editor.spec.ts:131:1 › copy, revise and run a pinned workflow through actual worker and result storage
+[19/19] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  19 passed (2.4m)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_6e441a0ade2c4d4a9a841d1098f47649

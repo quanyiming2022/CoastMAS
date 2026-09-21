@@ -1,0 +1,34 @@
+{
+  "name": "research-provider-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_research_provider.py",
+    "tests/unit/test_research_metrics.py",
+    "tests/unit/test_research_planning.py",
+    "tests/unit/test_planning.py",
+    "-q"
+  ],
+  "started_at": "2026-09-21T06:21:20.919177+00:00",
+  "finished_at": "2026-09-21T06:21:23.465296+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "f10c1ba2c220afc1da18bca9b887e9458ef73174b271fbfea8a07f5d6cae7ac1",
+  "git_commit": "ab84d08adfea3bbb938fb74c7be86915d89a8520",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T062120919177Z-research-provider-green.log"
+}

@@ -1,0 +1,920 @@
+{
+  "job_id": "80bd6c0b-44c7-4762-aa45-c61a59be74e9",
+  "dataset_origin": "SYNTHETIC fixed scientific fixture",
+  "provider_origin": "LOCAL",
+  "evidence": {
+    "input_fingerprint": "9f8271ba92207baea24d9c491cd4eb171df0ce2f98615982f5b9fa680dc18e81",
+    "kind": "research_evaluation",
+    "provider_requests": 2,
+    "report": {
+      "elapsed_seconds": 98.58180220800568,
+      "executes_candidates": false,
+      "methodology": "frozen-catalog-planning-v1",
+      "metrics": [
+        {
+          "blocked": 0,
+          "constraint_observations": 1,
+          "constraint_violation_rate": 0.0,
+          "evaluated": 1,
+          "evaluation_completion_rate": 1.0,
+          "experiment": "A",
+          "failed": 0,
+          "latency_observations": 1,
+          "manual_correction_count": null,
+          "manual_observations": 0,
+          "mean_latency_seconds": 0.035644166004203726,
+          "origin": "RULE",
+          "provider_requests": 0,
+          "total": 1,
+          "total_tokens": null,
+          "usage_observations": 0,
+          "workflow_validity_rate": 1.0
+        },
+        {
+          "blocked": 0,
+          "constraint_observations": 1,
+          "constraint_violation_rate": 1.0,
+          "evaluated": 1,
+          "evaluation_completion_rate": 1.0,
+          "experiment": "B",
+          "failed": 0,
+          "latency_observations": 1,
+          "manual_correction_count": null,
+          "manual_observations": 0,
+          "mean_latency_seconds": 48.95473783399939,
+          "origin": "LOCAL",
+          "provider_requests": 1,
+          "total": 1,
+          "total_tokens": 2596,
+          "usage_observations": 1,
+          "workflow_validity_rate": 0.0
+        },
+        {
+          "blocked": 0,
+          "constraint_observations": 1,
+          "constraint_violation_rate": 1.0,
+          "evaluated": 1,
+          "evaluation_completion_rate": 1.0,
+          "experiment": "C",
+          "failed": 0,
+          "latency_observations": 1,
+          "manual_correction_count": null,
+          "manual_observations": 0,
+          "mean_latency_seconds": 49.56000858299376,
+          "origin": "LOCAL",
+          "provider_requests": 1,
+          "total": 1,
+          "total_tokens": 2949,
+          "usage_observations": 1,
+          "workflow_validity_rate": 0.0
+        }
+      ],
+      "status": "COMPLETE",
+      "trials": [
+        {
+          "observation": {
+            "candidate_present": true,
+            "case_id": "synthetic-equal-weight-assessment",
+            "constraint_violated": false,
+            "diagnostics": [],
+            "experiment": "A",
+            "latency_seconds": 0.035644166004203726,
+            "manual_corrections": null,
+            "origin": "RULE",
+            "provider_requests": 0,
+            "repetition": 1,
+            "status": "EVALUATED",
+            "usage": null,
+            "workflow_valid": true
+          },
+          "proposal": null,
+          "trace_id": null,
+          "workflow": {
+            "constraints": [],
+            "edges": [
+              {
+                "source_node": "normalize",
+                "source_variable": "frame",
+                "target_node": "weight",
+                "target_variable": "frame"
+              },
+              {
+                "source_node": "normalize",
+                "source_variable": "frame",
+                "target_node": "composite",
+                "target_variable": "frame"
+              },
+              {
+                "source_node": "weight",
+                "source_variable": "weights",
+                "target_node": "composite",
+                "target_variable": "weights"
+              }
+            ],
+            "execution_policy": {
+              "max_retries": 0,
+              "timeout_seconds": 300
+            },
+            "id": "plan:0519515d7a57913b0e25e3797852d440b5adb5c7bec83a3e6e7f1a3595957cf5",
+            "input_bindings": [
+              {
+                "crs_transform": null,
+                "quality_check": [
+                  "semantics",
+                  "unit",
+                  "CRS",
+                  "vertical_datum",
+                  "scale",
+                  "time",
+                  "quality"
+                ],
+                "resampling": "bilinear",
+                "semantic_mapping": "exact_standard_name",
+                "source": {
+                  "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+                  "version": 1
+                },
+                "status": "VALIDATED",
+                "target": {
+                  "node_id": "normalize",
+                  "variable": "frame"
+                },
+                "temporal_transform": null,
+                "unit_conversion": null
+              }
+            ],
+            "name": "sustainability",
+            "nodes": [
+              {
+                "id": "normalize",
+                "kind": "model",
+                "model_id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                "model_version": 1,
+                "parameters": {}
+              },
+              {
+                "id": "weight",
+                "kind": "model",
+                "model_id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                "model_version": 1,
+                "parameters": {
+                  "method": 0.0
+                }
+              },
+              {
+                "id": "composite",
+                "kind": "model",
+                "model_id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                "model_version": 1,
+                "parameters": {}
+              }
+            ],
+            "output_definition": [
+              {
+                "node_id": "composite",
+                "variable": "scores"
+              }
+            ],
+            "parameter_bindings": [],
+            "scene_type": "sustainability",
+            "validation_rules": [],
+            "version": 1
+          }
+        },
+        {
+          "observation": {
+            "candidate_present": true,
+            "case_id": "synthetic-equal-weight-assessment",
+            "constraint_violated": true,
+            "diagnostics": [
+              "MODEL_UNKNOWN"
+            ],
+            "experiment": "B",
+            "latency_seconds": 48.95473783399939,
+            "manual_corrections": null,
+            "origin": "LOCAL",
+            "provider_requests": 1,
+            "repetition": 1,
+            "status": "EVALUATED",
+            "usage": {
+              "cached_input_tokens": 0,
+              "input_tokens": 1475,
+              "output_tokens": 1121,
+              "total_tokens": 2596
+            },
+            "workflow_valid": false
+          },
+          "proposal": {
+            "candidate_workflow": {
+              "edges": [
+                {
+                  "source_node": "data:frame-B",
+                  "source_variable": "frame",
+                  "target_node": "normalize",
+                  "target_variable": "frame"
+                },
+                {
+                  "source_node": "normalize",
+                  "source_variable": "frame",
+                  "target_node": "weight",
+                  "target_variable": "weights"
+                },
+                {
+                  "source_node": "weight",
+                  "source_variable": "weights",
+                  "target_node": "composite",
+                  "target_variable": "weights"
+                },
+                {
+                  "source_node": "data:frame-B",
+                  "source_variable": "frame",
+                  "target_node": "composite",
+                  "target_variable": "frame"
+                }
+              ],
+              "input_bindings": [
+                {
+                  "source": {
+                    "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+                    "version": 1
+                  },
+                  "target": {
+                    "node_id": "normalize",
+                    "variable": "frame"
+                  }
+                },
+                {
+                  "source": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                    "version": 1
+                  },
+                  "target": {
+                    "node_id": "weight",
+                    "variable": "frame"
+                  }
+                },
+                {
+                  "source": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                    "version": 1
+                  },
+                  "target": {
+                    "node_id": "composite",
+                    "variable": "weights"
+                  }
+                },
+                {
+                  "source": {
+                    "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+                    "version": 1
+                  },
+                  "target": {
+                    "node_id": "composite",
+                    "variable": "frame"
+                  }
+                }
+              ],
+              "nodes": [
+                {
+                  "id": "data:frame-B",
+                  "model": {
+                    "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+                    "version": 1
+                  },
+                  "parameters": []
+                },
+                {
+                  "id": "normalize",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                    "version": 1
+                  },
+                  "parameters": []
+                },
+                {
+                  "id": "weight",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                    "version": 1
+                  },
+                  "parameters": [
+                    {
+                      "name": "method",
+                      "value": 1.0
+                    }
+                  ]
+                },
+                {
+                  "id": "composite",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                    "version": 1
+                  },
+                  "parameters": []
+                }
+              ],
+              "output_definition": [
+                {
+                  "node_id": "composite",
+                  "variable": "scores"
+                }
+              ]
+            },
+            "management_goal": "可持续性评价：等权综合评价",
+            "missing_conditions": [],
+            "rationale": [
+              "数据源 'frame' 通过归一化处理后，用于后续加权计算。",
+              "权重模型采用默认方法（method=1.0），符合‘等权综合评价’的目标需求。",
+              "所有步骤均基于给定的场景约束（固定参考期、共享权重）与数据政策（EPSG:4326）运行。",
+              "所有模型和数据均在支持的CRS（EPSG:4326）下操作，空间与时间尺度符合要求。"
+            ],
+            "required_capabilities": [
+              "normalize",
+              "weight",
+              "composite"
+            ],
+            "required_data": [
+              "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B"
+            ],
+            "task_graph": [
+              "归一化指标帧 → 生成标准化指标帧",
+              "等权加权（method=1.0）→ 生成等权重系数",
+              "合并标准化帧与等权重 → 生成综合可持续性评分"
+            ]
+          },
+          "trace_id": "1b4df33f-a110-4ae9-9d99-168312f17999",
+          "workflow": null
+        },
+        {
+          "observation": {
+            "candidate_present": true,
+            "case_id": "synthetic-equal-weight-assessment",
+            "constraint_violated": true,
+            "diagnostics": [
+              "PLAN_INCOMPLETE"
+            ],
+            "experiment": "C",
+            "latency_seconds": 49.56000858299376,
+            "manual_corrections": null,
+            "origin": "LOCAL",
+            "provider_requests": 1,
+            "repetition": 1,
+            "status": "EVALUATED",
+            "usage": {
+              "cached_input_tokens": 273,
+              "input_tokens": 1807,
+              "output_tokens": 1142,
+              "total_tokens": 2949
+            },
+            "workflow_valid": false
+          },
+          "proposal": {
+            "candidate_workflow": {
+              "edges": [
+                {
+                  "source_node": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                  "source_variable": "indicator_frame",
+                  "target_node": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                  "target_variable": "normalized_indicator_frame"
+                },
+                {
+                  "source_node": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                  "source_variable": "normalized_indicator_frame",
+                  "target_node": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                  "target_variable": "indicator_weights"
+                }
+              ],
+              "input_bindings": [
+                {
+                  "source": {
+                    "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+                    "version": 1
+                  },
+                  "target": {
+                    "node_id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                    "variable": "indicator_frame"
+                  }
+                }
+              ],
+              "nodes": [
+                {
+                  "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+                    "version": 1
+                  },
+                  "parameters": []
+                },
+                {
+                  "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+                    "version": 1
+                  },
+                  "parameters": [
+                    {
+                      "name": "method",
+                      "value": 1.0
+                    }
+                  ]
+                },
+                {
+                  "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                  "model": {
+                    "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                    "version": 1
+                  },
+                  "parameters": []
+                }
+              ],
+              "output_definition": [
+                {
+                  "node_id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+                  "variable": "scores"
+                }
+              ]
+            },
+            "management_goal": "等权综合评价",
+            "missing_conditions": [
+              "未提供指标权重的初始值或配置（weight参数需通过用户指定）",
+              "未指定具体指标集合或指标框架（indicator_frame内容为空或缺失）",
+              "缺乏关于各指标的领域知识，无法判断等权合理性",
+              "未验证数据完整性（如frame中JSON结构是否有效）"
+            ],
+            "rationale": [
+              "等权综合评价要求所有指标权重相等，因此weight模型使用参数method=1.0（默认值）作为中性等权处理。",
+              "数据输入以normalized_indicator_frame为中间步骤，通过normalize处理原始指标帧，确保标准化后可直接加权。",
+              "输出scores为各管理单元可持续性评分，采用等权加总，所有指标贡献相同。",
+              "知识图谱连接要求‘科学预判’，但当前未提供指标间关系或归一化方法的科学依据。"
+            ],
+            "required_capabilities": [
+              "normalized_indicator_frame",
+              "indicator_weights",
+              "assessment_scores"
+            ],
+            "required_data": [
+              "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B"
+            ],
+            "task_graph": [
+              "获取原始指标数据（indicator_frame）",
+              "对指标数据进行归一化处理（normalize）",
+              "设置等权权重（method=1.0）",
+              "基于归一化指标与等权重计算综合评分（composite）",
+              "输出管理单元可持续性评分（scores）"
+            ]
+          },
+          "trace_id": "5e5035cc-9cf5-4986-8892-fd79898f5ac1",
+          "workflow": null
+        }
+      ]
+    },
+    "research_manifest": {
+      "cases": [
+        {
+          "assets": [
+            {
+              "checksum": "6b1e3e3a088e4cf4ce777c89e19cbc311263c0bd4a350534350345cdc5c906b2",
+              "crs": null,
+              "format": "JSON",
+              "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:data:frame-B",
+              "license": "CC0",
+              "name": "Synthetic indicator frame B",
+              "quality": {
+                "checksum": "6b1e3e3a088e4cf4ce777c89e19cbc311263c0bd4a350534350345cdc5c906b2",
+                "data_label": "SYNTHETIC / DEMONSTRATION DATA",
+                "derivation": "entity/period aligned columns from economic.csv; fixed [0,100]",
+                "period_count": 1,
+                "size_bytes": 374,
+                "source_sample_sha256": "10756ed466d90886facecfe4d2143c9672788aa7fe04064a464ed73856edd566",
+                "unit_source": "catalog_declaration",
+                "validated": true,
+                "validation_scope": "structure_and_declared_metadata"
+              },
+              "source": "SYNTHETIC / DEMONSTRATION DATA",
+              "spatial_extent": null,
+              "time_end": "2021-01-01T00:00:00Z",
+              "time_resolution": "1 year",
+              "time_start": "2020-01-01T00:00:00Z",
+              "type": "json",
+              "uri": "s3://coastmas/samples/9d6a97f4-edf9-59c7-8356-47aa9b2e0eca/v1/indicator-frame-B.json",
+              "variables": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "indicator_frame",
+                  "dimension": "dimensionless",
+                  "name": "frame",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "indicator_frame",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "version": 1,
+              "vertical_datum": null
+            }
+          ],
+          "goal": "可持续性评价：等权综合评价",
+          "id": "synthetic-equal-weight-assessment",
+          "models": [
+            {
+              "capabilities": [
+                "composite"
+              ],
+              "constraints": [],
+              "created_at": "2026-09-20T00:00:00Z",
+              "description": "Deterministic assessment with explicit entity and unit metadata",
+              "display_name": "Weighted composite assessment",
+              "enabled": true,
+              "execution_status": "EXECUTABLE",
+              "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:composite",
+              "inputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "normalized_indicator_frame",
+                  "dimension": "dimensionless",
+                  "name": "frame",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "normalized_indicator_frame",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                },
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "array",
+                  "description": "indicator_weights",
+                  "dimension": "dimensionless",
+                  "name": "weights",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "indicator_weights",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "license": "MIT",
+              "model_type": "STATISTICAL",
+              "name": "Weighted composite assessment",
+              "outputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "assessment_scores",
+                  "dimension": "dimensionless",
+                  "name": "scores",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "assessment_scores",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "owner": "CoastMAS maintainers",
+              "parameters": [],
+              "references": [
+                "docs/scientific-method.md"
+              ],
+              "runtime_config": {
+                "component": "composite",
+                "release": "1"
+              },
+              "runtime_type": "python",
+              "scientific_domain": [
+                "coastal_sustainability"
+              ],
+              "spatial_scale": {
+                "maximum": 1000000000.0,
+                "minimum": 1.0,
+                "unit": "m"
+              },
+              "supported_crs": [
+                "EPSG:32650",
+                "EPSG:4326"
+              ],
+              "supported_geometry": [
+                "grid",
+                "point",
+                "polygon",
+                "multipolygon"
+              ],
+              "temporal_scale": {
+                "maximum": 1000000000000.0,
+                "minimum": 1.0,
+                "unit": "s"
+              },
+              "updated_at": "2026-09-20T00:00:00Z",
+              "validation_metrics": {
+                "golden_max_abs_error": 0.0
+              },
+              "validation_status": "VALIDATED",
+              "version": 1
+            },
+            {
+              "capabilities": [
+                "normalize"
+              ],
+              "constraints": [],
+              "created_at": "2026-09-20T00:00:00Z",
+              "description": "Deterministic assessment with explicit entity and unit metadata",
+              "display_name": "Indicator normalization",
+              "enabled": true,
+              "execution_status": "EXECUTABLE",
+              "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:normalize",
+              "inputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "indicator_frame",
+                  "dimension": "dimensionless",
+                  "name": "frame",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "indicator_frame",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "license": "MIT",
+              "model_type": "STATISTICAL",
+              "name": "Indicator normalization",
+              "outputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "normalized_indicator_frame",
+                  "dimension": "dimensionless",
+                  "name": "frame",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "normalized_indicator_frame",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "owner": "CoastMAS maintainers",
+              "parameters": [],
+              "references": [
+                "docs/scientific-method.md"
+              ],
+              "runtime_config": {
+                "component": "normalize",
+                "release": "1"
+              },
+              "runtime_type": "python",
+              "scientific_domain": [
+                "coastal_sustainability"
+              ],
+              "spatial_scale": {
+                "maximum": 1000000000.0,
+                "minimum": 1.0,
+                "unit": "m"
+              },
+              "supported_crs": [
+                "EPSG:32650",
+                "EPSG:4326"
+              ],
+              "supported_geometry": [
+                "grid",
+                "point",
+                "polygon",
+                "multipolygon"
+              ],
+              "temporal_scale": {
+                "maximum": 1000000000000.0,
+                "minimum": 1.0,
+                "unit": "s"
+              },
+              "updated_at": "2026-09-20T00:00:00Z",
+              "validation_metrics": {
+                "golden_max_abs_error": 0.0
+              },
+              "validation_status": "VALIDATED",
+              "version": 1
+            },
+            {
+              "capabilities": [
+                "weight"
+              ],
+              "constraints": [],
+              "created_at": "2026-09-20T00:00:00Z",
+              "description": "Deterministic assessment with explicit entity and unit metadata",
+              "display_name": "Indicator weighting",
+              "enabled": true,
+              "execution_status": "EXECUTABLE",
+              "id": "builtin:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:weight",
+              "inputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "json",
+                  "description": "normalized_indicator_frame",
+                  "dimension": "dimensionless",
+                  "name": "frame",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "normalized_indicator_frame",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "license": "MIT",
+              "model_type": "STATISTICAL",
+              "name": "Indicator weighting",
+              "outputs": [
+                {
+                  "aggregation_type": "intensive",
+                  "data_type": "array",
+                  "description": "indicator_weights",
+                  "dimension": "dimensionless",
+                  "name": "weights",
+                  "nodata_policy": "reject",
+                  "required": true,
+                  "semantic_type": "continuous",
+                  "spatial_support": "management_unit",
+                  "standard_name": "indicator_weights",
+                  "temporal_support": "declared_period",
+                  "unit": "1"
+                }
+              ],
+              "owner": "CoastMAS maintainers",
+              "parameters": [
+                {
+                  "default": 1.0,
+                  "description": "",
+                  "maximum": 2.0,
+                  "minimum": 0.0,
+                  "name": "method",
+                  "required": true,
+                  "unit": "1"
+                }
+              ],
+              "references": [
+                "docs/scientific-method.md"
+              ],
+              "runtime_config": {
+                "component": "weight",
+                "release": "1"
+              },
+              "runtime_type": "python",
+              "scientific_domain": [
+                "coastal_sustainability"
+              ],
+              "spatial_scale": {
+                "maximum": 1000000000.0,
+                "minimum": 1.0,
+                "unit": "m"
+              },
+              "supported_crs": [
+                "EPSG:32650",
+                "EPSG:4326"
+              ],
+              "supported_geometry": [
+                "grid",
+                "point",
+                "polygon",
+                "multipolygon"
+              ],
+              "temporal_scale": {
+                "maximum": 1000000000000.0,
+                "minimum": 1.0,
+                "unit": "s"
+              },
+              "updated_at": "2026-09-20T00:00:00Z",
+              "validation_metrics": {
+                "golden_max_abs_error": 0.0
+              },
+              "validation_status": "VALIDATED",
+              "version": 1
+            }
+          ],
+          "scene": {
+            "constraints": [],
+            "data_policy": {
+              "study_area_crs": "EPSG:4326"
+            },
+            "data_references": [],
+            "entity_references": [],
+            "entity_types": [
+              "management_unit"
+            ],
+            "id": "sample:9d6a97f4-edf9-59c7-8356-47aa9b2e0eca:scene-B",
+            "management_goal": "可持续性评价：等权综合评价",
+            "name": "Synthetic assessment scenario B",
+            "quality_requirements": {},
+            "required_outputs": [
+              "scores"
+            ],
+            "scenario_conditions": {
+              "data_label": "SYNTHETIC / DEMONSTRATION DATA",
+              "period_policy": "fixed reference and shared weights"
+            },
+            "study_area": {
+              "coordinates": [
+                [
+                  [
+                    117.0,
+                    31.631577286305287
+                  ],
+                  [
+                    117.00421802634558,
+                    31.631577216635563
+                  ],
+                  [
+                    117.00421818921643,
+                    31.635186150333112
+                  ],
+                  [
+                    117.0,
+                    31.635186220012606
+                  ],
+                  [
+                    117.0,
+                    31.631577286305287
+                  ]
+                ]
+              ],
+              "type": "Polygon"
+            },
+            "time_range": {
+              "end": "2021-01-01T00:00:00Z",
+              "start": "2020-01-01T00:00:00Z"
+            },
+            "version": 1
+          },
+          "selected_data": {}
+        }
+      ],
+      "evaluation_id": "a69cf7a2-b67c-4f34-861c-46f37e64ce85",
+      "experiments": [
+        "A",
+        "B",
+        "C"
+      ],
+      "kind": "research_evaluation",
+      "provider": {
+        "endpoint_sha256": "9b514b1a65f6ebfaa4da53a116ea003831b044dc32a989733eace74554ef5b0c",
+        "model": "qwen3:4b-instruct-2507-q4_K_M",
+        "origin": "LOCAL"
+      },
+      "repetitions": 1,
+      "request_checksum": "f5da2376f379030d61b37da3aed39a09b3ef3fa5dac9199f09ad5e35a715ab05",
+      "schema_version": 1
+    }
+  },
+  "provider_ledger": [
+    {
+      "id": "524b8b8c-f3c8-4452-a840-590c4b66498b",
+      "trace_id": "1b4df33f-a110-4ae9-9d99-168312f17999",
+      "status": "SUCCEEDED",
+      "provider_model": "qwen3:4b-instruct-2507-q4_K_M",
+      "response_model": "qwen3:4b-instruct-2507-q4_K_M",
+      "dispatched_at": "2026-09-21T06:45:18.891909+00:00",
+      "finished_at": "2026-09-21T06:46:07.772292+00:00",
+      "request_fingerprint": "8ba63f7835398536d549c239a9fbef60d633848f1334696373c6ad5121b7464a",
+      "response_fingerprint": "45d851c6c635905237b5de81d864047451853db350a1362499e5b20ab6a2968e",
+      "usage": {
+        "input_tokens": 1475,
+        "total_tokens": 2596,
+        "output_tokens": 1121,
+        "cached_input_tokens": 0
+      },
+      "error_code": null,
+      "http_status": 200
+    },
+    {
+      "id": "9132ab19-979a-4a08-9411-75495091956a",
+      "trace_id": "5e5035cc-9cf5-4986-8892-fd79898f5ac1",
+      "status": "SUCCEEDED",
+      "provider_model": "qwen3:4b-instruct-2507-q4_K_M",
+      "response_model": "qwen3:4b-instruct-2507-q4_K_M",
+      "dispatched_at": "2026-09-21T06:46:07.869277+00:00",
+      "finished_at": "2026-09-21T06:46:57.344624+00:00",
+      "request_fingerprint": "497625bddcc1bcaa5b7baaab380b55321ae85143d1db21b2e6b1a140e7f222da",
+      "response_fingerprint": "79381222724b5b4557313918898befb713371dbf004701bbf5febc3108346973",
+      "usage": {
+        "input_tokens": 1807,
+        "total_tokens": 2949,
+        "output_tokens": 1142,
+        "cached_input_tokens": 273
+      },
+      "error_code": null,
+      "http_status": 200
+    }
+  ]
+}

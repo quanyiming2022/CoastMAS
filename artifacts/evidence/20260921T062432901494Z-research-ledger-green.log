@@ -1,0 +1,50 @@
+E501 Line too long (101 > 100)
+   --> src/coastmas/core/research_provider.py:105:101
+    |
+103 |         summary["knowledge_graph"] = {
+104 |             "connections": connections,
+105 |             "interpretation": "Contract adjacency is a candidate, not proof of scientific validity.",
+    |                                                                                                     ^
+106 |         }
+107 |     prompt = PlanningPrompt(
+    |
+
+F811 Redefinition of unused `protocol_server` from line 14
+  --> tests/integration/test_research_provider_ledger.py:19:21
+   |
+18 | def test_trial_replay_reuses_actual_ledger_without_second_network_call(
+19 |     engine, actors, protocol_server
+   |                     ^^^^^^^^^^^^^^^ `protocol_server` redefined here
+20 | ):
+21 |     catalog, case, proposal = case_and_proposal()
+   |
+  ::: tests/integration/test_research_provider_ledger.py:14:59
+   |
+12 | from coastmas.core.research_provider import evaluate_provider_case
+13 | from coastmas.persistence.schema import ProviderRequest
+14 | from tests.integration.test_llm_provider import server as protocol_server  # noqa: F401
+   |                                                           --------------- previous definition of `protocol_server` here
+15 | from tests.unit.test_research_provider import case_and_proposal
+   |
+help: Remove definition: `protocol_server`
+
+F811 Redefinition of unused `protocol_server` from line 14
+  --> tests/integration/test_research_provider_ledger.py:64:21
+   |
+63 | def test_reserved_but_undispatched_attempt_is_not_reported_as_real_call(
+64 |     engine, actors, protocol_server
+   |                     ^^^^^^^^^^^^^^^ `protocol_server` redefined here
+65 | ):
+66 |     catalog, case, _ = case_and_proposal()
+   |
+  ::: tests/integration/test_research_provider_ledger.py:14:59
+   |
+12 | from coastmas.core.research_provider import evaluate_provider_case
+13 | from coastmas.persistence.schema import ProviderRequest
+14 | from tests.integration.test_llm_provider import server as protocol_server  # noqa: F401
+   |                                                           --------------- previous definition of `protocol_server` here
+15 | from tests.unit.test_research_provider import case_and_proposal
+   |
+help: Remove definition: `protocol_server`
+
+Found 3 errors.

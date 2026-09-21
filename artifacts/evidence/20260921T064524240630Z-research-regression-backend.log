@@ -1,0 +1,38 @@
+........................................................................ [ 18%]
+........................................................................ [ 36%]
+........................................................................ [ 54%]
+........................................................................ [ 72%]
+........................................................................ [ 90%]
+........................................                                 [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/real_imagery.py:311: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform = Affine(*first.transform) * Affine.translation(column, row)
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:143: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = writer(
+
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:140: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = DatasetReader(mempath, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+400 passed, 11 warnings in 301.15s (0:05:01)

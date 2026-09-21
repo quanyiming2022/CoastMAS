@@ -528,39 +528,228 @@ export type RequestId = string;
 export type Usage = {
   [k: string]: JsonValue;
 } | null;
-export type Checksum1 = string;
-export type CreatedAt2 = string;
-export type GeographicEntityId = string;
-export type GeographicEntityVersion = number;
-export type ManagementUnitId1 = string | null;
-export type ResultObjectId = string;
-export type EntityBinding = EntityBinding1[];
+/**
+ * @minItems 1
+ * @maxItems 20
+ */
+export type Cases =
+  | [ResearchCase]
+  | [ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase]
+  | [ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase, ResearchCase]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ]
+  | [
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase,
+      ResearchCase
+    ];
+/**
+ * @maxItems 128
+ */
+export type Assets = DataAssetSpec[];
+export type Goal = string;
 export type Id20 = string;
-export type JobId = string;
-export type Provenance = string;
-export type QualityStatus = 'RAW' | 'VALIDATED' | 'REVIEWED' | 'PUBLISHED' | 'REJECTED';
-export type ResultType = string;
-export type Revision = number;
-export type StorageUri = string;
-export type End = string;
-export type Start = string;
-export type Unit8 = string;
-export type BindingStatus = 'BOUND' | 'PARTIAL' | 'UNBOUND' | 'NOT_APPLICABLE';
-export type EntityBinding2 = EntityBinding1[];
-export type Id21 = string;
-export type ManagementUnitId2 = string | null;
-export type NodeId3 = string;
-export type SourcePointer = string;
-export type StandardName2 = string;
-export type Variable2 = string;
-export type Objects = ResultObject[];
-export type UnboundObjects = string[];
-export type Bindings = BindingPlan[];
-export type ContainerImage = string;
-export type DataAssets = DataAssetSpec[];
-export type Models = ModelSpec[];
-export type Parameters3 = ParameterBinding[];
-export type RandomSeed = number;
+/**
+ * @minItems 1
+ * @maxItems 64
+ */
+export type Models = [ModelSpec, ...ModelSpec[]];
 export type Constraints4 = ConstraintSpec[];
 /**
  * @maxItems 500
@@ -571,11 +760,427 @@ export type DataReferences = VersionReference[];
  */
 export type EntityReferences = VersionReference[];
 export type EntityTypes = string[];
-export type Id22 = string;
+export type Id21 = string;
 export type ManagementGoal2 = string;
 export type Name18 = string;
 export type RequiredOutputs = string[];
+export type End = string;
+export type Start = string;
 export type Version13 = number;
+export type EvaluationId = string;
+/**
+ * @minItems 1
+ * @maxItems 3
+ */
+export type Experiments =
+  ['A' | 'B' | 'C'] | ['A' | 'B' | 'C', 'A' | 'B' | 'C'] | ['A' | 'B' | 'C', 'A' | 'B' | 'C', 'A' | 'B' | 'C'];
+export type Kind3 = 'research_evaluation';
+export type EndpointSha256 = string;
+export type Model = string;
+export type Origin1 = 'LOCAL' | 'EXTERNAL';
+export type Repetitions = number;
+export type RequestChecksum1 = string | null;
+export type SchemaVersion = 1;
+export type ElapsedSeconds = number;
+export type ExecutesCandidates = false;
+export type Methodology = 'frozen-catalog-planning-v1';
+export type Blocked = number;
+export type ConstraintObservations = number;
+export type ConstraintViolationRate = number | null;
+export type Evaluated = number;
+export type EvaluationCompletionRate = number;
+export type Experiment = 'A' | 'B' | 'C';
+export type Failed = number;
+export type LatencyObservations = number;
+export type ManualCorrectionCount = number | null;
+export type ManualObservations = number;
+export type MeanLatencySeconds = number | null;
+export type Origin2 = 'RULE' | 'LOCAL' | 'EXTERNAL' | 'MOCK' | 'REPLAY';
+export type ProviderRequests1 = number;
+export type Total = number;
+export type TotalTokens = number | null;
+export type UsageObservations = number;
+export type WorkflowValidityRate = number | null;
+export type Metrics = TrialMetrics[];
+export type Status4 = 'COMPLETE' | 'PARTIAL' | 'BLOCKED';
+export type CandidatePresent = boolean | null;
+export type CaseId = string;
+export type ConstraintViolated = boolean | null;
+export type Diagnostics = string[];
+export type Experiment1 = 'A' | 'B' | 'C';
+export type LatencySeconds = number | null;
+export type ManualCorrections = number | null;
+export type Origin3 = 'RULE' | 'LOCAL' | 'EXTERNAL' | 'MOCK' | 'REPLAY';
+export type ProviderRequests2 = number;
+export type Repetition = number;
+export type Status5 = 'EVALUATED' | 'BLOCKED' | 'FAILED';
+export type Usage1 = {
+  [k: string]: JsonValue;
+} | null;
+export type WorkflowValid = boolean | null;
+export type TraceId = string | null;
+export type Trials = ResearchTrial[];
+export type AllowProvider = boolean;
+/**
+ * @minItems 1
+ * @maxItems 20
+ */
+export type Cases1 =
+  | [ResearchCaseSelection]
+  | [ResearchCaseSelection, ResearchCaseSelection]
+  | [ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection]
+  | [ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection]
+  | [ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection, ResearchCaseSelection]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ]
+  | [
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection,
+      ResearchCaseSelection
+    ];
+/**
+ * @maxItems 64
+ */
+export type Assets1 = VersionReference[];
+export type Goal1 = string;
+export type Id22 = string;
+/**
+ * @minItems 1
+ * @maxItems 12
+ */
+export type Models1 =
+  | [VersionReference]
+  | [VersionReference, VersionReference]
+  | [VersionReference, VersionReference, VersionReference]
+  | [VersionReference, VersionReference, VersionReference, VersionReference]
+  | [VersionReference, VersionReference, VersionReference, VersionReference, VersionReference]
+  | [VersionReference, VersionReference, VersionReference, VersionReference, VersionReference, VersionReference]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ]
+  | [
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference,
+      VersionReference
+    ];
+/**
+ * @minItems 1
+ * @maxItems 3
+ */
+export type Experiments1 =
+  ['A' | 'B' | 'C'] | ['A' | 'B' | 'C', 'A' | 'B' | 'C'] | ['A' | 'B' | 'C', 'A' | 'B' | 'C', 'A' | 'B' | 'C'];
+export type ProjectId = string;
+export type Repetitions1 = number;
+export type Checksum1 = string;
+export type CreatedAt2 = string;
+export type GeographicEntityId = string;
+export type GeographicEntityVersion = number;
+export type ManagementUnitId1 = string | null;
+export type ResultObjectId = string;
+export type EntityBinding = EntityBinding1[];
+export type Id23 = string;
+export type JobId = string;
+export type Provenance = string;
+export type QualityStatus = 'RAW' | 'VALIDATED' | 'REVIEWED' | 'PUBLISHED' | 'REJECTED';
+export type ResultType = string;
+export type Revision = number;
+export type StorageUri = string;
+export type Unit8 = string;
+export type BindingStatus = 'BOUND' | 'PARTIAL' | 'UNBOUND' | 'NOT_APPLICABLE';
+export type EntityBinding2 = EntityBinding1[];
+export type Id24 = string;
+export type ManagementUnitId2 = string | null;
+export type NodeId3 = string;
+export type SourcePointer = string;
+export type StandardName2 = string;
+export type Variable2 = string;
+export type Objects = ResultObject[];
+export type UnboundObjects = string[];
+export type Bindings = BindingPlan[];
+export type ContainerImage = string;
+export type DataAssets = DataAssetSpec[];
+export type Models2 = ModelSpec[];
+export type Parameters3 = ParameterBinding[];
+export type RandomSeed = number;
 export type SoftwareVersion = string;
 export type Timestamp = string;
 export type FootprintWgs84 = {
@@ -584,7 +1189,7 @@ export type FootprintWgs84 = {
 export type Method1 = string;
 export type Name19 = string;
 export type SpatialFraction = number | null;
-export type Status4 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
+export type Status6 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
 export type TemporalCoverage = boolean | null;
 export type DataCoverage = SceneCoverage[];
 export type EntityCoverage = SceneCoverage[];
@@ -619,6 +1224,9 @@ export interface CoastMASContracts {
   ProposalSpec: ProposalSpec;
   ProviderPlanningArtifact: ProviderPlanningArtifact;
   ProviderProposal: ProviderProposal;
+  ResearchManifest: ResearchManifest;
+  ResearchReport: ResearchReport;
+  ResearchRequest: ResearchRequest;
   ResultManifest: ResultManifest;
   ResultView: ResultView;
   RunManifest: RunManifest;
@@ -1208,69 +1816,23 @@ export interface ProposedParameter {
   name: Name17;
   value: Value1;
 }
-export interface ResultManifest {
-  checksum: Checksum1;
-  created_at: CreatedAt2;
-  entity_binding: EntityBinding;
+export interface ResearchManifest {
+  cases: Cases;
+  evaluation_id?: EvaluationId;
+  experiments: Experiments;
+  kind?: Kind3;
+  provider?: ResearchProviderIdentity | null;
+  repetitions?: Repetitions;
+  request_checksum?: RequestChecksum1;
+  schema_version?: SchemaVersion;
+}
+export interface ResearchCase {
+  assets: Assets;
+  goal: Goal;
   id: Id20;
-  job_id: JobId;
-  provenance: Provenance;
-  quality_status: QualityStatus;
-  result_type: ResultType;
-  revision: Revision;
-  spatial_extent: Extent | null;
-  storage_uri: StorageUri;
-  time_range: TimeRange | null;
-  unit: Unit8;
-}
-export interface EntityBinding1 {
-  geographic_entity_id: GeographicEntityId;
-  geographic_entity_version: GeographicEntityVersion;
-  management_unit_id: ManagementUnitId1;
-  result_object_id: ResultObjectId;
-}
-export interface TimeRange {
-  end: End;
-  start: Start;
-}
-export interface ResultView {
-  binding_status: BindingStatus;
-  entity_binding: EntityBinding2;
-  objects: Objects;
-  unbound_objects: UnboundObjects;
-}
-export interface ResultObject {
-  id: Id21;
-  management_unit_id: ManagementUnitId2;
-  model: VersionReference;
-  node_id: NodeId3;
-  source_pointer: SourcePointer;
-  standard_name: StandardName2;
-  units?: Units1;
-  values?: Values;
-  variable: Variable2;
-}
-export interface Units1 {
-  [k: string]: string;
-}
-export interface Values {
-  [k: string]: JsonValue;
-}
-export interface RunManifest {
-  bindings: Bindings;
-  container_image: ContainerImage;
-  data_assets: DataAssets;
-  environment: Environment;
   models: Models;
-  parameters: Parameters3;
-  random_seed: RandomSeed;
   scene: SceneSpec;
-  software_version: SoftwareVersion;
-  timestamp: Timestamp;
-  workflow: WorkflowSpec;
-}
-export interface Environment {
-  [k: string]: string;
+  selected_data?: SelectedData;
 }
 export interface SceneSpec {
   constraints: Constraints4;
@@ -1278,7 +1840,7 @@ export interface SceneSpec {
   data_references?: DataReferences;
   entity_references?: EntityReferences;
   entity_types: EntityTypes;
-  id: Id22;
+  id: Id21;
   management_goal: ManagementGoal2;
   name: Name18;
   quality_requirements: QualityRequirements;
@@ -1300,6 +1862,144 @@ export interface ScenarioConditions {
 export interface StudyArea {
   [k: string]: JsonValue;
 }
+export interface TimeRange {
+  end: End;
+  start: Start;
+}
+export interface SelectedData {
+  [k: string]: VersionReference;
+}
+export interface ResearchProviderIdentity {
+  endpoint_sha256: EndpointSha256;
+  model: Model;
+  origin: Origin1;
+}
+export interface ResearchReport {
+  elapsed_seconds: ElapsedSeconds;
+  executes_candidates?: ExecutesCandidates;
+  methodology?: Methodology;
+  metrics: Metrics;
+  status: Status4;
+  trials: Trials;
+}
+export interface TrialMetrics {
+  blocked: Blocked;
+  constraint_observations: ConstraintObservations;
+  constraint_violation_rate: ConstraintViolationRate;
+  evaluated: Evaluated;
+  evaluation_completion_rate: EvaluationCompletionRate;
+  experiment: Experiment;
+  failed: Failed;
+  latency_observations: LatencyObservations;
+  manual_correction_count: ManualCorrectionCount;
+  manual_observations: ManualObservations;
+  mean_latency_seconds: MeanLatencySeconds;
+  origin: Origin2;
+  provider_requests: ProviderRequests1;
+  total: Total;
+  total_tokens: TotalTokens;
+  usage_observations: UsageObservations;
+  workflow_validity_rate: WorkflowValidityRate;
+}
+export interface ResearchTrial {
+  observation: TrialObservation;
+  proposal?: ProviderProposal | null;
+  trace_id?: TraceId;
+  workflow: WorkflowSpec | null;
+}
+export interface TrialObservation {
+  candidate_present: CandidatePresent;
+  case_id: CaseId;
+  constraint_violated: ConstraintViolated;
+  diagnostics: Diagnostics;
+  experiment: Experiment1;
+  latency_seconds: LatencySeconds;
+  manual_corrections: ManualCorrections;
+  origin: Origin3;
+  provider_requests: ProviderRequests2;
+  repetition: Repetition;
+  status: Status5;
+  usage: Usage1;
+  workflow_valid: WorkflowValid;
+}
+export interface ResearchRequest {
+  allow_provider?: AllowProvider;
+  cases: Cases1;
+  experiments: Experiments1;
+  project_id: ProjectId;
+  repetitions?: Repetitions1;
+}
+export interface ResearchCaseSelection {
+  assets: Assets1;
+  goal: Goal1;
+  id: Id22;
+  models: Models1;
+  scene: VersionReference;
+  selected_data?: SelectedData1;
+}
+export interface SelectedData1 {
+  [k: string]: VersionReference;
+}
+export interface ResultManifest {
+  checksum: Checksum1;
+  created_at: CreatedAt2;
+  entity_binding: EntityBinding;
+  id: Id23;
+  job_id: JobId;
+  provenance: Provenance;
+  quality_status: QualityStatus;
+  result_type: ResultType;
+  revision: Revision;
+  spatial_extent: Extent | null;
+  storage_uri: StorageUri;
+  time_range: TimeRange | null;
+  unit: Unit8;
+}
+export interface EntityBinding1 {
+  geographic_entity_id: GeographicEntityId;
+  geographic_entity_version: GeographicEntityVersion;
+  management_unit_id: ManagementUnitId1;
+  result_object_id: ResultObjectId;
+}
+export interface ResultView {
+  binding_status: BindingStatus;
+  entity_binding: EntityBinding2;
+  objects: Objects;
+  unbound_objects: UnboundObjects;
+}
+export interface ResultObject {
+  id: Id24;
+  management_unit_id: ManagementUnitId2;
+  model: VersionReference;
+  node_id: NodeId3;
+  source_pointer: SourcePointer;
+  standard_name: StandardName2;
+  units?: Units1;
+  values?: Values;
+  variable: Variable2;
+}
+export interface Units1 {
+  [k: string]: string;
+}
+export interface Values {
+  [k: string]: JsonValue;
+}
+export interface RunManifest {
+  bindings: Bindings;
+  container_image: ContainerImage;
+  data_assets: DataAssets;
+  environment: Environment;
+  models: Models2;
+  parameters: Parameters3;
+  random_seed: RandomSeed;
+  scene: SceneSpec;
+  software_version: SoftwareVersion;
+  timestamp: Timestamp;
+  workflow: WorkflowSpec;
+}
+export interface Environment {
+  [k: string]: string;
+}
 export interface SceneInspection {
   data_coverage: DataCoverage;
   entity_coverage: EntityCoverage;
@@ -1313,7 +2013,7 @@ export interface SceneCoverage {
   name: Name19;
   reference: VersionReference;
   spatial_fraction: SpatialFraction;
-  status: Status4;
+  status: Status6;
   temporal_coverage: TemporalCoverage;
 }
 export interface StudyAreaWgs84 {

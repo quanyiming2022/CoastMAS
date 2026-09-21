@@ -32,12 +32,22 @@ from coastmas.core.contracts import (
 )
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry, execute_workflow
+from coastmas.core.llm import OpenAICompatibleProvider
+from coastmas.core.research import Experiment
+from coastmas.core.research_planning import (
+    ResearchCase,
+    ResearchManifest,
+    ResearchTrial,
+    evaluate_research,
+)
+from coastmas.core.research_provider import evaluate_provider_case, provider_identity
 from coastmas.core.result_entities import bind_result_objects
 from coastmas.core.result_geography import result_entity_features
 from coastmas.core.scene_workspace import inspect_scene
 from coastmas.domain.result_views import management_objects
 from coastmas.persistence.data_access import require_project_object
 from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
+from coastmas.persistence.research import verify_research_inputs
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.scenes import scene_resources
 from coastmas.persistence.schema import Job, Resource
@@ -54,13 +64,20 @@ class WorkflowWorker:
         store: S3ArtifactStore,
         *,
         work_root: Path,
+        provider: OpenAICompatibleProvider | None = None,
     ):
         self.engine = engine
         self.registry = registry
         self.store = store
         self.work_root = work_root
+        self.provider = provider
 
-    def _verify_manifest(self, session: Session, job: Job, manifest: RunManifest) -> None:
+    def _verify_manifest(
+        self, session: Session, job: Job, manifest: RunManifest | ResearchManifest
+    ) -> None:
+        if isinstance(manifest, ResearchManifest):
+            verify_research_inputs(session, job.submitted_by, job.project_id, manifest)
+            return
         require_permission(session, job.submitted_by, job.project_id, "write")
         _, entities = scene_resources(session, job.submitted_by, job.project_id, manifest.scene)
         if entities and not inspect_scene(manifest.scene, [], entities).valid:
@@ -130,13 +147,19 @@ class WorkflowWorker:
                 job = session.get(Job, job_id)
                 if job is None:
                     raise CoastMASError("EXECUTION_ERROR", "claimed job is unavailable")
-                manifest = RunManifest.model_validate(job.manifest)
+                manifest = (
+                    ResearchManifest.model_validate(job.manifest)
+                    if job.manifest.get("kind") == "research_evaluation"
+                    else RunManifest.model_validate(job.manifest)
+                )
                 self._verify_manifest(session, job, manifest)
                 project_id = job.project_id
+                submitted_by = job.submitted_by
                 input_fingerprint = job.fingerprint
-                _, selected_entities = scene_resources(
-                    session, job.submitted_by, job.project_id, manifest.scene
-                )
+                if isinstance(manifest, RunManifest):
+                    _, selected_entities = scene_resources(
+                        session, job.submitted_by, job.project_id, manifest.scene
+                    )
             heartbeat_thread = threading.Thread(
                 target=heartbeat, name="coastmas-lease", daemon=True
             )
@@ -145,44 +168,103 @@ class WorkflowWorker:
             def update_progress(value: float) -> None:
                 progress[0] = value
 
-            execution = execute_workflow(
-                manifest,
-                registry=self.registry,
-                resolver=StoredDataResolver(self.store),
-                work_root=self.work_root,
-                cancel=cancellation,
-                on_progress=update_progress,
-            )
+            if isinstance(manifest, ResearchManifest):
+                provider = self.provider
+                if manifest.provider is not None and (
+                    provider is None or provider_identity(provider) != manifest.provider
+                ):
+                    raise CoastMASError(
+                        "PROVIDER_CHANGED", "research provider differs from frozen selection"
+                    )
+
+                def provider_trial(
+                    case: ResearchCase, experiment: Experiment, repetition: int
+                ) -> ResearchTrial:
+                    if provider is None or manifest.provider is None:
+                        raise CoastMASError(
+                            "PROVIDER_NOT_CONFIGURED", "research provider unavailable"
+                        )
+                    return evaluate_provider_case(
+                        case,
+                        self.registry,
+                        experiment=experiment,
+                        repetition=repetition,
+                        origin=manifest.provider.origin,
+                        provider=provider,
+                        engine=self.engine,
+                        user_id=submitted_by,
+                        project_id=project_id,
+                        key="research:"
+                        + hashlib.sha256(
+                            json.dumps(
+                                [manifest.evaluation_id, case.id, experiment, repetition]
+                            ).encode()
+                        ).hexdigest(),
+                    )
+
+                report = evaluate_research(
+                    manifest,
+                    self.registry,
+                    cancel=cancellation,
+                    on_progress=update_progress,
+                    provider_trial=provider_trial if manifest.provider is not None else None,
+                )
+                payload = JSON_OUTPUT.validate_python(
+                    {
+                        "kind": "research_evaluation",
+                        "report": report.model_dump(mode="json"),
+                        "research_manifest": manifest.model_dump(mode="json"),
+                        "provider_requests": sum(
+                            row.observation.provider_requests for row in report.trials
+                        ),
+                        "input_fingerprint": input_fingerprint,
+                    }
+                )
+            else:
+                execution = execute_workflow(
+                    manifest,
+                    registry=self.registry,
+                    resolver=StoredDataResolver(self.store),
+                    work_root=self.work_root,
+                    cancel=cancellation,
+                    on_progress=update_progress,
+                )
+                if heartbeat_errors:
+                    raise CoastMASError(
+                        "LEASE_ERROR", "worker could not maintain its database lease"
+                    )
+                result_view = bind_result_objects(
+                    management_objects(
+                        job_id,
+                        manifest.workflow,
+                        manifest.models,
+                        JSON_OUTPUT.validate_python(execution.outputs),
+                    ),
+                    selected_entities,
+                )
+                payload = JSON_OUTPUT.validate_python(
+                    {
+                        "outputs": execution.outputs,
+                        "result_view": result_view.model_dump(mode="json"),
+                        "result_entity_geometries": result_entity_features(
+                            result_view, selected_entities
+                        ),
+                        "node_outputs": execution.node_outputs,
+                        "executed_nodes": list(execution.executed_nodes),
+                        "bindings": [
+                            binding.model_dump(mode="json") for binding in execution.bindings
+                        ],
+                        "run_manifest": manifest.model_dump(mode="json"),
+                        "geographic_entities": [
+                            entity.model_dump(mode="json") for entity in selected_entities
+                        ],
+                        "input_fingerprint": input_fingerprint,
+                        "elapsed_seconds": execution.elapsed_seconds,
+                        "llm_calls": 0,
+                    }
+                )
             if heartbeat_errors:
                 raise CoastMASError("LEASE_ERROR", "worker could not maintain its database lease")
-            result_view = bind_result_objects(
-                management_objects(
-                    job_id,
-                    manifest.workflow,
-                    manifest.models,
-                    JSON_OUTPUT.validate_python(execution.outputs),
-                ),
-                selected_entities,
-            )
-            payload = JSON_OUTPUT.validate_python(
-                {
-                    "outputs": execution.outputs,
-                    "result_view": result_view.model_dump(mode="json"),
-                    "result_entity_geometries": result_entity_features(
-                        result_view, selected_entities
-                    ),
-                    "node_outputs": execution.node_outputs,
-                    "executed_nodes": list(execution.executed_nodes),
-                    "bindings": [binding.model_dump(mode="json") for binding in execution.bindings],
-                    "run_manifest": manifest.model_dump(mode="json"),
-                    "geographic_entities": [
-                        entity.model_dump(mode="json") for entity in selected_entities
-                    ],
-                    "input_fingerprint": input_fingerprint,
-                    "elapsed_seconds": execution.elapsed_seconds,
-                    "llm_calls": 0,
-                }
-            )
             content = json.dumps(
                 payload, sort_keys=True, separators=(",", ":"), allow_nan=False
             ).encode()
@@ -193,14 +275,22 @@ class WorkflowWorker:
                 id=result_id,
                 job_id=job_id,
                 revision=1,
-                result_type="workflow_bundle",
+                result_type="research_evaluation"
+                if isinstance(manifest, ResearchManifest)
+                else "workflow_bundle",
                 storage_uri=artifact.uri,
                 checksum=artifact.sha256,
-                entity_binding=result_view.entity_binding,
+                entity_binding=()
+                if isinstance(manifest, ResearchManifest)
+                else result_view.entity_binding,
                 spatial_extent=None,
-                time_range=manifest.scene.time_range,
-                unit="per-output",
-                quality_status="VALIDATED",
+                time_range=None
+                if isinstance(manifest, ResearchManifest)
+                else manifest.scene.time_range,
+                unit="experiment-statistics"
+                if isinstance(manifest, ResearchManifest)
+                else "per-output",
+                quality_status="RAW" if isinstance(manifest, ResearchManifest) else "VALIDATED",
                 provenance="job:" + job_id,
                 created_at=datetime.now(UTC),
             )
@@ -222,7 +312,7 @@ class WorkflowWorker:
                         "sha256": artifact.sha256,
                         "size": artifact.size,
                         "input_fingerprint": input_fingerprint,
-                        "quality_status": "VALIDATED",
+                        "quality_status": result_manifest.quality_status,
                     },
                 )
         except Exception as exc:

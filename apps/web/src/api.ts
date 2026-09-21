@@ -158,6 +158,7 @@ export const jobSchema = z.object({
   error: z.record(z.string(), z.unknown()).nullable(),
 });
 export const resultSchema = z.object({
+  result_type: z.string().default("workflow_bundle"),
   id: z.string(),
   job_id: z.string(),
   checksum: z.string(),

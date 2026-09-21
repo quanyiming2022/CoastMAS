@@ -1,0 +1,37 @@
+
+> coastmas-web@0.1.0 test
+> vitest run ResearchReportView.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/ResearchReportView.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/ResearchReportView.test.tsx [ src/ResearchReportView.test.tsx ]
+Error: Failed to resolve import "./ResearchReportView" from "src/ResearchReportView.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/quanyiming/Projects/CoastMAS/apps/web/src/ResearchReportView.test.tsx:3:31
+  1  |  import { cleanup, render, screen } from "@testing-library/react";
+  2  |  import { afterEach, expect, it } from "vitest";
+  3  |  import ResearchReportView from "./ResearchReportView";
+     |                                  ^
+  4  |  var _jsxFileName = "/Users/quanyiming/Projects/CoastMAS/apps/web/src/ResearchReportView.test.tsx";
+  5  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8393:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8390:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26058:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26128:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26094:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8172:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19634:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:34:54
+   Duration  563ms (environment 87%, setup 11%, transform 2%)
+

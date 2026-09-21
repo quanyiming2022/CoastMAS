@@ -1,0 +1,122 @@
+...F..                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_structurally_invalid_candidate_is_a_failed_observation_not_a_crashed_suite _
+
+    def test_structurally_invalid_candidate_is_a_failed_observation_not_a_crashed_suite():
+        catalog, case, proposal = case_and_proposal()
+        payload = proposal.model_dump(mode="json")
+        payload["candidate_workflow"]["nodes"].append(payload["candidate_workflow"]["nodes"][0])
+>       trial = evaluate_proposal_trial(
+            case,
+            catalog.registry,
+            ProviderProposal.model_validate(payload),
+            experiment="B",
+            repetition=1,
+            origin="MOCK",
+            latency=0.1,
+            requests=0,
+            usage=None,
+            trace_id="trace-mock",
+        )
+
+tests/unit/test_research_provider.py:110: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/core/research_provider.py:136: in evaluate_proposal_trial
+    workflow = validate_provider_proposal(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+proposal = ProviderProposal(management_goal='可持续性评价：等权综合评价', task_graph=(), required_data=(), required_capabilities=(), candidate...)),), output_definition=(BindingTarget(node_id='composite', variable='scores'),)), missing_conditions=(), rationale=())
+scene = SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygon', 'coordinates':...es',), data_policy={'study_area_crs': 'EPSG:32650'}, quality_requirements={}, entity_references=(), data_references=())
+models = (ModelSpec(id='builtin:plan-test:normalize', name='Indicator normalization', display_name='Indicator normalization', v...ed_at=datetime.datetime(2026, 9, 20, 0, 0, tzinfo=datetime.timezone.utc), enabled=True, execution_status='EXECUTABLE'))
+assets = (DataAssetSpec(id='dem', name='DEM', type='json', uri='s3://coastmas/dem.tif', format='JSON', crs='EPSG:32650', vertic...e='SYNTHETIC', license='CC0', version=1, checksum='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),)
+registry = <coastmas.core.execution.ExecutionRegistry object at 0x11cf239e0>
+
+    def validate_provider_proposal(
+        proposal: "ProviderProposal",
+        scene: SceneSpec,
+        models: tuple[ModelSpec, ...],
+        assets: tuple[DataAssetSpec, ...],
+        registry: ExecutionRegistry,
+    ) -> WorkflowSpec:
+        """Materialize typed suggestions only after catalog and scientific validation.
+    
+        No text instructions, runtime code, fabricated quality flags or provider-made
+        binding validation status are accepted. Natural-language interpretation is
+        retained for review; this check does not prove semantic completeness of prose.
+        """
+        candidate = proposal.candidate_workflow
+        if proposal.missing_conditions or candidate is None:
+            raise CoastMASError("PLAN_INCOMPLETE", "provider reports missing planning conditions")
+        catalog = {(model.id, model.version): model for model in models}
+        if len(catalog) != len(models) or len({(a.id, a.version) for a in assets}) != len(assets):
+            raise CoastMASError("CATALOG_INVALID", "duplicate version in planning catalog")
+        nodes = []
+        selected: list[ModelSpec] = []
+        for node in candidate.nodes:
+            model = catalog.get((node.model.id, node.model.version))
+            if model is None:
+                raise CoastMASError("MODEL_UNKNOWN", "provider selected an unregistered model version")
+            registry.resolve(model)
+            if model not in selected:
+                selected.append(model)
+            parameters = {parameter.name: parameter.value for parameter in node.parameters}
+            if len(parameters) != len(node.parameters):
+                raise CoastMASError("PARAMETER_DUPLICATE", "provider supplied duplicate parameters")
+            nodes.append(
+                WorkflowNode(
+                    id=node.id, model_id=model.id, model_version=model.version, parameters=parameters
+                )
+            )
+        capabilities = {name for model in selected for name in model.capabilities}
+        if not set(proposal.required_capabilities).issubset(capabilities):
+            raise CoastMASError(
+                "CAPABILITY_MISSING", "provider capability is absent from selected models"
+            )
+>       workflow = WorkflowSpec(
+            id="provider-plan:"
+            + hashlib.sha256(
+                (scene.model_dump_json() + proposal.model_dump_json()).encode()
+            ).hexdigest(),
+            name="Provider candidate requiring review",
+            version=1,
+            scene_type="provider_candidate",
+            nodes=tuple(nodes),
+            edges=candidate.edges,
+            input_bindings=tuple(
+                BindingPlan(
+                    source=binding.source,
+                    target=binding.target,
+                    semantic_mapping="exact_standard_name",
+                    unit_conversion=None,
+                    crs_transform=None,
+                    resampling=None,
+                    temporal_transform=None,
+                    quality_check=(),
+                    status="MANUAL_REVIEW",
+                )
+                for binding in candidate.input_bindings
+            ),
+            parameter_bindings=(),
+            constraints=(),
+            validation_rules=(),
+            execution_policy=ExecutionPolicy(timeout_seconds=300, max_retries=0),
+            output_definition=candidate.output_definition,
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for WorkflowSpec
+E         Value error, duplicate node identifier [type=value_error, input_value={'id': 'provider-plan:38a...', variable='scores'),)}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+src/coastmas/core/planning.py:448: ValidationError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_research_provider.py::test_structurally_invalid_candidate_is_a_failed_observation_not_a_crashed_suite
+1 failed, 5 passed, 2 warnings in 3.70s

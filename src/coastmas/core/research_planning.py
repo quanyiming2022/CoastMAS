@@ -18,6 +18,7 @@ from coastmas.core.contracts import (
 )
 from coastmas.core.errors import CoastMASError
 from coastmas.core.execution import ExecutionRegistry
+from coastmas.core.llm import ProviderProposal
 from coastmas.core.planning import build_template_plan, parse_template_goal
 from coastmas.core.research import Experiment, TrialMetrics, TrialObservation, summarize_trials
 from coastmas.core.validation import validate_workflow
@@ -43,11 +44,17 @@ class ResearchCase(Contract):
 class ResearchTrial(Contract):
     observation: TrialObservation
     workflow: WorkflowSpec | None
+    proposal: ProviderProposal | None = None
+    trace_id: Name | None = None
 
     @model_validator(mode="after")
     def candidate_agrees(self) -> Self:
         if self.observation.candidate_present is not None and (
-            self.observation.candidate_present != (self.workflow is not None)
+            self.observation.candidate_present
+            != (
+                self.workflow is not None
+                or (self.proposal is not None and self.proposal.candidate_workflow is not None)
+            )
         ):
             raise ValueError("recorded candidate differs from saved workflow")
         return self
@@ -95,9 +102,18 @@ def evaluate_rule_case(
     )
 
 
+class ResearchProviderIdentity(Contract):
+    origin: Literal["LOCAL", "EXTERNAL"]
+    model: Name
+    endpoint_sha256: Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
+
+
 class ResearchManifest(Contract):
     kind: Literal["research_evaluation"] = "research_evaluation"
     schema_version: Literal[1] = 1
+    request_checksum: Annotated[str | None, Field(pattern=r"^[a-f0-9]{64}$")] = None
+    evaluation_id: Name = "standalone"
+    provider: ResearchProviderIdentity | None = None
     cases: Annotated[tuple[ResearchCase, ...], Field(min_length=1, max_length=20)]
     experiments: Annotated[tuple[Experiment, ...], Field(min_length=1, max_length=3)]
     repetitions: Annotated[int, Field(strict=True, ge=1, le=5)] = 1

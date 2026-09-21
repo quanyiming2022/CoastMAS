@@ -1,0 +1,5 @@
+src/coastmas/app/run_routes.py:385: error: Item "list[JsonValue]" of "list[JsonValue] | dict[str, JsonValue] | str | int | float" has no attribute "get"  [union-attr]
+src/coastmas/app/run_routes.py:385: error: Item "str" of "list[JsonValue] | dict[str, JsonValue] | str | int | float" has no attribute "get"  [union-attr]
+src/coastmas/app/run_routes.py:385: error: Item "int" of "list[JsonValue] | dict[str, JsonValue] | str | int | float" has no attribute "get"  [union-attr]
+src/coastmas/app/run_routes.py:385: error: Item "float" of "list[JsonValue] | dict[str, JsonValue] | str | int | float" has no attribute "get"  [union-attr]
+Found 4 errors in 1 file (checked 102 source files)

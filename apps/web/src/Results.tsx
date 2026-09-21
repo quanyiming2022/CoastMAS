@@ -85,7 +85,9 @@ function ResultList({ projectId }: { projectId: string }) {
                         aria-label={`选择对比 ${result.id}`}
                         checked={selected.includes(result.id)}
                         disabled={
-                          selected.length >= 2 && !selected.includes(result.id)
+                          result.result_type === "research_evaluation" ||
+                          (selected.length >= 2 &&
+                            !selected.includes(result.id))
                         }
                         onChange={(event) =>
                           setSelected((current) =>
@@ -97,7 +99,13 @@ function ResultList({ projectId }: { projectId: string }) {
                       />
                     </td>
                     <td>
-                      <Link to={"/results/" + encodeURIComponent(result.id)}>
+                      <Link
+                        to={
+                          result.result_type === "research_evaluation"
+                            ? "/research/" + encodeURIComponent(result.job_id)
+                            : "/results/" + encodeURIComponent(result.id)
+                        }
+                      >
                         {result.id.slice(0, 12)}
                       </Link>
                     </td>

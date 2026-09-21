@@ -165,7 +165,11 @@ export function RunDetail() {
                 <Link
                   className="button"
                   key={result.id}
-                  to={"/results/" + encodeURIComponent(result.id)}
+                  to={
+                    job.manifest.kind === "research_evaluation"
+                      ? "/research/" + encodeURIComponent(job.id)
+                      : "/results/" + encodeURIComponent(result.id)
+                  }
                 >
                   查看不可变结果
                 </Link>

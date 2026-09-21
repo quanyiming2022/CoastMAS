@@ -1,0 +1,33 @@
+{
+  "name": "local-qwen-research-live",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "scripts/run_research.py",
+    "--provider",
+    "--origin",
+    "LOCAL",
+    "--key",
+    "local-qwen-frozen-planning-v1"
+  ],
+  "started_at": "2026-09-21T06:45:14.959214+00:00",
+  "finished_at": "2026-09-21T06:46:59.825336+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "8679224de57086cfc58b84e5d8d92faa4a5775f053eccf9704d927a6ebfa31dc",
+  "git_commit": "ab84d08adfea3bbb938fb74c7be86915d89a8520",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T064514959214Z-local-qwen-research-live.log"
+}

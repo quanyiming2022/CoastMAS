@@ -10,7 +10,7 @@ from coastmas.core.contracts import Contract, Name
 Count = Annotated[int, Field(strict=True, ge=0)]
 Seconds = Annotated[float, Field(ge=0, allow_inf_nan=False)]
 Experiment = Literal["A", "B", "C"]
-Origin = Literal["RULE", "EXTERNAL", "MOCK", "REPLAY"]
+Origin = Literal["RULE", "LOCAL", "EXTERNAL", "MOCK", "REPLAY"]
 
 
 class TrialObservation(Contract):

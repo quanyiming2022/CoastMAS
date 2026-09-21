@@ -18,7 +18,9 @@ npm --prefix apps/web run build
 
 前端开发使用 `npm --prefix apps/web run dev`，开发代理指向本地 API 58000。生产静态文件由 API 同源提供，未知 API 路径不会回退为 HTML；缺少构建会返回 503。完整容器部署尚未交付，此处不作为 Docker 验收通过证据。
 
-登录后选择项目，打开工作流 `coastal_impact`，选择 `Synthetic coastal inundation screening`，执行科学预检后提交。运行中心显示真实进度，成功结果可下载完整 JSON 并查看来源、地形筛查多边形和分区人口统计。合成例金标准为 80000 m²、320 人；人口按完整管理单元均匀分布，不是精细人口分布或水动力模拟。智能规划页支持完整目标输入、缺失数据、显式数据选择、推荐依据、候选保存和预算账本。其他必选页面、全部编辑与研究功能仍在研发。
+登录后默认项目为“中国典型海岸真实影像演示”，可查看黄河口、胶州湾、长江口的公开影像、固定版本工作流、地图结果及完整溯源。双期场景可以切换采集日期；在线底图由用户选择OSM或NASA。具体科学处理与限制见[真实影像演示](real-imagery-demos.md)。
+
+原合成金标准项目已可逆归档，自动化测试继续在独立环境中使用它们的夹具。合成海岸筛查金标准为80000 m²、320人；人口采用管理单元均匀分布假设，不能冒充精细人口分布或水动力模拟。管理员功能见[账号与测试环境](admin-and-testing.md)。科研页面已提供冻结目录的A/B/C提交、真实任务状态与报告，完整实验验收状态见[科研评估](research-evaluation.md)。
 
 ## 类型与浏览器检查
 
@@ -31,16 +33,16 @@ npm --prefix apps/web test
 npm --prefix apps/web run typecheck
 npm --prefix apps/web run lint
 npm --prefix apps/web run build
-npm --prefix apps/web run e2e
+.venv/bin/python scripts/e2e.py
 ```
 
-E2E 使用真实 API、PG、Redis、S3 与独立 worker，读取私有演示凭证；不 mock 后端。浏览器 trace 可含会话或请求数据，仅写入忽略提交的 `artifacts/runtime/playwright`。公开证据由 `scripts/evidence.py` 脱敏收集退出码和源码摘要。公开截图仅包含当前合成示例。
+普通E2E使用真实API、PostgreSQL、Redis、S3和独立worker，由scripts/e2e.py创建随机隔离资源与私有账号，结束后只清理本次测试资源，不往用户演示项目写测试记录。日志与失败浏览器trace保留在忽略提交的artifacts/runtime目录，可能含会话数据。证据由scripts/evidence.py脱敏记录退出码及源码摘要。真实影像现场验收另用acceptance.config.ts。
 
-当前11项组件/契约测试、3项真实浏览器测试覆盖已实现纵向链路，不代表全部操作或完整产品验收。前端包体仍存在地图/图表大块警告，相关模块按需加载；未修改阈值掩盖警告。
+本轮前端47项通过，完整隔离浏览器19条通过；最新证据按STATE.md更新。前端保留地图/图表包体警告，不修改阈值掩盖问题。上述检查不等于全范围产品验收。
 
 ## 地图构建说明
 
-MapLibre 6 使用独立 ESM worker。必须通过 Vite 的 `?worker&url` 打包完整依赖并设置 worker URL；只复制主文件会出现界面控件可见但图形不加载。依据：[MapLibre 官方安装说明](https://maplibre.org/maplibre-gl-js/docs/)、[v6 迁移说明](https://maplibre.org/maplibre-gl-js/docs/guides/v5-to-v6-migration-guide/)。地图仅绘制经纬度校验后的实际 GeoJSON，不从投影坐标猜测位置；未加载外部底图。
+MapLibre 6 使用独立 ESM worker。必须通过 Vite 的 `?worker&url` 打包完整依赖并设置 worker URL；只复制主文件会出现界面控件可见但图形不加载。依据：[MapLibre 官方安装说明](https://maplibre.org/maplibre-gl-js/docs/)、[v6 迁移说明](https://maplibre.org/maplibre-gl-js/docs/guides/v5-to-v6-migration-guide/)。地图绘制经纬度校验后的实际GeoJSON、具有来源与WGS84边界的影像显示产品；不从投影坐标猜测位置。OSM/NASA底图按需联网加载，网络失败显式显示。
 
 图表使用实际结果字段，按需注册 ECharts 图表、组件和 SVG 渲染器，参考[官方按需导入说明](https://echarts.apache.org/handbook/en/basics/import/)。模型科学限制及未知面积不因可视化而省略。
 

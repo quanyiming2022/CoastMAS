@@ -28,10 +28,12 @@ from coastmas.core.contracts import (
 )
 from coastmas.core.errors import CoastMASError, ConstraintError
 from coastmas.core.execution import ExecutionRegistry
+from coastmas.core.research_planning import ResearchManifest
 from coastmas.core.scene_workspace import inspect_scene
 from coastmas.core.validation import ValidationIssue, ValidationReport, validate_workflow
 from coastmas.persistence.jobs import cancel_job, read_job, read_result, snapshot, submit_job
 from coastmas.persistence.lifecycle import archive_resource
+from coastmas.persistence.research import verify_research_inputs
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.scenes import scene_resources
 from coastmas.persistence.schema import AuditLog, Job, Resource, ResultBundle
@@ -318,20 +320,24 @@ def retry(
         if existing.fingerprint != fingerprint(original.manifest) or origin is None:
             raise CoastMASError("IDEMPOTENCY_CONFLICT", "retry key refers to different run inputs")
         return encode(snapshot(existing))
-    manifest = RunManifest.model_validate(original.manifest)
-    # Preserve the exact scientific snapshot, including seed, across explicit retries.
-    _, current, report = load_manifest(
-        session,
-        user_id,
-        manifest.workflow.id,
-        RunSelection(
-            workflow_version=manifest.workflow.version,
-            scene_id=manifest.scene.id,
-            scene_version=manifest.scene.version,
-            random_seed=manifest.random_seed,
-        ),
-    )
-    check_execution(request, current, report)
+    if original.manifest.get("kind") == "research_evaluation":
+        research = ResearchManifest.model_validate(original.manifest)
+        verify_research_inputs(session, user_id, original.project_id, research)
+    else:
+        manifest = RunManifest.model_validate(original.manifest)
+        # Preserve the exact scientific snapshot, including seed, across explicit retries.
+        _, current, report = load_manifest(
+            session,
+            user_id,
+            manifest.workflow.id,
+            RunSelection(
+                workflow_version=manifest.workflow.version,
+                scene_id=manifest.scene.id,
+                scene_version=manifest.scene.version,
+                random_seed=manifest.random_seed,
+            ),
+        )
+        check_execution(request, current, report)
     job = submit_job(
         session,
         user_id=user_id,
@@ -351,6 +357,15 @@ def retry(
     )
     session.commit()
     return encode(job)
+
+
+def published_result_type(manifest: dict[str, JsonValue]) -> str:
+    descriptor = manifest.get("result_manifest")
+    if isinstance(descriptor, dict):
+        kind = descriptor.get("result_type")
+        if isinstance(kind, str):
+            return kind
+    return "workflow_bundle"
 
 
 @router.get("/results")
@@ -376,6 +391,7 @@ def list_results(
             "job_id": item.job_id,
             "checksum": item.checksum,
             "created_at": item.created_at.isoformat(),
+            "result_type": published_result_type(item.manifest),
         }
         for item in records
     ]

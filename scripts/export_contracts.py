@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 
 from coastmas.app.api import create_app
 from coastmas.app.indicator_routes import FrameworkPlanRequest, PrepareIndicatorsRequest
+from coastmas.app.research_routes import ResearchRequest
 from coastmas.core.collaboration import (
     ConstraintComparison,
     ProposalComment,
@@ -33,6 +34,7 @@ from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
 from coastmas.core.optimization import OptimizationFrame, OptimizationOutcome, OptimizationSpec
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
+from coastmas.core.research_planning import ResearchManifest, ResearchReport
 from coastmas.core.result_entities import ResultView
 from coastmas.core.scene_workspace import SceneInspection
 from coastmas.core.source_catalog import DataSourceSpec, SourceSnapshotRequest
@@ -45,6 +47,9 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        ResearchManifest,
+        ResearchReport,
+        ResearchRequest,
         OptimizationFrame,
         OptimizationOutcome,
         OptimizationSpec,

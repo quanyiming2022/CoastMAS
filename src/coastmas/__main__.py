@@ -11,6 +11,7 @@ from coastmas.configuration import configuration_value
 from coastmas.runtime_bootstrap import (
     DEFAULT_PROJECT_ID,
     BuiltinRuntimeRegistry,
+    configured_provider,
     database_engine,
     initialize_account,
     object_store,
@@ -59,6 +60,7 @@ def main() -> None:
             database_engine(),
             BuiltinRuntimeRegistry(sample_directory()),
             object_store(),
+            provider=configured_provider(),
             work_root=Path(
                 configuration_value("COASTMAS_WORK_ROOT", str(project_root() / "artifacts/runtime"))
             ),

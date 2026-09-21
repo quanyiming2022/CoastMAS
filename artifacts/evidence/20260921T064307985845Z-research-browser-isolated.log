@@ -1,0 +1,15 @@
+Isolated browser environment ready: coastmas_e2e_6644f8a46c2546639c1bbfb10a3386e0
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_6644f8a46c2546639c1bbfb10a3386e0/playwright research.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:39389) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/research.spec.ts:5:1 › research UI freezes inputs and real worker publishes honest A/B/C partial report
+  1 passed (7.2s)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_6644f8a46c2546639c1bbfb10a3386e0

@@ -26,6 +26,7 @@ from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.optimization_routes import router as optimization_router
 from coastmas.app.planning_routes import router as planning_router
+from coastmas.app.research_routes import router as research_router
 from coastmas.app.run_routes import router as run_router
 from coastmas.app.scene_routes import router as scene_router
 from coastmas.app.source_routes import router as source_router
@@ -238,6 +239,7 @@ def create_app(
             "VERSION_CONFLICT": 409,
             "IDEMPOTENCY_CONFLICT": 409,
             "DEPENDENCY_CONFLICT": 409,
+            "RESULT_NOT_READY": 409,
         }
         return error_response(
             request, exc.code, exc.message, statuses.get(exc.code, 422), exc.details
@@ -326,6 +328,7 @@ def create_app(
     app.state.source_registry = {}
     app.include_router(model_router)
     app.include_router(run_router)
+    app.include_router(research_router)
     app.include_router(scene_router)
     app.include_router(planning_router)
     app.include_router(workspace_router)
