@@ -1,0 +1,31 @@
+{
+  "name": "data-isolation-browser-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "npm",
+    "--prefix",
+    "apps/web",
+    "run",
+    "e2e"
+  ],
+  "started_at": "2026-09-21T01:12:57.484240+00:00",
+  "finished_at": "2026-09-21T01:14:50.049468+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "a644c7109305ea0c8b514d8ce54091e51780f0877efdc52ac767efc0db4511bb",
+  "git_commit": "0ea719e0d029e279b24dfb04b637864fbdd236af",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T011257484240Z-data-isolation-browser-full.log"
+}

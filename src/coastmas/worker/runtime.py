@@ -36,6 +36,7 @@ from coastmas.core.result_entities import bind_result_objects
 from coastmas.core.result_geography import result_entity_features
 from coastmas.core.scene_workspace import inspect_scene
 from coastmas.domain.result_views import management_objects
+from coastmas.persistence.data_access import require_project_object
 from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
 from coastmas.persistence.resources import fingerprint, read_resource, require_permission
 from coastmas.persistence.scenes import scene_resources
@@ -71,6 +72,8 @@ class WorkflowWorker:
             *manifest.data_assets,
         )
         for item in objects:
+            if isinstance(item, DataAssetSpec):
+                require_project_object(item.uri, job.project_id)
             record = session.scalar(
                 select(Resource)
                 .where(Resource.id == item.id)

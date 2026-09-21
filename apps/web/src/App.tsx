@@ -33,6 +33,7 @@ const ResultDetail = lazy(() =>
   import("./Results").then((module) => ({ default: module.ResultDetail })),
 );
 const ModelDecomposer = lazy(() => import("./ModelDecomposer"));
+const DataWorkspace = lazy(() => import("./DataWorkspace"));
 const ModelEditor = lazy(() => import("./ModelEditor"));
 const SceneWorkspace = lazy(() => import("./SceneWorkspace"));
 const WorkflowEditor = lazy(() => import("./WorkflowEditor"));
@@ -147,6 +148,8 @@ export default function App() {
               <Route path="/entities" element={<Entities />} />
               <Route path="/planner" element={<Planner />} />
               <Route path="/models/decompose" element={<ModelDecomposer />} />
+              <Route path="/data/new" element={<DataWorkspace />} />
+              <Route path="/data/:id/workspace" element={<DataWorkspace />} />
               <Route path="/models/new" element={<ModelEditor />} />
               <Route path="/models/:id/edit" element={<ModelEditor />} />
               <Route path="/scenes/new" element={<SceneWorkspace />} />

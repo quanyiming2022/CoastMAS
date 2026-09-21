@@ -18,6 +18,8 @@ from coastmas.app.dependencies import CurrentUser, DatabaseSession, artifact_sto
 from coastmas.core.contracts import Contract, DataAssetSpec
 from coastmas.core.data_inspection import MAX_BYTES, DataInspection, inspect_data
 from coastmas.core.errors import CoastMASError
+from coastmas.persistence.data_access import require_project_object
+from coastmas.persistence.lifecycle import archive_resource, resource_history
 from coastmas.persistence.resources import (
     create_resource,
     read_resource,
@@ -83,7 +85,11 @@ def data_resource(
     )
 
 
-def inspect_stored(request: Request, data: DataAssetSpec) -> DataInspection:
+def stored_content(request: Request, session: DatabaseSession, data: DataAssetSpec) -> bytes:
+    resource = session.get(Resource, data.id)
+    if resource is None:
+        raise CoastMASError("NOT_FOUND", "data resource unavailable")
+    require_project_object(data.uri, resource.project_id)
     store = artifact_store(request)
     uri = urlsplit(data.uri)
     size = data.quality.get("size_bytes")
@@ -101,7 +107,13 @@ def inspect_stored(request: Request, data: DataAssetSpec) -> DataInspection:
     content = store.read(
         ArtifactRecord(store.bucket, uri.path.removeprefix("/"), data.checksum, size)
     )
-    return inspect_isolated(content, data)
+    return content
+
+
+def inspect_stored(
+    request: Request, session: DatabaseSession, data: DataAssetSpec
+) -> DataInspection:
+    return inspect_isolated(stored_content(request, session, data), data)
 
 
 @router.post("/upload", status_code=201)
@@ -157,7 +169,7 @@ def preview(
 ) -> DataInspection:
     data = data_resource(identifier, session, user_id, version)
     response.headers["Cache-Control"] = "no-store"
-    return inspect_stored(request, data)
+    return inspect_stored(request, session, data)
 
 
 @router.post("/{identifier}/validate")
@@ -173,7 +185,7 @@ def validate(
     if resource is None:
         raise CoastMASError("NOT_FOUND", "data asset unavailable")
     require_permission(session, user_id, resource.project_id, "write")
-    report = inspect_stored(request, data)
+    report = inspect_stored(request, session, data)
     updated = data.model_copy(
         update={
             "version": body.expected_version + 1,
@@ -189,3 +201,44 @@ def validate(
     )
     session.commit()
     return cast(dict[str, JsonValue], asdict(revision))
+
+
+@router.get("/{identifier}/versions")
+def history(
+    identifier: str, session: DatabaseSession, user_id: CurrentUser
+) -> list[dict[str, JsonValue]]:
+    data_resource(identifier, session, user_id)
+    return [
+        cast(dict[str, JsonValue], asdict(revision))
+        for revision in resource_history(session, user_id=user_id, identifier=identifier)
+    ]
+
+
+@router.get("/{identifier}/download")
+def download(
+    identifier: str,
+    request: Request,
+    session: DatabaseSession,
+    user_id: CurrentUser,
+    version: int | None = Query(default=None, ge=1),
+) -> Response:
+    data = data_resource(identifier, session, user_id, version)
+    return Response(
+        stored_content(request, session, data),
+        media_type="application/octet-stream",
+        headers={
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Disposition": 'attachment; filename="coastmas-data-v'
+            + str(data.version)
+            + '.bin"',
+            "ETag": '"' + data.checksum + '"',
+        },
+    )
+
+
+@router.delete("/{identifier}", status_code=204)
+def archive(identifier: str, session: DatabaseSession, user_id: CurrentUser) -> None:
+    data_resource(identifier, session, user_id)
+    archive_resource(session, user_id=user_id, identifier=identifier)
+    session.commit()

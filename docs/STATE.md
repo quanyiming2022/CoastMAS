@@ -58,3 +58,10 @@
 
 - 模型中心增量：科学字段表单/版本历史/JSON-YAML 导入导出/复制/启停/归档、服务端全目录搜索以及五种静态拆解方式已接通。34 项前端测试+类型/lint/构建通过（165155311699Z-model-center-quality），真实浏览器2条通过（165233222214Z-model-center-browser）。拆解始终 review_required=true/executable=false，非内置可信运行审批闭环仍待完成。详见 model-center.md。下一步数据上传、测量预览及版本管理界面；当前 API/worker/beat 无需重启。
 - 模型后端与生成契约复验通过：20260920T165327809610Z-model-center-backend-contracts，9 passed、2 warnings；拆解依赖图截图已目视检查。
+
+- 数据工作台增量：上传/科学元数据/实际预览/修订/质量重检/历史原字节下载/依赖保护归档；37项前端及构建通过，真实CSV浏览器通过。跨项目对象地址伪造漏洞已由下载/预览/检查与worker统一校验修复，14项相关后端通过（170718632171Z-data-project-isolation-check）。详情data-workspace.md。全后端与浏览器回归正在运行，未宣布总任务完成。
+- 中断后服务已恢复：API session8596、worker58971、beat28693；日志 artifacts/logs/{api,worker,beat}-data-isolation.log。源码在evidence运行期间不得修改。模型增量已提交0ea719e，数据增量尚未提交。
+
+- 本次中断后发现三项 CoastMAS 基础容器停止，造成 data-isolation-backend-full 的 82 个环境错误和浏览器登录失败；已启动原容器，未重建或删除卷。/health/ready 三依赖恢复 ready，worker 恢复派发。data-recovered-backend-full 和 data-recovered-browser-full 为恢复后的完整回归，结果待核对；契约漂移与37项前端测试已通过（20260921T011549760003Z-data-contract-final-check）。
+
+- 数据增量恢复后完整验证：20260921T011550016130Z-data-recovered-backend-full，294 passed、2 warnings；20260921T011621349114Z-data-recovered-browser-full，14 passed；前端37项和契约漂移检查通过。覆盖5663/6403行、1535/2142分支（约71.7%），最终门槛仍未满足。API/worker/beat已加载最新代码。下一步数据目录跨页搜索筛选及连接器，不重复完整规划。

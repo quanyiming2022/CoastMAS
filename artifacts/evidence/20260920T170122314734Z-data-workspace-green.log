@@ -1,0 +1,26 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+/Users/quanyiming/Projects/CoastMAS/apps/web/src/DataWorkspace.tsx
+   42:25  error  Error: Expected the first argument to be an inline function expression
+
+Expected the first argument to be an inline function expression.
+
+/Users/quanyiming/Projects/CoastMAS/apps/web/src/DataWorkspace.tsx:42:25
+  40 |   const navigate = useNavigate();
+  41 |   const client = useQueryClient();
+> 42 |   const fresh = useMemo(freshData, []);
+     |                         ^^^^^^^^^ Expected the first argument to be an inline function expression
+  43 |   const [version, setVersion] = useState(0);
+  44 |   const [draft, setDraft] = useState<Record<string, JsonValue> | null>(null);
+  45 |   const [file, setFile] = useState<File | null>(null);  react-hooks/use-memo
+  104:11  error  The value assigned to 'candidate' is not used in subsequent statements                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                no-useless-assignment
+
+✖ 2 problems (2 errors, 0 warnings)
+

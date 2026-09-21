@@ -62,3 +62,21 @@ describe("API transport boundaries", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 });
+
+it("sends multipart data unchanged with CSRF and lets the browser set its boundary", async () => {
+  document.cookie = "coastmas_csrf=upload-token; path=/";
+  const fetch = vi.fn().mockResolvedValue(new Response('{"saved":true}'));
+  vi.stubGlobal("fetch", fetch);
+  const body = new FormData();
+  body.append("metadata", '{"name":"actual"}');
+  body.append("file", new File(["value\n0\n"], "data.csv"));
+  await request("/data-assets/upload", z.object({ saved: z.boolean() }), {
+    method: "POST",
+    body,
+  });
+  expect(fetch).toHaveBeenCalledTimes(1);
+  const sent = fetch.mock.calls[0]![1]!;
+  expect(sent.body).toBe(body);
+  expect(sent.headers.has("Content-Type")).toBe(false);
+  expect(sent.headers.get("X-CSRF-Token")).toBe("upload-token");
+});

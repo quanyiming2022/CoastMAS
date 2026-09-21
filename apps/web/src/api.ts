@@ -34,7 +34,8 @@ export async function request<T>(
     throw new ApiError("INVALID_PATH", "无效的接口地址");
   const method = options.method ?? "GET";
   const headers = new Headers({ Accept: "application/json" });
-  if (options.body !== undefined)
+  const multipart = options.body instanceof FormData;
+  if (options.body !== undefined && !multipart)
     headers.set("Content-Type", "application/json");
   if (method !== "GET") {
     const csrf = document.cookie
@@ -54,7 +55,11 @@ export async function request<T>(
       credentials: "same-origin",
       signal: options.signal,
       body:
-        options.body === undefined ? undefined : JSON.stringify(options.body),
+        options.body === undefined
+          ? undefined
+          : multipart
+            ? (options.body as FormData)
+            : JSON.stringify(options.body),
     });
   } catch (error) {
     if (options.signal?.aborted) throw error;

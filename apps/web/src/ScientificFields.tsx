@@ -5,6 +5,11 @@ function isFieldGroup(value: unknown): value is Record<string, JsonValue> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 const fieldLabels: Record<string, string> = {
+  variables: "数据变量",
+  spatial_extent: "空间范围",
+  time_start: "开始时间",
+  time_end: "结束时间",
+  time_resolution: "时间分辨率",
   inputs: "输入变量",
   outputs: "输出变量",
   parameters: "参数",

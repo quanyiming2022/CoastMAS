@@ -115,6 +115,7 @@ function CatalogList({
         description="项目中的版本化资源；打开详情查看数据来源与科学约束。"
       />
       <div className="toolbar">
+        {kind === "data" ? <Link to="/data/new">上传数据</Link> : null}
         {kind === "models" ? (
           <Link to="/models/new">新增或导入模型</Link>
         ) : null}
@@ -277,6 +278,11 @@ export function CatalogDetail({ kind }: { kind: CatalogKind }) {
       ) : null}
       {kind === "models" ? (
         <Link to={`/models/${encodeURIComponent(id)}/edit`}>管理模型版本</Link>
+      ) : null}
+      {kind === "data" ? (
+        <Link to={`/data/${encodeURIComponent(id)}/workspace`}>
+          管理数据版本与预览
+        </Link>
       ) : null}
       <Link to={"/" + kind}>← 返回{title}</Link>
       {query.isPending ? <Loading /> : null}

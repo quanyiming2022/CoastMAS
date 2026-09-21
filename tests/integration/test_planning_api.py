@@ -22,7 +22,7 @@ def prepare(engine, actors, storage, client):
         item for item in catalog.models if item.runtime_config["component"] == "normalize"
     )
     payload = json.dumps({"frame": frame().model_dump(mode="json")}).encode()
-    blob = storage.put("plan/frame.json", payload)
+    blob = storage.put(f"{project}/plan/frame.json", payload)
     data = asset(
         id="data-" + uuid4().hex,
         type="json",

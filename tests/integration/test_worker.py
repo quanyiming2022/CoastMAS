@@ -21,7 +21,7 @@ from tests.factories import asset, model, scene, variable, workflow
 def prepare_worker(engine, actors, storage, tmp_path, handler):
     user, _, _, project = actors
     suffix = uuid4().hex
-    blob = storage.put("input/height.json", b'{"height":[1,2]}')
+    blob = storage.put(f"{project}/input/height.json", b'{"height":[1,2]}')
     data = asset(
         id="dem-" + suffix,
         type="table",
@@ -194,3 +194,15 @@ def test_manifest_rechecks_cached_resource_lifecycle(
             setattr(change.get(Resource, cached.id), field, value)
         with pytest.raises(CoastMASError):
             runner._verify_manifest(session, job, manifest)
+
+
+def test_worker_rejects_catalog_references_to_other_project_objects(
+    engine, actors, storage, tmp_path, monkeypatch
+):
+    from coastmas.core.errors import CoastMASError
+
+    put = storage.put
+    monkeypatch.setattr(storage, "put", lambda key, content: put("other-project/" + key, content))
+    runner, job = prepare_worker(engine, actors, storage, tmp_path, lambda inputs, parameters: {})
+    with Session(engine) as session, pytest.raises(CoastMASError, match="project"):
+        runner._verify_manifest(session, job, RunManifest.model_validate(job.manifest))

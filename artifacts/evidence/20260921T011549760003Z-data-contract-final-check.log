@@ -1,0 +1,25 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  18 passed (18)
+      Tests  37 passed (37)
+   Start at  09:15:57
+   Duration  2.81s (environment 61%, import 13%, tests 11%, transform 8%, setup 6%)
+
+Environment  jsdom was created 18 times · 12.45s total, 61% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

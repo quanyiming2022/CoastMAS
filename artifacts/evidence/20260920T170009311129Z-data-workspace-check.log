@@ -1,0 +1,6 @@
+
+> coastmas-web@0.1.0 typecheck
+> tsc --noEmit
+
+src/DataWorkspace.tsx(123,14): error TS2322: Type 'DataAssetSpec' is not assignable to type 'Record<string, unknown>'.
+  Index signature for type 'string' is missing in type 'DataAssetSpec'.

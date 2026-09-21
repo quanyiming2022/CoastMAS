@@ -1,0 +1,603 @@
+
+> coastmas-web@0.1.0 e2e
+> playwright test
+
+
+Running 14 tests using 1 worker
+
+(node:11126) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/14] e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history
+  1) e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      27 |   await expect(
+      28 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 29 |   ).toBeVisible();
+         |     ^
+      30 |   await page.goto("/data/new");
+      31 |   const name = `浏览器数据 ${Date.now()}`;
+      32 |   const content = "height,label\n0,zero\n2,two\n";
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/data-workspace.spec.ts:29:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/data-workspace-upload-real-db4dc--download-immutable-history/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/data-workspace-upload-real-db4dc--download-immutable-history/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/data-workspace-upload-real-db4dc--download-immutable-history/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/data-workspace-upload-real-db4dc--download-immutable-history/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/14] e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry
+  2) e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry ───
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('navigation').getByRole('link', { name: '地理实体', exact: true })
+
+
+      26 |     .getByRole("navigation")
+      27 |     .getByRole("link", { name: "地理实体", exact: true })
+    > 28 |     .click();
+         |      ^
+      29 |   const name = `浏览器合成管理单元 ${Date.now()}`;
+      30 |   await page.getByLabel("实体名称", { exact: true }).fill(name);
+      31 |   await page.getByLabel("管理单元标识", { exact: true }).fill("browser-U1");
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/entities.spec.ts:28:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/entities-geographic-entiti-70344--and-render-actual-geometry/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11182) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/14] e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result
+  3) e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ─────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      28 |   await expect(
+      29 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 30 |   ).toBeVisible();
+         |     ^
+      31 |   await mkdir(new URL("../../../artifacts/screenshots/", import.meta.url), {
+      32 |     recursive: true,
+      33 |   });
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/execution.spec.ts:30:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/execution-browser-prefligh-e9963----immutable-coastal-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11195) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/14] e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence
+  4) e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('navigation').getByRole('link', { name: '知识图谱', exact: true })
+
+
+      26 |     .getByRole("navigation")
+      27 |     .getByRole("link", { name: "知识图谱", exact: true })
+    > 28 |     .click();
+         |      ^
+      29 |   await expect(
+      30 |     page.getByRole("heading", { name: "模型知识图谱", exact: true }),
+      31 |   ).toBeVisible();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/knowledge-graph.spec.ts:28:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/knowledge-graph-knowledge--35f3c-ndidate-downstream-evidence/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/knowledge-graph-knowledge--35f3c-ndidate-downstream-evidence/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/knowledge-graph-knowledge--35f3c-ndidate-downstream-evidence/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/knowledge-graph-knowledge--35f3c-ndidate-downstream-evidence/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11245) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/14] e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes
+  5) e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      27 |   await expect(
+      28 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 29 |   ).toBeVisible();
+         |     ^
+      30 |   await page.goto("/models/decompose");
+      31 |   await page
+      32 |     .getByRole("textbox", { name: "待拆解模型名称", exact: true })
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/model-decomposer.spec.ts:29:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-decomposer-static-mo-e4671-cies-and-atomic-black-boxes/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/model-decomposer-static-mo-e4671-cies-and-atomic-black-boxes/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-decomposer-static-mo-e4671-cies-and-atomic-black-boxes/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/model-decomposer-static-mo-e4671-cies-and-atomic-black-boxes/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11265) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/14] e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution
+  6) e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      28 |   await expect(
+      29 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 30 |   ).toBeVisible();
+         |     ^
+      31 |   await page.goto("/models/new");
+      32 |   const name = `浏览器模型 ${Date.now()}`;
+      33 |   await page.getByRole("textbox", { name: "模型名称", exact: true }).fill(name);
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/model-editor.spec.ts:30:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/model-editor-register-revi-e6ebf-ut-self-approving-execution/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[7/14] e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls
+  7) e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('navigation').getByRole('link', { name: '智能规划', exact: true })
+
+
+      25 |     .getByRole("navigation")
+      26 |     .getByRole("link", { name: "智能规划", exact: true })
+    > 27 |     .click();
+         |      ^
+      28 |   await page
+      29 |     .getByRole("combobox", { name: "规划场景", exact: true })
+      30 |     .selectOption({ label: "Synthetic coastal inundation screening · v1" });
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/planner.spec.ts:27:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/planner-deterministic-plan-274dc-uity-without-external-calls/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/14] e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions
+  8) e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/scene-workspace.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-map-drawin-717f5-d-immutable-scene-revisions/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/scene-workspace-map-drawin-717f5-d-immutable-scene-revisions/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-map-drawin-717f5-d-immutable-scene-revisions/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/scene-workspace-map-drawin-717f5-d-immutable-scene-revisions/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11309) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[9/14] e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow
+  9) e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/scene-workspace.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-saved-scen-5ca83-ual-pinned-coastal-workflow/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/scene-workspace-saved-scen-5ca83-ual-pinned-coastal-workflow/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-saved-scen-5ca83-ual-pinned-coastal-workflow/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/scene-workspace-saved-scen-5ca83-ual-pinned-coastal-workflow/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11318) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/14] e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series
+  10) e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/scene-workspace.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/scene-workspace-actual-tem-5f5fc-ion-and-numeric-time-series/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11329) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[11/14] e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either
+  11) e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/scene-workspace.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-compares-r-7749e--without-overwriting-either/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/scene-workspace-compares-r-7749e--without-overwriting-either/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/scene-workspace-compares-r-7749e--without-overwriting-either/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/scene-workspace-compares-r-7749e--without-overwriting-either/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[12/14] e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight
+  12) e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("create a real draft with model drag, ports, explicit parameters and blocked scientific preflight", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/workflow-editor.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/workflow-editor-create-a-r-2d725-locked-scientific-preflight/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11361) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/14] e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage
+  13) e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      23 |   await expect(
+      24 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 25 |   ).toBeVisible();
+         |     ^
+      26 | });
+      27 |
+      28 | test("create a real draft with model drag, ports, explicit parameters and blocked scientific preflight", async ({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/workflow-editor.spec.ts:25:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-copy-revis-90de0-l-worker-and-result-storage/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/workflow-editor-copy-revis-90de0-l-worker-and-result-storage/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workflow-editor-copy-revis-90de0-l-worker-and-result-storage/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/workflow-editor-copy-revis-90de0-l-worker-and-result-storage/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:11370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[14/14] e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout
+  14) e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout ───────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '项目概览', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '项目概览', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '项目概览', exact: true })
+
+
+      24 |   await expect(
+      25 |     page.getByRole("heading", { name: "项目概览", exact: true }),
+    > 26 |   ).toBeVisible();
+         |     ^
+      27 |   await expect(
+      28 |     page.getByRole("combobox", { name: "当前项目" }),
+      29 |   ).not.toHaveValue("");
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/workspace.spec.ts:26:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/workspace-real-session-seeded-catalog-deep-link-and-logout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  14 failed
+    e2e/data-workspace.spec.ts:4:1 › upload real data, preview zero, revise, revalidate and download immutable history 
+    e2e/entities.spec.ts:5:1 › geographic entities persist revisions and render actual geometry ────
+    e2e/execution.spec.ts:5:1 › browser preflight -> Redis worker -> immutable coastal result ──────
+    e2e/knowledge-graph.spec.ts:5:1 › knowledge graph explores real model data and candidate downstream evidence 
+    e2e/model-decomposer.spec.ts:5:1 › static model decomposition preserves code, explicit dependencies and atomic black boxes 
+    e2e/model-editor.spec.ts:5:1 › register, revise, export history, copy, enable and import models without self-approving execution 
+    e2e/planner.spec.ts:4:1 › deterministic planning resolves explicit data ambiguity without external calls 
+    e2e/scene-workspace.spec.ts:28:1 › map drawing, AOI upload, pinned entities/data, coverage and immutable scene revisions 
+    e2e/scene-workspace.spec.ts:168:1 › saved scene copy preflights and executes the actual pinned coastal workflow 
+    e2e/scene-workspace.spec.ts:348:1 › actual temporal assessment exposes aligned period selection and numeric time series 
+    e2e/scene-workspace.spec.ts:420:1 › compares real baseline and raised sea-level results without overwriting either 
+    e2e/workflow-editor.spec.ts:28:1 › create a real draft with model drag, ports, explicit parameters and blocked scientific preflight 
+    e2e/workflow-editor.spec.ts:139:1 › copy, revise and run a pinned workflow through actual worker and result storage 
+    e2e/workspace.spec.ts:9:1 › real session, seeded catalog, deep link and logout ─────────────────

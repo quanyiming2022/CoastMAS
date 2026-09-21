@@ -408,6 +408,7 @@ export type Valid = boolean;
 export interface CoastMASContracts {
   BindingPlan: BindingPlan;
   DataAssetSpec: DataAssetSpec;
+  DataInspection: DataInspection;
   DecompositionRequest: DecompositionRequest;
   ExecutionJob: ExecutionJob;
   GeographicEntity: GeographicEntity;
@@ -485,6 +486,16 @@ export interface VariableSpec {
   standard_name: StandardName;
   temporal_support: TemporalSupport;
   unit: Unit;
+}
+export interface DataInspection {
+  metadata: Metadata;
+  preview: Preview;
+}
+export interface Metadata {
+  [k: string]: JsonValue;
+}
+export interface Preview {
+  [k: string]: JsonValue;
 }
 export interface DecompositionRequest {
   argv?: Argv;

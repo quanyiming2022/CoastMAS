@@ -171,6 +171,24 @@ export interface paths {
         /** Update Data */
         put: operations["update_data_api_v1_data_assets__identifier__put"];
         post?: never;
+        /** Archive */
+        delete: operations["archive_api_v1_data_assets__identifier__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/data-assets/{identifier}/download": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download */
+        get: operations["download_api_v1_data_assets__identifier__download_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -205,6 +223,76 @@ export interface paths {
         put?: never;
         /** Validate */
         post: operations["validate_api_v1_data_assets__identifier__validate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/data-assets/{identifier}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** History */
+        get: operations["history_api_v1_data_assets__identifier__versions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/entities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Entity */
+        get: operations["list_entity_api_v1_entities_get"];
+        put?: never;
+        /** Create Entity */
+        post: operations["create_entity_api_v1_entities_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/entities/spatial": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Spatial Query */
+        get: operations["spatial_query_api_v1_entities_spatial_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/entities/{identifier}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Entity */
+        get: operations["get_entity_api_v1_entities__identifier__get"];
+        /** Update Entity */
+        put: operations["update_entity_api_v1_entities__identifier__put"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -273,6 +361,23 @@ export interface paths {
         put?: never;
         /** Retry */
         post: operations["retry_api_v1_jobs__identifier__retry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/knowledge-graph": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Explore Graph */
+        get: operations["explore_graph_api_v1_knowledge_graph_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -691,6 +796,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/scene-drafts/inspect": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Inspect Draft */
+        post: operations["inspect_draft_api_v1_scene_drafts_inspect_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/scenes": {
         parameters: {
             query?: never;
@@ -721,6 +843,23 @@ export interface paths {
         /** Update Scene */
         put: operations["update_scene_api_v1_scenes__identifier__put"];
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workflow-drafts/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Preflight Draft */
+        post: operations["preflight_draft_api_v1_workflow_drafts_validate_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -818,6 +957,35 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** BindingPlan */
+        BindingPlan: {
+            /** Crs Transform */
+            crs_transform: string | null;
+            /** Quality Check */
+            quality_check: string[];
+            /** Resampling */
+            resampling: ("nearest" | "bilinear" | "cubic" | "sum" | "area_weighted") | null;
+            /** Semantic Mapping */
+            semantic_mapping: string;
+            source: components["schemas"]["VersionReference"];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "VALIDATED" | "BLOCKED" | "MANUAL_REVIEW";
+            target: components["schemas"]["BindingTarget"];
+            /** Temporal Transform */
+            temporal_transform: ("nearest" | "mean" | "sum" | "min" | "max" | "interpolation") | null;
+            /** Unit Conversion */
+            unit_conversion: string | null;
+        };
+        /** BindingTarget */
+        BindingTarget: {
+            /** Node Id */
+            node_id: string;
+            /** Variable */
+            variable: string;
+        };
         /** Body_upload_api_v1_data_assets_upload_post */
         Body_upload_api_v1_data_assets_upload_post: {
             /** File */
@@ -826,6 +994,19 @@ export interface components {
             metadata: string;
             /** Project Id */
             project_id: string;
+        };
+        /** ConstraintSpec */
+        ConstraintSpec: {
+            /** Description */
+            description: string;
+            /** Field */
+            field: string;
+            /**
+             * Operator
+             * @enum {string}
+             */
+            operator: "eq" | "ne" | "ge" | "le" | "in" | "required";
+            value: components["schemas"]["JsonValue"];
         };
         /** CopyRequest */
         CopyRequest: {
@@ -888,6 +1069,60 @@ export interface components {
             enabled: boolean;
             /** Expected Version */
             expected_version: number;
+        };
+        /** ExecutionPolicy */
+        ExecutionPolicy: {
+            /** Max Retries */
+            max_retries: number;
+            /** Timeout Seconds */
+            timeout_seconds: number;
+        };
+        /** GraphEdge */
+        GraphEdge: {
+            /**
+             * Evidence
+             * @enum {string}
+             */
+            evidence: "declaration" | "workflow_declaration" | "contract_candidate" | "contract_conflict";
+            /** Id */
+            id: string;
+            /** Properties */
+            properties?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Source */
+            source: string;
+            /** Target */
+            target: string;
+            /**
+             * Type
+             * @enum {string}
+             */
+            type: "REQUIRES" | "PRODUCES" | "SUPPORTS" | "DEPENDS_ON" | "MAPS_TO" | "VALID_FOR" | "INCOMPATIBLE_WITH" | "DERIVED_FROM" | "CAN_FOLLOW";
+        };
+        /** GraphNode */
+        GraphNode: {
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /** Properties */
+            properties?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            resource?: components["schemas"]["VersionReference"] | null;
+            /**
+             * Type
+             * @enum {string}
+             */
+            type: "Objective" | "Task" | "Model" | "Variable" | "DataType" | "EntityType" | "SceneType" | "Constraint" | "DataAsset" | "Scene" | "Workflow";
+        };
+        /** GraphSnapshot */
+        GraphSnapshot: {
+            /** Edges */
+            edges: components["schemas"]["GraphEdge"][];
+            /** Nodes */
+            nodes: components["schemas"]["GraphNode"][];
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -1089,6 +1324,15 @@ export interface components {
              */
             password: string;
         };
+        /** ParameterBinding */
+        ParameterBinding: {
+            /** Node Id */
+            node_id: string;
+            /** Parameter */
+            parameter: string;
+            /** Value */
+            value: number;
+        };
         /** PlanRequest */
         PlanRequest: {
             /**
@@ -1119,6 +1363,105 @@ export interface components {
             scene_version: number;
             /** Workflow Version */
             workflow_version: number;
+        };
+        /** SceneCoverage */
+        SceneCoverage: {
+            /** Footprint Wgs84 */
+            footprint_wgs84?: {
+                [key: string]: components["schemas"]["JsonValue"];
+            } | null;
+            /** Method */
+            method: string;
+            /** Name */
+            name: string;
+            reference: components["schemas"]["VersionReference"];
+            /** Spatial Fraction */
+            spatial_fraction: number | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "COVERED" | "PARTIAL" | "OUTSIDE" | "UNKNOWN";
+            /** Temporal Coverage */
+            temporal_coverage: boolean | null;
+        };
+        /** SceneDraft */
+        SceneDraft: {
+            /** Project Id */
+            project_id: string;
+            scene: components["schemas"]["SceneSpec"];
+        };
+        /** SceneInspection */
+        SceneInspection: {
+            /** Data Coverage */
+            data_coverage: components["schemas"]["SceneCoverage"][];
+            /** Entity Coverage */
+            entity_coverage: components["schemas"]["SceneCoverage"][];
+            /** Issues */
+            issues: string[];
+            /** Study Area Wgs84 */
+            study_area_wgs84: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Valid */
+            valid: boolean;
+        };
+        /** SceneSpec */
+        SceneSpec: {
+            /** Constraints */
+            constraints: components["schemas"]["ConstraintSpec"][];
+            /** Data Policy */
+            data_policy: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /**
+             * Data References
+             * @default []
+             */
+            data_references: components["schemas"]["VersionReference"][];
+            /**
+             * Entity References
+             * @default []
+             */
+            entity_references: components["schemas"]["VersionReference"][];
+            /** Entity Types */
+            entity_types: string[];
+            /** Id */
+            id: string;
+            /** Management Goal */
+            management_goal: string;
+            /** Name */
+            name: string;
+            /** Quality Requirements */
+            quality_requirements: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Required Outputs */
+            required_outputs: string[];
+            /** Scenario Conditions */
+            scenario_conditions: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            /** Study Area */
+            study_area: {
+                [key: string]: components["schemas"]["JsonValue"];
+            };
+            time_range: components["schemas"]["TimeRange"];
+            /** Version */
+            version: number;
+        };
+        /** TimeRange */
+        TimeRange: {
+            /**
+             * End
+             * Format: date-time
+             */
+            end: string;
+            /**
+             * Start
+             * Format: date-time
+             */
+            start: string;
         };
         /** UpdateRequest */
         UpdateRequest: {
@@ -1160,6 +1503,74 @@ export interface components {
         VersionReference: {
             /** Id */
             id: string;
+            /** Version */
+            version: number;
+        };
+        /** WorkflowDraftSelection */
+        WorkflowDraftSelection: {
+            /** Project Id */
+            project_id: string;
+            /**
+             * Random Seed
+             * @default 42
+             */
+            random_seed: number;
+            scene: components["schemas"]["VersionReference"];
+            workflow: components["schemas"]["WorkflowSpec"];
+        };
+        /** WorkflowEdge */
+        WorkflowEdge: {
+            /** Source Node */
+            source_node: string;
+            /** Source Variable */
+            source_variable: string;
+            /** Target Node */
+            target_node: string;
+            /** Target Variable */
+            target_variable: string;
+        };
+        /** WorkflowNode */
+        WorkflowNode: {
+            /** Id */
+            id: string;
+            /**
+             * Kind
+             * @default model
+             * @enum {string}
+             */
+            kind: "data" | "transform" | "model" | "validation" | "output";
+            /** Model Id */
+            model_id: string;
+            /** Model Version */
+            model_version: number;
+            /** Parameters */
+            parameters?: {
+                [key: string]: number;
+            };
+        };
+        /** WorkflowSpec */
+        WorkflowSpec: {
+            /** Constraints */
+            constraints: components["schemas"]["ConstraintSpec"][];
+            /** Edges */
+            edges: components["schemas"]["WorkflowEdge"][];
+            execution_policy: components["schemas"]["ExecutionPolicy"];
+            /** Id */
+            id: string;
+            /** Input Bindings */
+            input_bindings: components["schemas"]["BindingPlan"][];
+            /** Name */
+            name: string;
+            /** Nodes */
+            nodes: components["schemas"]["WorkflowNode"][];
+            /** Output Definition */
+            output_definition: components["schemas"]["BindingTarget"][];
+            /** Parameter Bindings */
+            parameter_bindings: components["schemas"]["ParameterBinding"][];
+            /** Scene Type */
+            scene_type: string;
+            /** Validation Rules */
+            validation_rules: string[];
             /** Version */
             version: number;
         };
@@ -1382,7 +1793,7 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        [key: string]: string;
+                        [key: string]: components["schemas"]["JsonValue"];
                     };
                 };
             };
@@ -1598,6 +2009,68 @@ export interface operations {
             };
         };
     };
+    archive_api_v1_data_assets__identifier__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    download_api_v1_data_assets__identifier__download_get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     preview_api_v1_data_assets__identifier__preview_get: {
         parameters: {
             query?: {
@@ -1643,6 +2116,222 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["ValidateDataRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    history_api_v1_data_assets__identifier__versions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_entity_api_v1_entities_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_entity_api_v1_entities_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    spatial_query_api_v1_entities_spatial_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                west: number;
+                south: number;
+                east: number;
+                north: number;
+                at?: string | null;
+                include_history?: boolean;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_entity_api_v1_entities__identifier__get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_entity_api_v1_entities__identifier__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRequest"];
             };
         };
         responses: {
@@ -1791,6 +2480,39 @@ export interface operations {
                     "application/json": {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    explore_graph_api_v1_knowledge_graph_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                focus?: string | null;
+                depth?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GraphSnapshot"];
                 };
             };
             /** @description Validation Error */
@@ -2753,6 +3475,39 @@ export interface operations {
             };
         };
     };
+    inspect_draft_api_v1_scene_drafts_inspect_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SceneDraft"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SceneInspection"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_scene_api_v1_scenes_get: {
         parameters: {
             query: {
@@ -2870,6 +3625,41 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["UpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    preflight_draft_api_v1_workflow_drafts_validate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WorkflowDraftSelection"];
             };
         };
         responses: {

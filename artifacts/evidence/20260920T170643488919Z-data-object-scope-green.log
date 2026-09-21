@@ -1,0 +1,54 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> src/coastmas/worker/runtime.py:10:1
+   |
+ 8 |   """
+ 9 |
+10 | / import hashlib
+11 | | import json
+12 | | import logging
+13 | | import threading
+14 | | from datetime import UTC, datetime
+15 | | from pathlib import Path
+16 | | from uuid import uuid4
+17 | |
+18 | | from celery import Celery  # type: ignore[import-untyped]
+19 | | from pydantic import JsonValue, TypeAdapter
+20 | | from sqlalchemy import Engine, or_, select
+21 | | from sqlalchemy.orm import Session
+22 | |
+23 | | from coastmas.adapters.datasource import StoredDataResolver
+24 | | from coastmas.adapters.storage import S3ArtifactStore
+25 | | from coastmas.core.contracts import (
+26 | |     DataAssetSpec,
+27 | |     ModelSpec,
+28 | |     ResultManifest,
+29 | |     RunManifest,
+30 | |     SceneSpec,
+31 | |     WorkflowSpec,
+32 | | )
+33 | | from coastmas.core.errors import CoastMASError, ConstraintError
+34 | | from coastmas.core.execution import ExecutionRegistry, execute_workflow
+35 | | from coastmas.core.result_entities import bind_result_objects
+36 | | from coastmas.core.result_geography import result_entity_features
+37 | | from coastmas.core.scene_workspace import inspect_scene
+38 | | from coastmas.domain.result_views import management_objects
+39 | | from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
+40 | | from coastmas.persistence.data_access import require_project_object
+41 | | from coastmas.persistence.resources import fingerprint, read_resource, require_permission
+42 | | from coastmas.persistence.scenes import scene_resources
+43 | | from coastmas.persistence.schema import Job, Resource
+   | |_____________________________________________________^
+44 |
+45 |   LOGGER = logging.getLogger(__name__)
+   |
+help: Organize imports
+   |
+38 | from coastmas.domain.result_views import management_objects
+39 + from coastmas.persistence.data_access import require_project_object
+40 | from coastmas.persistence.jobs import claim_job, finish_failed_job, heartbeat_job, publish_result
+   - from coastmas.persistence.data_access import require_project_object
+41 | from coastmas.persistence.resources import fingerprint, read_resource, require_permission
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

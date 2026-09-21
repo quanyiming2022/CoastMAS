@@ -350,6 +350,31 @@
       "title": "DataAssetSpec",
       "type": "object"
     },
+    "DataInspection": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Metadata",
+          "type": "object"
+        },
+        "preview": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Preview",
+          "type": "object"
+        }
+      },
+      "required": [
+        "metadata",
+        "preview"
+      ],
+      "title": "DataInspection",
+      "type": "object"
+    },
     "DecompositionRequest": {
       "additionalProperties": false,
       "properties": {
@@ -3070,6 +3095,9 @@
     "DataAssetSpec": {
       "$ref": "#/$defs/DataAssetSpec"
     },
+    "DataInspection": {
+      "$ref": "#/$defs/DataInspection"
+    },
     "DecompositionRequest": {
       "$ref": "#/$defs/DecompositionRequest"
     },
@@ -3120,6 +3148,7 @@
     }
   },
   "required": [
+    "DataInspection",
     "DecompositionRequest",
     "ModelDecomposition",
     "ResultView",

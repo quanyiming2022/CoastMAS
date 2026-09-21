@@ -1,0 +1,77 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_________ test_data_history_download_and_archive_preserve_exact_bytes __________
+
+authenticated = (<starlette.testclient.TestClient object at 0x11fbdf440>, 'cTqT6_AiZnmTpy60pPv-gRs9mcKTFmeMHEy-Sqb_8z8', '04212e69-0f1e-42d9-8475-c0436c4f5fec', 'c17a279a-174c-4d11-a32f-4946974b9159')
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11fc0f980>
+
+    def test_data_history_download_and_archive_preserve_exact_bytes(authenticated, storage):
+        client, csrf, project, _ = authenticated
+        client.app.state.artifact_store = storage
+        source = asset(id=uuid4().hex, format="CSV", type="table", variables=[variable(data_type="array")])
+        content = b"height,label\n0,zero\n2,two\n"
+        headers = {"X-CSRF-Token": csrf}
+        uploaded = client.post("/api/v1/data-assets/upload", headers=headers,
+            data={"project_id": project, "metadata": source.model_dump_json()},
+            files={"file": ("data.csv", content, "text/csv")})
+        assert uploaded.status_code == 201, uploaded.text
+        checked = client.post(f"/api/v1/data-assets/{source.id}/validate", headers=headers,
+            json={"expected_version": 1})
+        assert checked.status_code == 200
+        history = client.get(f"/api/v1/data-assets/{source.id}/versions")
+>       assert history.status_code == 200, history.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"9ff23273-ca65-4abc-ab44-35d10055bd90"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_data_api.py:78: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_data_api.py::test_data_history_download_and_archive_preserve_exact_bytes
+1 failed, 3 passed, 2 warnings in 10.25s
+
+> coastmas-web@0.1.0 test
+> vitest run src/api.test.ts
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+ ❯ src/api.test.ts (5 tests | 1 failed) 16ms
+   × sends multipart data unchanged with CSRF and lets the browser set its boundary 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/api.test.ts > sends multipart data unchanged with CSRF and lets the browser set its boundary
+AssertionError: expected '{}' to be FormData{} // Object.is equality
+
+- Expected:
+FormData {}
+
++ Received:
+"{}"
+
+ ❯ src/api.test.ts:76:21
+     74|   expect(fetch).toHaveBeenCalledTimes(1);
+     75|   const sent = fetch.mock.calls[0]![1]!;
+     76|   expect(sent.body).toBe(body);
+       |                     ^
+     77|   expect(sent.headers.has("Content-Type")).toBe(false);
+     78|   expect(sent.headers.get("X-CSRF-Token")).toBe("upload-token");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  00:56:08
+   Duration  605ms (environment 74%, setup 11%, import 7%, transform 5%, tests 3%)
+
