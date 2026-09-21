@@ -23,7 +23,7 @@ def test_seed_is_repeatable_preserves_user_state_and_three_scenes_run(
         count = session.scalar(select(func.count()).select_from(Resource))
     with Session(engine) as session, session.begin():
         again = seed_project(session, owner, project, storage, Path("sample-data"))
-        assert len(again.catalog.models) == 23
+        assert len(again.catalog.models) == 24
         assert len(again.scenes) == len(again.workflows) == 3
         assert session.scalar(select(func.count()).select_from(Resource)) == count
     client.app.state.registry = seeded.catalog.registry

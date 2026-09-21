@@ -19,6 +19,7 @@ from coastmas.domain.coastal_components import (
     screening_component,
     statistics_component,
 )
+from coastmas.domain.optimization_catalog import optimization_catalog
 from coastmas.domain.scenarios import verify_samples
 
 
@@ -212,6 +213,11 @@ def coastal_catalog(project_id: str, directory: Path) -> BuiltinCatalog:
         },
     )
     models = list(catalog.models)
+    optimization = optimization_catalog(project_id)
+    for model in optimization.models:
+        runtime = optimization.registry.resolve(model)
+        catalog.registry.register(model, runtime.adapter, runtime.handler)
+        models.append(model)
     # Separate immutable signatures preserve the original management-unit release.
     for support in ("administrative_unit", "custom_polygon", "grid"):
         variant = assessment_catalog(project_id, spatial_support=support)

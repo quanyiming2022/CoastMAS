@@ -1,5 +1,68 @@
 {
   "$defs": {
+    "Allocation": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "default": true,
+          "title": "Allowed",
+          "type": "boolean"
+        },
+        "area": {
+          "exclusiveMinimum": 0,
+          "title": "Area",
+          "type": "number"
+        },
+        "benefit": {
+          "title": "Benefit",
+          "type": "number"
+        },
+        "cost": {
+          "minimum": 0,
+          "title": "Cost",
+          "type": "number"
+        },
+        "ecological_cost": {
+          "minimum": 0,
+          "title": "Ecological Cost",
+          "type": "number"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "risk": {
+          "minimum": 0,
+          "title": "Risk",
+          "type": "number"
+        },
+        "selected": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected"
+        }
+      },
+      "required": [
+        "id",
+        "benefit",
+        "cost",
+        "area",
+        "ecological_cost",
+        "risk",
+        "selected"
+      ],
+      "title": "Allocation",
+      "type": "object"
+    },
     "AssessmentSpec": {
       "additionalProperties": false,
       "description": "A frozen evaluation configuration; run results are read from actual job manifests.",
@@ -177,6 +240,112 @@
         "variable"
       ],
       "title": "BindingTarget",
+      "type": "object"
+    },
+    "CandidateUnit": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "default": true,
+          "title": "Allowed",
+          "type": "boolean"
+        },
+        "area": {
+          "exclusiveMinimum": 0,
+          "title": "Area",
+          "type": "number"
+        },
+        "benefit": {
+          "title": "Benefit",
+          "type": "number"
+        },
+        "cost": {
+          "minimum": 0,
+          "title": "Cost",
+          "type": "number"
+        },
+        "ecological_cost": {
+          "minimum": 0,
+          "title": "Ecological Cost",
+          "type": "number"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "risk": {
+          "minimum": 0,
+          "title": "Risk",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "benefit",
+        "cost",
+        "area",
+        "ecological_cost",
+        "risk"
+      ],
+      "title": "CandidateUnit",
+      "type": "object"
+    },
+    "ConstraintCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Actual"
+        },
+        "bound": {
+          "title": "Bound",
+          "type": "number"
+        },
+        "relation": {
+          "enum": [
+            "le",
+            "ge"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "satisfied": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Satisfied"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "bound",
+        "actual",
+        "satisfied",
+        "relation",
+        "unit"
+      ],
+      "title": "ConstraintCheck",
       "type": "object"
     },
     "ConstraintComparison": {
@@ -2171,6 +2340,7 @@
     },
     "ModelType": {
       "enum": [
+        "OPTIMIZATION",
         "STATISTICAL",
         "PROCESS",
         "MACHINE_LEARNING",
@@ -2325,6 +2495,359 @@
         "weight"
       ],
       "title": "ObjectiveWeight",
+      "type": "object"
+    },
+    "OptimizationFrame": {
+      "additionalProperties": false,
+      "properties": {
+        "additivity_basis": {
+          "maxLength": 10000,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Additivity Basis",
+          "type": "string"
+        },
+        "area_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Area Unit",
+          "type": "string"
+        },
+        "benefit_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Benefit Unit",
+          "type": "string"
+        },
+        "budget": {
+          "minimum": 0,
+          "title": "Budget",
+          "type": "number"
+        },
+        "cost_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Cost Unit",
+          "type": "string"
+        },
+        "data_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Data Label",
+          "type": "string"
+        },
+        "ecological_cost_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Ecological Cost Unit",
+          "type": "string"
+        },
+        "maximum_ecological_cost": {
+          "minimum": 0,
+          "title": "Maximum Ecological Cost",
+          "type": "number"
+        },
+        "maximum_risk": {
+          "minimum": 0,
+          "title": "Maximum Risk",
+          "type": "number"
+        },
+        "minimum_area": {
+          "minimum": 0,
+          "title": "Minimum Area",
+          "type": "number"
+        },
+        "protected_unit_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "maxItems": 5000,
+          "title": "Protected Unit Ids",
+          "type": "array"
+        },
+        "risk_aggregation": {
+          "const": "additive_index",
+          "title": "Risk Aggregation",
+          "type": "string"
+        },
+        "risk_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Risk Unit",
+          "type": "string"
+        },
+        "units": {
+          "items": {
+            "$ref": "#/$defs/CandidateUnit"
+          },
+          "maxItems": 5000,
+          "minItems": 1,
+          "title": "Units",
+          "type": "array"
+        }
+      },
+      "required": [
+        "units",
+        "area_unit",
+        "benefit_unit",
+        "cost_unit",
+        "ecological_cost_unit",
+        "risk_unit",
+        "budget",
+        "minimum_area",
+        "maximum_ecological_cost",
+        "maximum_risk",
+        "risk_aggregation",
+        "additivity_basis",
+        "data_label"
+      ],
+      "title": "OptimizationFrame",
+      "type": "object"
+    },
+    "OptimizationOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "additivity_basis": {
+          "title": "Additivity Basis",
+          "type": "string"
+        },
+        "allocations": {
+          "items": {
+            "$ref": "#/$defs/Allocation"
+          },
+          "title": "Allocations",
+          "type": "array"
+        },
+        "area_unit": {
+          "const": "m^2",
+          "default": "m^2",
+          "title": "Area Unit",
+          "type": "string"
+        },
+        "benefit_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Benefit Unit",
+          "type": "string"
+        },
+        "checks": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ConstraintCheck"
+          },
+          "title": "Checks",
+          "type": "object"
+        },
+        "constraints_satisfied": {
+          "title": "Constraints Satisfied",
+          "type": "boolean"
+        },
+        "cost_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Cost Unit",
+          "type": "string"
+        },
+        "data_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Data Label",
+          "type": "string"
+        },
+        "ecological_cost_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Ecological Cost Unit",
+          "type": "string"
+        },
+        "policy_decision": {
+          "const": false,
+          "default": false,
+          "title": "Policy Decision",
+          "type": "boolean"
+        },
+        "relative_gap": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Relative Gap"
+        },
+        "risk_aggregation": {
+          "const": "additive_index",
+          "default": "additive_index",
+          "title": "Risk Aggregation",
+          "type": "string"
+        },
+        "risk_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Risk Unit",
+          "type": "string"
+        },
+        "selected": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "type": "string"
+          },
+          "title": "Selected",
+          "type": "array"
+        },
+        "solver_message": {
+          "title": "Solver Message",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "OPTIMAL",
+            "INCUMBENT",
+            "INFEASIBLE",
+            "TIME_LIMIT",
+            "FAILED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "totals": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OptimizationTotals"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "selected",
+        "allocations",
+        "totals",
+        "checks",
+        "constraints_satisfied",
+        "benefit_unit",
+        "cost_unit",
+        "ecological_cost_unit",
+        "risk_unit",
+        "additivity_basis",
+        "data_label",
+        "solver_message",
+        "relative_gap"
+      ],
+      "title": "OptimizationOutcome",
+      "type": "object"
+    },
+    "OptimizationSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "request_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Request Checksum",
+          "type": "string"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "source_scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "workflow": {
+          "$ref": "#/$defs/VersionReference"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "version",
+        "source_scene",
+        "scene",
+        "data",
+        "workflow",
+        "request_checksum"
+      ],
+      "title": "OptimizationSpec",
+      "type": "object"
+    },
+    "OptimizationTotals": {
+      "additionalProperties": false,
+      "properties": {
+        "area": {
+          "minimum": 0,
+          "title": "Area",
+          "type": "number"
+        },
+        "benefit": {
+          "title": "Benefit",
+          "type": "number"
+        },
+        "cost": {
+          "minimum": 0,
+          "title": "Cost",
+          "type": "number"
+        },
+        "ecological_cost": {
+          "minimum": 0,
+          "title": "Ecological Cost",
+          "type": "number"
+        },
+        "risk": {
+          "minimum": 0,
+          "title": "Risk",
+          "type": "number"
+        }
+      },
+      "required": [
+        "benefit",
+        "cost",
+        "area",
+        "ecological_cost",
+        "risk"
+      ],
+      "title": "OptimizationTotals",
       "type": "object"
     },
     "ParameterBinding": {
@@ -4235,6 +4758,15 @@
     "ModelSpec": {
       "$ref": "#/$defs/ModelSpec"
     },
+    "OptimizationFrame": {
+      "$ref": "#/$defs/OptimizationFrame"
+    },
+    "OptimizationOutcome": {
+      "$ref": "#/$defs/OptimizationOutcome"
+    },
+    "OptimizationSpec": {
+      "$ref": "#/$defs/OptimizationSpec"
+    },
     "PlanningArtifact": {
       "$ref": "#/$defs/PlanningArtifact"
     },
@@ -4279,6 +4811,9 @@
     }
   },
   "required": [
+    "OptimizationFrame",
+    "OptimizationOutcome",
+    "OptimizationSpec",
     "ProposalDraft",
     "ProposalSpec",
     "ProposalComment",

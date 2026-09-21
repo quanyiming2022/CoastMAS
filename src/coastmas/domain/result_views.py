@@ -7,6 +7,7 @@ from pydantic import JsonValue, ValidationError
 
 from coastmas.core.contracts import ModelSpec, VersionReference, WorkflowSpec
 from coastmas.core.errors import ConstraintError
+from coastmas.core.optimization import OptimizationOutcome
 from coastmas.core.result_entities import ResultObject, result_object_id
 from coastmas.domain.indicator_frames import ScoreFrame, TemporalChange
 
@@ -74,6 +75,39 @@ def management_objects(
                         source + "/units/" + pointer_segment(unit),
                         metrics,
                         {name: metric_units[name] for name in metrics},
+                    )
+                )
+        elif variable.standard_name == "spatial_optimization_allocation":
+            try:
+                allocation = OptimizationOutcome.model_validate(value)
+            except ValidationError as exc:
+                raise ConstraintError("invalid spatial allocation output") from exc
+            for index, candidate in enumerate(allocation.allocations):
+                rows.append(
+                    (
+                        candidate.id,
+                        source + f"/allocations/{index}",
+                        {
+                            "selected": int(candidate.selected)
+                            if candidate.selected is not None
+                            else None,
+                            "allowed": int(candidate.allowed),
+                            "benefit": candidate.benefit,
+                            "cost": candidate.cost,
+                            "area": candidate.area,
+                            "ecological_cost": candidate.ecological_cost,
+                            "risk": candidate.risk,
+                            "solution_status": allocation.status,
+                        },
+                        {
+                            "selected": "1",
+                            "allowed": "1",
+                            "benefit": allocation.benefit_unit,
+                            "cost": allocation.cost_unit,
+                            "area": allocation.area_unit,
+                            "ecological_cost": allocation.ecological_cost_unit,
+                            "risk": allocation.risk_unit,
+                        },
                     )
                 )
         elif variable.standard_name == "assessment_scores":

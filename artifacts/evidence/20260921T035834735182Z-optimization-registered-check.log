@@ -1,0 +1,11 @@
+All checks passed!
+src/coastmas/domain/result_views.py:85: error: Incompatible types in assignment (expression has type "Allocation", variable has type "str")  [assignment]
+src/coastmas/domain/result_views.py:88: error: "str" has no attribute "id"  [attr-defined]
+src/coastmas/domain/result_views.py:91: error: "str" has no attribute "selected"  [attr-defined]
+src/coastmas/domain/result_views.py:92: error: "str" has no attribute "allowed"  [attr-defined]
+src/coastmas/domain/result_views.py:93: error: "str" has no attribute "benefit"  [attr-defined]
+src/coastmas/domain/result_views.py:94: error: "str" has no attribute "cost"  [attr-defined]
+src/coastmas/domain/result_views.py:95: error: "str" has no attribute "area"  [attr-defined]
+src/coastmas/domain/result_views.py:96: error: "str" has no attribute "ecological_cost"  [attr-defined]
+src/coastmas/domain/result_views.py:97: error: "str" has no attribute "risk"  [attr-defined]
+Found 9 errors in 1 file (checked 89 source files)

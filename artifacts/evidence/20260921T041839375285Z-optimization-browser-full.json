@@ -1,0 +1,29 @@
+{
+  "name": "optimization-browser-full",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    "cd apps/web && node_modules/.bin/playwright test"
+  ],
+  "started_at": "2026-09-21T04:18:39.375285+00:00",
+  "finished_at": "2026-09-21T04:20:51.899237+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "664ca97a64879e427a3730629ee4d0b1c565f0fa8696b5bf6bfd22c40a0d17eb",
+  "git_commit": "61d006398cbb9daf1d12f560081c8080769cbf28",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T041839375285Z-optimization-browser-full.log"
+}

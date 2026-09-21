@@ -1,0 +1,12 @@
+E501 Line too long (101 > 100)
+   --> src/coastmas/app/optimization_routes.py:130:101
+    |
+128 |         time_start=original.time_range.start,
+129 |         time_end=original.time_range.end,
+130 |         time_resolution=f"{(original.time_range.end - original.time_range.start).total_seconds()} s",
+    |                                                                                                     ^
+131 |         variables=model.inputs,
+132 |         quality={},
+    |
+
+Found 1 error.

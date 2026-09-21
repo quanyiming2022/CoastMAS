@@ -1,0 +1,42 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_optimization_saved_inputs_workflow_worker_and_idempotent_results _____
+
+authenticated = (<starlette.testclient.TestClient object at 0x121566990>, 'OaHWa-Id7kucI7FoQt1nCpApY9aJYaJ30qvQSAchBcM', 'db6683c2-a656-40c5-a953-c35f5671d4e4', '30f3fca8-da02-4b2d-be5c-ddc4790d0c1e')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_6aea429c2b214785a79310b7d59218ed)
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x1215f7cb0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-23/test_optimization_saved_inputs0')
+
+    def test_optimization_saved_inputs_workflow_worker_and_idempotent_results(authenticated, engine, storage, tmp_path):
+        client,csrf,project,user=authenticated
+        catalog=optimization_catalog(project)
+        client.app.state.registry=catalog.registry
+        client.app.state.artifact_store=storage
+        selected=scene(id=str(uuid4()))
+        with Session(engine) as session, session.begin():
+            for kind,spec in [('model',catalog.models[0]),('scene',selected)]:
+                create_resource(session,user_id=user,project_id=project,kind=kind,identifier=spec.id,name=spec.name,spec=spec.model_dump(mode='json'))
+        headers={'X-CSRF-Token':csrf}
+        body={'project_id':project,'name':'SYNTHETIC optimization record',
+              'scene':{'id':selected.id,'version':1},'frame':optimization_input(),
+              'time_limit':5,'idempotency_key':str(uuid4())}
+        response=client.post('/api/v1/optimizations',headers=headers,json=body)
+>       assert response.status_code==201,response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"2006814e-2b2a-4aef-aba4-560d4f6bf6ac"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_optimization_api.py:29: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_optimization_api.py::test_optimization_saved_inputs_workflow_worker_and_idempotent_results
+1 failed, 2 warnings in 3.39s

@@ -2,28 +2,15 @@
 
 import math
 from dataclasses import dataclass
-from typing import Annotated, Literal
+from typing import Literal
 
 import numpy as np
-from pydantic import Field, FiniteFloat
 
 # SciPy optimize does not ship PEP 561 typing for this API. All outputs are validated below.
 from scipy.optimize import Bounds, LinearConstraint, milp  # type: ignore[import-untyped]
 
-from coastmas.core.contracts import Contract, Name
 from coastmas.core.errors import ConstraintError
-
-Nonnegative = Annotated[FiniteFloat, Field(ge=0)]
-
-
-class CandidateUnit(Contract):
-    id: Name
-    benefit: FiniteFloat
-    cost: Nonnegative
-    area: Annotated[FiniteFloat, Field(gt=0)]
-    ecological_cost: Nonnegative
-    risk: Nonnegative
-    allowed: bool = True
+from coastmas.core.optimization import CandidateUnit
 
 
 @dataclass(frozen=True)

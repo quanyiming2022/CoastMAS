@@ -922,6 +922,93 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/optimizations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Records */
+        get: operations["records_api_v1_optimizations_get"];
+        put?: never;
+        /** Save */
+        post: operations["save_api_v1_optimizations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/optimizations/{identifier}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Record */
+        get: operations["get_record_api_v1_optimizations__identifier__get"];
+        put?: never;
+        post?: never;
+        /** Archive */
+        delete: operations["archive_api_v1_optimizations__identifier__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/optimizations/{identifier}/input": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Inputs */
+        get: operations["inputs_api_v1_optimizations__identifier__input_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/optimizations/{identifier}/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Run */
+        post: operations["run_api_v1_optimizations__identifier__run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/optimizations/{identifier}/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Runs */
+        get: operations["runs_api_v1_optimizations__identifier__runs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/plans": {
         parameters: {
             query?: never;
@@ -1346,7 +1433,8 @@ export interface paths {
         /** Update Scene */
         put: operations["update_scene_api_v1_scenes__identifier__put"];
         post?: never;
-        delete?: never;
+        /** Archive Scene */
+        delete: operations["archive_scene_api_v1_scenes__identifier__delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1498,6 +1586,26 @@ export interface components {
             metadata: string;
             /** Project Id */
             project_id: string;
+        };
+        /** CandidateUnit */
+        CandidateUnit: {
+            /**
+             * Allowed
+             * @default true
+             */
+            allowed: boolean;
+            /** Area */
+            area: number;
+            /** Benefit */
+            benefit: number;
+            /** Cost */
+            cost: number;
+            /** Ecological Cost */
+            ecological_cost: number;
+            /** Id */
+            id: string;
+            /** Risk */
+            risk: number;
         };
         /** CommentRequest */
         CommentRequest: {
@@ -1939,6 +2047,43 @@ export interface components {
             /** Weight */
             weight: number;
         };
+        /** OptimizationFrame */
+        OptimizationFrame: {
+            /** Additivity Basis */
+            additivity_basis: string;
+            /** Area Unit */
+            area_unit: string;
+            /** Benefit Unit */
+            benefit_unit: string;
+            /** Budget */
+            budget: number;
+            /** Cost Unit */
+            cost_unit: string;
+            /** Data Label */
+            data_label: string;
+            /** Ecological Cost Unit */
+            ecological_cost_unit: string;
+            /** Maximum Ecological Cost */
+            maximum_ecological_cost: number;
+            /** Maximum Risk */
+            maximum_risk: number;
+            /** Minimum Area */
+            minimum_area: number;
+            /**
+             * Protected Unit Ids
+             * @default []
+             */
+            protected_unit_ids: string[];
+            /**
+             * Risk Aggregation
+             * @constant
+             */
+            risk_aggregation: "additive_index";
+            /** Risk Unit */
+            risk_unit: string;
+            /** Units */
+            units: components["schemas"]["CandidateUnit"][];
+        };
         /** ParameterBinding */
         ParameterBinding: {
             /** Node Id */
@@ -2036,6 +2181,16 @@ export interface components {
              */
             random_seed: number;
         };
+        /** RunOptimizationRequest */
+        RunOptimizationRequest: {
+            /** Optimization Version */
+            optimization_version: number;
+            /**
+             * Random Seed
+             * @default 42
+             */
+            random_seed: number;
+        };
         /** RunSelection */
         RunSelection: {
             /**
@@ -2056,6 +2211,19 @@ export interface components {
             name?: string | null;
             /** Planning Trace Id */
             planning_trace_id: string;
+        };
+        /** SaveOptimizationRequest */
+        SaveOptimizationRequest: {
+            frame: components["schemas"]["OptimizationFrame"];
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Name */
+            name: string;
+            /** Project Id */
+            project_id: string;
+            scene: components["schemas"]["VersionReference"];
+            /** Time Limit */
+            time_limit: number;
         };
         /** SaveProposalRequest */
         SaveProposalRequest: {
@@ -4734,6 +4902,249 @@ export interface operations {
             };
         };
     };
+    records_api_v1_optimizations_get: {
+        parameters: {
+            query: {
+                project_id: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_api_v1_optimizations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaveOptimizationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_record_api_v1_optimizations__identifier__get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    archive_api_v1_optimizations__identifier__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    inputs_api_v1_optimizations__identifier__input_get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OptimizationFrame"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_api_v1_optimizations__identifier__run_post: {
+        parameters: {
+            query?: never;
+            header: {
+                "idempotency-key": string;
+            };
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RunOptimizationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    runs_api_v1_optimizations__identifier__runs_get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: components["schemas"]["JsonValue"];
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     create_plan_api_v1_plans_post: {
         parameters: {
             query?: never;
@@ -5750,6 +6161,35 @@ export interface operations {
                         [key: string]: components["schemas"]["JsonValue"];
                     };
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    archive_scene_api_v1_scenes__identifier__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identifier: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

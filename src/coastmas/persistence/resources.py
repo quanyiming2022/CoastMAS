@@ -14,6 +14,7 @@ from coastmas.core.contracts import SceneSpec, WorkflowSpec
 from coastmas.core.errors import CoastMASError
 from coastmas.core.geography import GeographicEntity
 from coastmas.core.indicators import AssessmentSpec
+from coastmas.core.optimization import OptimizationSpec
 from coastmas.persistence.geography import materialize_entity
 from coastmas.persistence.schema import (
     AuditLog,
@@ -34,6 +35,7 @@ KINDS = {
     "binding",
     "indicator_framework",
     "assessment",
+    "optimization",
     "proposal",
     "proposal_comment",
     "experiment",
@@ -111,6 +113,17 @@ def workflow_references(
     elif kind == "proposal":
         proposal = ProposalSpec.model_validate(spec)
         references = {(proposal.scene.id, proposal.scene.version, "scene")}
+    elif kind == "optimization":
+        optimization = OptimizationSpec.model_validate(spec)
+        references = {
+            (reference.id, reference.version, target_kind)
+            for reference, target_kind in (
+                (optimization.source_scene, "scene"),
+                (optimization.scene, "scene"),
+                (optimization.data, "data"),
+                (optimization.workflow, "workflow"),
+            )
+        }
     elif kind == "assessment":
         assessment = AssessmentSpec.model_validate(spec)
         references = {

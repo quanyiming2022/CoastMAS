@@ -23,6 +23,7 @@ from coastmas.app.geography_routes import router as geography_router
 from coastmas.app.indicator_routes import router as indicator_router
 from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
+from coastmas.app.optimization_routes import router as optimization_router
 from coastmas.app.planning_routes import router as planning_router
 from coastmas.app.run_routes import router as run_router
 from coastmas.app.scene_routes import router as scene_router
@@ -318,6 +319,7 @@ def create_app(
     app.include_router(source_router)
     app.include_router(indicator_router)
     app.include_router(assessment_router)
+    app.include_router(optimization_router)
     app.include_router(collaboration_router)
     app.state.source_registry = {}
     app.include_router(model_router)

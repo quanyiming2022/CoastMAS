@@ -1,0 +1,41 @@
+
+Running 1 test using 1 worker
+
+(node:26190) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry
+  1) e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: '空间优化', exact: true })
+
+
+      28 |   const sceneResponse=await page.request.post('/api/v1/scenes',{headers:{'X-CSRF-Token':csrf},data:{project_id:project,spec:{...base,id:`optimization-scene-${suffix}`,name:sceneName,version:1,entity_references:references}}});
+      29 |   expect(sceneResponse.status()).toBe(201);
+    > 30 |   await page.getByRole('link',{name:'空间优化',exact:true}).click();
+         |                                                         ^
+      31 |   for(const [budget,status] of [['3','OPTIMAL'],['0','INFEASIBLE']] as const){
+      32 |     await page.getByRole('link',{name:'新建优化配置',exact:true}).click();
+      33 |     await page.getByRole('button',{name:'载入合成示范',exact:true}).click();
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/spatial-optimization.spec.ts:30:57
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/spatial-optimization-spati-816f1--cases-with-pinned-geometry/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/playwright/spatial-optimization-spati-816f1--cases-with-pinned-geometry/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/playwright/spatial-optimization-spati-816f1--cases-with-pinned-geometry/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/playwright/spatial-optimization-spati-816f1--cases-with-pinned-geometry/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/spatial-optimization.spec.ts:5:1 › spatial optimization executes actual feasible and infeasible cases with pinned geometry 

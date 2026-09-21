@@ -1,0 +1,59 @@
+All checks passed!
+Success: no issues found in 90 source files
+F.............                                                           [100%]
+=================================== FAILURES ===================================
+____ test_optimization_saved_inputs_workflow_worker_and_idempotent_results _____
+
+authenticated = (<starlette.testclient.TestClient object at 0x121d880e0>, 'uGHb5ptQNnxNyI_ar1rg4K6P9cjezhXnWLw30w2C4EI', 'a99b1124-baa4-4464-bb01-76067b74fe15', '9cb482e4-df4a-4df7-95b8-597eceda58aa')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_0af78f7bbe984417848d2a76a4a4a26c)
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x121cc12b0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-24/test_optimization_saved_inputs0')
+
+    def test_optimization_saved_inputs_workflow_worker_and_idempotent_results(
+        authenticated, engine, storage, tmp_path
+    ):
+        client, csrf, project, user = authenticated
+        catalog = optimization_catalog(project)
+        client.app.state.registry = catalog.registry
+        client.app.state.artifact_store = storage
+        selected = scene(id=str(uuid4()))
+        with Session(engine) as session, session.begin():
+            for kind, spec in [("model", catalog.models[0]), ("scene", selected)]:
+                create_resource(
+                    session,
+                    user_id=user,
+                    project_id=project,
+                    kind=kind,
+                    identifier=spec.id,
+                    name=spec.name,
+                    spec=spec.model_dump(mode="json"),
+                )
+        headers = {"X-CSRF-Token": csrf}
+        body = {
+            "project_id": project,
+            "name": "SYNTHETIC optimization record",
+            "scene": {"id": selected.id, "version": 1},
+            "frame": optimization_input(),
+            "time_limit": 5,
+            "idempotency_key": str(uuid4()),
+        }
+        response = client.post("/api/v1/optimizations", headers=headers, json=body)
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"CONSTRAINT_ERROR","message":"optimization configuration failed scientific preflight","details":{"issues":[{"code":"TEMPORAL_SCALE","message":"'declared_period' is not defined in the unit registry","node_id":"optimize","variable":"candidates"}]},"request_id":"6453f69f-0445-4316-9074-9cf778931262"}
+E       assert 422 == 201
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/integration/test_optimization_api.py:45: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_optimization_api.py::test_optimization_saved_inputs_workflow_worker_and_idempotent_results
+1 failed, 13 passed, 2 warnings in 7.06s

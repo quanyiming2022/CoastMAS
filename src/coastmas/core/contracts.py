@@ -137,6 +137,7 @@ class ScaleSpec(Contract):
 
 
 class ModelType(StrEnum):
+    OPTIMIZATION = "OPTIMIZATION"
     STATISTICAL = "STATISTICAL"
     PROCESS = "PROCESS"
     MACHINE_LEARNING = "MACHINE_LEARNING"

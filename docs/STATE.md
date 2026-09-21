@@ -32,7 +32,7 @@
 - 最新覆盖率6225/7014行≈88.8%、1656/2292分支≈72.3%；最终分支门槛未满足，未排除困难业务文件。
 
 ## 服务与恢复
-- API/UI http://127.0.0.1:58000。当前API session13356/log api-collaboration-evidence.log；worker71412/log worker-assessment-final.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
+- API/UI http://127.0.0.1:58000。当前API session88450/log api-optimization.log；worker38305/log worker-optimization.log；beat28693/log beat-data-isolation.log。合成HTTP源20358/log source-acceptance.log，脚本 serve_acceptance_source.py，localhost58090。
 - 基础容器 coastmas-database-1(55432)、coastmas-redis-1(56379)、coastmas-object-storage-1(59000/59001)。当前三依赖ready。中断后先检查容器/进程及 `/health/ready`，不要盲目重跑。仅恢复本项目容器，不能删除卷或处理无关项目。
 - 原生MinIO新卷coastmas_objects_native，经固定官方源码构建、SHA恢复及120秒并发验证；旧卷和私有备份保留。历史AMD64 panic未抹去，详见object-storage-recovery.md。
 - `.env`中的COASTMAS_DATA_SOURCES_CONFIG指向 artifacts/runtime/source-connectors.json（0600），demo-csv仅授权演示项目本机SYNTHETIC源。
@@ -52,3 +52,15 @@
 - 随后自查修复VIEWER作者读权限及RunManifest完整SceneSpec引用匹配，定向回归034507133634Z、034736157071Z通过。最终真实浏览器034840135102Z通过：先独立worker海岸结果80000m²/320人，再绑定到方案与历史比较。此前完整回归早于补丁，不声称覆盖同一最终SHA。
 - 所有红测试/入口错误/同名测试模块收集失败均保留，没有通过删断言求绿。当前无验收进程，API已加载最终补丁session13356，worker算法未变继续session71412。
 - 下一步：复用domain/optimization.py的SciPy MILP/硬保护/可行性验证，接入可信catalog/worker/空间结果/界面。coastal_catalog统一合并模型，sample_bootstrap自动登记全部模型；当前23计数增加新模型时相应更新，已有23签名不可改变。domain/result_views.management_objects需接结构化优化结果。
+
+## 空间优化增量检查点（已验证）
+- 协同增量已提交61d0063。现有优化算法接入真实可执行模型/数据输入/派生场景/工作流/worker与实体结果和界面，见spatial-optimization.md，R31映射已更新。
+- core/optimization.py包含CandidateUnit（原domain路径仍可导入）、OptimizationFrame/Outcome/Spec，严格数值/明确单位/可加性/保护清单/不可行null。core.ModelType新增OPTIMIZATION；coastal_catalog合并为24模型，已有23签名不改，主库已幂等init。
+- optimization_routes.save通过源场景固定副本+实际S3候选文件+单节点workflow+record FK提交；原场景不变，scope内幂等。run复用统一预检与worker。新scene DELETE归档保护/重复请求已测试。
+- 数据声明面积，不从几何编造指标；前端明确可加风险不是概率。运行转换面积与下限为m²，保护优先。结果按实际unit ID绑定固定实体，未匹配明确UNBOUND。
+- 领域23项035445935482Z、注册/旧场景30项035920660105Z、API/worker/归档17项040903494975Z、前端42项/类型/lint/构建/契约漂移041506722091Z通过。真实浏览器041708536006Z通过：预算3选U3/收益8/成本3/40000m²、预算0不可行，两个结果均绑定3个真实版本实体，截图已查看。
+- 完整后端354项：20260921T041838897503Z-optimization-backend-full；全浏览器18条：20260921T041839375285Z-optimization-browser-full，同源代码保持不变，全部通过。当前无验收进程。API88450/worker38305已加载本轮24模型，beat28693不变。
+- 下一模块第43节Research Evaluation。尚无独立research/experiment实现。规划账本persistence/planning.py已有PlanningTrace+ProviderRequest真实调用预算/请求审计，不能把预留数当实际调用/token。现有PlanningTrace仅owner可读。外部LLM凭证缺失仍BLOCKED，不重复问、不伪造实验；规则组与统计/UI可继续。
+
+- 科研实现入口补充：可复用现有Job/ResultBundle的租约、取消和真实发布；Job.manifest本身是JSONB，ResearchManifest应有明确kind并独立验证，不能伪造普通WorkflowSpec包装实验。ResultManifest.result_type是Name，可真实标识research_evaluation，无需伪造模型运行。create_queue仅调用runner.run/pending，可按实际manifest类型调度新ResearchWorker，避免造第二套状态机。需要核对Results/RunDetail/重试路径的类型兼容，保持普通workflow不变。
+- 研究需求已读第43/44/68节及EQ：A规则、B仅LLM、C LLM+KG+约束；有效率、违规率、人工修订次数、延迟；错误注入binding统计；12项科研验证必须真实执行。生产create_plan对可规则解析任务不调用LLM，因此科研B/C不能假称allow_external等于真实调用。core.llm和persistence.planning保存真实请求预算/dispatch/usage，需复用。外部凭证缺失继续BLOCKED。

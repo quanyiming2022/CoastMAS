@@ -307,7 +307,8 @@ export type ExecutionStatus = 'EXECUTABLE' | 'NOT_EXECUTABLE';
 export type Id10 = string;
 export type Inputs1 = VariableSpec[];
 export type License2 = string;
-export type ModelType = 'STATISTICAL' | 'PROCESS' | 'MACHINE_LEARNING' | 'RASTER' | 'GIS' | 'HYBRID' | 'EXTERNAL';
+export type ModelType =
+  'OPTIMIZATION' | 'STATISTICAL' | 'PROCESS' | 'MACHINE_LEARNING' | 'RASTER' | 'GIS' | 'HYBRID' | 'EXTERNAL';
 export type Name9 = string;
 export type Outputs1 = VariableSpec[];
 export type Owner = string;
@@ -330,6 +331,71 @@ export type SupportedGeometry = string[];
 export type UpdatedAt = string;
 export type ValidationStatus = 'UNVALIDATED' | 'VALIDATED' | 'REJECTED';
 export type Version7 = number;
+export type AdditivityBasis = string;
+export type AreaUnit = string;
+export type BenefitUnit = string;
+export type Budget = number;
+export type CostUnit = string;
+export type DataLabel = string;
+export type EcologicalCostUnit = string;
+export type MaximumEcologicalCost = number;
+export type MaximumRisk = number;
+export type MinimumArea = number;
+/**
+ * @maxItems 5000
+ */
+export type ProtectedUnitIds = string[];
+export type RiskAggregation = 'additive_index';
+export type RiskUnit = string;
+/**
+ * @minItems 1
+ * @maxItems 5000
+ */
+export type Units = [CandidateUnit, ...CandidateUnit[]];
+export type Allowed = boolean;
+export type Area = number;
+export type Benefit = number;
+export type Cost = number;
+export type EcologicalCost = number;
+export type Id11 = string;
+export type Risk = number;
+export type AdditivityBasis1 = string;
+export type Allowed1 = boolean;
+export type Area1 = number;
+export type Benefit1 = number;
+export type Cost1 = number;
+export type EcologicalCost1 = number;
+export type Id12 = string;
+export type Risk1 = number;
+export type Selected = boolean | null;
+export type Allocations = Allocation[];
+export type AreaUnit1 = 'm^2';
+export type BenefitUnit1 = string;
+export type Actual = number | null;
+export type Bound = number;
+export type Relation = 'le' | 'ge';
+export type Satisfied = boolean | null;
+export type Unit6 = string;
+export type ConstraintsSatisfied = boolean;
+export type CostUnit1 = string;
+export type DataLabel1 = string;
+export type EcologicalCostUnit1 = string;
+export type PolicyDecision1 = false;
+export type RelativeGap = number | null;
+export type RiskAggregation1 = 'additive_index';
+export type RiskUnit1 = string;
+export type Selected1 = string[];
+export type SolverMessage = string;
+export type Status2 = 'OPTIMAL' | 'INCUMBENT' | 'INFEASIBLE' | 'TIME_LIMIT' | 'FAILED';
+export type Area2 = number;
+export type Benefit2 = number;
+export type Cost2 = number;
+export type EcologicalCost2 = number;
+export type Risk2 = number;
+export type Id13 = string;
+export type Name11 = string;
+export type RequestChecksum = string;
+export type Version8 = number;
 export type Constraints1 = ConstraintSpec[];
 export type SourceNode = string;
 export type SourceVariable = string;
@@ -338,14 +404,14 @@ export type TargetVariable = string;
 export type Edges1 = WorkflowEdge[];
 export type MaxRetries = number;
 export type TimeoutSeconds = number;
-export type Id11 = string;
+export type Id14 = string;
 export type InputBindings = BindingPlan[];
-export type Name11 = string;
+export type Name12 = string;
 /**
  * @minItems 1
  */
 export type Nodes1 = [WorkflowNode, ...WorkflowNode[]];
-export type Id12 = string;
+export type Id15 = string;
 export type Kind2 = 'data' | 'transform' | 'model' | 'validation' | 'output';
 export type ModelId = string;
 export type ModelVersion = number;
@@ -356,7 +422,7 @@ export type Value = number;
 export type ParameterBindings = ParameterBinding[];
 export type SceneType = string;
 export type ValidationRules = string[];
-export type Version8 = number;
+export type Version9 = number;
 export type Code1 = string;
 export type Message = string;
 export type NodeId2 = string | null;
@@ -375,14 +441,14 @@ export type AuthorId = string;
 export type AuthorRole = 'ADMIN' | 'RESEARCHER' | 'MANAGER' | 'PUBLIC';
 export type Content = string;
 export type CreatedAt1 = string;
-export type Id13 = string;
-export type Name12 = string;
-export type Version9 = number;
+export type Id16 = string;
+export type Name13 = string;
+export type Version10 = number;
 export type ConstraintId1 = string;
 export type Maximum4 = number | null;
 export type Metric2 = string;
 export type Minimum4 = number | null;
-export type Unit6 = string;
+export type Unit7 = string;
 /**
  * @maxItems 64
  */
@@ -391,18 +457,18 @@ export type Constraints2 = QuantitativeConstraint[];
  * @maxItems 32
  */
 export type EvidenceResults = string[];
-export type Id14 = string;
-export type Name13 = string;
+export type Id17 = string;
+export type Name14 = string;
 /**
  * @minItems 1
  * @maxItems 32
  */
 export type Objectives = [ObjectiveWeight, ...ObjectiveWeight[]];
-export type Name14 = string;
+export type Name15 = string;
 export type ObjectiveId = string;
 export type Weight1 = number;
 export type Rationale1 = string;
-export type Version10 = number;
+export type Version11 = number;
 export type AuthorId1 = string;
 export type AuthorRole1 = 'ADMIN' | 'RESEARCHER' | 'MANAGER' | 'PUBLIC';
 /**
@@ -413,8 +479,8 @@ export type Constraints3 = QuantitativeConstraint[];
  * @maxItems 32
  */
 export type EvidenceResults1 = string[];
-export type Id15 = string;
-export type Name15 = string;
+export type Id18 = string;
+export type Name16 = string;
 /**
  * @minItems 1
  * @maxItems 32
@@ -425,8 +491,8 @@ export type Conclusion = 'REVIEWED' | 'RETURNED';
 export type Rationale3 = string;
 export type ReviewedAt = string;
 export type ReviewerId = string;
-export type Status2 = 'DRAFT' | 'SUBMITTED' | 'REVIEWED' | 'RETURNED';
-export type Version11 = number;
+export type Status3 = 'DRAFT' | 'SUBMITTED' | 'REVIEWED' | 'RETURNED';
+export type Version12 = number;
 export type InterpretationRequiresReview = true;
 export type MissingConditions1 = string[];
 export type Origin = 'provider_candidate';
@@ -443,8 +509,8 @@ export type InputBindings1 = ProposedBinding[];
  * @maxItems 32
  */
 export type Nodes3 = [ProposedNode, ...ProposedNode[]];
-export type Id16 = string;
-export type Name16 = string;
+export type Id19 = string;
+export type Name17 = string;
 export type Value1 = number;
 export type Parameters2 = ProposedParameter[];
 /**
@@ -469,7 +535,7 @@ export type GeographicEntityVersion = number;
 export type ManagementUnitId1 = string | null;
 export type ResultObjectId = string;
 export type EntityBinding = EntityBinding1[];
-export type Id17 = string;
+export type Id20 = string;
 export type JobId = string;
 export type Provenance = string;
 export type QualityStatus = 'RAW' | 'VALIDATED' | 'REVIEWED' | 'PUBLISHED' | 'REJECTED';
@@ -478,10 +544,10 @@ export type Revision = number;
 export type StorageUri = string;
 export type End = string;
 export type Start = string;
-export type Unit7 = string;
+export type Unit8 = string;
 export type BindingStatus = 'BOUND' | 'PARTIAL' | 'UNBOUND' | 'NOT_APPLICABLE';
 export type EntityBinding2 = EntityBinding1[];
-export type Id18 = string;
+export type Id21 = string;
 export type ManagementUnitId2 = string | null;
 export type NodeId3 = string;
 export type SourcePointer = string;
@@ -505,20 +571,20 @@ export type DataReferences = VersionReference[];
  */
 export type EntityReferences = VersionReference[];
 export type EntityTypes = string[];
-export type Id19 = string;
+export type Id22 = string;
 export type ManagementGoal2 = string;
-export type Name17 = string;
+export type Name18 = string;
 export type RequiredOutputs = string[];
-export type Version12 = number;
+export type Version13 = number;
 export type SoftwareVersion = string;
 export type Timestamp = string;
 export type FootprintWgs84 = {
   [k: string]: JsonValue;
 } | null;
 export type Method1 = string;
-export type Name18 = string;
+export type Name19 = string;
 export type SpatialFraction = number | null;
-export type Status3 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
+export type Status4 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
 export type TemporalCoverage = boolean | null;
 export type DataCoverage = SceneCoverage[];
 export type EntityCoverage = SceneCoverage[];
@@ -543,6 +609,9 @@ export interface CoastMASContracts {
   ManagementGoal: ManagementGoal;
   ModelDecomposition: ModelDecomposition;
   ModelSpec: ModelSpec;
+  OptimizationFrame: OptimizationFrame;
+  OptimizationOutcome: OptimizationOutcome;
+  OptimizationSpec: OptimizationSpec;
   PlanningArtifact: PlanningArtifact;
   PrepareIndicatorsRequest: PrepareIndicatorsRequest;
   ProposalComment: ProposalComment;
@@ -899,6 +968,87 @@ export interface ScaleSpec {
 export interface ValidationMetrics {
   [k: string]: number;
 }
+export interface OptimizationFrame {
+  additivity_basis: AdditivityBasis;
+  area_unit: AreaUnit;
+  benefit_unit: BenefitUnit;
+  budget: Budget;
+  cost_unit: CostUnit;
+  data_label: DataLabel;
+  ecological_cost_unit: EcologicalCostUnit;
+  maximum_ecological_cost: MaximumEcologicalCost;
+  maximum_risk: MaximumRisk;
+  minimum_area: MinimumArea;
+  protected_unit_ids?: ProtectedUnitIds;
+  risk_aggregation: RiskAggregation;
+  risk_unit: RiskUnit;
+  units: Units;
+}
+export interface CandidateUnit {
+  allowed?: Allowed;
+  area: Area;
+  benefit: Benefit;
+  cost: Cost;
+  ecological_cost: EcologicalCost;
+  id: Id11;
+  risk: Risk;
+}
+export interface OptimizationOutcome {
+  additivity_basis: AdditivityBasis1;
+  allocations: Allocations;
+  area_unit?: AreaUnit1;
+  benefit_unit: BenefitUnit1;
+  checks: Checks;
+  constraints_satisfied: ConstraintsSatisfied;
+  cost_unit: CostUnit1;
+  data_label: DataLabel1;
+  ecological_cost_unit: EcologicalCostUnit1;
+  policy_decision?: PolicyDecision1;
+  relative_gap: RelativeGap;
+  risk_aggregation?: RiskAggregation1;
+  risk_unit: RiskUnit1;
+  selected: Selected1;
+  solver_message: SolverMessage;
+  status: Status2;
+  totals: OptimizationTotals | null;
+}
+export interface Allocation {
+  allowed?: Allowed1;
+  area: Area1;
+  benefit: Benefit1;
+  cost: Cost1;
+  ecological_cost: EcologicalCost1;
+  id: Id12;
+  risk: Risk1;
+  selected: Selected;
+}
+export interface Checks {
+  [k: string]: ConstraintCheck;
+}
+export interface ConstraintCheck {
+  actual: Actual;
+  bound: Bound;
+  relation: Relation;
+  satisfied: Satisfied;
+  unit: Unit6;
+}
+export interface OptimizationTotals {
+  area: Area2;
+  benefit: Benefit2;
+  cost: Cost2;
+  ecological_cost: EcologicalCost2;
+  risk: Risk2;
+}
+export interface OptimizationSpec {
+  data: VersionReference;
+  id: Id13;
+  name: Name11;
+  request_checksum: RequestChecksum;
+  scene: VersionReference;
+  source_scene: VersionReference;
+  version: Version8;
+  workflow: VersionReference;
+}
 export interface PlanningArtifact {
   candidate_workflow: WorkflowSpec | null;
   management_goal: ManagementGoal;
@@ -914,15 +1064,15 @@ export interface WorkflowSpec {
   constraints: Constraints1;
   edges: Edges1;
   execution_policy: ExecutionPolicy;
-  id: Id11;
+  id: Id14;
   input_bindings: InputBindings;
-  name: Name11;
+  name: Name12;
   nodes: Nodes1;
   output_definition: OutputDefinition;
   parameter_bindings: ParameterBindings;
   scene_type: SceneType;
   validation_rules: ValidationRules;
-  version: Version8;
+  version: Version9;
 }
 export interface WorkflowEdge {
   source_node: SourceNode;
@@ -935,7 +1085,7 @@ export interface ExecutionPolicy {
   timeout_seconds: TimeoutSeconds;
 }
 export interface WorkflowNode {
-  id: Id12;
+  id: Id15;
   kind?: Kind2;
   model_id: ModelId;
   model_version: ModelVersion;
@@ -974,30 +1124,30 @@ export interface ProposalComment {
   author_role: AuthorRole;
   content: Content;
   created_at: CreatedAt1;
-  id: Id13;
-  name: Name12;
+  id: Id16;
+  name: Name13;
   proposal: VersionReference;
-  version: Version9;
+  version: Version10;
 }
 export interface ProposalDraft {
   constraints: Constraints2;
   evidence_results?: EvidenceResults;
-  id: Id14;
-  name: Name13;
+  id: Id17;
+  name: Name14;
   objectives: Objectives;
   rationale: Rationale1;
   scene: VersionReference;
-  version: Version10;
+  version: Version11;
 }
 export interface QuantitativeConstraint {
   constraint_id: ConstraintId1;
   maximum?: Maximum4;
   metric: Metric2;
   minimum?: Minimum4;
-  unit: Unit6;
+  unit: Unit7;
 }
 export interface ObjectiveWeight {
-  name: Name14;
+  name: Name15;
   objective_id: ObjectiveId;
   weight: Weight1;
 }
@@ -1006,14 +1156,14 @@ export interface ProposalSpec {
   author_role: AuthorRole1;
   constraints: Constraints3;
   evidence_results?: EvidenceResults1;
-  id: Id15;
-  name: Name15;
+  id: Id18;
+  name: Name16;
   objectives: Objectives1;
   rationale: Rationale2;
   review?: HumanReview | null;
   scene: VersionReference;
-  status?: Status2;
-  version: Version11;
+  status?: Status3;
+  version: Version12;
 }
 export interface HumanReview {
   conclusion: Conclusion;
@@ -1050,19 +1200,19 @@ export interface ProposedBinding {
   target: BindingTarget;
 }
 export interface ProposedNode {
-  id: Id16;
+  id: Id19;
   model: VersionReference;
   parameters: Parameters2;
 }
 export interface ProposedParameter {
-  name: Name16;
+  name: Name17;
   value: Value1;
 }
 export interface ResultManifest {
   checksum: Checksum1;
   created_at: CreatedAt2;
   entity_binding: EntityBinding;
-  id: Id17;
+  id: Id20;
   job_id: JobId;
   provenance: Provenance;
   quality_status: QualityStatus;
@@ -1071,7 +1221,7 @@ export interface ResultManifest {
   spatial_extent: Extent | null;
   storage_uri: StorageUri;
   time_range: TimeRange | null;
-  unit: Unit7;
+  unit: Unit8;
 }
 export interface EntityBinding1 {
   geographic_entity_id: GeographicEntityId;
@@ -1090,17 +1240,17 @@ export interface ResultView {
   unbound_objects: UnboundObjects;
 }
 export interface ResultObject {
-  id: Id18;
+  id: Id21;
   management_unit_id: ManagementUnitId2;
   model: VersionReference;
   node_id: NodeId3;
   source_pointer: SourcePointer;
   standard_name: StandardName2;
-  units?: Units;
+  units?: Units1;
   values?: Values;
   variable: Variable2;
 }
-export interface Units {
+export interface Units1 {
   [k: string]: string;
 }
 export interface Values {
@@ -1128,15 +1278,15 @@ export interface SceneSpec {
   data_references?: DataReferences;
   entity_references?: EntityReferences;
   entity_types: EntityTypes;
-  id: Id19;
+  id: Id22;
   management_goal: ManagementGoal2;
-  name: Name17;
+  name: Name18;
   quality_requirements: QualityRequirements;
   required_outputs: RequiredOutputs;
   scenario_conditions: ScenarioConditions;
   study_area: StudyArea;
   time_range: TimeRange;
-  version: Version12;
+  version: Version13;
 }
 export interface DataPolicy {
   [k: string]: JsonValue;
@@ -1160,10 +1310,10 @@ export interface SceneInspection {
 export interface SceneCoverage {
   footprint_wgs84?: FootprintWgs84;
   method: Method1;
-  name: Name18;
+  name: Name19;
   reference: VersionReference;
   spatial_fraction: SpatialFraction;
-  status: Status3;
+  status: Status4;
   temporal_coverage: TemporalCoverage;
 }
 export interface StudyAreaWgs84 {

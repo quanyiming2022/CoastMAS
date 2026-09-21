@@ -1,0 +1,118 @@
+All checks passed!
+Success: no issues found in 90 source files
+F.............                                                           [100%]
+=================================== FAILURES ===================================
+____ test_optimization_saved_inputs_workflow_worker_and_idempotent_results _____
+
+authenticated = (<starlette.testclient.TestClient object at 0x11da97710>, 'K9sLN1MZjGFlcewOYApl7FLVWyyfoQT-OYusVbYiiyE', '495ec4a1-8b78-453b-9042-e7b4da61a5bd', '4108d0b5-73b0-4c92-a2bc-d77165402a05')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_da51eee826044923a63a2eda52cf2058)
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11b2e5be0>
+tmp_path = PosixPath('/private/var/folders/28/dvzgw6td6ws6bfjb1g55hd_c0000gn/T/pytest-of-quanyiming/pytest-25/test_optimization_saved_inputs0')
+
+    def test_optimization_saved_inputs_workflow_worker_and_idempotent_results(
+        authenticated, engine, storage, tmp_path
+    ):
+        client, csrf, project, user = authenticated
+        catalog = optimization_catalog(project)
+        client.app.state.registry = catalog.registry
+        client.app.state.artifact_store = storage
+        selected = scene(id=str(uuid4()))
+        with Session(engine) as session, session.begin():
+            for kind, spec in [("model", catalog.models[0]), ("scene", selected)]:
+                create_resource(
+                    session,
+                    user_id=user,
+                    project_id=project,
+                    kind=kind,
+                    identifier=spec.id,
+                    name=spec.name,
+                    spec=spec.model_dump(mode="json"),
+                )
+        headers = {"X-CSRF-Token": csrf}
+        body = {
+            "project_id": project,
+            "name": "SYNTHETIC optimization record",
+            "scene": {"id": selected.id, "version": 1},
+            "frame": optimization_input(),
+            "time_limit": 5,
+            "idempotency_key": str(uuid4()),
+        }
+        response = client.post("/api/v1/optimizations", headers=headers, json=body)
+        assert response.status_code == 201, response.text
+        record = response.json()["spec"]
+        base = "/api/v1/optimizations/" + record["id"]
+        assert record["source_scene"] == body["scene"]
+        assert record["scene"]["id"] != selected.id
+        assert (
+            client.post("/api/v1/optimizations", headers=headers, json=body).json() == response.json()
+        )
+        assert (
+            client.post(
+                "/api/v1/optimizations", headers=headers, json={**body, "time_limit": 6}
+            ).status_code
+            == 409
+        )
+        original = client.get("/api/v1/scenes/" + selected.id).json()["spec"]
+        assert original == selected.model_dump(mode="json")
+        assert client.get(base + "/input").json()["units"][0]["benefit"] == 1000000
+        downloaded = client.get("/api/v1/data-assets/" + record["data"]["id"] + "/download")
+        assert downloaded.status_code == 200
+        assert downloaded.json()["candidates"] == optimization_input()
+        selection = {
+            "workflow_version": 1,
+            "scene_id": record["scene"]["id"],
+            "scene_version": 1,
+            "random_seed": 42,
+        }
+        validation = client.post(
+            "/api/v1/workflows/" + record["workflow"]["id"] + "/validate",
+            headers=headers,
+            json=selection,
+        )
+        assert validation.status_code == 200 and validation.json()["valid"], validation.text
+        run_headers = {**headers, "Idempotency-Key": str(uuid4())}
+        queued = client.post(
+            base + "/run", headers=run_headers, json={"optimization_version": 1, "random_seed": 42}
+        )
+        assert queued.status_code == 202, queued.text
+        job = queued.json()["id"]
+        assert (
+            client.post(
+                base + "/run", headers=run_headers, json={"optimization_version": 1, "random_seed": 42}
+            ).json()["id"]
+            == job
+        )
+        WorkflowWorker(engine, catalog.registry, storage, work_root=tmp_path).run(job)
+        runs = client.get(base + "/runs").json()
+        assert runs[0]["job"]["status"] == "SUCCEEDED", runs
+        result = client.get("/api/v1/results/" + runs[0]["result_id"] + "/content").json()
+        assert result["outputs"]["optimize.allocation"]["selected"] == ["b"]
+        assert result["outputs"]["optimize.allocation"]["totals"]["area"] == 20000
+        assert result["run_manifest"]["scene"]["id"] == record["scene"]["id"]
+        assert result["result_view"]["binding_status"] == "UNBOUND"
+        with Session(engine) as session:
+            dependencies = session.scalars(
+                select(ResourceDependency).where(ResourceDependency.source_id == record["id"])
+            ).all()
+            assert {item.target_id for item in dependencies} == {
+                record[key]["id"] for key in ("data", "scene", "source_scene", "workflow")
+            }
+        archived = client.delete("/api/v1/scenes/" + selected.id, headers=headers)
+>       assert archived.status_code == 409
+E       assert 405 == 409
+E        +  where 405 = <Response [405 Method Not Allowed]>.status_code
+
+tests/integration/test_optimization_api.py:105: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_optimization_api.py::test_optimization_saved_inputs_workflow_worker_and_idempotent_results
+1 failed, 13 passed, 2 warnings in 10.48s

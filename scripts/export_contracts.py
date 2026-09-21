@@ -31,6 +31,7 @@ from coastmas.core.geography import GeographicEntity
 from coastmas.core.indicators import AssessmentSpec, IndicatorFrameworkSpec
 from coastmas.core.knowledge_graph import GraphSnapshot
 from coastmas.core.llm import ProviderPlanningArtifact, ProviderProposal
+from coastmas.core.optimization import OptimizationFrame, OptimizationOutcome, OptimizationSpec
 from coastmas.core.planning import ManagementGoal, PlanningArtifact
 from coastmas.core.result_entities import ResultView
 from coastmas.core.scene_workspace import SceneInspection
@@ -44,6 +45,9 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        OptimizationFrame,
+        OptimizationOutcome,
+        OptimizationSpec,
         ProposalDraft,
         ProposalSpec,
         ProposalComment,

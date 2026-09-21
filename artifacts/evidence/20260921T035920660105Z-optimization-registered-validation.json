@@ -1,0 +1,29 @@
+{
+  "name": "optimization-registered-validation",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    "set -e; .venv/bin/ruff check src tests scripts; .venv/bin/mypy src/coastmas; .venv/bin/python -m pytest -q tests/integration/test_builtin_optimization.py tests/integration/test_builtin_assessment.py tests/integration/test_builtin_coastal.py tests/integration/test_sample_bootstrap.py tests/unit/test_optimization_frame.py tests/unit/test_models.py"
+  ],
+  "started_at": "2026-09-21T03:59:20.660105+00:00",
+  "finished_at": "2026-09-21T04:00:01.468162+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "111a041eb85fa73eb4cd011add21952e0f4241e9dc046d8fcfe6850100ae865a",
+  "git_commit": "61d006398cbb9daf1d12f560081c8080769cbf28",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T035920660105Z-optimization-registered-validation.log"
+}

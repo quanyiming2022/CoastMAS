@@ -158,6 +158,57 @@
         "title": "Body_upload_api_v1_data_assets_upload_post",
         "type": "object"
       },
+      "CandidateUnit": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed": {
+            "default": true,
+            "title": "Allowed",
+            "type": "boolean"
+          },
+          "area": {
+            "exclusiveMinimum": 0.0,
+            "title": "Area",
+            "type": "number"
+          },
+          "benefit": {
+            "title": "Benefit",
+            "type": "number"
+          },
+          "cost": {
+            "minimum": 0.0,
+            "title": "Cost",
+            "type": "number"
+          },
+          "ecological_cost": {
+            "minimum": 0.0,
+            "title": "Ecological Cost",
+            "type": "number"
+          },
+          "id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Id",
+            "type": "string"
+          },
+          "risk": {
+            "minimum": 0.0,
+            "title": "Risk",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "benefit",
+          "cost",
+          "area",
+          "ecological_cost",
+          "risk"
+        ],
+        "title": "CandidateUnit",
+        "type": "object"
+      },
       "CommentRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1378,6 +1429,123 @@
         "title": "ObjectiveWeight",
         "type": "object"
       },
+      "OptimizationFrame": {
+        "additionalProperties": false,
+        "properties": {
+          "additivity_basis": {
+            "maxLength": 10000,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Additivity Basis",
+            "type": "string"
+          },
+          "area_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Area Unit",
+            "type": "string"
+          },
+          "benefit_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Benefit Unit",
+            "type": "string"
+          },
+          "budget": {
+            "minimum": 0.0,
+            "title": "Budget",
+            "type": "number"
+          },
+          "cost_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Cost Unit",
+            "type": "string"
+          },
+          "data_label": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Data Label",
+            "type": "string"
+          },
+          "ecological_cost_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Ecological Cost Unit",
+            "type": "string"
+          },
+          "maximum_ecological_cost": {
+            "minimum": 0.0,
+            "title": "Maximum Ecological Cost",
+            "type": "number"
+          },
+          "maximum_risk": {
+            "minimum": 0.0,
+            "title": "Maximum Risk",
+            "type": "number"
+          },
+          "minimum_area": {
+            "minimum": 0.0,
+            "title": "Minimum Area",
+            "type": "number"
+          },
+          "protected_unit_ids": {
+            "default": [],
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": ".*\\S.*",
+              "type": "string"
+            },
+            "maxItems": 5000,
+            "title": "Protected Unit Ids",
+            "type": "array"
+          },
+          "risk_aggregation": {
+            "const": "additive_index",
+            "title": "Risk Aggregation",
+            "type": "string"
+          },
+          "risk_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Risk Unit",
+            "type": "string"
+          },
+          "units": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateUnit"
+            },
+            "maxItems": 5000,
+            "minItems": 1,
+            "title": "Units",
+            "type": "array"
+          }
+        },
+        "required": [
+          "units",
+          "area_unit",
+          "benefit_unit",
+          "cost_unit",
+          "ecological_cost_unit",
+          "risk_unit",
+          "budget",
+          "minimum_area",
+          "maximum_ecological_cost",
+          "maximum_risk",
+          "risk_aggregation",
+          "additivity_basis",
+          "data_label"
+        ],
+        "title": "OptimizationFrame",
+        "type": "object"
+      },
       "ParameterBinding": {
         "additionalProperties": false,
         "properties": {
@@ -1685,6 +1853,28 @@
         "title": "RunAssessmentRequest",
         "type": "object"
       },
+      "RunOptimizationRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "optimization_version": {
+            "minimum": 1.0,
+            "title": "Optimization Version",
+            "type": "integer"
+          },
+          "random_seed": {
+            "default": 42,
+            "maximum": 4294967295.0,
+            "minimum": 0.0,
+            "title": "Random Seed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "optimization_version"
+        ],
+        "title": "RunOptimizationRequest",
+        "type": "object"
+      },
       "RunSelection": {
         "additionalProperties": false,
         "properties": {
@@ -1750,6 +1940,54 @@
           "planning_trace_id"
         ],
         "title": "SaveAssessmentRequest",
+        "type": "object"
+      },
+      "SaveOptimizationRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "frame": {
+            "$ref": "#/components/schemas/OptimizationFrame"
+          },
+          "idempotency_key": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "scene": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "time_limit": {
+            "maximum": 120.0,
+            "minimum": 0.01,
+            "title": "Time Limit",
+            "type": "number"
+          }
+        },
+        "required": [
+          "project_id",
+          "name",
+          "scene",
+          "frame",
+          "time_limit",
+          "idempotency_key"
+        ],
+        "title": "SaveOptimizationRequest",
         "type": "object"
       },
       "SaveProposalRequest": {
@@ -6557,6 +6795,432 @@
         ]
       }
     },
+    "/api/v1/optimizations": {
+      "get": {
+        "operationId": "records_api_v1_optimizations_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Records Api V1 Optimizations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Records",
+        "tags": [
+          "optimization"
+        ]
+      },
+      "post": {
+        "operationId": "save_api_v1_optimizations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveOptimizationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Save Api V1 Optimizations Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save",
+        "tags": [
+          "optimization"
+        ]
+      }
+    },
+    "/api/v1/optimizations/{identifier}": {
+      "delete": {
+        "operationId": "archive_api_v1_optimizations__identifier__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Archive",
+        "tags": [
+          "optimization"
+        ]
+      },
+      "get": {
+        "operationId": "get_record_api_v1_optimizations__identifier__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Get Record Api V1 Optimizations  Identifier  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Record",
+        "tags": [
+          "optimization"
+        ]
+      }
+    },
+    "/api/v1/optimizations/{identifier}/input": {
+      "get": {
+        "operationId": "inputs_api_v1_optimizations__identifier__input_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptimizationFrame"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Inputs",
+        "tags": [
+          "optimization"
+        ]
+      }
+    },
+    "/api/v1/optimizations/{identifier}/run": {
+      "post": {
+        "operationId": "run_api_v1_optimizations__identifier__run_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": true,
+            "schema": {
+              "maxLength": 256,
+              "minLength": 1,
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunOptimizationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Run Api V1 Optimizations  Identifier  Run Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run",
+        "tags": [
+          "optimization"
+        ]
+      }
+    },
+    "/api/v1/optimizations/{identifier}/runs": {
+      "get": {
+        "operationId": "runs_api_v1_optimizations__identifier__runs_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/JsonValue"
+                    },
+                    "type": "object"
+                  },
+                  "title": "Response Runs Api V1 Optimizations  Identifier  Runs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Runs",
+        "tags": [
+          "optimization"
+        ]
+      }
+    },
     "/api/v1/plans": {
       "post": {
         "operationId": "create_plan_api_v1_plans_post",
@@ -8010,6 +8674,39 @@
       }
     },
     "/api/v1/scenes/{identifier}": {
+      "delete": {
+        "operationId": "archive_scene_api_v1_scenes__identifier__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Archive Scene",
+        "tags": [
+          "scenes"
+        ]
+      },
       "get": {
         "operationId": "get_scene_api_v1_scenes__identifier__get",
         "parameters": [

@@ -1,0 +1,23 @@
+E501 Line too long (104 > 100)
+  --> src/coastmas/domain/optimization_catalog.py:75:101
+   |
+73 |                 "allocation",
+74 |                 "spatial_optimization_allocation",
+75 |                 "Verified binary allocation, units and feasibility; never an automatic policy decision",
+   |                                                                                                     ^^^^
+76 |             ),
+77 |         )
+   |
+
+E501 Line too long (164 > 100)
+  --> src/coastmas/domain/optimization_catalog.py:87:101
+   |
+85 | …
+86 | …
+87 | …e benefit under hard budget, area, ecological cost, additive risk and protected-unit constraints",
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+88 | …
+89 | …
+   |
+
+Found 2 errors.
