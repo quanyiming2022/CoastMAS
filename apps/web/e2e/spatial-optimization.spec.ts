@@ -79,6 +79,12 @@ test("spatial optimization executes actual feasible and infeasible cases with pi
     },
   });
   expect(sceneResponse.status()).toBe(201);
+  if (
+    (await page
+      .getByRole("button", { name: "评价与协同", exact: true })
+      .getAttribute("aria-expanded")) === "false"
+  )
+    await page.getByRole("button", { name: "评价与协同", exact: true }).click();
   await page.getByRole("link", { name: "空间优化", exact: true }).click();
   for (const [budget, status] of [
     ["3", "OPTIMAL"],
@@ -150,6 +156,14 @@ test("spatial optimization executes actual feasible and infeasible cases with pi
       path: `../../artifacts/screenshots/optimization-${status.toLowerCase()}.png`,
       fullPage: true,
     });
+    if (
+      (await page
+        .getByRole("button", { name: "评价与协同", exact: true })
+        .getAttribute("aria-expanded")) === "false"
+    )
+      await page
+        .getByRole("button", { name: "评价与协同", exact: true })
+        .click();
     await page.getByRole("link", { name: "空间优化", exact: true }).click();
   }
 });

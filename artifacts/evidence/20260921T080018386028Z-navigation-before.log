@@ -1,0 +1,15 @@
+Isolated browser environment ready: coastmas_e2e_19947b4cd9204586aa8322d87caca82d
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_19947b4cd9204586aa8322d87caca82d/playwright navigation.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:46399) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/navigation.spec.ts:7:1 › navigation visual baseline and authorized pages
+  1 passed (3.6s)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_19947b4cd9204586aa8322d87caca82d

@@ -15,7 +15,7 @@ test("deterministic planning resolves explicit data ambiguity without external c
   await page.getByRole("button", { name: "登录", exact: true }).click();
   await page
     .getByRole("navigation")
-    .getByRole("link", { name: "智能规划", exact: true })
+    .getByRole("link", { name: "智能编排", exact: true })
     .click();
   await page
     .getByRole("combobox", { name: "规划场景", exact: true })

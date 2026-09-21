@@ -126,7 +126,7 @@ function ResearchWorkspace({ projectId }: { projectId: string }) {
   return (
     <>
       <PageTitle
-        title="科研评估"
+        title="科研验证"
         description="冻结场景与目录版本，对照规则、LLM 和知识图谱规划，保留失败与实际用量。"
       />
       {catalog.isPending ? <Loading /> : null}
@@ -354,7 +354,7 @@ export function ResearchDetail() {
   });
   return (
     <>
-      <Link to="/research">← 返回科研评估</Link>
+      <Link to="/research">← 返回科研验证</Link>
       <PageTitle title="科研任务详情" description={id} />
       {job.isPending ? <Loading /> : null}
       <ErrorNotice error={job.error ?? report.error ?? cancel.error} />

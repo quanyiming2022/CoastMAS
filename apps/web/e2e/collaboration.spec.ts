@@ -47,6 +47,12 @@ test("stakeholder proposal preserves versions, opinions and hard conflicts", asy
     actual.outputs["statistics.statistics"].estimated_affected_population,
   ).toBe(320);
   const sourceScene = actual.run_manifest.scene;
+  if (
+    (await page
+      .getByRole("button", { name: "评价与协同", exact: true })
+      .getAttribute("aria-expanded")) === "false"
+  )
+    await page.getByRole("button", { name: "评价与协同", exact: true }).click();
   await page.getByRole("link", { name: "协同方案", exact: true }).click();
   await page.getByRole("button", { name: "新建方案", exact: true }).click();
   const name = `SYNTHETIC 协同 ${Date.now()}`;

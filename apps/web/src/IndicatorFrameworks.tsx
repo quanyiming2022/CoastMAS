@@ -49,7 +49,7 @@ function FrameworkList({ projectId }: { projectId: string }) {
   return (
     <>
       <PageTitle
-        title="评价中心"
+        title="综合评价"
         description="管理指标体系，准备固定版本的评价输入，并通过科学工作流计算状态与多期变化。"
       />
       <div className="toolbar">
@@ -251,7 +251,7 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
     return <ErrorNotice error={query.error ?? new Error("指标体系不可用")} />;
   return (
     <>
-      <Link to="/assessments">← 返回评价中心</Link>
+      <Link to="/assessments">← 返回综合评价</Link>
       <PageTitle
         title={id ? "指标体系版本管理" : "新建指标体系"}
         description="指标边界、公式、方向与权重必须明确；固定参考范围用于保持多期可比性。"

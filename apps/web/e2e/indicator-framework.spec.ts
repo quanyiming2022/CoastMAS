@@ -19,7 +19,13 @@ test("indicator framework versions prepare real data and produce a temporal eval
   await expect(
     page.getByRole("heading", { name: "项目概览", exact: true }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "评价中心", exact: true }).click();
+  if (
+    (await page
+      .getByRole("button", { name: "评价与协同", exact: true })
+      .getAttribute("aria-expanded")) === "false"
+  )
+    await page.getByRole("button", { name: "评价与协同", exact: true }).click();
+  await page.getByRole("link", { name: "综合评价", exact: true }).click();
   await page.getByRole("link", { name: "新建指标体系", exact: true }).click();
   const name = `SYNTHETIC 评价体系 ${Date.now()}`;
   await page.getByLabel("体系名称", { exact: true }).fill(name);

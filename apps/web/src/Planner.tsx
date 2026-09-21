@@ -182,7 +182,7 @@ export default function Planner() {
   return (
     <>
       <PageTitle
-        title="智能规划"
+        title="智能编排"
         description="将管理目标拆解为受数据、版本和科学约束约束的候选流程。"
       />
       <ErrorNotice

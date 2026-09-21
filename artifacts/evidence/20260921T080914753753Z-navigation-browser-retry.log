@@ -1,0 +1,95 @@
+
+> coastmas-web@0.1.0 test
+> vitest run navigation.test.tsx
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  16:09:15
+   Duration  711ms (environment 54%, tests 23%, import 11%, setup 7%, transform 6%)
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2925 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.59 kB │ gzip:   0.38 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/index-D1Wr6YOV.css                  10.86 kB │ gzip:   3.30 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-DD72bTgg.js                  0.47 kB │ gzip:   0.34 kB
+dist/assets/temporal-editor-Ct4jvUE2.js          0.53 kB │ gzip:   0.37 kB
+dist/assets/scientific-labels-DFkRsqrz.js        0.80 kB │ gzip:   0.59 kB
+dist/assets/result-data-DfC3i7ft.js              1.11 kB │ gzip:   0.52 kB
+dist/assets/model-editor-CIhgIrV0.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-DVO6bvp6.js        1.86 kB │ gzip:   0.76 kB
+dist/assets/WorkflowGraph-B3YyOD93.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-BeXtjJR8.js                2.40 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-BbtZlhlz.js         2.85 kB │ gzip:   1.37 kB
+dist/assets/useQueries-DrFwo3br.js               3.49 kB │ gzip:   1.51 kB
+dist/assets/Runs-CK5YA7Wp.js                     3.63 kB │ gzip:   1.57 kB
+dist/assets/Workflow-7bTqv3Ec.js                 4.03 kB │ gzip:   1.93 kB
+dist/assets/AssessmentResults-CJLvtlkv.js        4.08 kB │ gzip:   1.77 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-CcstBLUM.js         5.12 kB │ gzip:   2.24 kB
+dist/assets/TemporalAdaptation-778fWUXL.js       6.10 kB │ gzip:   2.68 kB
+dist/assets/ModelDecomposer-BF176_G1.js          6.43 kB │ gzip:   2.95 kB
+dist/assets/KnowledgeGraph-BYB93rpx.js           6.85 kB │ gzip:   3.09 kB
+dist/assets/Entities-Ctdwwkv2.js                 7.11 kB │ gzip:   3.03 kB
+dist/assets/DataSources-B-FvVptx.js              7.37 kB │ gzip:   2.94 kB
+dist/assets/DataWorkspace-BI5Q3GPJ.js            7.47 kB │ gzip:   3.09 kB
+dist/assets/removable-zVvwFZIX.js                7.51 kB │ gzip:   2.95 kB
+dist/assets/AssessmentRecords-DIXSzun1.js        7.54 kB │ gzip:   2.78 kB
+dist/assets/ModelEditor-BJF0tc7x.js              7.68 kB │ gzip:   3.16 kB
+dist/assets/Catalog-DMkrlPFl.js                  8.07 kB │ gzip:   2.97 kB
+dist/assets/GeoMap-LbDRDU-K.js                   8.10 kB │ gzip:   3.60 kB
+dist/assets/Planner-D_rmt0eE.js                  8.24 kB │ gzip:   3.54 kB
+dist/assets/Admin-L0nhXfLU.js                    8.81 kB │ gzip:   2.78 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Research-C562ReV-.js                11.76 kB │ gzip:   4.46 kB
+dist/assets/Results-CzaFZF1K.js                 13.20 kB │ gzip:   4.91 kB
+dist/assets/WorkflowEditor-DAQ109i-.js          13.63 kB │ gzip:   5.20 kB
+dist/assets/Collaboration-1xw8klnj.js           14.26 kB │ gzip:   4.72 kB
+dist/assets/SceneWorkspace-DZgH4ztI.js          15.01 kB │ gzip:   5.54 kB
+dist/assets/SpatialOptimization-_ORK0Q_O.js     15.02 kB │ gzip:   5.19 kB
+dist/assets/IndicatorFrameworks-cPEbNZRO.js     15.75 kB │ gzip:   5.18 kB
+dist/assets/style-C4Hadp2D.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-Dn6vKgEZ.js              216.40 kB │ gzip:  51.87 kB
+dist/assets/index-BRKQG93J.js                  404.94 kB │ gzip: 124.65 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 362ms
+Isolated browser environment ready: coastmas_e2e_e0dc06910b864c36aecce83ab6ad2757
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_e0dc06910b864c36aecce83ab6ad2757/playwright navigation.spec.ts
+
+
+Running 2 tests using 1 worker
+
+(node:47291) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] e2e/navigation.spec.ts:12:1 › navigation visual baseline and authorized pages
+[2/2] e2e/navigation.spec.ts:83:1 › NAV-01 real route, state, permissions and drawer regression
+  2 passed (11.5s)
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_e0dc06910b864c36aecce83ab6ad2757

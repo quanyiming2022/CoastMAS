@@ -1,0 +1,66 @@
+[
+  {
+    "path": "/dashboard",
+    "heading": "项目概览"
+  },
+  {
+    "path": "/scenes",
+    "heading": "场景空间"
+  },
+  {
+    "path": "/data",
+    "heading": "数据目录"
+  },
+  {
+    "path": "/entities",
+    "heading": "地理实体"
+  },
+  {
+    "path": "/temporal",
+    "heading": "时间适配"
+  },
+  {
+    "path": "/planner",
+    "heading": "智能编排"
+  },
+  {
+    "path": "/workflows",
+    "heading": "工作流"
+  },
+  {
+    "path": "/models",
+    "heading": "模型中心"
+  },
+  {
+    "path": "/knowledge-graph",
+    "heading": "模型知识图谱"
+  },
+  {
+    "path": "/runs",
+    "heading": "运行中心"
+  },
+  {
+    "path": "/results",
+    "heading": "结果中心"
+  },
+  {
+    "path": "/assessments",
+    "heading": "综合评价"
+  },
+  {
+    "path": "/optimizations",
+    "heading": "空间优化"
+  },
+  {
+    "path": "/collaboration",
+    "heading": "协同方案"
+  },
+  {
+    "path": "/research",
+    "heading": "科研验证"
+  },
+  {
+    "path": "/admin",
+    "heading": "系统管理"
+  }
+]

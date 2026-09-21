@@ -15,7 +15,7 @@ test("research UI freezes inputs and real worker publishes honest A/B/C partial 
   await page.getByLabel("邮箱", { exact: true }).fill(access.email);
   await page.getByLabel("密码", { exact: true }).fill(access.password);
   await page.getByRole("button", { name: "登录", exact: true }).click();
-  await page.getByRole("link", { name: "科研评估", exact: true }).click();
+  await page.getByRole("link", { name: "科研验证", exact: true }).click();
   const project = await page
     .getByRole("combobox", { name: "当前项目", exact: true })
     .inputValue();
@@ -107,6 +107,12 @@ test("research UI freezes inputs and real worker publishes honest A/B/C partial 
     path: "../../artifacts/screenshots/research-evaluation.png",
     fullPage: true,
   });
+  if (
+    (await page
+      .getByRole("button", { name: "运行与成果", exact: true })
+      .getAttribute("aria-expanded")) === "false"
+  )
+    await page.getByRole("button", { name: "运行与成果", exact: true }).click();
   await page.getByRole("link", { name: "结果中心", exact: true }).click();
   await page.locator(`a[href="/research/${job.id}"]`).click();
   await expect(page.getByText("部分完成", { exact: true })).toBeVisible();

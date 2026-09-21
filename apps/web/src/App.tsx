@@ -15,6 +15,7 @@ import {
 import { z } from "zod";
 import { ApiError, request, userSchema, SESSION_EXPIRED } from "./api";
 import { ErrorNotice, Loading } from "./components";
+import Sidebar from "./Sidebar";
 import { WorkspaceProvider } from "./workspace";
 import type { CatalogKind } from "./Catalog";
 const CatalogDetail = lazy(() =>
@@ -74,24 +75,6 @@ const Research = lazy(() => import("./Research"));
 const ResearchDetail = lazy(() =>
   import("./Research").then((module) => ({ default: module.ResearchDetail })),
 );
-const navigation = [
-  ["/dashboard", "项目概览"],
-  ["/models", "模型中心"],
-  ["/knowledge-graph", "知识图谱"],
-  ["/planner", "智能规划"],
-  ["/workflows", "工作流"],
-  ["/scenes", "场景空间"],
-  ["/entities", "地理实体"],
-  ["/data", "数据目录"],
-  ["/temporal", "时间适配"],
-  ["/runs", "运行中心"],
-  ["/results", "结果中心"],
-  ["/assessments", "评价中心"],
-  ["/collaboration", "协同方案"],
-  ["/optimizations", "空间优化"],
-  ["/research", "科研评估"],
-] as const;
-
 async function clearProtectedData(client: QueryClient): Promise<void> {
   await client.cancelQueries({
     predicate: (query) => query.queryKey[0] !== "current-user",
@@ -150,33 +133,12 @@ export default function App() {
     return <Navigate replace to="/dashboard" />;
   return (
     <div className="app-shell">
-      <aside className="sidebar">
-        <NavLink className="brand" to="/dashboard">
-          <span className="brand-mark">≈</span>
-          <span>
-            CoastMAS<small>海岸带科学协同平台</small>
-          </span>
-        </NavLink>
-        <p className="nav-label">项目工作空间</p>
-        <nav aria-label="主导航">
-          {navigation.map(([path, title]) => (
-            <NavLink key={path} to={path}>
-              {title}
-            </NavLink>
-          ))}
-          {user.data.is_admin ? <NavLink to="/admin">系统管理</NavLink> : null}
-        </nav>
-        <div className="sidebar-foot">
-          <small>{user.data.email}</small>
-          <button
-            className="secondary"
-            onClick={() => logout.mutate()}
-            disabled={logout.isPending}
-          >
-            退出登录
-          </button>
-        </div>
-      </aside>
+      <Sidebar
+        email={user.data.email}
+        isAdmin={user.data.is_admin}
+        onLogout={() => logout.mutate()}
+        logoutPending={logout.isPending}
+      />
       <main className="main-content">
         <ErrorNotice error={logout.error} />
         {location.pathname === "/admin" && user.data.is_admin ? (
