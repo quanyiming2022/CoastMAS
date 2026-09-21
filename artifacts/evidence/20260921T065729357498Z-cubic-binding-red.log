@@ -1,0 +1,156 @@
+.......F........F                                                        [100%]
+=================================== FAILURES ===================================
+_ test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells _
+
+    def test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells():
+        rows, columns = np.indices((16, 16))
+        plane = 2 * (columns + 0.5) + 3 * (rows + 0.5)
+        grid = Grid(plane, "EPSG:32650", Affine(10, 0, 500000, 0, -10, 3500000), "m")
+        destination = Affine(20, 0, 500000, 0, -20, 3500000)
+>       result = resample_grid(
+            grid, crs=grid.crs, transform=destination, shape=(8, 8), kind="continuous", method="cubic"
+        )
+
+tests/unit/test_geofiles.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+grid = Grid(values=array([[ 2.5,  4.5,  6.5,  8.5, 10.5, 12.5, 14.5, 16.5, 18.5, 20.5, 22.5,
+        24.5, 26.5, 28.5, 30.5, ..., crs='EPSG:32650', transform=Affine(10.0, 0.0, 500000.0,
+       0.0, -10.0, 3500000.0), unit='m', vertical_datum=None)
+crs = 'EPSG:32650'
+transform = Affine(20.0, 0.0, 500000.0,
+       0.0, -20.0, 3500000.0)
+shape = (8, 8), kind = 'continuous', method = 'cubic', max_cells = 4000000
+
+    def resample_grid(
+        grid: Grid,
+        *,
+        crs: str,
+        transform: Affine,
+        shape: tuple[int, int],
+        kind: Literal["continuous", "categorical", "extensive"],
+        method: Literal["nearest", "bilinear", "average", "sum", "area_weighted"],
+        max_cells: int = 4_000_000,
+    ) -> Grid:
+        if kind == "extensive":
+            if method not in ("sum", "area_weighted"):
+                raise ConstraintError(
+                    "extensive values require explicit conservative area redistribution"
+                )
+            source_crs, target_crs = CRS(grid.crs), CRS(crs)
+            if source_crs != target_crs or not source_crs.is_projected:
+                raise ConstraintError("conservative grids require a common reviewed projected CRS")
+            from coastmas.domain.grid_conservation import allocate_grid
+    
+            allocated = allocate_grid(
+                grid.values, grid.transform, transform, shape, max_cells=min(max_cells, 100000)
+            )
+            return Grid(allocated, crs, transform, grid.unit, grid.vertical_datum)
+        if kind == "categorical" and method != "nearest":
+            raise ConstraintError("categorical values require nearest-neighbour resampling")
+        if kind not in ("continuous", "categorical") or method not in (
+            "nearest",
+            "bilinear",
+            "average",
+        ):
+>           raise ConstraintError("unsupported variable kind or resampling method")
+E           coastmas.core.errors.ConstraintError: unsupported variable kind or resampling method
+
+src/coastmas/adapters/geofiles.py:147: ConstraintError
+__ test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid __
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11f31f9e0>
+
+    def test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid(storage):
+        grid = Grid(
+            np.full((8, 8), 250.0),
+            "EPSG:32650",
+            Affine(10, 0, 500000, 0, -10, 3500000),
+            "cm",
+            "demo-datum",
+        )
+        record = storage.put("cubic/input.tif", encode_geotiff(grid))
+        source = asset(
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=(variable(unit="cm"),),
+            quality={"size_bytes": record.size},
+        )
+        context = scene(
+            data_policy={
+                "target_grid": {
+                    "crs": grid.crs,
+                    "transform": [20, 0, 500000, 0, -20, 3500000],
+                    "width": 4,
+                    "height": 4,
+                }
+            }
+        )
+        binding = (
+            workflow()
+            .input_bindings[0]
+            .model_copy(update={"resampling": "cubic", "unit_conversion": "cm -> m"})
+        )
+>       result = StoredDataResolver(storage).resolve(source, variable(), binding, context)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_datasource.py:230: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/coastmas/adapters/datasource.py:67: in resolve
+    inspection = inspect_data(content, asset)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/coastmas/core/data_inspection.py:378: in inspect_data
+    report = _raster(content, asset)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+content = b'II*\x00\x94\x01\x00\x00\x11\x00\x00\x01\x03\x00\x01\x00\x00\x00\x08\x00\x00\x00\x01\x01\x03\x00\x01\x00\x00\x00\x08\...0<GDALMetadata>\n  <Item name="unit">cm</Item>\n  <Item name="vertical_datum">demo-datum</Item>\n</GDALMetadata>\n\x00'
+asset = DataAssetSpec(id='dem', name='DEM', type='raster', uri='s3://coastmas-test-5851090e950443b2b906615daa62bf39/cubic/inpu...rce='SYNTHETIC', license='CC0', version=1, checksum='184e0625710082f985b85b637cf4081b1171cfa039fdcd5ba8f9e79431a45df4')
+
+    def _raster(content: bytes, asset: DataAssetSpec) -> DataInspection:
+        if asset.type != "raster" or len(asset.variables) != 1:
+            raise ConstraintError("raster inspection requires one declared band variable")
+        grid = decode_geotiff(content)
+        variable = asset.variables[0]
+        if not asset.crs or CRS(asset.crs) != CRS(grid.crs):
+            raise ConstraintError("file and catalog CRS differ")
+        if variable.unit != grid.unit or asset.vertical_datum != grid.vertical_datum:
+            raise ConstraintError("file unit or vertical datum differs from catalog")
+        known = np.isfinite(grid.values)
+        if variable.nodata_policy == "reject" and not np.all(known):
+            raise ConstraintError("raster contains forbidden NoData")
+        if variable.semantic_type == "categorical" and np.any(
+            grid.values[known] != np.floor(grid.values[known])
+        ):
+            raise ConstraintError("categorical raster contains fractional identifiers")
+        with RasterMemoryFile(content) as memory, memory.open(driver="GTiff") as dataset:
+            layout = dataset.tags(ns="IMAGE_STRUCTURE").get("LAYOUT")
+            if asset.format == "COG" and layout != "COG":
+                raise ConstraintError("file is not a cloud-optimized GeoTIFF")
+            bounds = [float(value) for value in dataset.bounds]
+        if asset.spatial_extent is not None:
+            expected = [
+                asset.spatial_extent.west,
+                asset.spatial_extent.south,
+                asset.spatial_extent.east,
+                asset.spatial_extent.north,
+            ]
+            if not np.allclose(bounds, expected, rtol=0, atol=1e-7):
+>               raise ConstraintError("file and declared spatial extent differ")
+E               coastmas.core.errors.ConstraintError: file and declared spatial extent differ
+
+src/coastmas/core/data_inspection.py:135: ConstraintError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_geofiles.py::test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells
+FAILED tests/integration/test_datasource.py::test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid
+2 failed, 15 passed, 2 warnings in 8.82s

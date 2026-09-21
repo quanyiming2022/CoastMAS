@@ -1,0 +1,29 @@
+{
+  "name": "temporal-browser-live",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "scripts/e2e.py",
+    "temporal.spec.ts"
+  ],
+  "started_at": "2026-09-21T07:28:49.372007+00:00",
+  "finished_at": "2026-09-21T07:29:26.217048+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "ba4653cb6b7483d4f99813b72e6a207ddfa3993850a721e660af77f711d813de",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T072849372007Z-temporal-browser-live.log"
+}

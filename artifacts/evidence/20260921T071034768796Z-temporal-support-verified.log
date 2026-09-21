@@ -1,0 +1,30 @@
+Success: no issues found in 103 source files
+E501 Line too long (101 > 100)
+   --> src/coastmas/domain/temporal_adaptation.py:181:101
+    |
+179 |             else "Sum of complete source support totals."
+180 |             if request.method == "sum"
+181 |             else "Extremum of observed source support values, not an unobserved continuous extremum."
+    |                                                                                                     ^
+182 |         )
+183 |     valid = sum(sample.value is not None for sample in selected)
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/unit/test_temporal_adaptation.py:1:1
+  |
+1 | / from datetime import UTC, datetime, timedelta
+2 | |
+3 | | import pytest
+4 | |
+5 | | from coastmas.domain.temporal_adaptation import TemporalRequest, adapt_time_series
+  | |__________________________________________________________________________________^
+help: Organize imports
+  |
+6 |
+  -
+7 | START = datetime(2025, 1, 1, tzinfo=UTC)
+  |
+
+Found 2 errors.
+[*] 1 fixable with the `--fix` option.

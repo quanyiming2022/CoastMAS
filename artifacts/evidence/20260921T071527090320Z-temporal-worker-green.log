@@ -1,0 +1,3 @@
+src/coastmas/core/data_inspection.py:416: error: Item "None" of "datetime | None" has no attribute "isoformat"  [union-attr]
+src/coastmas/core/data_inspection.py:417: error: Item "None" of "datetime | None" has no attribute "isoformat"  [union-attr]
+Found 2 errors in 1 file (checked 104 source files)

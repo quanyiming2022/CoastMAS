@@ -120,7 +120,7 @@ def resample_grid(
     transform: Affine,
     shape: tuple[int, int],
     kind: Literal["continuous", "categorical", "extensive"],
-    method: Literal["nearest", "bilinear", "average", "sum", "area_weighted"],
+    method: Literal["nearest", "bilinear", "cubic", "average", "sum", "area_weighted"],
     max_cells: int = 4_000_000,
 ) -> Grid:
     if kind == "extensive":
@@ -142,6 +142,7 @@ def resample_grid(
     if kind not in ("continuous", "categorical") or method not in (
         "nearest",
         "bilinear",
+        "cubic",
         "average",
     ):
         raise ConstraintError("unsupported variable kind or resampling method")

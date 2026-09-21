@@ -1,0 +1,145 @@
+Success: no issues found in 102 source files
+All checks passed!
+.......F........F......                                                  [100%]
+=================================== FAILURES ===================================
+_ test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells _
+
+    def test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells():
+        rows, columns = np.indices((16, 16))
+        plane = 2 * (columns + 0.5) + 3 * (rows + 0.5)
+        grid = Grid(plane, "EPSG:32650", Affine(10, 0, 500000, 0, -10, 3500000), "m")
+        destination = Affine(20, 0, 500000, 0, -20, 3500000)
+        result = resample_grid(
+            grid, crs=grid.crs, transform=destination, shape=(8, 8), kind="continuous", method="cubic"
+        )
+        target_rows, target_columns = np.indices((8, 8))
+        expected = 2 * (2 * target_columns + 1) + 3 * (2 * target_rows + 1)
+>       np.testing.assert_allclose(result.values[2:-2, 2:-2], expected[2:-2, 2:-2], rtol=0, atol=1e-12)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-12
+E       
+E       Mismatched elements: 16 / 16 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 24.99999999994727 (ACTUAL), 25 (DESIRED)
+E        [0, 1]: 28.999999999947267 (ACTUAL), 29 (DESIRED)
+E        [0, 2]: 32.99999999994727 (ACTUAL), 33 (DESIRED)
+E        [0, 3]: 36.99999999994727 (ACTUAL), 37 (DESIRED)
+E        [1, 0]: 30.999999999947264 (ACTUAL), 31 (DESIRED)
+E       Max absolute difference among violations: 5.27364818e-11
+E       Max relative difference among violations: 2.10917506e-12
+E        ACTUAL: array([[25., 29., 33., 37.],
+E              [31., 35., 39., 43.],
+E              [37., 41., 45., 49.],
+E              [43., 47., 51., 55.]])
+E        DESIRED: array([[25, 29, 33, 37],
+E              [31, 35, 39, 43],
+E              [37, 41, 45, 49],
+E              [43, 47, 51, 55]])
+
+tests/unit/test_geofiles.py:134: AssertionError
+__ test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid __
+
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11c940470>
+
+    def test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid(storage):
+        grid = Grid(
+            np.full((8, 8), 250.0),
+            "EPSG:32650",
+            Affine(10, 0, 500000, 0, -10, 3500000),
+            "cm",
+            "demo-datum",
+        )
+        record = storage.put("cubic/input.tif", encode_geotiff(grid))
+        source = asset(
+            uri=record.uri,
+            checksum=record.sha256,
+            variables=(variable(unit="cm"),),
+            spatial_extent={"west": 500000, "south": 3499920, "east": 500080, "north": 3500000},
+            quality={"size_bytes": record.size},
+        )
+        context = scene(
+            data_policy={
+                "target_grid": {
+                    "crs": grid.crs,
+                    "transform": [20, 0, 500000, 0, -20, 3500000],
+                    "width": 4,
+                    "height": 4,
+                }
+            }
+        )
+        binding = (
+            workflow()
+            .input_bindings[0]
+            .model_copy(update={"resampling": "cubic", "unit_conversion": "cm -> m"})
+        )
+>       result = StoredDataResolver(storage).resolve(source, variable(), binding, context)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/integration/test_datasource.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <coastmas.adapters.datasource.StoredDataResolver object at 0x11c8b6330>
+asset = DataAssetSpec(id='dem', name='DEM', type='raster', uri='s3://coastmas-test-07a6993eca9a4cbf9cd33363b28d9c20/cubic/inpu...rce='SYNTHETIC', license='CC0', version=1, checksum='184e0625710082f985b85b637cf4081b1171cfa039fdcd5ba8f9e79431a45df4')
+target = VariableSpec(name='height', standard_name='elevation', description='Elevation', data_type='raster', unit='m', dimensio... spatial_support='grid', temporal_support='instant', aggregation_type='intensive', nodata_policy='mask', required=True)
+binding = BindingPlan(source=VersionReference(id='dem', version=1), target=BindingTarget(node_id='screen-node', variable='height...rsion='cm -> m', crs_transform=None, resampling='cubic', temporal_transform=None, quality_check=(), status='VALIDATED')
+scene = SceneSpec(id='scene', name='scene', version=1, management_goal='screen', study_area={'type': 'Polygon', 'coordinates':...500000, 0, -20, 3500000], 'width': 4, 'height': 4}}, quality_requirements={}, entity_references=(), data_references=())
+
+    def resolve(
+        self, asset: DataAssetSpec, target: VariableSpec, binding: BindingPlan, scene: SceneSpec
+    ) -> JsonValue:
+        address = urlsplit(asset.uri)
+        if (
+            address.scheme != "s3"
+            or address.netloc != self.store.bucket
+            or address.query
+            or address.fragment
+        ):
+            raise CoastMASError("STORAGE_ERROR", "asset must use configured object storage")
+        if binding.source.id != asset.id or binding.source.version != asset.version:
+            raise ConstraintError("binding data version differs from resolved asset")
+        size = asset.quality.get("size_bytes")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise ConstraintError("asset byte size metadata is required")
+        content = self.store.read(
+            ArtifactRecord(self.store.bucket, address.path.removeprefix("/"), asset.checksum, size)
+        )
+        candidates = [
+            item for item in asset.variables if item.standard_name == target.standard_name
+        ]
+        if len(candidates) != 1:
+            raise ConstraintError("binding requires one unambiguous source variable")
+        source = candidates[0]
+        validate_semantics(source, target, {})
+        if binding.temporal_transform is not None:
+            raise ConstraintError(
+                "temporal binding requires an explicit time-series transformation node"
+            )
+        if asset.format in {"GeoTIFF", "COG"}:
+            inspection = inspect_data(content, asset)
+            measured = inspection.metadata.get("spatial_resolution_m")
+            declared = asset.quality.get("spatial_resolution_m")
+            if measured is not None and not isinstance(measured, (int, float)):
+                raise ConstraintError("invalid measured raster resolution")
+            if measured is not None and (
+                isinstance(declared, bool)
+                or not isinstance(declared, (float, int))
+                or not np.isclose(declared, measured, rtol=1e-9, atol=0)
+            ):
+>               raise ConstraintError("catalog resolution differs from the actual raster")
+E               coastmas.core.errors.ConstraintError: catalog resolution differs from the actual raster
+
+src/coastmas/adapters/datasource.py:77: ConstraintError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/unit/test_geofiles.py::test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells
+FAILED tests/integration/test_datasource.py::test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid
+2 failed, 21 passed, 2 warnings in 8.82s

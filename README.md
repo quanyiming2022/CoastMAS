@@ -12,6 +12,7 @@
 | 模型及数据 | [模型中心](docs/model-center.md)、[数据工作区](docs/data-workspace.md)、[数据源](docs/data-sources.md) |
 | 场景和工作流 | [地图场景](docs/scene-workspace.md)、[工作流编辑](docs/workflow-studio.md)、[规划提供方](docs/planning-and-providers.md) |
 | 结果、评价与决策 | [结果中心](docs/result-center.md)、[评价体系](docs/assessment-center.md)、[协同](docs/collaboration.md)、[优化](docs/spatial-optimization.md) |
+| 时间适配 | [六种时间方法与观测支撑](docs/temporal-adaptation.md) |
 | 科研规划对照 | [科研评估及统计分母](docs/research-evaluation.md) |
 | 开发与验收依据 | [架构](docs/architecture.md)、[执行质量](docs/execution-quality.md)、[完整需求映射](docs/requirements-traceability.csv) |
 

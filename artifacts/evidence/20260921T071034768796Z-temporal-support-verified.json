@@ -1,0 +1,29 @@
+{
+  "name": "temporal-support-verified",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/mypy src/coastmas && .venv/bin/ruff check . && .venv/bin/python -m pytest tests/unit/test_temporal_adaptation.py tests/unit/test_binding.py -q"
+  ],
+  "started_at": "2026-09-21T07:10:34.768796+00:00",
+  "finished_at": "2026-09-21T07:10:36.801589+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "93dbb481954f349ce05e61335becb534fb16df99f376e931038643314d1801ed",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T071034768796Z-temporal-support-verified.log"
+}

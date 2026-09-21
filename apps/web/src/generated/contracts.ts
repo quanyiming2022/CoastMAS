@@ -1183,11 +1183,34 @@ export type Parameters3 = ParameterBinding[];
 export type RandomSeed = number;
 export type SoftwareVersion = string;
 export type Timestamp = string;
+export type IdempotencyKey2 = string;
+export type License3 = string;
+export type Name19 = string;
+export type ProjectId1 = string;
+export type AggregationType1 = 'intensive' | 'extensive' | 'categorical' | 'instantaneous';
+export type Method1 = 'nearest' | 'mean' | 'sum' | 'min' | 'max' | 'interpolation';
+export type NodataPolicy1 = 'propagate' | 'reject';
+/**
+ * @minItems 1
+ * @maxItems 10000
+ */
+export type Observations = [TemporalObservation, ...TemporalObservation[]];
+export type End1 = string;
+export type Start1 = string;
+export type Value2 = number | null;
+export type OutputUnit = string;
+export type Support = 'point' | 'interval';
+export type TargetTime = string | null;
+export type Unit9 = string;
+export type Variable3 = string;
+export type WindowEnd = string | null;
+export type WindowStart = string | null;
+export type Source5 = string;
 export type FootprintWgs84 = {
   [k: string]: JsonValue;
 } | null;
-export type Method1 = string;
-export type Name19 = string;
+export type Method2 = string;
+export type Name20 = string;
 export type SpatialFraction = number | null;
 export type Status6 = 'COVERED' | 'PARTIAL' | 'OUTSIDE' | 'UNKNOWN';
 export type TemporalCoverage = boolean | null;
@@ -1196,7 +1219,19 @@ export type EntityCoverage = SceneCoverage[];
 export type Issues = string[];
 export type Valid = boolean;
 export type ExpectedVersion1 = number;
-export type IdempotencyKey2 = string;
+export type IdempotencyKey3 = string;
+export type End2 = string;
+export type Interpretation = string;
+export type Method3 = 'nearest' | 'mean' | 'sum' | 'min' | 'max' | 'interpolation';
+export type NodataPolicy2 = 'propagate' | 'reject';
+export type ObservationsUsed = number;
+export type SourceEnd = string;
+export type SourceStart = string;
+export type Start2 = string;
+export type Unit10 = string;
+export type ValidObservations = number;
+export type Value3 = number | null;
+export type Variable4 = string;
 
 export interface CoastMASContracts {
   AssessmentSpec: AssessmentSpec;
@@ -1230,9 +1265,12 @@ export interface CoastMASContracts {
   ResultManifest: ResultManifest;
   ResultView: ResultView;
   RunManifest: RunManifest;
+  SaveTemporalRequest: SaveTemporalRequest;
   SceneInspection: SceneInspection;
   SceneSpec: SceneSpec;
   SourceSnapshotRequest: SourceSnapshotRequest;
+  TemporalRequest: TemporalRequest;
+  TemporalResult: TemporalResult;
   WorkflowSpec: WorkflowSpec;
 }
 /**
@@ -2000,6 +2038,33 @@ export interface RunManifest {
 export interface Environment {
   [k: string]: string;
 }
+export interface SaveTemporalRequest {
+  idempotency_key: IdempotencyKey2;
+  license: License3;
+  name: Name19;
+  project_id: ProjectId1;
+  request: TemporalRequest;
+  scene: VersionReference;
+  source: Source5;
+}
+export interface TemporalRequest {
+  aggregation_type: AggregationType1;
+  method: Method1;
+  nodata_policy?: NodataPolicy1;
+  observations: Observations;
+  output_unit: OutputUnit;
+  support: Support;
+  target_time?: TargetTime;
+  unit: Unit9;
+  variable: Variable3;
+  window_end?: WindowEnd;
+  window_start?: WindowStart;
+}
+export interface TemporalObservation {
+  end: End1;
+  start: Start1;
+  value: Value2;
+}
 export interface SceneInspection {
   data_coverage: DataCoverage;
   entity_coverage: EntityCoverage;
@@ -2009,8 +2074,8 @@ export interface SceneInspection {
 }
 export interface SceneCoverage {
   footprint_wgs84?: FootprintWgs84;
-  method: Method1;
-  name: Name19;
+  method: Method2;
+  name: Name20;
   reference: VersionReference;
   spatial_fraction: SpatialFraction;
   status: Status6;
@@ -2021,5 +2086,19 @@ export interface StudyAreaWgs84 {
 }
 export interface SourceSnapshotRequest {
   expected_version: ExpectedVersion1;
-  idempotency_key: IdempotencyKey2;
+  idempotency_key: IdempotencyKey3;
+}
+export interface TemporalResult {
+  end: End2;
+  interpretation: Interpretation;
+  method: Method3;
+  nodata_policy: NodataPolicy2;
+  observations_used: ObservationsUsed;
+  source_end: SourceEnd;
+  source_start: SourceStart;
+  start: Start2;
+  unit: Unit10;
+  valid_observations: ValidObservations;
+  value: Value3;
+  variable: Variable4;
 }

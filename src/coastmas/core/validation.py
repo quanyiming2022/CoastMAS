@@ -20,6 +20,7 @@ from coastmas.core.contracts import (
     ModelSpec,
     SceneSpec,
     TargetGridSpec,
+    TimeRange,
     VariableSpec,
     WorkflowSpec,
 )
@@ -176,6 +177,29 @@ def validate_asset_binding(
         reject("TIME_COVERAGE", "data does not cover requested scene period")
     if not asset.time_resolution:
         reject("TEMPORAL_SCALE", "data temporal resolution is missing")
+    elif asset.time_resolution == "explicit_support":
+        if not (
+            asset.format == "JSON"
+            and source.data_type == target.data_type == "json"
+            and source.temporal_support == target.temporal_support == "explicit_support"
+            and source.standard_name == target.standard_name == "temporal_adaptation_request"
+            and model.temporal_scale.minimum is None
+            and model.temporal_scale.maximum is None
+        ):
+            reject(
+                "TEMPORAL_SCALE", "explicit support requires a typed temporal adaptation contract"
+            )
+        try:
+            requested = TimeRange.model_validate(
+                {
+                    "start": asset.quality.get("target_start"),
+                    "end": asset.quality.get("target_end"),
+                }
+            )
+            if requested != scene.time_range:
+                reject("TEMPORAL_TARGET", "scene time range differs from frozen temporal target")
+        except ValidationError:
+            reject("TEMPORAL_TARGET", "verified temporal target metadata is missing or invalid")
     elif asset.time_resolution == "instantaneous":
         # An acquisition is a point observation, never continuous temporal coverage.
         # Numeric cadence bounds cannot describe a single sample.

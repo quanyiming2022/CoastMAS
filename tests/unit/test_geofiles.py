@@ -119,3 +119,36 @@ def test_extensive_grid_resampling_conserves_total_and_rejects_partial_coverage(
             kind="extensive",
             method="area_weighted",
         )
+
+
+def test_cubic_continuous_regridding_preserves_linear_interior_and_unknown_cells():
+    rows, columns = np.indices((16, 16))
+    plane = 2 * (columns + 0.5) + 3 * (rows + 0.5)
+    grid = Grid(plane, "EPSG:32650", Affine(10, 0, 500000, 0, -10, 3500000), "m")
+    destination = Affine(20, 0, 500000, 0, -20, 3500000)
+    result = resample_grid(
+        grid, crs=grid.crs, transform=destination, shape=(8, 8), kind="continuous", method="cubic"
+    )
+    target_rows, target_columns = np.indices((8, 8))
+    expected = 2 * (2 * target_columns + 1) + 3 * (2 * target_rows + 1)
+    # Projected coordinates are ~3.5e6 m: budget eight coordinate ULPs,
+    # converted through the 10 m cell size and the known plane gradient (2 + 3).
+    coordinate_tolerance = 8 * np.spacing(3500000.0) / 10 * 5
+    np.testing.assert_allclose(
+        result.values[2:-2, 2:-2], expected[2:-2, 2:-2], rtol=0, atol=coordinate_tolerance
+    )
+    unknown = Grid(np.full((16, 16), np.nan), grid.crs, grid.transform, grid.unit)
+    missing = resample_grid(
+        unknown,
+        crs=grid.crs,
+        transform=destination,
+        shape=(8, 8),
+        kind="continuous",
+        method="cubic",
+    )
+    assert np.isnan(missing.values).all()
+    for kind in ("categorical", "extensive"):
+        with pytest.raises(CoastMASError):
+            resample_grid(
+                grid, crs=grid.crs, transform=destination, shape=(8, 8), kind=kind, method="cubic"
+            )

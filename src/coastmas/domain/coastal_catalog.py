@@ -12,6 +12,7 @@ from coastmas.adapters.geofiles import decode_geotiff
 from coastmas.adapters.runtime import PythonFunctionAdapter
 from coastmas.core.contracts import UNITS, ModelSpec, SceneSpec, VariableSpec
 from coastmas.core.errors import CoastMASError
+from coastmas.domain.adaptation_catalog import adaptation_catalog
 from coastmas.domain.builtin_catalog import BuiltinCatalog, assessment_catalog
 from coastmas.domain.coastal_components import (
     ImpactGrid,
@@ -217,6 +218,11 @@ def coastal_catalog(project_id: str, directory: Path) -> BuiltinCatalog:
     optimization = optimization_catalog(project_id)
     for model in optimization.models:
         runtime = optimization.registry.resolve(model)
+        catalog.registry.register(model, runtime.adapter, runtime.handler)
+        models.append(model)
+    adaptation = adaptation_catalog(project_id)
+    for model in adaptation.models:
+        runtime = adaptation.registry.resolve(model)
         catalog.registry.register(model, runtime.adapter, runtime.handler)
         models.append(model)
     optical = remote_sensing_catalog(project_id)

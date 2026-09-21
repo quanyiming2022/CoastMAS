@@ -1,0 +1,33 @@
+{
+  "name": "cubic-binding-verified",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_geofiles.py",
+    "tests/integration/test_datasource.py",
+    "tests/unit/test_binding.py",
+    "-q"
+  ],
+  "started_at": "2026-09-21T07:02:39.970032+00:00",
+  "finished_at": "2026-09-21T07:02:51.847202+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "a97be38da8355d58c4168ee3e391d5b7328a908eff70ce4a564476c67dad1635",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T070239970032Z-cubic-binding-verified.log"
+}

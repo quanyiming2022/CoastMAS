@@ -1,4 +1,5 @@
 const names: Record<string, string> = {
+  "adapt.result": "时间适配结果",
   "optical.index": "指数栅格",
   "optical.summary": "遥感统计与科学范围",
   "optical.preview": "遥感结果地图",

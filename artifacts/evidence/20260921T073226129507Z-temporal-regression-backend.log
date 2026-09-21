@@ -1,0 +1,140 @@
+Success: no issues found in 105 source files
+All checks passed!
+197 files already formatted
+........................................................................ [ 17%]
+........................................................................ [ 34%]
+........................................................................ [ 51%]
+........................................................................ [ 68%]
+........................................................................ [ 85%]
+.............................................................            [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+tests/integration/test_real_imagery_seed.py::test_real_imagery_seed_is_immutable_and_all_three_workflows_preflight
+  /Users/quanyiming/Projects/CoastMAS/src/coastmas/real_imagery.py:311: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform = Affine(*first.transform) * Affine.translation(column, row)
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+tests/unit/test_optical_change.py::test_change_uses_joint_valid_pixels_and_keeps_exact_acquisition_dates
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+tests/unit/test_remote_sensing.py::test_registered_index_component_preserves_georeference_and_actual_valid_count
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:143: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = writer(
+
+tests/unit/test_optical_change.py::test_optical_preview_preserves_nodata_alpha_and_geographic_bounds
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/rasterio/io.py:140: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = DatasetReader(mempath, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.14-final-0 _______________
+
+Name                                               Stmts   Miss Branch BrPart  Cover
+------------------------------------------------------------------------------------
+src/coastmas/__main__.py                              38     38      8      0     0%
+src/coastmas/adapters/datasource.py                  105     20     52     17    75%
+src/coastmas/adapters/docker.py                       69     11     18      7    79%
+src/coastmas/adapters/geofiles.py                     93     14     34      9    82%
+src/coastmas/adapters/gis.py                         139     12     34     12    85%
+src/coastmas/adapters/http.py                         97     17     34     11    77%
+src/coastmas/adapters/ml.py                           61      4     12      4    89%
+src/coastmas/adapters/python_runner.py                29      1      4      2    91%
+src/coastmas/adapters/runtime.py                     189     14     54     14    88%
+src/coastmas/adapters/source_connectors.py           124     11     42     11    87%
+src/coastmas/adapters/source_registry.py              63      2     14      2    95%
+src/coastmas/adapters/storage.py                      82      9     18      7    84%
+src/coastmas/app/adaptation_routes.py                 75      6     14      3    90%
+src/coastmas/app/api.py                              170     16     22      4    88%
+src/coastmas/app/assessment_routes.py                 87     12     14      6    82%
+src/coastmas/app/collaboration_routes.py             144      7     24      7    92%
+src/coastmas/app/data_routes.py                      124      8     26      8    89%
+src/coastmas/app/dependencies.py                      21      1      2      1    91%
+src/coastmas/app/imagery_routes.py                    61      4     14      5    88%
+src/coastmas/app/indicator_routes.py                 121      9     24      8    88%
+src/coastmas/app/knowledge_graph_routes.py            35      6     14      2    80%
+src/coastmas/app/model_routes.py                     147     12     28      8    87%
+src/coastmas/app/optimization_routes.py              115     11     12      3    89%
+src/coastmas/app/planning_routes.py                  200     23     68     12    86%
+src/coastmas/app/production.py                        38     38     10      0     0%
+src/coastmas/app/research_routes.py                   76     10     20      4    79%
+src/coastmas/app/run_routes.py                       212     11     50     13    91%
+src/coastmas/app/scene_routes.py                      24      1      2      1    92%
+src/coastmas/app/source_routes.py                    119     19     16      3    82%
+src/coastmas/app/workspace_routes.py                 171     24     42     16    80%
+src/coastmas/configuration.py                         16      1     12      2    89%
+src/coastmas/core/binding.py                          91     16     46     12    78%
+src/coastmas/core/collaboration.py                    93      3     16      3    94%
+src/coastmas/core/contracts.py                       333     13     72     13    93%
+src/coastmas/core/data_inspection.py                 313     45    176     45    82%
+src/coastmas/core/decomposition.py                   139     21     72     14    80%
+src/coastmas/core/execution.py                       144     15     62     15    85%
+src/coastmas/core/indicators.py                       70      4     16      4    91%
+src/coastmas/core/knowledge_graph.py                 141      3     62      4    97%
+src/coastmas/core/llm.py                             224     24     62     13    86%
+src/coastmas/core/matching.py                         86      3     26      4    94%
+src/coastmas/core/model_documents.py                  69      6     44      6    89%
+src/coastmas/core/optimization.py                    101      6     20      6    90%
+src/coastmas/core/planning.py                        204     10     94     10    93%
+src/coastmas/core/research.py                         80      4     26      4    92%
+src/coastmas/core/research_planning.py               105      7     30      5    90%
+src/coastmas/core/research_provider.py                95     11     26      4    84%
+src/coastmas/core/result_entities.py                  54      2     18      3    93%
+src/coastmas/core/result_geography.py                 22      2      8      2    87%
+src/coastmas/core/scene_workspace.py                  98      8     26      4    90%
+src/coastmas/core/source_catalog.py                   38      3      6      3    86%
+src/coastmas/core/temporal_adaptation.py             146     22     58     15    81%
+src/coastmas/core/validation.py                      249     37    140     22    83%
+src/coastmas/domain/adaptation_catalog.py             31      4      4      2    83%
+src/coastmas/domain/assessment.py                     75      6     22      6    88%
+src/coastmas/domain/builtin_catalog.py                79      7     16      5    87%
+src/coastmas/domain/coastal_catalog.py                94      3     22      3    95%
+src/coastmas/domain/coastal_components.py            183     32     76     30    76%
+src/coastmas/domain/collaboration.py                  38      5     20      2    88%
+src/coastmas/domain/grid_conservation.py              45      5     22      6    84%
+src/coastmas/domain/indicator_frames.py              133     16     42     16    82%
+src/coastmas/domain/indicator_framework.py            28      2     10      2    89%
+src/coastmas/domain/ml.py                            106     14     36     11    82%
+src/coastmas/domain/optical_observations.py           29      2     10      2    90%
+src/coastmas/domain/optical_preview.py                35      2      6      2    90%
+src/coastmas/domain/optimization.py                   49      5     12      5    84%
+src/coastmas/domain/optimization_catalog.py           25      2      4      2    86%
+src/coastmas/domain/optimization_components.py        30      4      8      4    79%
+src/coastmas/domain/raster.py                        129     30     68     16    71%
+src/coastmas/domain/raster_units.py                   79     25     46      7    58%
+src/coastmas/domain/remote_sensing.py                 24      1      6      1    93%
+src/coastmas/domain/remote_sensing_catalog.py         23      1      4      1    93%
+src/coastmas/domain/remote_sensing_components.py      44      4      4      1    90%
+src/coastmas/domain/result_views.py                   64      8     30      4    87%
+src/coastmas/domain/scenarios.py                     104     11     34     11    84%
+src/coastmas/domain/screening.py                      59     10     34      9    77%
+src/coastmas/persistence/auth.py                      55      3     16      4    90%
+src/coastmas/persistence/collaboration.py             73      7     30      7    86%
+src/coastmas/persistence/database.py                  16      1      8      3    83%
+src/coastmas/persistence/geography.py                 22      4      4      2    77%
+src/coastmas/persistence/jobs.py                     139     18     40     11    84%
+src/coastmas/persistence/lifecycle.py                 25      1      6      1    94%
+src/coastmas/persistence/planning.py                  84      9     32      9    84%
+src/coastmas/persistence/research.py                  22      2     10      2    88%
+src/coastmas/persistence/resources.py                147     12     70     13    88%
+src/coastmas/real_imagery.py                         120      4     26      4    95%
+src/coastmas/runtime_bootstrap.py                     85     14     18      4    83%
+src/coastmas/sample_bootstrap.py                     120      5     34      5    94%
+src/coastmas/worker/runtime.py                       151     18     44      8    84%
+------------------------------------------------------------------------------------
+TOTAL                                               8848    934   2772    634    86%
+
+16 files skipped due to complete coverage.
+Coverage JSON written to file artifacts/coverage-temporal.json
+421 passed, 11 warnings in 331.30s (0:05:31)

@@ -1,0 +1,29 @@
+{
+  "name": "temporal-worker-verified",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/mypy src/coastmas && .venv/bin/ruff check . && .venv/bin/python -m pytest tests/integration/test_temporal_worker.py tests/integration/test_sample_bootstrap.py tests/unit/test_temporal_adaptation.py -q"
+  ],
+  "started_at": "2026-09-21T07:16:10.014237+00:00",
+  "finished_at": "2026-09-21T07:16:12.124366+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "fbd15cb9208e88f17870c81fe9a9fc3511987ba9d7ca8e692723d76acb595575",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T071610014237Z-temporal-worker-verified.log"
+}

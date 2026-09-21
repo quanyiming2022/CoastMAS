@@ -1,0 +1,156 @@
+F........F                                                               [100%]
+=================================== FAILURES ===================================
+___ test_temporal_preparation_freezes_versions_and_preserves_original_scene ____
+
+authenticated = (<starlette.testclient.TestClient object at 0x11d4911f0>, 'xm5HwnVxM_pyV0s2rj0q5heVIgAAmKjzLWX7qxV-9SQ', 'c3129d56-4f42-4fc0-af82-282a6b9491ae', 'aea92fee-4820-4d9c-9906-2c1c0da4af68')
+engine = Engine(postgresql+psycopg://coastmas:***@127.0.0.1:55432/coastmas_test_f0724c34d51d4e5f8401c9c491e865f5)
+storage = <coastmas.adapters.storage.S3ArtifactStore object at 0x11d5228d0>
+
+    def test_temporal_preparation_freezes_versions_and_preserves_original_scene(
+        authenticated, engine, storage
+    ):
+        client, csrf, project, user = authenticated
+        client.app.state.artifact_store = storage
+        client.app.state.registry = BuiltinRuntimeRegistry(Path("sample-data"))
+        original = scene(id=str(uuid4()))
+        with Session(engine) as session, session.begin():
+            create_resource(
+                session,
+                user_id=user,
+                project_id=project,
+                kind="scene",
+                identifier=original.id,
+                name=original.name,
+                spec=original.model_dump(mode="json"),
+            )
+        body = {
+            "project_id": project,
+            "name": "SYNTHETIC verification only",
+            "scene": {"id": original.id, "version": 1},
+            "source": "Hand calculated fixture",
+            "license": "CC0",
+            "request": temporal_request().model_dump(mode="json"),
+            "idempotency_key": str(uuid4()),
+        }
+        headers = {"X-CSRF-Token": csrf}
+        response = client.post("/api/v1/adaptations/temporal", json=body, headers=headers)
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"error_code":"HTTP_ERROR","message":"request unavailable","details":null,"request_id":"44c11df7-0999-484d-8dcf-b3ef28594688"}
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/integration/test_temporal_api.py:40: AssertionError
+__________________ test_total_overflow_is_explicitly_rejected __________________
+
+    def test_total_overflow_is_explicitly_rejected():
+        frame = request(
+            unit="m",
+            output_unit="m",
+            aggregation_type="extensive",
+            method="sum",
+            observations=[
+                {"start": stamp(0), "end": stamp(1), "value": 1e308},
+                {"start": stamp(1), "end": stamp(4), "value": 1e308},
+            ],
+        )
+        with pytest.raises(ValueError, match="overflow"):
+>           adapt_time_series(frame)
+
+tests/unit/test_temporal_adaptation.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+request = TemporalRequest(variable='air_temperature', unit='m', output_unit='m', aggregation_type='extensive', support='interval...timezone.utc), window_end=datetime.datetime(2025, 1, 1, 4, 0, tzinfo=datetime.timezone.utc), nodata_policy='propagate')
+
+    def adapt_time_series(request: TemporalRequest) -> TemporalResult:
+        observations = request.observations
+        selected: tuple[TemporalObservation, ...]
+        weights: list[float]
+        if request.method in {"nearest", "interpolation"}:
+            target = request.target_time
+            if target is None:
+                raise ValueError("target time missing")
+            times = [sample.start for sample in observations]
+            if not times[0] <= target <= times[-1]:
+                raise ValueError("temporal extrapolation is not permitted")
+            position = bisect.bisect_left(times, target)
+            if times[position] == target:
+                selected, weights = (observations[position],), [1.0]
+            elif request.method == "nearest":
+                # Ties select the earlier sample; no skip-over of missing observations.
+                left = position - 1
+                nearest = left if target - times[left] <= times[position] - target else position
+                selected, weights = (observations[nearest],), [1.0]
+            else:
+                left = position - 1
+                fraction = (target - times[left]).total_seconds() / (
+                    times[position] - times[left]
+                ).total_seconds()
+                selected = (observations[left], observations[position])
+                weights = [1 - fraction, fraction]
+            start = end = target
+            interpretation = (
+                "Assigned from explicit source support; not an observation at the target time."
+            )
+        else:
+            window_start, window_end = request.window_start, request.window_end
+            if window_start is None or window_end is None:
+                raise ValueError("aggregation window missing")
+            start, end = window_start, window_end
+            if start < observations[0].start or end > observations[-1].end:
+                raise ValueError("temporal extrapolation is not permitted")
+            if request.support == "interval":
+                selected = tuple(
+                    sample for sample in observations if sample.start < end and sample.end > start
+                )
+                if (
+                    not selected
+                    or selected[0].start != start
+                    or selected[-1].end != end
+                    or any(a.end != b.start for a, b in zip(selected, selected[1:], strict=False))
+                ):
+                    raise ValueError("source intervals must partition the requested window exactly")
+                duration = (end - start).total_seconds()
+                weights = [
+                    (sample.end - sample.start).total_seconds() / duration for sample in selected
+                ]
+            else:
+                selected = tuple(sample for sample in observations if start <= sample.start <= end)
+                if not selected:
+                    raise ValueError("window has no observed samples")
+                weights = [1.0] * len(selected)
+            interpretation = (
+                "Duration-weighted source support means."
+                if request.method == "mean"
+                else "Sum of complete source support totals."
+                if request.method == "sum"
+                else (
+                    "Extremum of observed source support values, not an unobserved continuous extremum."
+                )
+            )
+        valid = sum(sample.value is not None for sample in selected)
+        value = None
+        if valid != len(selected):
+            if request.nodata_policy == "reject":
+                raise ValueError("selected source support contains NoData")
+        else:
+            values = [sample.value for sample in selected if sample.value is not None]
+            if request.method == "sum":
+>               raw = math.fsum(values)
+                      ^^^^^^^^^^^^^^^^^
+E               OverflowError: intermediate overflow in fsum
+
+src/coastmas/core/temporal_adaptation.py:193: OverflowError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_temporal_api.py::test_temporal_preparation_freezes_versions_and_preserves_original_scene
+FAILED tests/unit/test_temporal_adaptation.py::test_total_overflow_is_explicitly_rejected
+2 failed, 8 passed, 2 warnings in 3.06s

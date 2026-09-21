@@ -195,3 +195,38 @@ def test_csv_container_keeps_unit_identifiers_and_declared_column_units(storage)
         {"unit_id": "U2", "population": "160"},
     ]
     assert result["column_units"]["population"] == "person"
+
+
+def test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid(storage):
+    grid = Grid(
+        np.full((8, 8), 250.0),
+        "EPSG:32650",
+        Affine(10, 0, 500000, 0, -10, 3500000),
+        "cm",
+        "demo-datum",
+    )
+    record = storage.put("cubic/input.tif", encode_geotiff(grid))
+    source = asset(
+        uri=record.uri,
+        checksum=record.sha256,
+        variables=(variable(unit="cm"),),
+        spatial_extent={"west": 500000, "south": 3499920, "east": 500080, "north": 3500000},
+        quality={"size_bytes": record.size, "spatial_resolution_m": 10},
+    )
+    context = scene(
+        data_policy={
+            "target_grid": {
+                "crs": grid.crs,
+                "transform": [20, 0, 500000, 0, -20, 3500000],
+                "width": 4,
+                "height": 4,
+            }
+        }
+    )
+    binding = (
+        workflow()
+        .input_bindings[0]
+        .model_copy(update={"resampling": "cubic", "unit_conversion": "cm -> m"})
+    )
+    result = StoredDataResolver(storage).resolve(source, variable(), binding, context)
+    np.testing.assert_allclose(result, np.full((4, 4), 2.5), rtol=0, atol=1e-12)

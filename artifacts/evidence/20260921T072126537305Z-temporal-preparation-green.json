@@ -1,0 +1,29 @@
+{
+  "name": "temporal-preparation-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/mypy src/coastmas && .venv/bin/ruff check . && .venv/bin/python -m pytest tests/integration/test_temporal_api.py tests/unit/test_temporal_adaptation.py -q"
+  ],
+  "started_at": "2026-09-21T07:21:26.537305+00:00",
+  "finished_at": "2026-09-21T07:21:34.232875+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "30607f73be2251e28a2d9034e2e9d62898a1940f3f1d867acdceaaaf8d12bf8c",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T072126537305Z-temporal-preparation-green.log"
+}

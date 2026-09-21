@@ -7,6 +7,7 @@ from pathlib import Path
 from pydantic.json_schema import models_json_schema
 from sqlalchemy import create_engine
 
+from coastmas.app.adaptation_routes import SaveTemporalRequest
 from coastmas.app.api import create_app
 from coastmas.app.indicator_routes import FrameworkPlanRequest, PrepareIndicatorsRequest
 from coastmas.app.research_routes import ResearchRequest
@@ -38,6 +39,7 @@ from coastmas.core.research_planning import ResearchManifest, ResearchReport
 from coastmas.core.result_entities import ResultView
 from coastmas.core.scene_workspace import SceneInspection
 from coastmas.core.source_catalog import DataSourceSpec, SourceSnapshotRequest
+from coastmas.core.temporal_adaptation import TemporalRequest, TemporalResult
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -47,6 +49,9 @@ def main() -> None:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     contracts = [
+        SaveTemporalRequest,
+        TemporalRequest,
+        TemporalResult,
         ResearchManifest,
         ResearchReport,
         ResearchRequest,

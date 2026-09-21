@@ -2198,6 +2198,63 @@
         "title": "SaveProposalRequest",
         "type": "object"
       },
+      "SaveTemporalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "idempotency_key": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "license": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "License",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "request": {
+            "$ref": "#/components/schemas/TemporalRequest"
+          },
+          "scene": {
+            "$ref": "#/components/schemas/VersionReference"
+          },
+          "source": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "name",
+          "scene",
+          "source",
+          "license",
+          "request",
+          "idempotency_key"
+        ],
+        "title": "SaveTemporalRequest",
+        "type": "object"
+      },
       "SceneCoverage": {
         "additionalProperties": false,
         "properties": {
@@ -2483,6 +2540,160 @@
           "idempotency_key"
         ],
         "title": "SourceSnapshotRequest",
+        "type": "object"
+      },
+      "TemporalObservation": {
+        "additionalProperties": false,
+        "properties": {
+          "end": {
+            "format": "date-time",
+            "title": "End",
+            "type": "string"
+          },
+          "start": {
+            "format": "date-time",
+            "title": "Start",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "value"
+        ],
+        "title": "TemporalObservation",
+        "type": "object"
+      },
+      "TemporalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "aggregation_type": {
+            "enum": [
+              "intensive",
+              "extensive",
+              "categorical",
+              "instantaneous"
+            ],
+            "title": "Aggregation Type",
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "nearest",
+              "mean",
+              "sum",
+              "min",
+              "max",
+              "interpolation"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "nodata_policy": {
+            "default": "propagate",
+            "enum": [
+              "propagate",
+              "reject"
+            ],
+            "title": "Nodata Policy",
+            "type": "string"
+          },
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/TemporalObservation"
+            },
+            "maxItems": 10000,
+            "minItems": 1,
+            "title": "Observations",
+            "type": "array"
+          },
+          "output_unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Output Unit",
+            "type": "string"
+          },
+          "support": {
+            "enum": [
+              "point",
+              "interval"
+            ],
+            "title": "Support",
+            "type": "string"
+          },
+          "target_time": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Time"
+          },
+          "unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Unit",
+            "type": "string"
+          },
+          "variable": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Variable",
+            "type": "string"
+          },
+          "window_end": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window End"
+          },
+          "window_start": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window Start"
+          }
+        },
+        "required": [
+          "variable",
+          "unit",
+          "output_unit",
+          "aggregation_type",
+          "support",
+          "observations",
+          "method"
+        ],
+        "title": "TemporalRequest",
         "type": "object"
       },
       "TimeRange": {
@@ -3015,6 +3226,51 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/adaptations/temporal": {
+      "post": {
+        "operationId": "prepare_temporal_api_v1_adaptations_temporal_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveTemporalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Prepare Temporal Api V1 Adaptations Temporal Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Prepare Temporal",
+        "tags": [
+          "adaptation"
+        ]
+      }
+    },
     "/api/v1/admin/audit": {
       "get": {
         "operationId": "audit_api_v1_admin_audit_get",

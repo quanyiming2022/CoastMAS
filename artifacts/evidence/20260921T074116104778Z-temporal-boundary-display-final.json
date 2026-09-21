@@ -1,0 +1,29 @@
+{
+  "name": "temporal-boundary-display-final",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/ruff check . && .venv/bin/python -m pytest tests/unit/test_temporal_adaptation.py -q && npm --prefix apps/web run test && npm --prefix apps/web run lint && npm --prefix apps/web run build && .venv/bin/python scripts/e2e.py temporal.spec.ts"
+  ],
+  "started_at": "2026-09-21T07:41:16.104778+00:00",
+  "finished_at": "2026-09-21T07:41:53.402195+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "95c99c3769e7d194e79ca99638964bbea70d44945e5920035946b2a1bf8e3b6d",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T074116104778Z-temporal-boundary-display-final.log"
+}

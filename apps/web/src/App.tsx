@@ -62,6 +62,7 @@ const DataSources = lazy(() => import("./DataSources"));
 const SourceEditor = lazy(() =>
   import("./DataSources").then((module) => ({ default: module.SourceEditor })),
 );
+const TemporalAdaptation = lazy(() => import("./TemporalAdaptation"));
 const DataWorkspace = lazy(() => import("./DataWorkspace"));
 const ModelEditor = lazy(() => import("./ModelEditor"));
 const SceneWorkspace = lazy(() => import("./SceneWorkspace"));
@@ -82,6 +83,7 @@ const navigation = [
   ["/scenes", "场景空间"],
   ["/entities", "地理实体"],
   ["/data", "数据目录"],
+  ["/temporal", "时间适配"],
   ["/runs", "运行中心"],
   ["/results", "结果中心"],
   ["/assessments", "评价中心"],
@@ -227,6 +229,7 @@ export default function App() {
                 <Route path="/data-sources" element={<DataSources />} />
                 <Route path="/data-sources/new" element={<SourceEditor />} />
                 <Route path="/data-sources/:id" element={<SourceEditor />} />
+                <Route path="/temporal" element={<TemporalAdaptation />} />
                 <Route path="/data/new" element={<DataWorkspace />} />
                 <Route path="/data/:id/workspace" element={<DataWorkspace />} />
                 <Route path="/models/new" element={<ModelEditor />} />

@@ -1,0 +1,2 @@
+src/coastmas/domain/temporal_adaptation.py:150: error: Incompatible types in assignment (expression has type "datetime | None", variable has type "datetime")  [assignment]
+Found 1 error in 1 file (checked 103 source files)

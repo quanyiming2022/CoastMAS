@@ -4410,6 +4410,63 @@
       "title": "RunManifest",
       "type": "object"
     },
+    "SaveTemporalRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "idempotency_key": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "license": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "License",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Name",
+          "type": "string"
+        },
+        "project_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Project Id",
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/$defs/TemporalRequest"
+        },
+        "scene": {
+          "$ref": "#/$defs/VersionReference"
+        },
+        "source": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project_id",
+        "name",
+        "scene",
+        "source",
+        "license",
+        "request",
+        "idempotency_key"
+      ],
+      "title": "SaveTemporalRequest",
+      "type": "object"
+    },
     "ScaleSpec": {
       "additionalProperties": false,
       "properties": {
@@ -4743,6 +4800,263 @@
         "edges"
       ],
       "title": "TaskGraph",
+      "type": "object"
+    },
+    "TemporalObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "value"
+      ],
+      "title": "TemporalObservation",
+      "type": "object"
+    },
+    "TemporalRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_type": {
+          "enum": [
+            "intensive",
+            "extensive",
+            "categorical",
+            "instantaneous"
+          ],
+          "title": "Aggregation Type",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "nearest",
+            "mean",
+            "sum",
+            "min",
+            "max",
+            "interpolation"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "nodata_policy": {
+          "default": "propagate",
+          "enum": [
+            "propagate",
+            "reject"
+          ],
+          "title": "Nodata Policy",
+          "type": "string"
+        },
+        "observations": {
+          "items": {
+            "$ref": "#/$defs/TemporalObservation"
+          },
+          "maxItems": 10000,
+          "minItems": 1,
+          "title": "Observations",
+          "type": "array"
+        },
+        "output_unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Output Unit",
+          "type": "string"
+        },
+        "support": {
+          "enum": [
+            "point",
+            "interval"
+          ],
+          "title": "Support",
+          "type": "string"
+        },
+        "target_time": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Time"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        },
+        "variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Variable",
+          "type": "string"
+        },
+        "window_end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Window End"
+        },
+        "window_start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Window Start"
+        }
+      },
+      "required": [
+        "variable",
+        "unit",
+        "output_unit",
+        "aggregation_type",
+        "support",
+        "observations",
+        "method"
+      ],
+      "title": "TemporalRequest",
+      "type": "object"
+    },
+    "TemporalResult": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "format": "date-time",
+          "title": "End",
+          "type": "string"
+        },
+        "interpretation": {
+          "title": "Interpretation",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "nearest",
+            "mean",
+            "sum",
+            "min",
+            "max",
+            "interpolation"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "nodata_policy": {
+          "enum": [
+            "propagate",
+            "reject"
+          ],
+          "title": "Nodata Policy",
+          "type": "string"
+        },
+        "observations_used": {
+          "minimum": 1,
+          "title": "Observations Used",
+          "type": "integer"
+        },
+        "source_end": {
+          "format": "date-time",
+          "title": "Source End",
+          "type": "string"
+        },
+        "source_start": {
+          "format": "date-time",
+          "title": "Source Start",
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "title": "Start",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Unit",
+          "type": "string"
+        },
+        "valid_observations": {
+          "minimum": 0,
+          "title": "Valid Observations",
+          "type": "integer"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "variable": {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": ".*\\S.*",
+          "title": "Variable",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variable",
+        "value",
+        "unit",
+        "method",
+        "start",
+        "end",
+        "source_start",
+        "source_end",
+        "observations_used",
+        "valid_observations",
+        "nodata_policy",
+        "interpretation"
+      ],
+      "title": "TemporalResult",
       "type": "object"
     },
     "TimeRange": {
@@ -5489,6 +5803,9 @@
     "RunManifest": {
       "$ref": "#/$defs/RunManifest"
     },
+    "SaveTemporalRequest": {
+      "$ref": "#/$defs/SaveTemporalRequest"
+    },
     "SceneInspection": {
       "$ref": "#/$defs/SceneInspection"
     },
@@ -5498,11 +5815,20 @@
     "SourceSnapshotRequest": {
       "$ref": "#/$defs/SourceSnapshotRequest"
     },
+    "TemporalRequest": {
+      "$ref": "#/$defs/TemporalRequest"
+    },
+    "TemporalResult": {
+      "$ref": "#/$defs/TemporalResult"
+    },
     "WorkflowSpec": {
       "$ref": "#/$defs/WorkflowSpec"
     }
   },
   "required": [
+    "SaveTemporalRequest",
+    "TemporalRequest",
+    "TemporalResult",
     "ResearchManifest",
     "ResearchReport",
     "ResearchRequest",

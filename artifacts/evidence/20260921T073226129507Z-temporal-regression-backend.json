@@ -1,0 +1,29 @@
+{
+  "name": "temporal-regression-backend",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/mypy src/coastmas && .venv/bin/ruff check . && .venv/bin/ruff format --check src tests scripts && .venv/bin/python -m pytest -q --cov=coastmas --cov-report=json:artifacts/coverage-temporal.json --cov-report=term:skip-covered"
+  ],
+  "started_at": "2026-09-21T07:32:26.129507+00:00",
+  "finished_at": "2026-09-21T07:38:00.151817+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "9796b8e4314d7743e4a1fd443662dbcb4f4bb9a3d04dd2330482a06f93569570",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T073226129507Z-temporal-regression-backend.log"
+}

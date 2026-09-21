@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
 import { request, resultSchema } from "./api";
+import { contract } from "./contracts";
+import TemporalResultView from "./TemporalResultView";
+const temporalResult = contract("TemporalResult");
 import { payloadSchema } from "./result-payload";
 import { useWorkspace } from "./workspace";
 import {
@@ -244,6 +247,8 @@ export function ResultDetail() {
   );
 }
 export function ResultValue({ value }: { value: unknown }) {
+  const temporal = temporalResult.safeParse(value);
+  if (temporal.success) return <TemporalResultView result={temporal.data} />;
   const preview = opticalPreview.safeParse(value);
   if (preview.success) {
     const image = preview.data;

@@ -1,0 +1,44 @@
+Isolated browser environment ready: coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0/playwright temporal.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:43513) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result
+  1) e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result 
+
+    TypeError: expect(...).toHaveTextContent is not a function
+
+       98 |     page.getByRole("region", { name: "时间适配结果", exact: true }),
+       99 |   ).toBeVisible();
+    > 100 |   await expect(page.getByTestId("temporal-value")).toHaveTextContent(
+          |                                                    ^
+      101 |     "290.65 kelvin",
+      102 |   );
+      103 |   await page.screenshot({
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/temporal.spec.ts:100:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result 
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_1b78c0d47949480dbb71994e49a3daf0

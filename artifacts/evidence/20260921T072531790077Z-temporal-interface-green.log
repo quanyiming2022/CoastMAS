@@ -1,0 +1,96 @@
+Success: no issues found in 105 source files
+All checks passed!
+..........                                                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  /Users/quanyiming/Projects/CoastMAS/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 2 warnings in 6.10s
+
+> coastmas-web@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.1 /Users/quanyiming/Projects/CoastMAS/apps/web
+
+
+ Test Files  25 passed (25)
+      Tests  49 passed (49)
+   Start at  15:25:41
+   Duration  4.96s (environment 61%, import 12%, tests 11%, transform 9%, setup 7%)
+
+Environment  jsdom was created 25 times · 24.02s total, 61% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> coastmas-web@0.1.0 lint
+> eslint src
+
+
+> coastmas-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 1060 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.59 kB │ gzip:   0.38 kB
+dist/assets/maplibre-gl-worker-CNLXcz58.js     508.48 kB
+dist/assets/index-Dnavpvux.css                   9.61 kB │ gzip:   2.99 kB
+dist/assets/style-DLioOiRN.css                  15.41 kB │ gzip:   2.56 kB
+dist/assets/GeoMap-CKRTiAqP.css                 82.86 kB │ gzip:  10.71 kB
+dist/assets/imagery-iRNIGE-c.js                  0.47 kB │ gzip:   0.33 kB
+dist/assets/scientific-labels-DqhEJHFT.js        0.77 kB │ gzip:   0.57 kB
+dist/assets/result-data-Br0Bxa1r.js              1.11 kB │ gzip:   0.51 kB
+dist/assets/model-editor-DSYxgSbL.js             1.23 kB │ gzip:   0.57 kB
+dist/assets/CoastalStatistics-DVO6bvp6.js        1.86 kB │ gzip:   0.76 kB
+dist/assets/WorkflowGraph-Q_jWt7KI.js            2.15 kB │ gzip:   1.09 kB
+dist/assets/Dashboard-CwQhH18H.js                2.40 kB │ gzip:   1.25 kB
+dist/assets/DataMetadataForm-Cf0a1O6g.js         2.85 kB │ gzip:   1.37 kB
+dist/assets/useQueries-C-cPVij0.js               3.49 kB │ gzip:   1.51 kB
+dist/assets/Runs-BEshAKOM.js                     3.63 kB │ gzip:   1.56 kB
+dist/assets/Workflow-zioj6dpJ.js                 4.03 kB │ gzip:   1.92 kB
+dist/assets/AssessmentResults-BD50d_c_.js        4.08 kB │ gzip:   1.77 kB
+dist/assets/ScientificFields-BuaRt1ut.js         4.49 kB │ gzip:   1.96 kB
+dist/assets/ResultComparison-Clkqx449.js         5.12 kB │ gzip:   2.24 kB
+dist/assets/ModelDecomposer-BxOW4gnt.js          6.43 kB │ gzip:   2.95 kB
+dist/assets/TemporalAdaptation-kakyDuFr.js       6.55 kB │ gzip:   2.86 kB
+dist/assets/KnowledgeGraph-BtuoKQmO.js           6.85 kB │ gzip:   3.08 kB
+dist/assets/Entities-BHEHNk7R.js                 7.11 kB │ gzip:   3.03 kB
+dist/assets/DataSources-Dbl_xisA.js              7.37 kB │ gzip:   2.94 kB
+dist/assets/DataWorkspace-Dodf7jOR.js            7.47 kB │ gzip:   3.09 kB
+dist/assets/removable-zVvwFZIX.js                7.51 kB │ gzip:   2.95 kB
+dist/assets/AssessmentRecords-F7onyZWa.js        7.54 kB │ gzip:   2.78 kB
+dist/assets/ModelEditor-D4XSzXc-.js              7.68 kB │ gzip:   3.16 kB
+dist/assets/Catalog-DxDwxn5V.js                  8.07 kB │ gzip:   2.97 kB
+dist/assets/GeoMap-CLCEYgMO.js                   8.10 kB │ gzip:   3.60 kB
+dist/assets/Planner-CoKeQfE4.js                  8.24 kB │ gzip:   3.53 kB
+dist/assets/Admin-33yZxwTC.js                    8.81 kB │ gzip:   2.78 kB
+dist/assets/jsx-runtime-Bzw2jH9X.js              9.08 kB │ gzip:   3.46 kB
+dist/assets/Results-CDIoPDb_.js                 11.54 kB │ gzip:   4.36 kB
+dist/assets/Research-CZbcPvVa.js                11.76 kB │ gzip:   4.45 kB
+dist/assets/WorkflowEditor-DzFIQ5T_.js          13.63 kB │ gzip:   5.20 kB
+dist/assets/Collaboration-CuxZk7G6.js           14.26 kB │ gzip:   4.72 kB
+dist/assets/SceneWorkspace-Dhw9B7Wj.js          15.01 kB │ gzip:   5.54 kB
+dist/assets/SpatialOptimization-Co-gCikt.js     15.02 kB │ gzip:   5.18 kB
+dist/assets/IndicatorFrameworks-D4uSi3N6.js     15.75 kB │ gzip:   5.19 kB
+dist/assets/style-82aJu_L-.js                  177.72 kB │ gzip:  57.32 kB
+dist/assets/contracts-D_V2yk4b.js              216.40 kB │ gzip:  51.86 kB
+dist/assets/index-By8Pxscg.js                  390.96 kB │ gzip: 119.73 kB
+dist/assets/Chart-mWtf9huH.js                  541.89 kB │ gzip: 184.40 kB
+dist/assets/maplibre-gl-DdwH8xhJ.js          1,018.88 kB │ gzip: 274.90 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 360ms

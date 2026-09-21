@@ -1,0 +1,47 @@
+Isolated browser environment ready: coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58
+
+> coastmas-web@0.1.0 e2e
+> playwright test --output /Users/quanyiming/Projects/CoastMAS/artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58/playwright temporal.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:43378) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result
+  1) e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result 
+
+    TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByLabel('沿用研究区的场景', { exact: true })
+
+
+      22 |   await page
+      23 |     .getByLabel("沿用研究区的场景", { exact: true })
+    > 24 |     .selectOption(scenes[0].id);
+         |      ^
+      25 |   await page.getByLabel("名称", { exact: true }).fill("隔离验证：不等时长温度");
+      26 |   await page
+      27 |     .getByLabel("数据来源", { exact: true })
+        at /Users/quanyiming/Projects/CoastMAS/apps/web/e2e/temporal.spec.ts:24:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58/playwright/temporal-temporal-form-fre-38203-r-publishes-weighted-result/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    e2e/temporal.spec.ts:4:1 › temporal form freezes observed support and real worker publishes weighted result 
+Isolated resources removed; private logs retained: artifacts/runtime/coastmas_e2e_b99677ed7d0e4790a831a17b628b6b58

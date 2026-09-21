@@ -1,6 +1,11 @@
 import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { z } from "zod";
 import { request, resourceSchema, revisionSchema, jobSchema } from "./api";
 import { workflowContract } from "./contracts";
@@ -60,7 +65,8 @@ function WorkflowWorkspace({ workflow }: { workflow: WorkflowSpec }) {
   const { projectId } = useWorkspace();
   const navigate = useNavigate();
   const client = useQueryClient();
-  const [sceneId, setSceneId] = useState("");
+  const [parameters] = useSearchParams();
+  const [sceneId, setSceneId] = useState(() => parameters.get("scene") ?? "");
   const [seed, setSeed] = useState(42);
   const scenes = useQuery({
     queryKey: ["scene-selection", projectId],

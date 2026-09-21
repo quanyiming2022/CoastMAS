@@ -1,0 +1,29 @@
+{
+  "name": "cubic-binding-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/mypy src/coastmas && .venv/bin/ruff check . && .venv/bin/python -m pytest tests/unit/test_geofiles.py tests/integration/test_datasource.py tests/unit/test_binding.py -q"
+  ],
+  "started_at": "2026-09-21T07:00:02.372094+00:00",
+  "finished_at": "2026-09-21T07:00:15.107343+00:00",
+  "exit_code": 1,
+  "status": "FAIL",
+  "source_sha256": "2b01a549ada88ba7c2e8d84d3817402ccdbd8c1fe9282df705f68a1b77da30d6",
+  "git_commit": "83d882ba7cea453c5345fb7a48e1e90cfdab4184",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T070002372094Z-cubic-binding-green.log"
+}

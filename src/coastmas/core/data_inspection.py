@@ -30,6 +30,7 @@ from shapely.geometry import shape  # type: ignore[import-untyped]
 from coastmas.adapters.geofiles import decode_geotiff
 from coastmas.core.contracts import Contract, DataAssetSpec, VariableSpec
 from coastmas.core.errors import CoastMASError, ConstraintError
+from coastmas.core.temporal_adaptation import TemporalRequest, adapt_time_series
 
 # All native NetCDF operations in this process use one thread (Unidata requirement).
 # API inspection itself additionally runs in an isolated, deadline-bound process.
@@ -386,14 +387,44 @@ def inspect_data(content: bytes, asset: DataAssetSpec) -> DataInspection:
             value = _read_json(content)
             if not isinstance(value, dict):
                 raise ConstraintError("JSON data must map variable names to values")
+            temporal_metadata: dict[str, JsonValue] = {}
             for variable in asset.variables:
                 if variable.name not in value:
                     raise ConstraintError("JSON variable missing")
                 _numeric(value[variable.name], variable)
+                if variable.standard_name == "temporal_adaptation_request":
+                    frame = TemporalRequest.model_validate(value[variable.name])
+                    if (
+                        variable.data_type != "json"
+                        or variable.unit != "1"
+                        or variable.temporal_support != "explicit_support"
+                        or asset.time_resolution != "explicit_support"
+                        or asset.time_start != frame.observations[0].start
+                        or asset.time_end != frame.observations[-1].end
+                    ):
+                        raise ConstraintError("temporal support or coverage differs from file")
+                    # The same pure rule checks gaps, target coverage and representable units
+                    # before data can be approved; execution still creates its own audited result.
+                    adapted = adapt_time_series(frame)
+                    temporal_metadata = {
+                        "temporal_method": frame.method,
+                        "quantity_unit": frame.unit,
+                        "output_unit": frame.output_unit,
+                        "aggregation_type": frame.aggregation_type,
+                        "observation_support": frame.support,
+                        "nodata_policy": frame.nodata_policy,
+                        "target_start": adapted.start.isoformat(),
+                        "target_end": adapted.end.isoformat(),
+                    }
             # Preview has its own byte budget and never silently returns an enormous object.
             preview = value if len(content) <= 8192 else {"message": "preview exceeds 8192 bytes"}
             report = DataInspection(
-                metadata={"validated": True, "unit_source": "catalog_declaration"}, preview=preview
+                metadata={
+                    "validated": True,
+                    "unit_source": "catalog_declaration",
+                    **temporal_metadata,
+                },
+                preview=preview,
             )
         else:
             raise ConstraintError("service/database inspection requires a configured connector")
