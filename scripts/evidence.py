@@ -27,6 +27,7 @@ def configured_secrets() -> list[str]:
         value
         for key, value in configuration.items()
         if value
+        and key.upper() not in {"LLM_MAX_COMPLETION_TOKENS"}
         and any(marker in key.upper() for marker in ("PASSWORD", "SECRET", "TOKEN", "API_KEY"))
     ]
 

@@ -1,0 +1,31 @@
+{
+  "name": "evidence-budget-green",
+  "log_redaction_applied": false,
+  "log_redaction_policy": "configured secrets, literal/URL/JSON representations",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/unit/test_evidence.py",
+    "-q"
+  ],
+  "started_at": "2026-09-21T06:17:32.661908+00:00",
+  "finished_at": "2026-09-21T06:17:34.357135+00:00",
+  "exit_code": 0,
+  "status": "PASS",
+  "source_sha256": "94cfc6e29b42a429a552da679845c08b24101f640d6ecd6c17ed811065fda36f",
+  "git_commit": "a766e784f2f3a1c90a353be908bcebafc5cd6f5f",
+  "dependencies": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "rasterio": "1.5.1",
+    "fastapi": "0.141.1",
+    "SQLAlchemy": "2.0.54",
+    "celery": "5.6.3"
+  },
+  "source_changed_during_run": false,
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "log": "artifacts/evidence/20260921T061732661908Z-evidence-budget-green.log"
+}

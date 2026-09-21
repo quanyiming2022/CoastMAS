@@ -1,0 +1,19 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+______ test_numeric_output_budget_is_not_a_credential_but_access_token_is ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1074dd0a0>
+
+    def test_numeric_output_budget_is_not_a_credential_but_access_token_is(monkeypatch):
+        from scripts.evidence import configured_secrets
+    
+        monkeypatch.setenv("LLM_MAX_COMPLETION_TOKENS", "21637")
+        monkeypatch.setenv("COASTMAS_ACCESS_TOKEN", "private-access-token-example")
+        values = configured_secrets()
+>       assert "21637" not in values
+E       AssertionError: assert '21637' not in ['21637', 'private-access-token-example', '[REDACTED]', 'wLIKrqEXJ5r0w3sjUfrZHwIUhW35...r0eKtMvQ', '[REDACTED]', '[REDACTED]', ...]
+
+tests/unit/test_evidence.py:24: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_evidence.py::test_numeric_output_budget_is_not_a_credential_but_access_token_is
+1 failed, 2 passed in 0.09s
