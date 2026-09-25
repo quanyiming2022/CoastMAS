@@ -1,0 +1,997 @@
+{
+  "authority": "docs/CoastMAS-ui-content-and-action-semantics-rework-20260924.md",
+  "surfaces": [
+    {
+      "component": "next/web/src/CatalogUpload.tsx",
+      "sha256": "5d59e8948a754f916041b126b20eae81b3f5111778729a65ef00e15579696dab",
+      "candidates": [
+        {
+          "line": 279,
+          "text": "{(session.size / 1024 ** 2).toFixed(2)} MiB 已保存"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/LayerCatalog.tsx",
+      "sha256": "3ccf2d13dd990739d5ad96132bda6d9d045c650bb1cb72231d69fff4b80cf5fc",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ComparisonTask.tsx",
+      "sha256": "b4f96c5accd3e48d96b016b979c0224ba47726d6f7daaef6cd4678ddc9ecdd53",
+      "candidates": [
+        {
+          "line": 159,
+          "text": "复用当前项目的真实运行。自动核对资料、变量、单位、方法与时间范围，不重新录入观测。"
+        },
+        {
+          "line": 180,
+          "text": "<p>暂无可比较成果。先完成评价、优化或时间适配任务，再返回选择。</p>"
+        },
+        {
+          "line": 260,
+          "text": "同一资料和归一化基准的权重差异可作敏感性比较。跨来源、时期或方法尺度尚无依据时，保留原成果并说明阻断原因。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/App.tsx",
+      "sha256": "51f98aa01893588dc780e8daa1f55ca313e7ab9ef5c47283736c90032213849e",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResearchStepPanel.tsx",
+      "sha256": "b214aea466549342d948eda732835077f0e6d3c33c180ed2a61f42de0c09a925",
+      "candidates": [
+        {
+          "line": 52,
+          "text": "note: \"仅反映所示运行的实际执行状态，不代表独立科学验证通过。\","
+        },
+        {
+          "line": 68,
+          "text": "return { label: \"有产物\", note: \"此固定运行保存了对应实际产物。\" };"
+        },
+        {
+          "line": 72,
+          "text": "note: \"只展示真实配置和证据；查看、保存或运行其他步骤不会把此项标成完成。\","
+        },
+        {
+          "line": 147,
+          "text": "<label htmlFor={scopeId}>作用范围</label>"
+        },
+        {
+          "line": 155,
+          "text": "正在查看的固定运行（只读）"
+        },
+        {
+          "line": 160,
+          "text": "? `固定运行 ${String(job?.id).slice(0, 8)}`"
+        },
+        {
+          "line": 174,
+          "text": "<p>修改只保存当前草稿，不改写已生成的成果。</p>"
+        },
+        {
+          "line": 183,
+          "text": "<h3>实际输入引用</h3>"
+        },
+        {
+          "line": 188,
+          "text": "<small> SHA256 {display(asset.sha256)}</small>"
+        },
+        {
+          "line": 211,
+          "text": "<p>已定位栅格沿用真实网格；不在查看时自动重投影或修改输入。</p>"
+        },
+        {
+          "line": 216,
+          "text": "当前方法直接使用已有输入，未配置统计空间化。此处不强制添加年鉴或行政边界，也不把已有栅格预览当空间化产物。"
+        },
+        {
+          "line": 221,
+          "text": "<h3>实际变量映射</h3>"
+        },
+        {
+          "line": 256,
+          "text": "<p>尚无可核对的固定方法版本；不自动套用其他版本或默认权重。</p>"
+        },
+        {
+          "line": 267,
+          "text": "<summary>当前草稿预检缺口（只读检查）</summary>"
+        },
+        {
+          "line": 274,
+          "text": "检查草稿缺口"
+        },
+        {
+          "line": 299,
+          "text": "? \"本次运行产物\""
+        },
+        {
+          "line": 300,
+          "text": ": \"当前查看的运行产物（不代表草稿已重算）\"}"
+        },
+        {
+          "line": 314,
+          "text": "<p>尚无该运行的文件产物；无空间表结果仍在中央实际表格中查看。</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/main.tsx",
+      "sha256": "3e3295c773d11e4e448469f76c27d78974883fe613fe8aee9ea063e714aa31bf",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/SourceStatement.tsx",
+      "sha256": "8514012a8511a99014c60e35d72e31536ac0d750328aecc9229eb31a5a5e93ae",
+      "candidates": [
+        {
+          "line": 89,
+          "text": "份实际文件；声明独立于文件事实保存，可在后续任务中自动复用。年份仅保留年份精度。"
+        },
+        {
+          "line": 169,
+          "text": "未知项留空。当前批次的年份不会自动应用于另一批新文件，也不会替代真实日期或文件坐标。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/TaskWorkspace.tsx",
+      "sha256": "7a6f5392d146e589be02938c532df053145fc384de54fba0dde71cef907cf70c",
+      "candidates": [
+        {
+          "line": 313,
+          "text": "<option value=\"\">按任务选择实际图层（不自动取第一层）</option>"
+        },
+        {
+          "line": 433,
+          "text": "<summary>观测表的实际坐标关联（可选）</summary>"
+        },
+        {
+          "line": 455,
+          "text": "关联实际坐标"
+        },
+        {
+          "line": 482,
+          "text": "placeholder=\"例如 EPSG:4326，以实际资料为准\""
+        },
+        {
+          "line": 489,
+          "text": "<option value=\"\">请选择实际字段</option>"
+        },
+        {
+          "line": 641,
+          "text": "<h2>预检与实际执行</h2>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/AssetMap.tsx",
+      "sha256": "35401e35d74ee0649f2607f36b9b8819d4cb1ffa88b38079b54beac04cce5767",
+      "candidates": [
+        {
+          "line": 492,
+          "text": "return <p role=\"status\">正在读取定位、真实掩膜和显示样本…</p>;"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/SourceSnapshotPicker.tsx",
+      "sha256": "a7248c46c3712176f6a2e90dd00742bdb123a0e46aef37a663fc9d7983107f84",
+      "candidates": [
+        {
+          "line": 150,
+          "text": "此项目尚无已授权来源。连接配置不等于项目授权，可在项目管理的来源页核对。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/PreviewMap.tsx",
+      "sha256": "10a8c1da3c5f2919813c4abae149a3c95f085698b65c8c66147f4b1f274ab463",
+      "candidates": [
+        {
+          "line": 84,
+          "text": "{preview.isPending ? <p role=\"status\">正在读取真实空间预览…</p> : null}"
+        },
+        {
+          "line": 89,
+          "text": "aria-label=\"实际成果地图\""
+        },
+        {
+          "line": 95,
+          "text": "? \"互联网底图不可用，仍可查看实际数据层\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/TaskDirectory.tsx",
+      "sha256": "d3767fa3240fb9d752b5a152cc4ceea5a3fb16d92afe88ad169b06471c8142a2",
+      "candidates": [
+        {
+          "line": 86,
+          "text": ": \"暂无任务，创建后可随时返回继续。\"}"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/AssetFacts.tsx",
+      "sha256": "bcc2c09918cefec06d2c2f5abe2358187f2c1394ef1ead13990cb7f2aac26376",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/shared.tsx",
+      "sha256": "68f7e0814bda937ba607b5b3a241ce3eda5b2f7c17f866b5caa2a844d14e084c",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/Administration.tsx",
+      "sha256": "7e6ccd8b7b54b30540d977d7dfa413311ad02fd6498e48ec0a93df619d5d6dbc",
+      "candidates": [
+        {
+          "line": 55,
+          "text": "<p role=\"status\">正在读取实际运行设置…</p>"
+        },
+        {
+          "line": 118,
+          "text": "部署配置由启动配置管理，此页显示实际值；修改须在有授权的维护流程中完成。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ManagedCatalog.tsx",
+      "sha256": "89e0b2736b8d4a33ca151a9bfd1ad2d991212ff7f090a07e755628ff5a6a3037",
+      "candidates": [
+        {
+          "line": 391,
+          "text": "<p>{search.query ? \"没有匹配的记录\" : \"此分类暂无记录\"}</p>"
+        },
+        {
+          "line": 517,
+          "text": ": \"暂无运行\"}"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/Catalog.tsx",
+      "sha256": "94eddb2ff7d25b5f1b526c31ba619583ed758e2743820aad79b71af663dbf83c",
+      "candidates": [
+        {
+          "line": 223,
+          "text": "<p>{query ? \"没有匹配的资料\" : \"暂无资料，可直接导入查看。\"}</p>"
+        },
+        {
+          "line": 344,
+          "text": "? \"个人视图已保存\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ConflictPanel.tsx",
+      "sha256": "4a3c1288da01b6a7fac7204b83758aa269246205728a88a5011f719527c8bc2a",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResearchWorkspace.tsx",
+      "sha256": "35d2d724c593ba88efeceaadeec0fbe4a5fe9a5f2a1190238dd893f00f2675f0",
+      "candidates": [
+        {
+          "line": 416,
+          "text": ": \"已保存\";"
+        },
+        {
+          "line": 581,
+          "text": "<p>尚无成果图层；已定位资料可在数据资源中直接查看。</p>"
+        },
+        {
+          "line": 752,
+          "text": "最大化配置表"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/MapLegend.tsx",
+      "sha256": "336d1a333b2f14bad217b0921a3896f1f7d2f06d06647e26f7907ae7cda0ca9f",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResearchHeader.tsx",
+      "sha256": "f3dd39c55afe21d6ed92557ffd8c81d67dd3ccf123020e3b5b67aea29af8abe3",
+      "candidates": [
+        {
+          "line": 25,
+          "text": "return draftStatus === \"saved\" ? \"已保存\" : \"尚未保存\";"
+        },
+        {
+          "line": 31,
+          "text": ") ?? \"已保存\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ProjectGovernance.tsx",
+      "sha256": "2e1c7de4948e06049b71f38ffd0d1a3b7a21b8a6d2f7a3fb5a2249752d4de078",
+      "candidates": [
+        {
+          "line": 63,
+          "text": "<p>暂无对当前角色可用的来源连接。</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/SemanticDefinition.tsx",
+      "sha256": "9a85476efedab222f634a77a9b05b2773ed8ff0f16dbc59be2c3a082a02bd38f",
+      "candidates": [
+        {
+          "line": 88,
+          "text": "{applicable.map((asset) => asset.name).join(\"、\") || \"尚无已知定义\"}。"
+        },
+        {
+          "line": 97,
+          "text": "<option value=\"files\">仅当前实际文件</option>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/WorkbenchShell.tsx",
+      "sha256": "b86a95ef203572b0592733611e298c561d0921ee6645cbc2c81c8f88af941774",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/CatalogActions.tsx",
+      "sha256": "8bd4e679014ae6716c9dd630b1bdb66cd5ab08eec88d7cfc9b5caa6cd8bb0012",
+      "candidates": [
+        {
+          "line": 102,
+          "text": "<p>不改变原始文件、数据版本或已保存的分析记录。</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/MethodCatalog.tsx",
+      "sha256": "474d7113a8d78c2ec119c50fb73d766b5e9599ee3b2344f9b0a429ea815f3047",
+      "candidates": [
+        {
+          "line": 307,
+          "text": "[status, setStatus] = useState(\"已保存\"),"
+        },
+        {
+          "line": 338,
+          "text": "saved.current === current.current.definition ? \"已保存\" : \"待保存\","
+        },
+        {
+          "line": 682,
+          "text": "? \"熵权由实际归一化指标计算，不填写固定权重。\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ModelPreparation.tsx",
+      "sha256": "724ddbfd65c8fc9b299d3d2ef38f4e28cc892ae5a3e2981cab69be07fbb92a93",
+      "candidates": [
+        {
+          "line": 146,
+          "text": "从下方实际字段中选择解释变量；回归另需唯一响应变量。标识列无需补填科学单位。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/EntityResults.tsx",
+      "sha256": "3c38621c4fe9adcbca8af498de95d31c96c230885234fd1a7e840eb898cfdd6e",
+      "candidates": [
+        {
+          "line": 98,
+          "text": "实际实体 {features.length.toLocaleString()} 个 · 坐标为WGS"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/mapBase.tsx",
+      "sha256": "d98c645f9f21d97498739fd9c30edee85e9cec2d63db6e15ad160fa45b218f2a",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResultView.tsx",
+      "sha256": "9b06a23d34e6de4440ddd1910fafee0bbd7a2dd263b8b6758f0cc058a7668b95",
+      "candidates": [
+        {
+          "line": 52,
+          "text": ": `实际观测 ${result.row_ids.length} 条`}"
+        },
+        {
+          "line": 135,
+          "text": ": \"尚无满足约束的配置方案\"}{\" \"}"
+        },
+        {
+          "line": 245,
+          "text": "<h2>实际成果</h2>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/CatalogDock.tsx",
+      "sha256": "3bb013bc1786c9829a3aa4c7e2c5772b5e434ad0843f6f68fe59a9e875de755a",
+      "candidates": [
+        {
+          "line": 87,
+          "text": "aria-valuetext={`${current}像素${maximized ? \"，表格已最大化\" : \"\"}`}"
+        },
+        {
+          "line": 158,
+          "text": "{maximized ? \"恢复面板\" : \"最大化表格\"}"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResearchPanels.tsx",
+      "sha256": "0f94108b1392c1769344d618ee3a03fa9b2e4cbbb8869b2d55f1b99f8d2f3a4b",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ImportPanel.tsx",
+      "sha256": "f5fb36890015c2c23954010f34e526f801d3f57e3d93ac970b6ee46ba2485c17",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/AhpMatrix.tsx",
+      "sha256": "08192fa38504039cdfd653dbc827dd5c1723ef2900dd38491593223a64a329e4",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/AssetPicker.tsx",
+      "sha256": "f7fce1114fc58ec12d360f5824385a5db104c7fdddae2af66e29a1e8eea0ab6f",
+      "candidates": [
+        {
+          "line": 109,
+          "text": "<p>{query ? \"没有匹配的资料\" : \"暂无可复用资料\"}</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/OptimizationRules.tsx",
+      "sha256": "334eb05543c458d60db0512ee3859fb2051ee686536474c9294cbeeee2591be1",
+      "candidates": [
+        {
+          "line": 138,
+          "text": "候选单元从实际资料读取。预算、保护、代价和风险必须有依据；空值不是零。当前求解器按明确的可加风险和单位计算。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/TaskAssetWorkspace.tsx",
+      "sha256": "b42cb97fad6577bf3e046cab4b51f53ddc7de6cc32e5e4b0afc77075a37f42c4",
+      "candidates": [
+        {
+          "line": 30,
+          "text": "? \"个人视图已保存\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/VectorMap.tsx",
+      "sha256": "b5933e01def8b68ccdde82ea577a22a7c3c9d2edc0b7a7de3084900c0b148ec0",
+      "candidates": [
+        {
+          "line": 251,
+          "text": "本次实际评价得分"
+        },
+        {
+          "line": 258,
+          "text": "? \"互联网底图不可用，仍可查看实际实体层\""
+        },
+        {
+          "line": 262,
+          "text": "{painted ? \"实际实体层已绘制\" : \"正在绘制实际实体层…\"}"
+        },
+        {
+          "line": 267,
+          "text": ": `地图显示全部 ${display.features.length} 个实际实体。`}{\" \"}"
+        },
+        {
+          "line": 269,
+          "text": "? \"按本次实际计算值着色，橙色边线或标记为当前选择。\""
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/TemporalEditor.tsx",
+      "sha256": "6efe905d8d46131cfa35e8936402fb1ad46ba0998147bb0f2e91836eeaf071af",
+      "candidates": [
+        {
+          "line": 77,
+          "text": "未识别到本档案可直接适配的一维CF时间变量；原资料保留，缺口由预检解释。"
+        },
+        {
+          "line": 87,
+          "text": "<option value=\"\">选择实际时间变量</option>"
+        },
+        {
+          "line": 274,
+          "text": "实际覆盖 {result.covered_duration} {result.duration_unit} · 使用{\" \"}"
+        },
+        {
+          "line": 278,
+          "text": "<p>使用 {result.observations} 条实际观测</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResearchContentManager.tsx",
+      "sha256": "f64bb79cdfa3aea23134d49590a217ef5a0a058c7d654ea8d6006b3a2becf929",
+      "candidates": [
+        {
+          "line": 90,
+          "text": "<p>{query || status ? \"没有匹配的运行\" : \"尚无运行记录\"}</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ResultArtifact.tsx",
+      "sha256": "6603886cf7f8a0a75265d95e172a092142be067437ce7a8c4799ab7ae02fb6ad",
+      "candidates": [
+        {
+          "line": 97,
+          "text": "<summary>查看实际统计表</summary>"
+        },
+        {
+          "line": 102,
+          "text": "<th>实际像元数</th>"
+        },
+        {
+          "line": 232,
+          "text": ": \"已保存\";"
+        },
+        {
+          "line": 357,
+          "text": "aria-label=\"本次实际空间成果\""
+        },
+        {
+          "line": 361,
+          "text": "<p role=\"status\">正在读取本次运行的实际成果…</p>"
+        },
+        {
+          "line": 458,
+          "text": "title=\"互联网底图不可用；实际数据层独立显示。\""
+        },
+        {
+          "line": 542,
+          "text": "<section aria-label=\"固定运行详情\">"
+        },
+        {
+          "line": 543,
+          "text": "<h3>固定运行与来源</h3>"
+        },
+        {
+          "line": 551,
+          "text": "<p>互联网底图不可用；实际数据层独立显示。</p>"
+        },
+        {
+          "line": 578,
+          "text": "<h3>实际贡献值</h3>"
+        },
+        {
+          "line": 580,
+          "text": "与点查同一位置、同一固定运行；TOPSIS为加权坐标，不解释成得分加和。"
+        },
+        {
+          "line": 709,
+          "text": "下载实际成果"
+        },
+        {
+          "line": 719,
+          "text": "<summary>选择单项产物</summary>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/Methods.tsx",
+      "sha256": "74a73d663bcd6084eb62bab81cd708683117655ea220601fbd68813814daecc3",
+      "candidates": [
+        {
+          "line": 152,
+          "text": ": \"如尚无适用方法，由维护者补充依据后交项目负责人认可。\"}"
+        },
+        {
+          "line": 225,
+          "text": "<p>暂无方法。先维护定义，认可后即可在项目任务中复用。</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/TaskRuns.tsx",
+      "sha256": "1c2053571196f9536942c95be204f33764536d868e20f309cc6e004e472790be",
+      "candidates": [
+        {
+          "line": 29,
+          "text": "running: \"实际计算中\","
+        },
+        {
+          "line": 100,
+          "text": "<p>暂无运行记录。完成必要补充后可预检并执行。</p>"
+        },
+        {
+          "line": 187,
+          "text": "<p role=\"status\">正在读取实际成果…</p>"
+        },
+        {
+          "line": 200,
+          "text": "完整结果包含固定任务配置、资料哈希、实际输出及验证状态。"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/SpatialWorkspace.tsx",
+      "sha256": "7699b83aeec4165823e1dbd9c45718b16994d9cee79e0c0932eda26b573e39a4",
+      "candidates": [
+        {
+          "line": 98,
+          "text": "<p>草稿已保存 · 任务版本 {task.revision}</p>"
+        },
+        {
+          "line": 163,
+          "text": "running: \"实际计算中\","
+        },
+        {
+          "line": 164,
+          "text": "succeeded: \"实际成果\","
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/AssetViewer.tsx",
+      "sha256": "f1669617f8938733f8a83a4e3e563ea5ec5d9de9f8be456da6bcba334d3c087f",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ManagementCenter.tsx",
+      "sha256": "7c0fe5418f2be049aa6df19f93d91127802e0faf98e85aa2b02f055b1fe3fe54",
+      "candidates": [],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/ComparisonResult.tsx",
+      "sha256": "1a30e6410c9eaa9dc2ba67f27319cd52d1323dd9fa7427cdb6a21818aac8fad2",
+      "candidates": [
+        {
+          "line": 3,
+          "text": "const schema = z.object({"
+        },
+        {
+          "line": 62,
+          "text": "const parsed = schema.safeParse(data);"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    },
+    {
+      "component": "next/web/src/Collaboration.tsx",
+      "sha256": "845db4a39e1737af0a2c7a214c4aadbd002689efc7d28ab2093c24a6c180715a",
+      "candidates": [
+        {
+          "line": 78,
+          "text": "<p>{kind === \"comments\" ? \"暂无已发布意见\" : \"暂无审核记录\"}</p>"
+        }
+      ],
+      "decision": "PENDING",
+      "evidence": []
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "UX01",
+      "scenario": "全站覆盖",
+      "requirement": "所有普通入口/模态/角色和相关状态有处理决定，不只截图面板",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX02",
+      "scenario": "输入0、运行0",
+      "requirement": "资料装配只有相关空状态与添加动作，没有运行产物/空配置表说明",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX03",
+      "scenario": "单资料正常",
+      "requirement": "已有信息复用、简洁输入行，无需重复确认来源和名称",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX04",
+      "scenario": "多资料与附加文件",
+      "requirement": "一份主栅格及附件合理表达；可选附件错误不误报普通表格错误",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX05",
+      "scenario": "默认上下文",
+      "requirement": "单一当前配置不出现无意义作用范围选择；真正多对象选择仍可用",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX06",
+      "scenario": "版本区别",
+      "requirement": "普通面板不重复不可变原则；历史结果与新配置不一致时有准确提示",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX07",
+      "scenario": "检查触发",
+      "requirement": "保存相关输入/配置后轻量检查更新，不按一次检查才第一次显示已知问题",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX08",
+      "scenario": "检查无副作用",
+      "requirement": "不创建任务、不执行模型或偷偷扫描全图；正式运行服务端预检仍存在",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX09",
+      "scenario": "检查失败",
+      "requirement": "网络/服务错误不被当作0问题或已就绪，能重试并保留数据",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX10",
+      "scenario": "过期响应",
+      "requirement": "快速切任务/版本，迟到结果不能污染当前问题、状态或结果",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX11",
+      "scenario": "展开条件",
+      "requirement": "无表格不显示展开按钮；实际表格/矩阵展开后读同一数据",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX12",
+      "scenario": "恢复编辑区",
+      "requirement": "关闭/恢复保留行、草稿、地图和焦点，不打开旧重复任务页",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX13",
+      "scenario": "步骤差异",
+      "requirement": "八步各自有适用控件与动作，非同一“引用/缺口/产物”长模板",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX14",
+      "scenario": "无关需求",
+      "requirement": "普通查看、质量检查不强制权重/响应；无年鉴需求不强要空间化",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX15",
+      "scenario": "必需缺项",
+      "requirement": "指标方向/定位/单位确实必需时仍阻断相应动作，修复可定位",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX16",
+      "scenario": "问题去重",
+      "requirement": "一个根因影响多步，仍只有一个主问题及相关影响，不多重弹窗",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX17",
+      "scenario": "成果状态",
+      "requirement": "未运行、表格结果、文件未就绪、写出失败明确区别，无假“无成果”",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX18",
+      "scenario": "工程与业务",
+      "requirement": "工程完成不冒充独立业务验证，短标签可见且完整依据可访问",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX19",
+      "scenario": "真数字与未知",
+      "requirement": "0、未知、未检查分开；计数来自真实数据，不为简洁乱填0",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX20",
+      "scenario": "保存",
+      "requirement": "已保存依赖服务端确认，失败/冲突/离线未同步仍醒目；无重复常驻说明",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX21",
+      "scenario": "权限生命周期",
+      "requirement": "已回收任务只阻断其写入，正常项目可新建；归档项目不越权",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX22",
+      "scenario": "方法/模型目录",
+      "requirement": "使用、应用、修订、验证、认可、上传算法不混用；保留真实维护功能",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX23",
+      "scenario": "管理和回收",
+      "requirement": "查看、编辑、停用、回收、恢复、永久清理动作准确，审计不被改文案工程污染",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX24",
+      "scenario": "用户内容",
+      "requirement": "文件名/指标名/标识/原文和数字代码未被词汇扫描自动改写",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX25",
+      "scenario": "技术详情",
+      "requirement": "来源、完整ID、哈希、错误码按权限可查可复制，不因主界面简化丢失",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX26",
+      "scenario": "无障碍",
+      "requirement": "字段有标签，错误可定位，详情可键盘访问，状态不单靠颜色/hover",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX27",
+      "scenario": "实际布局",
+      "requirement": "1366×768、1440×900正常字号，空状态首屏可操作，无缩放/裁切伪通过",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX28",
+      "scenario": "少操作",
+      "requirement": "同一任务的输入/方法不重复选，按固定路径记录真实动作和重填次数",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX29",
+      "scenario": "科学/运行回归",
+      "requirement": "相关读取、固定配置、单位/网格/权重/结果、历史导出数值不被文案整改改变",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "UX30",
+      "scenario": "同构建最终证据",
+      "requirement": "前后截图、请求/持久化/实际行为、完整相关测试同构建；失败未运行如实",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "button_audit": {
+    "检查草稿缺口": {
+      "handler": "ResearchStepPanel checkRequested",
+      "request": "GET /tasks/{id}/preflight",
+      "finding": "No enqueue, but formal checks may read observations or run temporal compute. Must not auto-call this endpoint.",
+      "decision": "Read-only saved-metadata endpoint; formal execute still revalidates."
+    },
+    "最大化配置表": {
+      "handler": "ResearchWorkspace context.save central_view=configuration",
+      "request": "PUT project workspace-state",
+      "finding": "Expands entire TaskWorkspace; not a matrix or a Dock resize.",
+      "decision": "Only expand applicable editor with content; preserve one mounted editor and focus."
+    }
+  }
+}

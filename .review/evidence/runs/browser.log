@@ -1,0 +1,53 @@
+
+Running 5 tests using 1 worker
+
+(node:61041) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/5] e2e/builtin-indicators.spec.ts:6:1 › indicator picker freezes a real recipe, computes native pixels and preserves task context
+[2/5] e2e/desktop-visual.spec.ts:4:1 › desktop domains share visual primitives and Dock retains the fixed result
+[3/5] e2e/planning-objects.spec.ts:5:1 › planning objects are independently saved, published, compared and explicitly bound
+[4/5] e2e/planning-units.spec.ts:6:1 › native planning units prepare in the same task and display their actual spatial artifact
+  1) e2e/planning-units.spec.ts:6:1 › native planning units prepare in the same task and display their actual spatial artifact 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0.6
+    Received: 1
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      166 |         ).state?.opacity,
+      167 |     )
+    > 168 |     .toBe(0.6);
+          |      ^
+      169 |   const view = await (
+      170 |     await page.request.get(`/api/jobs/${job.id}/view-state`)
+      171 |   ).json();
+        at <repository>/next/web/e2e/planning-units.spec.ts:168:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../artifacts/browser/planning-units-native-plan-122cc-eir-actual-spatial-artifact/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../artifacts/browser/planning-units-native-plan-122cc-eir-actual-spatial-artifact/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../artifacts/browser/planning-units-native-plan-122cc-eir-actual-spatial-artifact/trace.zip
+    Usage:
+
+        npx playwright show-trace ../artifacts/browser/planning-units-native-plan-122cc-eir-actual-spatial-artifact/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:61103) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/5] e2e/v3-navigation.spec.ts:6:1 › V3 actual shell routes, four task flows, permissions and research preservation
+  1 failed
+    e2e/planning-units.spec.ts:6:1 › native planning units prepare in the same task and display their actual spatial artifact 
+  4 passed (24.8s)

@@ -27,3 +27,10 @@
 - 保护既有用户修改；不得为制造干净 Git 状态执行破坏性清理。
 - 所有完成声明必须对应代码、命令、退出码和产物；必选项阻塞就记录 BLOCKED，不能计为 PASS。
 - 平台中断不等于项目完成。保存已完成内容、失败原因、未验证项及最小恢复入口，不宣称后台仍在继续。
+
+## GitHub 提交与最小监督证据
+- 用户指定仓库 `https://github.com/quanyiming2022/CoastMAS.git`，目标分支 `main`；后续显式指定优先。每个完成任务独立、清晰提交，并普通 push；禁止 force push、amend/rebase 已用于审查的提交历史。
+- 开始记录 before commit；结束核对远程分支 SHA 等于 after commit，再提供二者。推送失败如实报告，不把本地 commit 当作 GitHub 已同步。
+- 维护 `.review/acceptance-report.md`（仅 PASS/FAIL/BLOCKED/NOT_RUN，PASS 必须引用实际证据）、`capability-status.md`（REGISTERED/IMPLEMENTED/EXECUTABLE/VERIFIED/BLOCKED/NOT_RUN）与 `known-issues.md`。
+- 最小证据保存到 `.review/evidence/{screenshots,numerical,runs}/`：实际桌面截图、可重复小型数值、重大流程的真实运行/Workflow/ResultManifest 摘要；缺项和失败不得隐藏，证据必须脱敏。
+- Git 直接审查代码/API/数据库/路由差异；不再额外生成 changed-files、diff stat、API diff 或 DB diff 报告。原始业务资料、模型原包、凭据、私有配置、数据库与缓存不提交。

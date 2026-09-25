@@ -42,6 +42,10 @@ class BuiltinRuntimeRegistry(ExecutionRegistry):
             return super().resolve(model)
         except CoastMASError:
             pass
+        if model.id.startswith("business:"):
+            from coastmas.domain.projection_catalog import verified_runtime
+
+            return verified_runtime(model)
         parts = model.id.split(":")
         if len(parts) != 3 or parts[0] != "builtin" or not parts[1]:
             raise CoastMASError("MODEL_ERROR", "runtime is not registered")

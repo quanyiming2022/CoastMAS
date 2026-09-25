@@ -107,8 +107,8 @@ def _read_json(content: bytes) -> JsonValue:
 def _raster(content: bytes, asset: DataAssetSpec) -> DataInspection:
     if asset.type != "raster" or len(asset.variables) != 1:
         raise ConstraintError("raster inspection requires one declared band variable")
-    grid = decode_geotiff(content)
     variable = asset.variables[0]
+    grid = decode_geotiff(content, declared_unit=variable.unit)
     if not asset.crs or CRS(asset.crs) != CRS(grid.crs):
         raise ConstraintError("file and catalog CRS differ")
     if variable.unit != grid.unit or asset.vertical_datum != grid.vertical_datum:
@@ -125,6 +125,7 @@ def _raster(content: bytes, asset: DataAssetSpec) -> DataInspection:
         if asset.format == "COG" and layout != "COG":
             raise ConstraintError("file is not a cloud-optimized GeoTIFF")
         bounds = [float(value) for value in dataset.bounds]
+        file_unit = dataset.units[0] or dataset.tags(1).get("unit") or dataset.tags().get("unit")
     if asset.spatial_extent is not None:
         expected = [
             asset.spatial_extent.west,
@@ -161,7 +162,7 @@ def _raster(content: bytes, asset: DataAssetSpec) -> DataInspection:
             "nodata_cells": int(np.count_nonzero(~known)),
             "spatial_extent": bounds,
             "spatial_resolution_m": resolution,
-            "unit_source": "file",
+            "unit_source": "file" if file_unit else "catalog_declaration",
             "layout": layout,
         },
         preview={"values": preview},

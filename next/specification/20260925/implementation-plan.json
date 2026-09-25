@@ -1,0 +1,255 @@
+{
+  "status": "SPECIFICATION",
+  "tasks": [
+    {
+      "id": "W01",
+      "title": "源文裁定、当前实现定位与契约基线",
+      "depends_on": [],
+      "proposed_modules": "contracts/、migrations/、docs/STATE.md",
+      "vertical_delivery": "只定向核对实际构建、源码/测试、数据根；建立来源覆盖矩阵和schema；生成可空草稿与不可变版本骨架；不重新做泛化全库审计。",
+      "acceptance_groups": "OPS/AUTH",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W02",
+      "title": "身份、项目—研究内容—任务与管理去重",
+      "depends_on": [
+        "W01"
+      ],
+      "proposed_modules": "identity/、projects/、management/",
+      "vertical_delivery": "PG/RLS权限、账号、项目/Topic/Task生命周期、最后负责人保护、唯一管理职责；提供真实目录与草稿API。",
+      "acceptance_groups": "AUTH/UI",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W03",
+      "title": "统一桌面工作区、目录与可调整Dock",
+      "depends_on": [
+        "W02"
+      ],
+      "proposed_modules": "shell/、workbench/、catalogs/、shared/ui",
+      "vertical_delivery": "一个地图宿主/视图状态、中文导航、四类步骤导航、短工具栏、分类/搜索/跨页选集、拖动Dock、错误状态和恢复。",
+      "acceptance_groups": "UI",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W04",
+      "title": "混合数据导入、组包、数据画像和自动查看",
+      "depends_on": [
+        "W03",
+        "W11"
+      ],
+      "proposed_modules": "ingest/、resources/、data/、GeospatialView",
+      "vertical_delivery": "一次有效入口、多选/文件夹/库中选择、受管快照、TFW/PAM/OVR/RAT/多层包、幂等和分层状态；真实预览/点查的第一条闭环。",
+      "acceptance_groups": "DATA/GEO/UI",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W05",
+      "title": "多标准、空间/时间/单位适配内核",
+      "depends_on": [
+        "W04",
+        "W11"
+      ],
+      "proposed_modules": "spatial/、semantics/、analysis-spaces/",
+      "vertical_delivery": "Grid/Unit/Mesh、原生定位、重投影/重采样/栅矢/空间连接/邻域/守恒与合法转换；解析器阶段能力矩阵。",
+      "acceptance_groups": "GEO/ALG",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W06",
+      "title": "CSV年鉴智能解析与统计空间化",
+      "depends_on": [
+        "W04",
+        "W05"
+      ],
+      "proposed_modules": "tabular/、spatialization/",
+      "vertical_delivery": "宽长表/多表头/单位地区时态、模板复用、SP_JOIN/AREA/PRIOR/REG/SECTOR、行政核算和独立验证；无需全部模板先批准才看数据。",
+      "acceptance_groups": "TAB/DATA",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W07",
+      "title": "可执行指标库与配方装配",
+      "depends_on": [
+        "W05",
+        "W10"
+      ],
+      "proposed_modules": "indicators/、recipes/",
+      "vertical_delivery": "附录A指标条目及真实原始输入→指标路线；已有PRD/qs经核对复用；稳定指标身份、共享节点与逐行配置，非仅菜单注册。",
+      "acceptance_groups": "ALG/UI",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W08",
+      "title": "方法编辑、评分、赋权与综合计算",
+      "depends_on": [
+        "W07",
+        "W10"
+      ],
+      "proposed_modules": "methods/、evaluation/",
+      "vertical_delivery": "复制/导入/从零编辑；draft/publish/approve分离；AHP/entropy/CRITIC/PCA/评价型PP等正确类型和核心Evaluator；固定全域应用与贡献。",
+      "acceptance_groups": "METHOD/ALG",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W09",
+      "title": "分级、时空分析与比较口径",
+      "depends_on": [
+        "W08",
+        "W05"
+      ],
+      "proposed_modules": "classification/、statistics/、comparison/",
+      "vertical_delivery": "真实Jenks等算法、共同断点、面积/转移/趋势/空间统计/梯度/敏感性；相同Run全量表图和比较限制。",
+      "acceptance_groups": "ALG/RESULT",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W10",
+      "title": "模型工程、SDK和隔离运行环境",
+      "depends_on": [
+        "W02",
+        "W11"
+      ],
+      "proposed_modules": "modelops/、packages/coastmas_sdk/、workers/",
+      "vertical_delivery": "真实Python/R新包静态接入、契约/依赖、D0/D1拆分与原包对照、发布；CLI/OCI/REST/HPC/BMI/ArcGIS适配按范围验证。",
+      "acceptance_groups": "MODEL",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W11",
+      "title": "运行器、Outbox、冻结与恢复基础",
+      "depends_on": [
+        "W01",
+        "W02"
+      ],
+      "proposed_modules": "execution/、workers/",
+      "vertical_delivery": "先最小可用Job/Run/manifest、再DAG调度；lease/fencing/outbox、fit/apply、取消/恢复/幂等、资源配额和版本化产物。",
+      "acceptance_groups": "OPS/AUTH",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W12",
+      "title": "Coupler需求、语义超图、匹配与编译",
+      "depends_on": [
+        "W04",
+        "W05",
+        "W10",
+        "W11"
+      ],
+      "proposed_modules": "coupler/、semantics/、graph/",
+      "vertical_delivery": "AND/OR需求、硬门禁、候选排序、适配路径/影响决策、场景/模型/solver接口、编译实际DAG，正确失效和研究消融。",
+      "acceptance_groups": "COUPLE",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W13",
+      "title": "模拟任务与时步/双向动态耦合",
+      "depends_on": [
+        "W10",
+        "W12"
+      ],
+      "proposed_modules": "simulation/、coupler/dynamic/",
+      "vertical_delivery": "统计情景/城市变化/静态淹没和真实动力包装；initialize/update/exchange/checkpoint、收敛/守恒/稳定性、原模型基准。",
+      "acceptance_groups": "COUPLE/MODEL",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W14",
+      "title": "规划问题、求解器、候选与再评价",
+      "depends_on": [
+        "W08",
+        "W12"
+      ],
+      "proposed_modules": "planning/、solvers/",
+      "vertical_delivery": "四类变量/目标/约束/Scenario、规则/LP/MILP/NSGA-II等、QUBO和外部adapter；可行性独立检查、候选反事实再评价。",
+      "acceptance_groups": "PLAN",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W15",
+      "title": "实景适配、对象约束与几何代数研究",
+      "depends_on": [
+        "W05",
+        "W10",
+        "W12"
+      ],
+      "proposed_modules": "scenes/、research/algebra/",
+      "vertical_delivery": "2D/3D对象与mesh/LOD、场景约束；local Cl(3,0)接口和矩阵基线/消融；不把研究假设伪装已证科学结论。",
+      "acceptance_groups": "COUPLE/PLAN",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W16",
+      "title": "AI辅助、审核协同与标准服务",
+      "depends_on": [
+        "W02",
+        "W10",
+        "W12"
+      ],
+      "proposed_modules": "ai/、review/、service-adapters/",
+      "vertical_delivery": "AI候选→真实工具调用、生成代码安全链、facts报告接口、预算/外发/注入防护；部门review和OGC Process同一运行。",
+      "acceptance_groups": "AUTH/MODEL/RESULT",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W17",
+      "title": "真实成果、科研图件和报告",
+      "depends_on": [
+        "W09",
+        "W13",
+        "W14",
+        "W15",
+        "W16"
+      ],
+      "proposed_modules": "results/、exports/、reports/",
+      "vertical_delivery": "结果/贡献/等级/比较2D与适用3D、原生点查、全量下载、实际DOCX/PDF/图件、固定ResultFacts和使用限制。",
+      "acceptance_groups": "RESULT/UI",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "W18",
+      "title": "完整回归、真实业务、部署与操作交付",
+      "depends_on": [
+        "W03",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12",
+        "W13",
+        "W14",
+        "W15",
+        "W16",
+        "W17"
+      ],
+      "proposed_modules": "tests/、ops/、docs/",
+      "vertical_delivery": "同一构建全部适用测试、源文每条覆盖、真实数据与合成分别验、干净启动迁移恢复、性能/依赖锁和未验证项明确。",
+      "acceptance_groups": "ALL",
+      "status": "NOT_STARTED"
+    }
+  ],
+  "one_valid_topological_order": [
+    "W01",
+    "W02",
+    "W03",
+    "W11",
+    "W04",
+    "W10",
+    "W05",
+    "W06",
+    "W07",
+    "W12",
+    "W08",
+    "W13",
+    "W15",
+    "W16",
+    "W09",
+    "W14",
+    "W17",
+    "W18"
+  ],
+  "note": "W编号是索引非实施顺序；W11最小运行器先交付。每项内部写失败测试→修实现→数值/API/UI竖向联调→相关测试，再W18全回归；无逐阶段例行批准。"
+}

@@ -1,0 +1,3525 @@
+{
+  "source_unique_main_sections": 116,
+  "mappings": [
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "1",
+      "source_heading": "系统重新定位",
+      "lines": [
+        5,
+        50
+      ],
+      "target_sections": [
+        "01"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "2",
+      "source_heading": "顶层业务架构",
+      "lines": [
+        51,
+        100
+      ],
+      "target_sections": [
+        "01",
+        "04"
+      ],
+      "development_task": "W02",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "3",
+      "source_heading": "四类核心任务",
+      "lines": [
+        101,
+        102
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "3.1",
+      "source_heading": "评价任务 Assessment",
+      "lines": [
+        103,
+        139
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "3.2",
+      "source_heading": "模拟任务 Simulation",
+      "lines": [
+        140,
+        173
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "3.3",
+      "source_heading": "规划任务 Planning",
+      "lines": [
+        174,
+        211
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "3.4",
+      "source_heading": "比较/决策任务 Comparison",
+      "lines": [
+        212,
+        244
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "4",
+      "source_heading": "系统总体功能：由七大中心升级为八大中心",
+      "lines": [
+        245,
+        280
+      ],
+      "target_sections": [
+        "01"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "5",
+      "source_heading": "一级导航",
+      "lines": [
+        281,
+        361
+      ],
+      "target_sections": [
+        "02"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "6",
+      "source_heading": "一个工作台，不做四套软件",
+      "lines": [
+        362,
+        390
+      ],
+      "target_sections": [
+        "03"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "7",
+      "source_heading": "不同任务类型拥有不同八步",
+      "lines": [
+        391,
+        392
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "7.1",
+      "source_heading": "评价任务",
+      "lines": [
+        393,
+        409
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "7.2",
+      "source_heading": "模拟任务",
+      "lines": [
+        410,
+        424
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "7.3",
+      "source_heading": "规划任务",
+      "lines": [
+        425,
+        439
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "7.4",
+      "source_heading": "比较任务",
+      "lines": [
+        440,
+        454
+      ],
+      "target_sections": [
+        "04",
+        "05",
+        "18"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "8",
+      "source_heading": "四类任务不是孤立的",
+      "lines": [
+        455,
+        489
+      ],
+      "target_sections": [
+        "04",
+        "20"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "9",
+      "source_heading": "规划任务详细业务流程",
+      "lines": [
+        490,
+        527
+      ],
+      "target_sections": [
+        "18.1"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10",
+      "source_heading": "规划任务输入数据分类",
+      "lines": [
+        528,
+        529
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.1",
+      "source_heading": "自然条件",
+      "lines": [
+        530,
+        543
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.2",
+      "source_heading": "社会经济",
+      "lines": [
+        544,
+        557
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.3",
+      "source_heading": "法定/政策空间",
+      "lines": [
+        558,
+        569
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.4",
+      "source_heading": "风险",
+      "lines": [
+        570,
+        581
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.5",
+      "source_heading": "现状对象",
+      "lines": [
+        582,
+        594
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "10.6",
+      "source_heading": "评价和模拟成果",
+      "lines": [
+        595,
+        608
+      ],
+      "target_sections": [
+        "06",
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "11",
+      "source_heading": "第二步：准备与对齐",
+      "lines": [
+        609,
+        644
+      ],
+      "target_sections": [
+        "07",
+        "18"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "12",
+      "source_heading": "第三步：现状诊断",
+      "lines": [
+        645,
+        691
+      ],
+      "target_sections": [
+        "18.1"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "13",
+      "source_heading": "诊断不是一个新算法体系",
+      "lines": [
+        692,
+        710
+      ],
+      "target_sections": [
+        "18.1"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "14",
+      "source_heading": "第四步：规划目标",
+      "lines": [
+        711,
+        735
+      ],
+      "target_sections": [
+        "18.2",
+        "附录D"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15",
+      "source_heading": "规划目标类型",
+      "lines": [
+        736,
+        737
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15.1",
+      "source_heading": "经济目标",
+      "lines": [
+        738,
+        747
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15.2",
+      "source_heading": "生态目标",
+      "lines": [
+        748,
+        757
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15.3",
+      "source_heading": "风险目标",
+      "lines": [
+        758,
+        766
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15.4",
+      "source_heading": "社会目标",
+      "lines": [
+        767,
+        775
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "15.5",
+      "source_heading": "空间结构目标",
+      "lines": [
+        776,
+        787
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "16",
+      "source_heading": "单目标与多目标",
+      "lines": [
+        788,
+        815
+      ],
+      "target_sections": [
+        "18.3"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "17",
+      "source_heading": "第五步：规划约束",
+      "lines": [
+        816,
+        839
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "18",
+      "source_heading": "硬约束 Hard Constraint",
+      "lines": [
+        840,
+        867
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "19",
+      "source_heading": "软约束 Soft Constraint",
+      "lines": [
+        868,
+        888
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "20",
+      "source_heading": "约束分类",
+      "lines": [
+        889,
+        911
+      ],
+      "target_sections": [
+        "18.2",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "21",
+      "source_heading": "第五步同时定义决策变量",
+      "lines": [
+        912,
+        921
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "22",
+      "source_heading": "土地利用规划变量",
+      "lines": [
+        922,
+        946
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "23",
+      "source_heading": "设施选址变量",
+      "lines": [
+        947,
+        966
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "24",
+      "source_heading": "生态修复变量",
+      "lines": [
+        967,
+        979
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "25",
+      "source_heading": "连续决策变量",
+      "lines": [
+        980,
+        994
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "26",
+      "source_heading": "第六步：规划问题构建",
+      "lines": [
+        995,
+        1043
+      ],
+      "target_sections": [
+        "18.2",
+        "附录D"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27",
+      "source_heading": "方案生成方式",
+      "lines": [
+        1044,
+        1051
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27.1",
+      "source_heading": "规则型方案",
+      "lines": [
+        1052,
+        1067
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27.2",
+      "source_heading": "适宜性驱动",
+      "lines": [
+        1068,
+        1083
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27.3",
+      "source_heading": "数学规划",
+      "lines": [
+        1084,
+        1097
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27.4",
+      "source_heading": "启发式/多目标",
+      "lines": [
+        1098,
+        1110
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "27.5",
+      "source_heading": "量子/混合求解",
+      "lines": [
+        1111,
+        1124
+      ],
+      "target_sections": [
+        "18.3",
+        "18.4",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "28",
+      "source_heading": "Solver Registry",
+      "lines": [
+        1125,
+        1146
+      ],
+      "target_sections": [
+        "18.3",
+        "附录B"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "29",
+      "source_heading": "第六步的输出不是“最终方案”",
+      "lines": [
+        1147,
+        1173
+      ],
+      "target_sections": [
+        "18.5",
+        "20"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "30",
+      "source_heading": "第七步：方案评价",
+      "lines": [
+        1174,
+        1209
+      ],
+      "target_sections": [
+        "18.5"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "31",
+      "source_heading": "方案评价指标",
+      "lines": [
+        1210,
+        1265
+      ],
+      "target_sections": [
+        "09",
+        "11",
+        "18.5",
+        "附录A"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "32",
+      "source_heading": "方案比较",
+      "lines": [
+        1266,
+        1295
+      ],
+      "target_sections": [
+        "11",
+        "18.5",
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "33",
+      "source_heading": "情景 Scenario 成为平台一级对象",
+      "lines": [
+        1296,
+        1327
+      ],
+      "target_sections": [
+        "18",
+        "20",
+        "附录D"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "34",
+      "source_heading": "模拟与规划衔接",
+      "lines": [
+        1328,
+        1359
+      ],
+      "target_sections": [
+        "04",
+        "16",
+        "18.5"
+      ],
+      "development_task": "W13",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "35",
+      "source_heading": "规划与评价形成反馈回路",
+      "lines": [
+        1360,
+        1394
+      ],
+      "target_sections": [
+        "04",
+        "18.5"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "36",
+      "source_heading": "规划与模型解耦的关系",
+      "lines": [
+        1395,
+        1424
+      ],
+      "target_sections": [
+        "12",
+        "13",
+        "18"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "37",
+      "source_heading": "Coupler 在规划场景中的升级",
+      "lines": [
+        1425,
+        1458
+      ],
+      "target_sections": [
+        "15.4"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "38",
+      "source_heading": "Planning Matcher",
+      "lines": [
+        1459,
+        1496
+      ],
+      "target_sections": [
+        "15.4",
+        "18.3"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "39",
+      "source_heading": "实景三维与规划",
+      "lines": [
+        1497,
+        1523
+      ],
+      "target_sections": [
+        "17"
+      ],
+      "development_task": "W15",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "40",
+      "source_heading": "场景约束",
+      "lines": [
+        1524,
+        1548
+      ],
+      "target_sections": [
+        "17",
+        "18.2"
+      ],
+      "development_task": "W15",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "41",
+      "source_heading": "三维方案比较",
+      "lines": [
+        1549,
+        1579
+      ],
+      "target_sections": [
+        "17",
+        "23"
+      ],
+      "development_task": "W15",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "42",
+      "source_heading": "对象—数据—模型知识图升级",
+      "lines": [
+        1580,
+        1621
+      ],
+      "target_sections": [
+        "15.2",
+        "17",
+        "20"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "43",
+      "source_heading": "规划工作流 DAG 示例",
+      "lines": [
+        1622,
+        1655
+      ],
+      "target_sections": [
+        "15",
+        "18"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "44",
+      "source_heading": "规划成果模型",
+      "lines": [
+        1656,
+        1674
+      ],
+      "target_sections": [
+        "18.5",
+        "20",
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "45",
+      "source_heading": "规划成果包",
+      "lines": [
+        1675,
+        1712
+      ],
+      "target_sections": [
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "46",
+      "source_heading": "规划报告",
+      "lines": [
+        1713,
+        1748
+      ],
+      "target_sections": [
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "47",
+      "source_heading": "数据库新增核心对象",
+      "lines": [
+        1749,
+        1769
+      ],
+      "target_sections": [
+        "20",
+        "附录B"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "48",
+      "source_heading": "核心关系",
+      "lines": [
+        1770,
+        1795
+      ],
+      "target_sections": [
+        "20",
+        "附录B"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "49",
+      "source_heading": "Task 可以引用另一个 Task 的 Result",
+      "lines": [
+        1796,
+        1819
+      ],
+      "target_sections": [
+        "04",
+        "20",
+        "21"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "50",
+      "source_heading": "Run 仍然是唯一真实执行快照",
+      "lines": [
+        1820,
+        1844
+      ],
+      "target_sections": [
+        "20",
+        "22",
+        "附录D"
+      ],
+      "development_task": "W11",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "51",
+      "source_heading": "方案与 Run 不一样",
+      "lines": [
+        1845,
+        1870
+      ],
+      "target_sections": [
+        "18.5",
+        "20"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "52",
+      "source_heading": "规划权限",
+      "lines": [
+        1871,
+        1901
+      ],
+      "target_sections": [
+        "02",
+        "18.5",
+        "19"
+      ],
+      "development_task": "W02",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "53",
+      "source_heading": "AI 在规划中的角色",
+      "lines": [
+        1902,
+        1922
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "54",
+      "source_heading": "AI 不直接决定规划价值取向",
+      "lines": [
+        1923,
+        1950
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "55",
+      "source_heading": "AI 自动生成规划工作流",
+      "lines": [
+        1951,
+        1982
+      ],
+      "target_sections": [
+        "15",
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "56",
+      "source_heading": "专业模式与普通模式",
+      "lines": [
+        1983,
+        2020
+      ],
+      "target_sections": [
+        "03",
+        "18.1"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "57",
+      "source_heading": "规划模板",
+      "lines": [
+        2021,
+        2042
+      ],
+      "target_sections": [
+        "18.1",
+        "27"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "58",
+      "source_heading": "模板内部实际上是一个 Planning Recipe",
+      "lines": [
+        2043,
+        2072
+      ],
+      "target_sections": [
+        "18.2"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "59",
+      "source_heading": "服务化",
+      "lines": [
+        2073,
+        2094
+      ],
+      "target_sections": [
+        "19",
+        "21",
+        "23"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "60",
+      "source_heading": "跨部门工作流",
+      "lines": [
+        2095,
+        2137
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "61",
+      "source_heading": "整个平台的完整科研闭环",
+      "lines": [
+        2138,
+        2176
+      ],
+      "target_sections": [
+        "04",
+        "18",
+        "23",
+        "26"
+      ],
+      "development_task": "W18",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "62",
+      "source_heading": "CoastMAS 四大核心引擎",
+      "lines": [
+        2177,
+        2230
+      ],
+      "target_sections": [
+        "01"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "63",
+      "source_heading": "四个引擎共用基础设施",
+      "lines": [
+        2231,
+        2249
+      ],
+      "target_sections": [
+        "01",
+        "20",
+        "22"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "64",
+      "source_heading": "产品层与科研层分离",
+      "lines": [
+        2250,
+        2280
+      ],
+      "target_sections": [
+        "03",
+        "05",
+        "18.1"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "65",
+      "source_heading": "最终菜单与科研过程关系",
+      "lines": [
+        2281,
+        2318
+      ],
+      "target_sections": [
+        "01",
+        "02",
+        "04"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S1",
+      "source_aliases": [
+        "S1",
+        "S3"
+      ],
+      "source_version": "V3.0",
+      "source_section": "66",
+      "source_heading": "CoastMAS V3 最终定义",
+      "lines": [
+        2319,
+        2353
+      ],
+      "target_sections": [
+        "01",
+        "27"
+      ],
+      "development_task": "W18",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "1",
+      "source_heading": "系统定位",
+      "lines": [
+        5,
+        20
+      ],
+      "target_sections": [
+        "01"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "2",
+      "source_heading": "顶层业务对象",
+      "lines": [
+        21,
+        88
+      ],
+      "target_sections": [
+        "01",
+        "02",
+        "20"
+      ],
+      "development_task": "W02",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "3",
+      "source_heading": "系统总体架构：七大功能中心",
+      "lines": [
+        89,
+        116
+      ],
+      "target_sections": [
+        "01"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "4",
+      "source_heading": "一级导航设计",
+      "lines": [
+        117,
+        184
+      ],
+      "target_sections": [
+        "02",
+        "03"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "5",
+      "source_heading": "研究任务统一八步业务流程",
+      "lines": [
+        185,
+        210
+      ],
+      "target_sections": [
+        "04",
+        "05"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "6",
+      "source_heading": "第一步：数据",
+      "lines": [
+        211,
+        212
+      ],
+      "target_sections": [
+        "05.1",
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "6.1",
+      "source_heading": "数据选择方式",
+      "lines": [
+        213,
+        237
+      ],
+      "target_sections": [
+        "05.1",
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "7",
+      "source_heading": "支持的数据类型",
+      "lines": [
+        238,
+        239
+      ],
+      "target_sections": [
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "7.1",
+      "source_heading": "栅格",
+      "lines": [
+        240,
+        269
+      ],
+      "target_sections": [
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "7.2",
+      "source_heading": "矢量",
+      "lines": [
+        270,
+        290
+      ],
+      "target_sections": [
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "7.3",
+      "source_heading": "CSV与年鉴数据",
+      "lines": [
+        291,
+        315
+      ],
+      "target_sections": [
+        "06"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "8",
+      "source_heading": "智能 CSV/年鉴解析",
+      "lines": [
+        316,
+        383
+      ],
+      "target_sections": [
+        "08"
+      ],
+      "development_task": "W06",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "9",
+      "source_heading": "第二步：准备与对齐",
+      "lines": [
+        384,
+        400
+      ],
+      "target_sections": [
+        "05.2",
+        "07"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "10",
+      "source_heading": "数据准备算子体系",
+      "lines": [
+        401,
+        426
+      ],
+      "target_sections": [
+        "07",
+        "附录A"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "10.1",
+      "source_heading": "栅格对齐",
+      "lines": [
+        427,
+        443
+      ],
+      "target_sections": [
+        "07",
+        "附录A"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "10.2",
+      "source_heading": "分类数据",
+      "lines": [
+        444,
+        450
+      ],
+      "target_sections": [
+        "07",
+        "附录A"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "10.3",
+      "source_heading": "连续数据",
+      "lines": [
+        451,
+        465
+      ],
+      "target_sections": [
+        "07",
+        "附录A"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "11",
+      "source_heading": "年鉴空间化作为条件算子",
+      "lines": [
+        466,
+        514
+      ],
+      "target_sections": [
+        "08"
+      ],
+      "development_task": "W06",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "12",
+      "source_heading": "第三步：指标",
+      "lines": [
+        515,
+        544
+      ],
+      "target_sections": [
+        "09"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13",
+      "source_heading": "指标体系分类",
+      "lines": [
+        545,
+        548
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13.1",
+      "source_heading": "生态环境",
+      "lines": [
+        549,
+        569
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13.2",
+      "source_heading": "土地利用与城市化",
+      "lines": [
+        570,
+        586
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13.3",
+      "source_heading": "社会经济",
+      "lines": [
+        587,
+        603
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13.4",
+      "source_heading": "灾害风险",
+      "lines": [
+        604,
+        622
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "13.5",
+      "source_heading": "海岸带专题",
+      "lines": [
+        623,
+        637
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "14",
+      "source_heading": "指标算法实现",
+      "lines": [
+        638,
+        668
+      ],
+      "target_sections": [
+        "09",
+        "附录A"
+      ],
+      "development_task": "W07",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "15",
+      "source_heading": "自定义指标",
+      "lines": [
+        669,
+        718
+      ],
+      "target_sections": [
+        "09.3",
+        "12",
+        "19"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "16",
+      "source_heading": "第四步：权重与评价",
+      "lines": [
+        719,
+        722
+      ],
+      "target_sections": [
+        "10",
+        "12",
+        "附录A"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "16.1",
+      "source_heading": "主观赋权",
+      "lines": [
+        723,
+        734
+      ],
+      "target_sections": [
+        "10",
+        "12",
+        "附录A"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "16.2",
+      "source_heading": "客观赋权",
+      "lines": [
+        735,
+        746
+      ],
+      "target_sections": [
+        "10",
+        "12",
+        "附录A"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "16.3",
+      "source_heading": "降维与投影",
+      "lines": [
+        747,
+        758
+      ],
+      "target_sections": [
+        "10",
+        "12",
+        "附录A"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "16.4",
+      "source_heading": "综合评价方法",
+      "lines": [
+        759,
+        776
+      ],
+      "target_sections": [
+        "10",
+        "12",
+        "附录A"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "17",
+      "source_heading": "第五步：综合计算",
+      "lines": [
+        777,
+        809
+      ],
+      "target_sections": [
+        "10.3",
+        "05.5"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "18",
+      "source_heading": "指标标准化",
+      "lines": [
+        810,
+        832
+      ],
+      "target_sections": [
+        "10.1"
+      ],
+      "development_task": "W08",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "19",
+      "source_heading": "第六步：分级",
+      "lines": [
+        833,
+        877
+      ],
+      "target_sections": [
+        "10.4",
+        "05.6"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20",
+      "source_heading": "第七步：时空分析",
+      "lines": [
+        878,
+        881
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.1",
+      "source_heading": "面积统计",
+      "lines": [
+        882,
+        894
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.2",
+      "source_heading": "等级转移矩阵",
+      "lines": [
+        895,
+        908
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.3",
+      "source_heading": "时序趋势",
+      "lines": [
+        909,
+        920
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.4",
+      "source_heading": "空间统计",
+      "lines": [
+        921,
+        935
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.5",
+      "source_heading": "梯度分析",
+      "lines": [
+        936,
+        948
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "20.6",
+      "source_heading": "情景比较",
+      "lines": [
+        949,
+        970
+      ],
+      "target_sections": [
+        "11",
+        "附录A"
+      ],
+      "development_task": "W09",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "21",
+      "source_heading": "第八步：成果",
+      "lines": [
+        971,
+        1006
+      ],
+      "target_sections": [
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "22",
+      "source_heading": "自动报告",
+      "lines": [
+        1007,
+        1055
+      ],
+      "target_sections": [
+        "19",
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "23",
+      "source_heading": "模型工程中心：CoastMAS 核心大型功能",
+      "lines": [
+        1056,
+        1082
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "24",
+      "source_heading": "支持接入的模型",
+      "lines": [
+        1083,
+        1107
+      ],
+      "target_sections": [
+        "12",
+        "13",
+        "附录A"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25",
+      "source_heading": "模型解耦引擎",
+      "lines": [
+        1108,
+        1128
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25.1",
+      "source_heading": "数据解耦",
+      "lines": [
+        1129,
+        1144
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25.2",
+      "source_heading": "空间解耦",
+      "lines": [
+        1145,
+        1156
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25.3",
+      "source_heading": "时间解耦",
+      "lines": [
+        1157,
+        1169
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25.4",
+      "source_heading": "参数解耦",
+      "lines": [
+        1170,
+        1183
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "25.5",
+      "source_heading": "运行环境解耦",
+      "lines": [
+        1184,
+        1199
+      ],
+      "target_sections": [
+        "13"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "26",
+      "source_heading": "模型契约 Model Contract",
+      "lines": [
+        1200,
+        1242
+      ],
+      "target_sections": [
+        "14",
+        "附录D"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "27",
+      "source_heading": "模型测试体系",
+      "lines": [
+        1243,
+        1269
+      ],
+      "target_sections": [
+        "13.2",
+        "26"
+      ],
+      "development_task": "W10",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "28",
+      "source_heading": "智能耦合器",
+      "lines": [
+        1270,
+        1301
+      ],
+      "target_sections": [
+        "15"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "29",
+      "source_heading": "数据画像 Data Profile",
+      "lines": [
+        1302,
+        1383
+      ],
+      "target_sections": [
+        "14",
+        "附录D"
+      ],
+      "development_task": "W04",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "30",
+      "source_heading": "数据—模型智能匹配",
+      "lines": [
+        1384,
+        1429
+      ],
+      "target_sections": [
+        "15"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "31",
+      "source_heading": "匹配评分",
+      "lines": [
+        1430,
+        1458
+      ],
+      "target_sections": [
+        "15.1"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "32",
+      "source_heading": "Adapter Engine",
+      "lines": [
+        1459,
+        1492
+      ],
+      "target_sections": [
+        "07",
+        "15"
+      ],
+      "development_task": "W05",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "33",
+      "source_heading": "实景与场景约束",
+      "lines": [
+        1493,
+        1537
+      ],
+      "target_sections": [
+        "17"
+      ],
+      "development_task": "W15",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "34",
+      "source_heading": "Scene Adapter",
+      "lines": [
+        1538,
+        1566
+      ],
+      "target_sections": [
+        "17"
+      ],
+      "development_task": "W15",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "35",
+      "source_heading": "对象—数据—模型知识图",
+      "lines": [
+        1567,
+        1611
+      ],
+      "target_sections": [
+        "15.2",
+        "17",
+        "20"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "36",
+      "source_heading": "Workflow DAG",
+      "lines": [
+        1612,
+        1643
+      ],
+      "target_sections": [
+        "15",
+        "22"
+      ],
+      "development_task": "W11",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "37",
+      "source_heading": "工作流引擎能力",
+      "lines": [
+        1644,
+        1666
+      ],
+      "target_sections": [
+        "22"
+      ],
+      "development_task": "W11",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "38",
+      "source_heading": "运行中心",
+      "lines": [
+        1667,
+        1700
+      ],
+      "target_sections": [
+        "20",
+        "21",
+        "22"
+      ],
+      "development_task": "W11",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "39",
+      "source_heading": "大规模空间优化",
+      "lines": [
+        1701,
+        1753
+      ],
+      "target_sections": [
+        "18"
+      ],
+      "development_task": "W14",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40",
+      "source_heading": "AI 在 CoastMAS 中的角色",
+      "lines": [
+        1754,
+        1759
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40.1",
+      "source_heading": "数据 AI",
+      "lines": [
+        1760,
+        1771
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40.2",
+      "source_heading": "研究设计 AI",
+      "lines": [
+        1772,
+        1789
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40.3",
+      "source_heading": "Coupler AI",
+      "lines": [
+        1790,
+        1802
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40.4",
+      "source_heading": "算法开发 AI",
+      "lines": [
+        1803,
+        1815
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "40.5",
+      "source_heading": "结果解释 AI",
+      "lines": [
+        1816,
+        1832
+      ],
+      "target_sections": [
+        "19"
+      ],
+      "development_task": "W16",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "41",
+      "source_heading": "工作台界面",
+      "lines": [
+        1833,
+        1859
+      ],
+      "target_sections": [
+        "03"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "42",
+      "source_heading": "八步界面不是八个长表单",
+      "lines": [
+        1860,
+        1889
+      ],
+      "target_sections": [
+        "03",
+        "04",
+        "05"
+      ],
+      "development_task": "W03",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "43",
+      "source_heading": "结果可解释性",
+      "lines": [
+        1890,
+        1926
+      ],
+      "target_sections": [
+        "23"
+      ],
+      "development_task": "W17",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "44",
+      "source_heading": "数据库总体设计",
+      "lines": [
+        1927,
+        1981
+      ],
+      "target_sections": [
+        "20",
+        "附录B"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "45",
+      "source_heading": "计算技术栈建议",
+      "lines": [
+        1982,
+        2038
+      ],
+      "target_sections": [
+        "24"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "46",
+      "source_heading": "科学可重复性",
+      "lines": [
+        2039,
+        2064
+      ],
+      "target_sections": [
+        "20",
+        "22",
+        "23"
+      ],
+      "development_task": "W11",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "47",
+      "source_heading": "系统功能边界",
+      "lines": [
+        2065,
+        2083
+      ],
+      "target_sections": [
+        "00.2",
+        "27"
+      ],
+      "development_task": "W18",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "48",
+      "source_heading": "CoastMAS 的最终三层技术创新结构",
+      "lines": [
+        2084,
+        2151
+      ],
+      "target_sections": [
+        "01",
+        "13",
+        "15"
+      ],
+      "development_task": "W01",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "49",
+      "source_heading": "与项目科学问题的对应关系",
+      "lines": [
+        2152,
+        2197
+      ],
+      "target_sections": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "19"
+      ],
+      "development_task": "W12",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    },
+    {
+      "source": "S2",
+      "source_aliases": [
+        "S2"
+      ],
+      "source_version": "V2.0",
+      "source_section": "50",
+      "source_heading": "CoastMAS 最终定义",
+      "lines": [
+        2198,
+        2232
+      ],
+      "target_sections": [
+        "01",
+        "27"
+      ],
+      "development_task": "W18",
+      "treatment": "保留并细化；冲突处以00.2明示裁决",
+      "status": "MAPPED_NOT_IMPLEMENTED"
+    }
+  ],
+  "warning": "映射表示需求已找到目标章节，不表示产品实现覆盖已通过；W18需逐条证据。"
+}

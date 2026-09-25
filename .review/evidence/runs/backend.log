@@ -1,0 +1,132 @@
+........................................................................ [ 24%]
+........................................................................ [ 49%]
+........................................................................ [ 74%]
+........................................................................ [ 99%]
+..                                                                       [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  <repository>/next/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/starlette/testclient.py:53
+  <repository>/next/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_assessment_space.py: 9 warnings
+tests/test_builtin_indicators.py: 3 warnings
+tests/test_geospatial_view.py: 12 warnings
+tests/test_indicator_kernels.py: 3 warnings
+tests/test_intake.py: 1 warning
+tests/test_outputs.py: 1 warning
+tests/test_preparation_steps.py: 4 warnings
+tests/test_research_content_views.py: 2 warnings
+tests/test_research_workspace.py: 2 warnings
+tests/test_reuse.py: 2 warnings
+tests/test_source_snapshots.py: 1 warning
+tests/test_spatial_model.py: 5 warnings
+tests/test_spatial_results.py: 5 warnings
+tests/test_stage_products.py: 3 warnings
+tests/test_task_views.py: 2 warnings
+  <repository>/next/.venv/lib/python3.12/site-packages/rasterio/transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/test_geospatial_view.py: 8 warnings
+tests/test_logical_imports.py: 1 warning
+tests/test_outputs.py: 1 warning
+tests/test_spatial_results.py: 2 warnings
+  <repository>/next/.venv/lib/python3.12/site-packages/rasterio/io.py:143: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = writer(
+
+tests/test_geospatial_view.py::test_bad_or_unsupported_location_keeps_actual_non_geographic_image[missing]
+tests/test_geospatial_view.py::test_bad_or_unsupported_location_keeps_actual_non_geographic_image[conflict]
+tests/test_geospatial_view.py::test_bad_or_unsupported_location_keeps_actual_non_geographic_image[identity]
+tests/test_geospatial_view.py::test_bad_or_unsupported_location_keeps_actual_non_geographic_image[antimeridian]
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_all_nodata_and_band_validation
+tests/test_geospatial_view.py::test_alpha_palette_and_cache_keep_valid_zero_and_original_codes
+tests/test_outputs.py::test_actual_raster_preview_has_georeference_and_transparent_nodata
+  <repository>/next/.venv/lib/python3.12/site-packages/rasterio/io.py:140: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+    rd = DatasetReader(mempath, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
+
+tests/test_geospatial_view.py::test_bad_or_unsupported_location_keeps_actual_non_geographic_image[identity]
+tests/test_logical_imports.py::test_worldfile_rotation_center_and_unknown_crs_are_not_guessed
+tests/test_logical_imports.py::test_sidecar_reader_integrity_preserves_original_identity
+  <repository>/next/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: The given matrix is equal to Affine.identity or its flipped counterpart. GDAL may ignore this matrix and save no geotransform without raising an error. This behavior is somewhat driver-specific.
+    dataset = writer(
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/tests/test_geospatial_view.py:108: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform = Affine.translation(110, 23) * Affine.rotation(30) * Affine.scale(0.01, -0.01)
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_logical_imports.py::test_worldfile_rotation_center_and_unknown_crs_are_not_guessed
+tests/test_logical_imports.py::test_worldfile_rotation_center_and_unknown_crs_are_not_guessed
+tests/test_logical_imports.py::test_worldfile_rotation_center_and_unknown_crs_are_not_guessed
+tests/test_logical_imports.py::test_sidecar_reader_integrity_preserves_original_identity
+tests/test_logical_imports.py::test_sidecar_reader_integrity_preserves_original_identity
+tests/test_logical_imports.py::test_sidecar_reader_integrity_preserves_original_identity
+  <repository>/next/src/coastmas_next/profiles.py:79: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    bounds=list(ds.bounds),
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/src/coastmas_next/profiles.py:90: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    ds.bounds.left < -180
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/src/coastmas_next/profiles.py:91: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    or ds.bounds.right > 180
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/src/coastmas_next/profiles.py:92: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    or ds.bounds.bottom < -90
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/src/coastmas_next/profiles.py:93: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    or ds.bounds.top > 90
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+  <repository>/next/tests/test_geospatial_view.py:117: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = transform * (0.5, 0.5)
+
+tests/test_geospatial_view.py::test_rotation_native_identity_and_transparent_warp_edges
+tests/test_spatial_results.py::test_full_mask_result_descriptor_inspection_and_download
+  <repository>/next/.venv/lib/python3.12/site-packages/rasterio/transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+tests/test_indicator_kernels.py::test_E_road_density_uses_default_radius_and_deduplicated_clipped_length
+  <repository>/next/src/coastmas_next/indicator_kernels_v1.py:226: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = ds.transform * (col + int(cc) + 0.5, row + int(rr) + 0.5)
+
+tests/test_intake.py::test_cf_calendar_bounds_and_cell_methods_are_retained
+  <repository>/next/tests/test_intake.py:60: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    b[:] = [[0, 30], [30, 60]]
+
+tests/test_science.py::test_cf_360_day_interval_mean_is_not_gregorian
+  <repository>/next/tests/test_science.py:57: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    b[:] = [[0, 30], [30, 60]]
+
+tests/test_temporal_adaptation.py: 19 warnings
+  <repository>/next/tests/test_temporal_adaptation.py:34: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    bounds[:] = np.array([[0, 1], [1, 2], [2, 3]])
+
+tests/test_temporal_adaptation.py::test_malformed_scientific_sources_are_rejected_before_execution[masked_bounds-TIME_BOUNDS_INVALID]
+  <repository>/next/.venv/lib/python3.12/site-packages/numpy/ma/core.py:3511: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    super(MaskedArray, type(self)).shape.__set__(self, shape)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+290 passed, 129 warnings in 63.56s (0:01:03)

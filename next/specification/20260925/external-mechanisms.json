@@ -1,0 +1,126 @@
+{
+  "checked_date": "2026-09-25",
+  "purpose": "只支持技术机制，不证明当前CoastMAS能力；非完整文献综述。",
+  "sources": [
+    {
+      "id": "W01",
+      "title": "PySAL mapclassify FisherJenks / classifiers",
+      "url": "https://pysal.org/mapclassify/generated/mapclassify.FisherJenks.html",
+      "support": "Python分级实现、断点/计数；不证明与ArcGIS逐位相同"
+    },
+    {
+      "id": "W02",
+      "title": "GDAL GeoTIFF driver",
+      "url": "https://gdal.org/en/stable/drivers/raster/gtiff.html",
+      "support": "定位、PAM、worldfile、overview、mask及外部VAT机制；实际版本需锁定"
+    },
+    {
+      "id": "W03",
+      "title": "scikit-learn PCA",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html",
+      "support": "主成分模型实现及输出；评价权重语义由方法另定"
+    },
+    {
+      "id": "W04",
+      "title": "CRAN PPCI",
+      "url": "https://cran.r-project.org/web/packages/PPCI/index.html",
+      "support": "Projection Pursuit for Cluster Identification，不能冒名评价赋权"
+    },
+    {
+      "id": "W05",
+      "title": "CSDMS BMI 2.0 specification",
+      "url": "https://bmi.csdms.io/en/stable/bmi.spec.html",
+      "support": "控制/变量/时间/网格接口；不自动保证耦合科学稳定性"
+    },
+    {
+      "id": "W06",
+      "title": "PostgreSQL Row Security Policies",
+      "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+      "support": "RLS与owner/BYPASSRLS边界；部署需实际角色测试"
+    },
+    {
+      "id": "W07",
+      "title": "xESMF regridding algorithms",
+      "url": "https://xesmf.readthedocs.io/en/stable/notebooks/Compare_algorithms.html",
+      "support": "不同重映射方法；变量总量/密度解释由本项目契约确定"
+    },
+    {
+      "id": "W08",
+      "title": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/",
+      "support": "来源实体/活动/参与者映射参考"
+    },
+    {
+      "id": "W09",
+      "title": "SciPy milp",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html",
+      "support": "MILP输入、求解状态和限制"
+    },
+    {
+      "id": "W10",
+      "title": "OR-Tools CP-SAT",
+      "url": "https://developers.google.com/optimization/cp/cp_solver",
+      "support": "整数约束求解和状态；系数量化须本项目核验"
+    },
+    {
+      "id": "W11",
+      "title": "pymoo NSGA-II",
+      "url": "https://pymoo.org/algorithms/moo/nsga2.html",
+      "support": "多目标算法实现参考；不保证任意规模全局最优"
+    },
+    {
+      "id": "W12",
+      "title": "PyLandStats",
+      "url": "https://pylandstats.readthedocs.io/en/latest/",
+      "support": "景观指标实现候选与文档"
+    },
+    {
+      "id": "W13",
+      "title": "PySAL esda official repository",
+      "url": "https://github.com/pysal/esda",
+      "support": "全局/局部空间自相关、置换等原语"
+    },
+    {
+      "id": "W14",
+      "title": "ANUGA official documentation",
+      "url": "https://anuga.readthedocs.io/en/latest/",
+      "support": "真实浅水动力参考引擎；不是整个风暴潮预测配置"
+    },
+    {
+      "id": "W15",
+      "title": "OGC 3D Tiles",
+      "url": "https://www.ogc.org/standards/3dtiles/",
+      "support": "实景瓦片标准；不等同计算网格"
+    },
+    {
+      "id": "W16",
+      "title": "WAI Window Splitter",
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/",
+      "support": "可调整分隔条与键盘交互设计参考"
+    },
+    {
+      "id": "W17",
+      "title": "CF Conventions",
+      "url": "https://cfconventions.org/",
+      "support": "当前发布1.13及元数据目标；选定子集分版本检验"
+    },
+    {
+      "id": "W18",
+      "title": "D-Wave dimod official repository",
+      "url": "https://github.com/dwavesystems/dimod",
+      "support": "BQM/采样器与小规模ExactSolver；不是量子优势证据"
+    },
+    {
+      "id": "W19",
+      "title": "RFC 9457 Problem Details",
+      "url": "https://www.rfc-editor.org/rfc/rfc9457.html",
+      "support": "HTTP问题载荷参考；业务错误字段为本项目扩展"
+    },
+    {
+      "id": "W20",
+      "title": "OGC API Processes Part1 Core",
+      "url": "https://docs.ogc.org/is/18-062r2/18-062r2.html",
+      "support": "公开过程/作业协议；选定符合性类映射原生Run"
+    }
+  ]
+}

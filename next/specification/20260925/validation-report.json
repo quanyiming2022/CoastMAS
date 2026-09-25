@@ -1,0 +1,293 @@
+{
+  "status": "SPECIFICATION_STATIC_CHECKS_ONLY",
+  "date": "2026-09-25",
+  "counts": {
+    "source_files": 3,
+    "unique_source_texts": 2,
+    "source_main_sections": 116,
+    "mapped_main_and_subsections": 172,
+    "chapters": 30,
+    "algorithm_indicator_adapter_entries": 177,
+    "database_tables": 76,
+    "api_endpoints": 121,
+    "contract_definitions": 22,
+    "contract_examples": 10,
+    "development_tasks": 18,
+    "application_acceptance_cases": 145,
+    "master_lines": 5983,
+    "master_utf8_bytes": 315340
+  },
+  "checks": [
+    {
+      "check": "json_parse",
+      "result": "PASS",
+      "detail": "all JSON files parse"
+    },
+    {
+      "check": "unique_tables",
+      "result": "PASS",
+      "detail": "76"
+    },
+    {
+      "check": "unique_api ids",
+      "result": "PASS",
+      "detail": "121"
+    },
+    {
+      "check": "unique_algorithm ids",
+      "result": "PASS",
+      "detail": "177"
+    },
+    {
+      "check": "unique_tasks",
+      "result": "PASS",
+      "detail": "18"
+    },
+    {
+      "check": "unique_tests",
+      "result": "PASS",
+      "detail": "145"
+    },
+    {
+      "check": "unique_api_routes",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "algorithm_tasks_resolve",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "test_tasks_resolve",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "trace_tasks_resolve",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "dag_round_0",
+      "result": "PASS",
+      "detail": "['W01']"
+    },
+    {
+      "check": "dag_round_1",
+      "result": "PASS",
+      "detail": "['W02']"
+    },
+    {
+      "check": "dag_round_2",
+      "result": "PASS",
+      "detail": "['W03', 'W11']"
+    },
+    {
+      "check": "dag_round_4",
+      "result": "PASS",
+      "detail": "['W04', 'W10']"
+    },
+    {
+      "check": "dag_round_6",
+      "result": "PASS",
+      "detail": "['W05']"
+    },
+    {
+      "check": "dag_round_7",
+      "result": "PASS",
+      "detail": "['W06', 'W07', 'W12']"
+    },
+    {
+      "check": "dag_round_10",
+      "result": "PASS",
+      "detail": "['W08', 'W13', 'W15', 'W16']"
+    },
+    {
+      "check": "dag_round_14",
+      "result": "PASS",
+      "detail": "['W09', 'W14']"
+    },
+    {
+      "check": "dag_round_16",
+      "result": "PASS",
+      "detail": "['W17']"
+    },
+    {
+      "check": "dag_round_17",
+      "result": "PASS",
+      "detail": "['W18']"
+    },
+    {
+      "check": "dag_all_nodes",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical_schema_examples",
+      "result": "PASS",
+      "detail": "22 defs, 10 examples structurally valid"
+    },
+    {
+      "check": "weight_example_semantics",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "class_example_semantics",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "source_hash_S1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "source_hash_S2",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "source_hash_S3",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "duplicate_source_detected",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "main_section_coverage_S1",
+      "result": "PASS",
+      "detail": "66"
+    },
+    {
+      "check": "main_section_coverage_S2",
+      "result": "PASS",
+      "detail": "50"
+    },
+    {
+      "check": "source_subheading_count",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "main_chapters_00_to_29",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "code_fences_balanced",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "no_framework_raw_claim_pass",
+      "result": "PASS",
+      "detail": "145 application acceptance rows NOT_RUN"
+    },
+    {
+      "check": "no_algorithm_claim_implemented",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "source_no_tools_placeholders",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_DATA",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_GEO",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_TAB",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_ALG",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_METHOD",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_MODEL",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_COUPLE",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_PLAN",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_RESULT",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_AUTH",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_OPS",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "acceptance_group_UI",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "numeric_wlc",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "numeric_mass",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "numeric_plan",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "external_reference_ids_resolve",
+      "result": "PASS",
+      "detail": "01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20"
+    }
+  ],
+  "not_tested": [
+    "CoastMAS application code",
+    "database migrations execution",
+    "HTTP endpoints",
+    "browser interaction",
+    "scientific engines/libraries execution",
+    "real private datasets",
+    "external services and credentials",
+    "performance or user usability"
+  ],
+  "warning": "PASS here refers only to the produced design files, identifiers, references, structural example schemas and arithmetic fixtures. All application tests remain NOT_RUN."
+}

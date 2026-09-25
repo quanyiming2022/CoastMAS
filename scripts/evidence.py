@@ -53,7 +53,7 @@ def source_digest() -> str:
     digest = hashlib.sha256()
     excluded = {"__pycache__", "node_modules", ".pytest_cache", "dist", ".next", ".venv"}
     paths: set[Path] = set()
-    for folder in ("src", "tests", "scripts", "migrations", "deploy", "apps", "sample-data"):
+    for folder in ("src", "tests", "scripts", "migrations", "deploy", "apps", "sample-data", "runtime"):
         for path in (ROOT / folder).rglob("*"):
             relative = path.relative_to(ROOT)
             if (

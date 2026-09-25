@@ -58,8 +58,8 @@ export default function DataMetadataForm({
         </select>
       </label>
       <p>
-        未知坐标、范围或时期保持未设置；栅格和矢量必须与实际文件一致。上传最多
-        64 MiB。Shapefile 使用包含配套文件的 ZIP。
+        未知坐标、范围或时期保持未设置；栅格和矢量必须与实际文件一致。GeoTIFF／COG上传最多2
+        GiB；其余格式最多 64 MiB。Shapefile 使用包含配套文件的 ZIP。
       </p>
       <ScientificFields
         title="空间与时间声明"
@@ -85,6 +85,7 @@ export default function DataMetadataForm({
       />
       <button
         className="secondary"
+        type="button"
         onClick={() => update("variables", [...variables, newDataVariable()])}
       >
         添加数据变量

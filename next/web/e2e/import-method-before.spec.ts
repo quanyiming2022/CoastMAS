@@ -1,0 +1,25 @@
+import { test, expect } from '@playwright/test';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { evidenceDirectory, evidencePath } from './evidence';
+test('T01 actual empty method save versus publication boundary', async ({page}) => {
+ if(!process.env.COASTMAS_NEXT_TEST_URL?.endsWith(':58013')) throw new Error('isolated environment only');
+ const access=JSON.parse(await readFile(process.env.COASTMAS_NEXT_ACCESS_FILE!,'utf8'));
+ await mkdir(evidenceDirectory,{recursive:true});await page.setViewportSize({width:1440,height:900});
+ await page.goto('/methods');await page.getByLabel('邮箱',{exact:true}).fill(access.email);await page.getByLabel('密码',{exact:true}).fill(access.password);await page.getByRole('button',{name:'登录',exact:true}).click();
+ await expect(page.getByRole('link',{name:'工作台',exact:true})).toBeVisible();
+ const session=await (await page.request.get('/api/session')).json(),headers={'X-CSRF-Token':session.csrf};
+ const project=await (await page.request.post('/api/projects',{headers,data:{name:'T01联合返工工程隔离 '+Date.now()}})).json();
+ await page.goto('/methods?project='+project.id);
+ await page.getByRole('button',{name:'新建',exact:true}).click();
+ const editor=page.getByRole('dialog',{name:'方法方案编辑',exact:true});
+ await expect(editor).toBeVisible();await page.screenshot({path:evidencePath('method-empty-before.png')});
+ const savedResponse=page.waitForResponse(r=>r.request().method()==='PUT'&&r.url().includes('/method-workspaces/'));
+ await editor.getByLabel('方法名称',{exact:true}).fill('T01未完成草稿');await editor.getByRole('button',{name:'保存草稿',exact:true}).click();
+ const saved=await savedResponse;expect(saved.status()).toBe(200);const record=await saved.json();expect(record.definition.basis).toBe('');
+ const publishedResponse=page.waitForResponse(r=>r.request().method()==='POST'&&r.url().endsWith('/publish'));
+ await editor.getByRole('button',{name:'发布固定版本',exact:true}).click();const published=await publishedResponse;expect(published.status()).toBe(422);const error=await published.json();
+ await expect(editor).toContainText('TemplateSpec');await page.screenshot({path:evidencePath('method-publish-failure-before.png')});
+ const stored=await (await page.request.get('/api/method-workspaces/'+record.id)).json();expect(stored.definition.title).toBe('T01未完成草稿');expect(stored.publication).toBeNull();
+ const methods=await (await page.request.get('/api/management/catalog/methods?project='+project.id)).json();expect(methods.total).toBe(0);
+ await writeFile(evidencePath('T01-baseline.json'),JSON.stringify({project:project.id,workspace:record.id,build:'unified-business-dev9',save:{path:new URL(saved.url()).pathname,request:saved.request().postDataJSON(),status:saved.status(),persisted:stored},publication:{path:new URL(published.url()).pathname,request:published.request().postDataJSON(),status:published.status(),error,versions:methods.total},conclusion:'basis rejected during publication, NOT draft save'},null,2));
+});

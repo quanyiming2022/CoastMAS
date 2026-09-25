@@ -1,0 +1,408 @@
+{
+  "origin_kind": "engineering_fixture",
+  "build": "master-v3-dev25",
+  "test": "next/web/e2e/builtin-indicators.spec.ts",
+  "run_id": "1a5e978d5b81417d897f7b1e44c17196",
+  "task_id": "a9a6322f7253461cba908e4ce038ab44",
+  "RunManifest_summary": {
+    "contract_version": 1,
+    "draft_revision": 3,
+    "draft": {
+      "title": "NDVI",
+      "purpose": "spatial",
+      "selection": [
+        {
+          "asset_id": "53b4dca8666b45648dd5c9ea9ebdc330",
+          "revision": 1,
+          "layer": null
+        }
+      ],
+      "mapping": [],
+      "method_id": null,
+      "options": {
+        "operator": "builtin_indicator",
+        "indicator_selection": {
+          "selection_id": "473e46b6207c4478b9385e846c9e964b",
+          "indicator_id": "indicator.ndvi",
+          "definition_version": 1,
+          "definition": {
+            "indicator_id": "indicator.ndvi",
+            "name": "NDVI",
+            "category": "生态环境",
+            "description": "用红光与近红外反射率计算植被指数",
+            "semantic_type": "NDVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "公式与scale/QA/分母0",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "公式与scale/QA/分母0"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "key": "4088ea8aea5653139c18b278",
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "53b4dca8666b45648dd5c9ea9ebdc330",
+                "revision": 1,
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "engineering-red-nir.tif",
+            "status": "ready",
+            "message": null
+          },
+          "status": "ready",
+          "mode": "compute"
+        }
+      }
+    },
+    "assets": [
+      {
+        "id": "53b4dca8666b45648dd5c9ea9ebdc330",
+        "revision": 1,
+        "name": "engineering-red-nir.tif",
+        "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+        "size": 1462,
+        "facts": {
+          "profile": "geotiff",
+          "standard_version": null,
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "raster",
+              "fields": [
+                {
+                  "name": "band_1",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 1,
+                  "description": "red",
+                  "metadata": {
+                    "common_name": "red",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1,
+                  "offset": 0,
+                  "nodata": -9999
+                },
+                {
+                  "name": "band_2",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 2,
+                  "description": "nir",
+                  "metadata": {
+                    "common_name": "nir",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1,
+                  "offset": 0,
+                  "nodata": -9999
+                }
+              ],
+              "preview": [
+                [
+                  0.2,
+                  0.2,
+                  null
+                ],
+                [
+                  0,
+                  0.4,
+                  0.2
+                ]
+              ],
+              "preview_scope": "top_left_window_physical_values",
+              "row_count": 6
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval",
+          "crs": "EPSG:32649",
+          "bounds": [
+            400000,
+            2499940,
+            400090,
+            2500000
+          ],
+          "transform": [
+            30,
+            0,
+            400000,
+            0,
+            -30,
+            2500000
+          ],
+          "width": 3,
+          "height": 2,
+          "cell_count": 6,
+          "file_tags": {
+            "origin_kind": "engineering_fixture",
+            "AREA_OR_POINT": "Area"
+          },
+          "logical_package": {
+            "sha256": "250c93b68dd117472dfcbc5de3e8681ad1a65e3ccc0e2f1c0e50e691980585be",
+            "primary": "engineering-red-nir.tif",
+            "members": [
+              {
+                "path": "engineering-red-nir.tif",
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+                "size": 1462,
+                "role": "primary",
+                "object_key": "packages/d49750119d0546bfa1f2476a47a7be2a/448d5e68238842df8b76ec1ac3ec6191/originals/engineering-red-nir.tif"
+              }
+            ],
+            "reader_members": [
+              {
+                "path": "engineering-red-nir.tif",
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+                "size": 1462,
+                "object_key": "packages/d49750119d0546bfa1f2476a47a7be2a/448d5e68238842df8b76ec1ac3ec6191/reader/engineering-red-nir.tif"
+              }
+            ],
+            "previous_asset_id": null
+          }
+        }
+      }
+    ],
+    "method": {
+      "id": "indicator.ndvi",
+      "version": 1,
+      "operator": "builtin_indicator",
+      "definition": {
+        "indicator_id": "indicator.ndvi",
+        "name": "NDVI",
+        "category": "生态环境",
+        "description": "用红光与近红外反射率计算植被指数",
+        "semantic_type": "NDVI",
+        "input_roles": [
+          "red",
+          "nir"
+        ],
+        "input_constraints": "公式与scale/QA/分母0",
+        "default_algorithm": "spectral",
+        "algorithm_version": "spectral/1.0.0",
+        "parameters_schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "required": []
+        },
+        "default_parameters": {},
+        "default_parameters_version": 1,
+        "unit": "1",
+        "output_geometry": "grid",
+        "output_dtype": "float64",
+        "spatial_requirements": {
+          "native_grid": true,
+          "reliable_crs": true
+        },
+        "temporal_requirements": {},
+        "dependencies": [
+          "numpy",
+          "rasterio",
+          "pyproj"
+        ],
+        "quality_rules": [
+          "preserve_source_mask",
+          "zero_denominator_invalid",
+          "no_implicit_cloud_mask"
+        ],
+        "references": [
+          {
+            "source": "master-spec §09.2",
+            "definition": "公式与scale/QA/分母0"
+          }
+        ],
+        "version": 1,
+        "status": "published",
+        "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+        "tests": [
+          "tests/test_builtin_indicators.py",
+          "tests/test_indicator_kernels.py"
+        ],
+        "business_parameters": []
+      },
+      "parameters": {},
+      "candidate": {
+        "key": "4088ea8aea5653139c18b278",
+        "mode": "compute",
+        "sources": [
+          {
+            "asset_id": "53b4dca8666b45648dd5c9ea9ebdc330",
+            "revision": 1,
+            "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+          }
+        ],
+        "bindings": {
+          "red": 1,
+          "nir": 2
+        },
+        "label": "engineering-red-nir.tif",
+        "status": "ready",
+        "message": null
+      },
+      "output_grid": {
+        "width": 3,
+        "height": 2,
+        "crs": "EPSG:32649",
+        "transform": [
+          30,
+          0,
+          400000,
+          0,
+          -30,
+          2500000
+        ]
+      },
+      "expected_outputs": [
+        {
+          "name": "indicator.tif",
+          "role": "raw_indicator",
+          "view_kind": "raster"
+        }
+      ]
+    },
+    "runtime": null,
+    "states_at_submission": {
+      "data_ingested": true,
+      "technical_quality": "checked",
+      "method_approved": true,
+      "model_approved": true,
+      "input_applicable": true,
+      "execution_succeeded": false,
+      "business_validated": false
+    }
+  },
+  "Workflow_summary": {
+    "processing_node_id": "21ef817c495844af87d0e449e7cd4e8c",
+    "business_role": "indicator_production",
+    "operator": "builtin_indicator",
+    "WorkflowVersion": null,
+    "limitation": "This real processing-node run is not evidence of a complete versioned Workflow contract."
+  },
+  "ResultManifest_summary": {
+    "artifact": "indicator.tif",
+    "sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+    "statistics": {
+      "scope": "full_grid",
+      "total_pixels": 6,
+      "valid_pixels": 4
+    },
+    "native_pixel": {
+      "asset_id": "1a5e978d5b81417d897f7b1e44c17196:0",
+      "asset_revision": 1,
+      "sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+      "band": 1,
+      "row": 0,
+      "column": 0,
+      "crs": "EPSG:32649",
+      "transform": [
+        30,
+        0,
+        400000,
+        0,
+        -30,
+        2500000
+      ],
+      "value_domain": "native_source_pixel",
+      "geolocation_chain": "inverse_PROJ_then_source_affine",
+      "scale": 1,
+      "offset": 0,
+      "unit": "1",
+      "unit_source": "file",
+      "valid": true,
+      "stored_value": 0.49999999999999994,
+      "value": 0.49999999999999994,
+      "status": "valid"
+    },
+    "browser_pixel": {
+      "asset_id": "1a5e978d5b81417d897f7b1e44c17196:0",
+      "asset_revision": 1,
+      "sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+      "band": 1,
+      "row": 1,
+      "column": 1,
+      "crs": "EPSG:32649",
+      "transform": [
+        30,
+        0,
+        400000,
+        0,
+        -30,
+        2500000
+      ],
+      "value_domain": "native_source_pixel",
+      "geolocation_chain": "inverse_PROJ_then_source_affine",
+      "scale": 1,
+      "offset": 0,
+      "unit": "1",
+      "unit_source": "file",
+      "valid": true,
+      "stored_value": -1,
+      "value": -1,
+      "status": "valid"
+    },
+    "business_validated": false
+  },
+  "actions": {
+    "indicator_selections": 1,
+    "technical_fields_entered": 0,
+    "compute_clicks": 1,
+    "uploads": 1
+  },
+  "limitations": [
+    "Engineering fixture, not a real-data business acceptance.",
+    "Complete platform RunManifest/provenance/reproduce requirements remain unverified.",
+    "Browser assertions passed; current screenshots do not substantiate a visible raster map."
+  ]
+}

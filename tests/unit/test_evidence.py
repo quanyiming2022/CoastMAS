@@ -23,3 +23,15 @@ def test_numeric_output_budget_is_not_a_credential_but_access_token_is(monkeypat
     values = configured_secrets()
     assert "21637" not in values
     assert "private-access-token-example" in values
+
+
+def test_runtime_source_changes_invalidate_evidence_digest(monkeypatch, tmp_path):
+    from scripts import evidence
+
+    monkeypatch.setattr(evidence, "ROOT", tmp_path)
+    source = tmp_path / "runtime/projection-pursuit/runner.R"
+    source.parent.mkdir(parents=True)
+    source.write_text("original implementation")
+    before = evidence.source_digest()
+    source.write_text("changed implementation")
+    assert evidence.source_digest() != before

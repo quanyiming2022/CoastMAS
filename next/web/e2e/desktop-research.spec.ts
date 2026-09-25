@@ -1,0 +1,56 @@
+import { test,expect } from '@playwright/test';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {evidenceDirectory,evidencePath} from './evidence';
+
+test('one research survives catalogs and administration; explicit method application executes actual weighted observations',async({page})=>{
+ test.setTimeout(150000);
+ if(!process.env.COASTMAS_NEXT_ACCESS_FILE)throw new Error('Isolated credentials required');
+ const access=JSON.parse(await readFile(process.env.COASTMAS_NEXT_ACCESS_FILE,'utf8'));
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.setViewportSize({width:1440,height:900});await page.goto('/research?project='+access.project_id);
+ await page.getByLabel('邮箱',{exact:true}).fill(access.email);await page.getByLabel('密码',{exact:true}).fill(access.password);await page.getByRole('button',{name:'登录',exact:true}).click();
+ await expect(page.getByRole('link',{name:'用户管理',exact:true})).toBeVisible();
+ const session=await(await page.request.get('/api/session')).json();const headers={'X-CSRF-Token':session.csrf};
+ const projectResponse=await page.request.post('/api/projects',{headers,data:{name:'桌面连续研究隔离 '+Date.now()}});expect(projectResponse.status()).toBe(201);const project=(await projectResponse.json()).id;
+ await page.goto('/research?project='+project);
+ const beforeTasks=await(await page.request.get(`/api/projects/${project}/tasks`)).json();expect(beforeTasks).toHaveLength(0);
+ await page.getByRole('button',{name:'新建研究',exact:true}).click();const creation=page.getByRole('dialog',{name:'新建研究任务'});
+ await creation.getByLabel('任务名称（可选）').fill('研究A · 数值工程验收');await creation.getByRole('button',{name:'创建并继续'}).click();await expect(page).toHaveURL(/\/tasks\//);
+ const taskId=page.url().split('/tasks/')[1]!;await expect(page.locator('.research-context h1')).toHaveText('研究A · 数值工程验收');
+ // Method fixtures are explicitly reviewed numerical test definitions, never real coast conclusions.
+ const spec={title:'方法B · 独立工程权重',purpose:'method',profiles:['csv'],basis:'独立工程用例：距离0—2000米，正向单指标权重1；不作为真实科研依据。',configuration:{task:'assessment',method:'weighted',indicators:[{concept:'distance',unit:'m',lower:0,upper:2000,positive:true,weight:1}]}};
+ const methodResponse=await page.request.post(`/api/projects/${project}/templates`,{headers,data:spec});expect(methodResponse.status()).toBe(201);const method=(await methodResponse.json());expect((await page.request.post(`/api/templates/${method.id}/approve`,{headers,data:{revision:1}})).ok()).toBe(true);
+ await page.getByRole('link',{name:'数据资源',exact:true}).click();
+ const uploaded=page.waitForResponse(r=>r.url().endsWith('/complete')&&r.request().method()==='POST');
+ await page.getByLabel('导入并查看资料',{exact:true}).setInputFiles({name:'明确工程观测.csv',mimeType:'text/csv',buffer:Buffer.from('id,distance\n001,1000\n002,2000\n')});
+ const asset=(await(await uploaded).json()).asset;
+ expect((await(await page.request.get('/api/tasks/'+taskId)).json()).draft.selection).toHaveLength(0);
+ await page.getByRole('button',{name:'加入当前任务',exact:true}).click();
+ await expect.poll(async()=> (await(await page.request.get('/api/tasks/'+taskId)).json()).draft.selection.length).toBe(1);
+ const beforeMethod=await(await page.request.get('/api/tasks/'+taskId)).json();
+ await page.getByRole('link',{name:'方法方案',exact:true}).click();await page.getByRole('button',{name:'查看方法',exact:true}).click();
+ expect(await(await page.request.get('/api/tasks/'+taskId)).json()).toEqual(beforeMethod);
+ await page.getByRole('button',{name:'应用到当前任务',exact:true}).click();
+ await expect(page.getByLabel('科学含义 table/distance',{exact:true})).toBeVisible();
+ await page.getByLabel('用途 table/id',{exact:true}).selectOption('identity');await page.getByLabel('科学含义 table/distance',{exact:true}).fill('distance');await page.getByLabel('单位 table/distance',{exact:true}).fill('m');await page.getByLabel('支撑 table/distance',{exact:true}).selectOption('point');
+ await expect(page.getByRole('status').filter({hasText:'已保存到服务器'})).toBeVisible();
+ const configured=await(await page.request.get('/api/tasks/'+taskId)).json();expect(configured.draft.method_id).toBe(method.id);
+ await page.getByRole('link',{name:'项目管理',exact:true}).click();await expect(page.getByRole('heading',{name:'项目管理',exact:true}).first()).toBeVisible();
+ await page.getByRole('link',{name:'用户管理',exact:true}).click();await expect(page.getByRole('heading',{name:'用户管理',exact:true}).first()).toBeVisible();
+ await page.getByRole('link',{name:'研究工作台',exact:true}).click();await expect(page.getByLabel('单位 table/distance',{exact:true})).toHaveValue('m');
+ expect(await(await page.request.get('/api/tasks/'+taskId)).json()).toEqual(configured);
+ await page.locator('.research-context').getByRole('button',{name:'预检并执行',exact:true}).click();
+ await expect(page.getByRole('table',{name:'观测结果',exact:true})).toBeVisible({timeout:30000});
+ const context=await(await page.request.get(`/api/projects/${project}/workspace-state`)).json();const run=context.state.viewed_job_id;
+ await expect(page.locator('.research-result').getByRole('region',{name:'资料地图',exact:true})).toHaveCount(0);
+ const result=await(await page.request.get(`/api/jobs/${run}/result`)).json();expect(result.data.scores).toEqual([0.5,1]);expect(result.data.method_snapshot.id).toBe(method.id);
+ await page.getByRole('link',{name:'任务管理',exact:true}).click();const directory=page.getByRole('region',{name:'任务管理',exact:true});
+ await directory.getByLabel('搜索任务管理',{exact:true}).fill('没有匹配项');await directory.getByLabel('搜索任务管理',{exact:true}).press('Enter');
+ expect((await(await page.request.get(`/api/projects/${project}/workspace-state`)).json()).state.viewed_job_id).toBe(run);
+ await page.getByRole('button',{name:'最大化表格',exact:true}).click();await page.getByRole('button',{name:'恢复面板',exact:true}).click();await page.getByRole('button',{name:'关闭目录',exact:true}).click();
+ await expect(page.getByRole('table',{name:'观测结果',exact:true})).toBeVisible();
+ await page.reload();await expect(page.getByRole('table',{name:'观测结果',exact:true})).toBeVisible();
+ await mkdir(evidenceDirectory,{recursive:true});for(const [width,height] of [[1366,768],[1440,900],[1920,1080]]){await page.setViewportSize({width:width!,height:height!});await page.screenshot({path:evidencePath(`desktop-research-result-${width}.png`)});expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width!+1);}
+ expect(errors).toEqual([]);expect((await(await page.request.get(`/api/projects/${project}/tasks`)).json()).length).toBe(1);
+ await writeFile(evidencePath('desktop-research-continuity.json'),JSON.stringify({project,taskId,asset:asset.id,method:method.id,run,scores:result.data.scores,scientific_fixture:true,input_selection_count:1,science_fills:3,identity_choice:1,method_application:1,catalog_browsing_changed_draft:false,management_return:'PASS',refresh_result:'PASS',top_level_tasks:1},null,2));
+});

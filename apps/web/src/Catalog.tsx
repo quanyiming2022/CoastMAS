@@ -134,8 +134,11 @@ function CatalogList({
       <div className="toolbar">
         {kind === "data" ? (
           <>
+            <Link to="/data/import">导入真实影像</Link>
+            <Link to="/data/prepare">准备模型输入</Link>
             <Link to="/data/new">上传数据</Link>
             <Link to="/data-sources">外部数据源</Link>
+            <Link to="/data/intake">业务资料检查</Link>
           </>
         ) : null}
         {kind === "models" ? (

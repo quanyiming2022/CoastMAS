@@ -23,10 +23,13 @@ from coastmas.app.dependencies import CurrentUser, DatabaseSession
 from coastmas.app.geography_routes import router as geography_router
 from coastmas.app.imagery_routes import router as imagery_router
 from coastmas.app.indicator_routes import router as indicator_router
+from coastmas.app.ingestion_routes import router as ingestion_router
 from coastmas.app.knowledge_graph_routes import router as knowledge_graph_router
 from coastmas.app.model_routes import router as model_router
 from coastmas.app.optimization_routes import router as optimization_router
 from coastmas.app.planning_routes import router as planning_router
+from coastmas.app.projection_routes import router as projection_router
+from coastmas.app.raster_frame_routes import router as raster_frame_router
 from coastmas.app.research_routes import router as research_router
 from coastmas.app.run_routes import router as run_router
 from coastmas.app.scene_routes import router as scene_router
@@ -319,6 +322,8 @@ def create_app(
     app.state.registry = registry if registry is not None else ExecutionRegistry()
     app.include_router(knowledge_graph_router)
     app.include_router(geography_router)
+    app.include_router(ingestion_router)
+    app.include_router(raster_frame_router)
     app.include_router(data_router)
     app.include_router(imagery_router)
     app.include_router(source_router)
@@ -328,6 +333,7 @@ def create_app(
     app.include_router(optimization_router)
     app.include_router(collaboration_router)
     app.state.source_registry = {}
+    app.include_router(projection_router)
     app.include_router(model_router)
     app.include_router(run_router)
     app.include_router(research_router)

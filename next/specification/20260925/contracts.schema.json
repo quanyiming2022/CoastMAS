@@ -1,0 +1,1771 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:coastmas:contracts:1.0",
+  "title": "CoastMAS canonical contract design",
+  "$defs": {
+    "VersionRef": {
+      "type": "object",
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "revision_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "part_key": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "resource_id",
+        "revision_id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "file_fact",
+            "human_assertion",
+            "source_reference",
+            "computed",
+            "ai_candidate"
+          ]
+        },
+        "source_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locator": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "declared",
+            "candidate",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "source_ref",
+        "locator",
+        "statement",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "GridSpec": {
+      "type": "object",
+      "properties": {
+        "crs_wkt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transform": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "axis_order": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extent": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "crs_wkt",
+        "transform",
+        "width",
+        "height",
+        "axis_order",
+        "vertical_datum"
+      ],
+      "additionalProperties": false
+    },
+    "TemporalSpec": {
+      "type": "object",
+      "properties": {
+        "calendar": {
+          "type": "string",
+          "minLength": 1
+        },
+        "precision": {
+          "enum": [
+            "instant",
+            "day",
+            "month",
+            "year",
+            "interval",
+            "static",
+            "unknown"
+          ]
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "support": {
+          "enum": [
+            "instant",
+            "interval_mean",
+            "interval_sum",
+            "rate",
+            "static",
+            "unknown"
+          ]
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "calendar",
+        "precision",
+        "start",
+        "end",
+        "year",
+        "support",
+        "unit"
+      ],
+      "additionalProperties": false
+    },
+    "DataProfile": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.data-profile/1.0"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "representation": {
+          "enum": [
+            "raster",
+            "vector",
+            "table",
+            "mesh",
+            "document",
+            "multi_dimensional"
+          ]
+        },
+        "concept_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "semantic_status": {
+          "enum": [
+            "known",
+            "candidate",
+            "unknown"
+          ]
+        },
+        "quantity_kind": {
+          "enum": [
+            "continuous",
+            "categorical",
+            "ordinal",
+            "binary",
+            "count",
+            "extensive",
+            "density",
+            "rate",
+            "ratio",
+            "unknown"
+          ]
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scale": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "spatial_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "temporal": {
+          "$ref": "#/$defs/TemporalSpec"
+        },
+        "mask_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "distribution": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "enum": [
+                "none",
+                "sample",
+                "full",
+                "selection"
+              ]
+            },
+            "count": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "seed": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "min": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "scope",
+            "count",
+            "seed",
+            "min",
+            "max"
+          ],
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "source_ref",
+        "representation",
+        "concept_ref",
+        "semantic_status",
+        "quantity_kind",
+        "unit",
+        "scale",
+        "offset",
+        "spatial_ref",
+        "temporal",
+        "mask_ref",
+        "distribution",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "Port": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concept_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "representation": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "raster",
+              "vector",
+              "table",
+              "mesh",
+              "multi_dimensional"
+            ]
+          },
+          "minItems": 1
+        },
+        "quantity_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit_dimension": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit_required": {
+          "type": "boolean"
+        },
+        "time_role": {
+          "enum": [
+            "static",
+            "t0",
+            "t1",
+            "forcing",
+            "state",
+            "observation",
+            "prediction",
+            "any"
+          ]
+        },
+        "location": {
+          "enum": [
+            "cell",
+            "node",
+            "edge",
+            "feature",
+            "row",
+            "any"
+          ]
+        },
+        "cardinality": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "min",
+            "max"
+          ],
+          "additionalProperties": false
+        },
+        "required_when": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_adapter_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "missing_policy": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "key",
+        "concept_code",
+        "representation",
+        "quantity_kind",
+        "unit_dimension",
+        "unit_required",
+        "time_role",
+        "location",
+        "cardinality",
+        "required_when",
+        "allowed_adapter_codes",
+        "missing_policy"
+      ],
+      "additionalProperties": false
+    },
+    "ModelContract": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.model-contract/1.0"
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "transform",
+            "indicator",
+            "estimator",
+            "evaluator",
+            "simulator",
+            "solver"
+          ]
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Port"
+          },
+          "minItems": 0
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Port"
+          },
+          "minItems": 1
+        },
+        "parameter_schema": {
+          "type": "object"
+        },
+        "runtime": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "python",
+                "r",
+                "cli",
+                "oci",
+                "rest",
+                "hpc",
+                "bmi"
+              ]
+            },
+            "environment_ref": {
+              "$ref": "#/$defs/VersionRef"
+            },
+            "entrypoint": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "environment_ref",
+            "entrypoint"
+          ],
+          "additionalProperties": false
+        },
+        "execution": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "enum": [
+                "batch",
+                "fit_apply",
+                "stateful"
+              ]
+            },
+            "chunk_mode": {
+              "enum": [
+                "window",
+                "halo",
+                "global_fit_apply",
+                "global",
+                "stateful"
+              ]
+            },
+            "deterministic": {
+              "type": "boolean"
+            },
+            "seed_parameter": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "network": {
+              "enum": [
+                "disabled",
+                "allowlisted"
+              ]
+            },
+            "max_memory_mib": {
+              "type": "integer",
+              "minimum": 128
+            }
+          },
+          "required": [
+            "mode",
+            "chunk_mode",
+            "deterministic",
+            "seed_parameter",
+            "network",
+            "max_memory_mib"
+          ],
+          "additionalProperties": false
+        },
+        "spatial_requirements": {
+          "type": "object"
+        },
+        "temporal_requirements": {
+          "type": "object"
+        },
+        "validation_profile_ref": {
+          "$ref": "#/$defs/VersionRef"
+        }
+      },
+      "required": [
+        "schema_version",
+        "code",
+        "version",
+        "kind",
+        "inputs",
+        "outputs",
+        "parameter_schema",
+        "runtime",
+        "execution",
+        "spatial_requirements",
+        "temporal_requirements",
+        "validation_profile_ref"
+      ],
+      "additionalProperties": false
+    },
+    "InputBinding": {
+      "type": "object",
+      "properties": {
+        "slot_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "mapping_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approval_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "slot_key",
+        "source_ref",
+        "mapping_ref",
+        "approval_ref"
+      ],
+      "additionalProperties": false
+    },
+    "Issue": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "blocking"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "object_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "affects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "action_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "root_cause_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message",
+        "object_ref",
+        "field_path",
+        "affects",
+        "action_ids",
+        "root_cause_id"
+      ],
+      "additionalProperties": false
+    },
+    "AdapterStep": {
+      "type": "object",
+      "properties": {
+        "node_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "algorithm_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 1
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "target_space_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "loss": {
+          "enum": [
+            "none",
+            "numerical",
+            "resolution",
+            "semantic"
+          ]
+        },
+        "decision_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_key": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "node_key",
+        "algorithm_ref",
+        "input_refs",
+        "parameters",
+        "target_space_ref",
+        "loss",
+        "decision_ref",
+        "output_key"
+      ],
+      "additionalProperties": false
+    },
+    "CouplingPlan": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.coupling-plan/1.0"
+        },
+        "task_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "task_draft_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InputBinding"
+          },
+          "minItems": 0
+        },
+        "adapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AdapterStep"
+          },
+          "minItems": 0
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Issue"
+          },
+          "minItems": 0
+        },
+        "workflow_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hard_checks": {
+          "type": "object",
+          "properties": {
+            "permission": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            },
+            "semantic": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            },
+            "units": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            },
+            "space_time": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "permission",
+            "semantic",
+            "units",
+            "space_time"
+          ],
+          "additionalProperties": false
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "needs_decision",
+            "ready",
+            "not_executable"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "task_id",
+        "task_draft_revision",
+        "bindings",
+        "adapters",
+        "issues",
+        "workflow_ref",
+        "hard_checks",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "ScoringRule": {
+      "type": "object",
+      "properties": {
+        "indicator_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "method": {
+          "enum": [
+            "minmax",
+            "zscore",
+            "piecewise",
+            "category",
+            "membership",
+            "standard",
+            "custom",
+            "reuse_verified"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "higher_score",
+            "lower_score",
+            "target",
+            "category",
+            "not_applicable"
+          ]
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "indicator_ref",
+        "method",
+        "direction",
+        "parameters",
+        "basis_refs"
+      ],
+      "additionalProperties": false
+    },
+    "MethodDraft": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.method-draft/1.0"
+        },
+        "name": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "task_type": {
+          "enum": [
+            "assessment",
+            "simulation",
+            "planning",
+            "comparison"
+          ]
+        },
+        "indicators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScoringRule"
+          },
+          "minItems": 0
+        },
+        "estimator_or_evaluator_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "name",
+        "revision",
+        "task_type",
+        "indicators",
+        "estimator_or_evaluator_ref",
+        "basis_text",
+        "basis_refs"
+      ],
+      "additionalProperties": false
+    },
+    "MethodVersion": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.method-version/1.0"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "task_type": {
+          "enum": [
+            "assessment",
+            "simulation",
+            "planning",
+            "comparison"
+          ]
+        },
+        "indicators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScoringRule"
+          },
+          "minItems": 1
+        },
+        "estimator_or_evaluator_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1
+        },
+        "input_requirements": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "name",
+        "method_ref",
+        "task_type",
+        "indicators",
+        "estimator_or_evaluator_ref",
+        "basis_refs",
+        "input_requirements"
+      ],
+      "additionalProperties": false
+    },
+    "WeightSet": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.weight-set/1.0"
+        },
+        "method_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "indicator_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 1
+        },
+        "weights": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "fit_scope_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "judgment_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profile_constraints": {
+          "type": "object",
+          "properties": {
+            "nonnegative": {
+              "type": "boolean"
+            },
+            "sum_target": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sum_atol": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "nonnegative",
+            "sum_target",
+            "sum_atol"
+          ],
+          "additionalProperties": false
+        },
+        "diagnostics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "method_ref",
+        "indicator_refs",
+        "weights",
+        "fit_scope_ref",
+        "judgment_ref",
+        "profile_constraints",
+        "diagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "ClassScheme": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.class-scheme/1.0"
+        },
+        "algorithm_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "breaks": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "closure": {
+          "enum": [
+            "first_closed_then_left_open_right_closed",
+            "custom"
+          ]
+        },
+        "fit_scope": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "full",
+                "sample",
+                "baseline",
+                "joint",
+                "fixed"
+              ]
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/VersionRef"
+              },
+              "minItems": 0
+            },
+            "seed": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "n": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "source_refs",
+            "seed",
+            "n"
+          ],
+          "additionalProperties": false
+        },
+        "business_meaning": {
+          "enum": [
+            "statistical_groups",
+            "method_defined_classes"
+          ]
+        },
+        "nodata_code": {
+          "type": "integer"
+        },
+        "out_of_range": {
+          "enum": [
+            "error",
+            "extend_edge",
+            "separate_class"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "algorithm_ref",
+        "breaks",
+        "labels",
+        "closure",
+        "fit_scope",
+        "business_meaning",
+        "nodata_code",
+        "out_of_range"
+      ],
+      "additionalProperties": false
+    },
+    "Objective": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "direction": {
+          "enum": [
+            "min",
+            "max"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "aggregation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "metric_ref",
+        "direction",
+        "unit",
+        "weight",
+        "target",
+        "aggregation"
+      ],
+      "additionalProperties": false
+    },
+    "Constraint": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "hard",
+            "soft"
+          ]
+        },
+        "expression_ast": {
+          "type": "object"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 0
+        },
+        "penalty": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "kind",
+        "expression_ast",
+        "unit",
+        "source_refs",
+        "penalty"
+      ],
+      "additionalProperties": false
+    },
+    "DecisionVariable": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "enum": [
+            "binary",
+            "integer",
+            "continuous",
+            "one_hot"
+          ]
+        },
+        "unit_set_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "lower": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "code",
+        "domain",
+        "unit_set_ref",
+        "lower",
+        "upper",
+        "allowed_categories"
+      ],
+      "additionalProperties": false
+    },
+    "PlanningProblem": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.planning-problem/1.0"
+        },
+        "problem_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "scenario_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "baseline_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 1
+        },
+        "unit_set_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DecisionVariable"
+          },
+          "minItems": 1
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Objective"
+          },
+          "minItems": 1
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Constraint"
+          },
+          "minItems": 0
+        },
+        "objective_mode": {
+          "enum": [
+            "single",
+            "weighted",
+            "pareto",
+            "lexicographic"
+          ]
+        },
+        "evaluation_workflow_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "solver_requirements": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "problem_ref",
+        "scenario_ref",
+        "baseline_refs",
+        "unit_set_ref",
+        "variables",
+        "objectives",
+        "constraints",
+        "objective_mode",
+        "evaluation_workflow_ref",
+        "solver_requirements"
+      ],
+      "additionalProperties": false
+    },
+    "Artifact": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "object"
+        },
+        "units": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "grid_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "resource_ref",
+        "sha256",
+        "bytes",
+        "media_type",
+        "scope",
+        "units",
+        "grid_ref"
+      ],
+      "additionalProperties": false
+    },
+    "RunManifest": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coastmas.run-manifest/1.0"
+        },
+        "run_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "project_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "topic_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "task_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "task_revision_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "workflow_ref": {
+          "$ref": "#/$defs/VersionRef"
+        },
+        "input_bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InputBinding"
+          },
+          "minItems": 0
+        },
+        "algorithm_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 1
+        },
+        "environment_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionRef"
+          },
+          "minItems": 1
+        },
+        "scenario_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "planning_problem_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "domains": {
+          "type": "object"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          },
+          "minItems": 0
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "engineering": {
+              "enum": [
+                "not_run",
+                "pass",
+                "fail"
+              ]
+            },
+            "business": {
+              "enum": [
+                "not_assessed",
+                "reviewed",
+                "rejected"
+              ]
+            },
+            "external_services": {
+              "enum": [
+                "not_used",
+                "not_run",
+                "verified"
+              ]
+            }
+          },
+          "required": [
+            "engineering",
+            "business",
+            "external_services"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "run_id",
+        "project_id",
+        "topic_id",
+        "task_id",
+        "task_revision_ref",
+        "workflow_ref",
+        "input_bindings",
+        "algorithm_refs",
+        "environment_refs",
+        "scenario_ref",
+        "planning_problem_ref",
+        "parameters",
+        "seed",
+        "domains",
+        "artifacts",
+        "validation"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

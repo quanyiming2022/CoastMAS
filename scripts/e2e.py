@@ -110,6 +110,16 @@ def main() -> int:
         "COASTMAS_E2E_ACCESS_FILE": str(runtime / "access.json"),
         "COASTMAS_E2E_URL": base_url,
     }
+    business_root = os.environ.get("COASTMAS_E2E_BUSINESS_ROOT")
+    if business_root:
+        environment["COASTMAS_LOCAL_IMPORT_ROOTS"] = json.dumps(
+            {
+                "business-acceptance": {
+                    "path": str(Path(business_root).resolve(strict=True)),
+                    "project_ids": [project],
+                }
+            }
+        )
     administrative = create_engine(local_database_url(), isolation_level="AUTOCOMMIT")
     store = S3ArtifactStore(local_storage_settings(), bucket=bucket)
     broker = Redis.from_url(broker_url)

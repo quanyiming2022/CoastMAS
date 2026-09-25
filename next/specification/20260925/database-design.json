@@ -1,0 +1,2931 @@
+{
+  "schema_version": "coastmas.db-design/1.0",
+  "status": "DESIGN_NOT_MIGRATED",
+  "rule": "每表scope要求由API授权和DB策略共同实现；JSONB仅放版本化结构/manifest，不放大数组。主文第20章优先。",
+  "tables": [
+    {
+      "table": "users",
+      "scope": "global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "email",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "display_name",
+          "type_and_nullability": "text"
+        },
+        {
+          "name": "password_hash",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "system_role",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "auth_version",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "UNIQUE(lower(email)); password_hash或外部身份至少一条",
+      "indexes": "email表达式唯一; status",
+      "invariants": "普通用户不可直接设置system_role；auth_version递增撤销相应会话；最后有效管理员事务保护",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "auth_identities",
+      "scope": "global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "user_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "provider",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "subject",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK user_id→users; UNIQUE(provider,subject)",
+      "indexes": "user_id",
+      "invariants": "外部身份只有实际配置的提供方可建立，不从邮箱自动认领",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "sessions",
+      "scope": "global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "user_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "token_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "auth_version",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "revoked_at",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK user_id→users; UNIQUE(token_hash)",
+      "indexes": "user_id,expires_at",
+      "invariants": "不存明文token；HttpOnly会话cookie的CSRF策略见安全章",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "projects",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "description",
+          "type_and_nullability": "text"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "revision",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "default_space_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK created_by→users; FK default_space_revision_id→resource_revisions; UNIQUE(id,revision)",
+      "indexes": "status,updated_at,id; name检索",
+      "invariants": "项目名不充当ID；archive/recycle不物理删资源；默认空间需属于同项目或合法grant",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "project_memberships",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "user_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "role",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "version",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(project_id,user_id); FK→projects,users",
+      "indexes": "user_id,status",
+      "invariants": "OWNER/EDITOR/ANALYST/VIEWER映射capability；成员失效后所有读取路径复验",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "research_topics",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "question",
+          "type_and_nullability": "text"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "revision",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project_id→projects; FK created_by→users; UNIQUE(project_id,id)",
+      "indexes": "project_id,status,updated_at,id",
+      "invariants": "研究内容不是Task；回收一个topic只按明确命令处理后代，不能隐式擦数据",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "resources",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "lifecycle",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "origin_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project_id→projects; FK created_by→users; UNIQUE(project_id,id)",
+      "indexes": "project_id,kind,lifecycle,updated_at,id; search_document GIN",
+      "invariants": "全局资源仅经批准的定义/算法；测试origin_kind不混业务；非空project_id的记录强制作用域",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "resource_revisions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "version_no",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "schema_version",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "spec_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "spec",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "manifest_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "parent_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource_id→resources; FK manifest_blob_id→blobs; FK parent_revision_id→resource_revisions; UNIQUE(resource_id,version_no); UNIQUE(project_id,id)",
+      "indexes": "resource_id,version_no DESC; project_id,spec_hash",
+      "invariants": "发布后不可UPDATE/DELETE；spec不存大数组；kind/schema双校验；项目须与resource一致",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "resource_drafts",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "base_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "revision",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "body",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "updated_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource_id→resources; FK base_revision_id→resource_revisions; FK updated_by→users",
+      "indexes": "project_id,updated_at",
+      "invariants": "允许未完科学内容但不允许错误类型/越权；ETag并发；body禁止secret/原件字节",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "version_approvals",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "purpose",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "approved_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "approved_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NULL"
+        },
+        {
+          "name": "evidence",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision_id→resource_revisions; FK approved_by→users",
+      "indexes": "project_id,revision_id,purpose,status",
+      "invariants": "发布与使用批准不同；撤销追加记录不追改旧Run；项目批准不升级系统角色",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "resource_grants",
+      "scope": "cross_project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "resource_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "owner_project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "recipient_project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "capabilities",
+          "type_and_nullability": "text[] NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; FK projects; UNIQUE(resource_revision_id,recipient_project_id)",
+      "indexes": "recipient_project_id,status",
+      "invariants": "跨项目显式固定版本授权，未授权不泄露hash已存在；历史访问也复验当前grant",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "blobs",
+      "scope": "storage",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "storage_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "sha256",
+          "type_and_nullability": "char(64) NOT NULL"
+        },
+        {
+          "name": "bytes",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "media_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "UNIQUE(storage_key); CHECK bytes>=0",
+      "indexes": "sha256,bytes; status",
+      "invariants": "物理去重与业务身份分离；不以猜hash获取对象；只通过授权引用解析",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "data_sources",
+      "scope": "global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "configuration",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "secret_ref",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "version",
+          "type_and_nullability": "bigint NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "连接仅允许白名单形态",
+      "indexes": "kind,status",
+      "invariants": "secret_ref不是凭据明文；定义连接不授权项目、不导入数据",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "data_source_grants",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "source_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "scope",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "version",
+          "type_and_nullability": "bigint NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(project_id,source_id); FK projects,data_sources",
+      "indexes": "source_id,status",
+      "invariants": "授权读取范围明确；撤权阻新接入，不自动删除受管快照",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "import_sessions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "actor_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "task_revision",
+          "type_and_nullability": "bigint NULL"
+        },
+        {
+          "name": "intent",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "target_slot",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "operation_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "selection_manifest",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project→projects; FK actor→users; FK task→tasks; UNIQUE(project_id,actor_id,operation_key)",
+      "indexes": "project_id,status,created_at; task_id",
+      "invariants": "固定发起意图；不可根据当前页面后改task_id；原件/绑定/预览状态分离",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "import_items",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "session_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "relative_path",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "declared_bytes",
+          "type_and_nullability": "bigint NULL"
+        },
+        {
+          "name": "received_bytes",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "role",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "upload_parts",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK session→import_sessions; FK blob→blobs; UNIQUE(session_id,relative_path)",
+      "indexes": "session_id,status",
+      "invariants": "路径归一和越界拒绝；分段manifest有界，超大parts可拆表；取消不冒错误",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "datasets",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "dataset_kind",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource_id→resources; FK project→projects",
+      "indexes": "project_id,dataset_kind",
+      "invariants": "逻辑数据集，不按附件数算主资产",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "dataset_versions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "profile_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "assembly_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "spatial_status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "semantic_status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "provenance",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision_id/profile_revision_id→resource_revisions",
+      "indexes": "project_id,assembly_hash; spatial_status",
+      "invariants": "assembly_hash含成员身份及解释；主TIFF hash相同但解释不同允许新版本",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "dataset_members",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "dataset_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "member_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "blob_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "relative_path",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "role",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "required_for",
+          "type_and_nullability": "text[] NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(dataset_revision_id,member_key); FK dataset_revision_id→dataset_versions; FK blob→blobs; UNIQUE(dataset_revision_id,relative_path)",
+      "indexes": "blob_id; dataset_revision_id,role",
+      "invariants": "角色primary/worldfile/pam/overview/mask/rat/encoding/metadata；只读隔离目录重建关系",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "dataset_parts",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "dataset_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "part_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "native_schema",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "profile",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "grid_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "record_count",
+          "type_and_nullability": "bigint NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK dataset_revision→dataset_versions; FK grid→resource_revisions; UNIQUE(dataset_revision_id,part_key)",
+      "indexes": "dataset_revision_id; profile概念检索GIN",
+      "invariants": "part可层/变量/时片；未知数量NULL不是0；大RAT/records另存artifact",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "collections",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "parent_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "kind",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK parent→collections; FK project→projects; UNIQUE(project_id,parent_id,name)",
+      "indexes": "project_id,parent_id",
+      "invariants": "逻辑集合树不得循环；不等同实时服务器目录",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "collection_members",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "collection_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(collection_id,resource_id); FK→collections,resources",
+      "indexes": "resource_id",
+      "invariants": "一个资源可多集合；移出集合不删除资源",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "spatial_indexes",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "resource_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "part_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "display_bbox",
+          "type_and_nullability": "geometry(MultiPolygon,4326) NULL"
+        },
+        {
+          "name": "source_crs",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "coverage_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "accuracy",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(resource_revision_id,part_key); FK revision→resource_revisions",
+      "indexes": "GiST(display_bbox); project_id",
+      "invariants": "跨日期线分割；显示bbox不是精确计算域；无法转换时保留NULL和具体原因",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "semantic_definitions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "concept_code",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "label",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "quantity_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "unit_dimension",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "definition",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision_id→resource_revisions",
+      "indexes": "concept_code; definition GIN",
+      "invariants": "同词不同概念独立；方向属于方法而非普遍变量属性",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "metadata_assertions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "subject_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "field_path",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "value",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "evidence_ref",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "applicability",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK subject_revision→resource_revisions; FK created_by→users",
+      "indexes": "subject_revision_id,field_path,status",
+      "invariants": "文件事实与人工/AI候选分开；无批量科学认可捷径；失效按适用范围",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "tabular_mappings",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "source_part_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "mapping",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "normalized_table_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "row_disposition_blob_id",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; FK source_part→dataset_parts; FK blobs",
+      "indexes": "source_part_id",
+      "invariants": "完整原行/列来源和规范长表身份保留；大表Parquet，结构/索引在DB",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "boundary_bindings",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "tabular_mapping_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "boundary_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "crosswalk_blob_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "issues",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/tabular_mapping_revision/boundary_revision→resource_revisions; FK crosswalk→blobs",
+      "indexes": "project_id,boundary_revision_id",
+      "invariants": "行政代码/时期/边界版本和分配系数可追溯；不按同名自动正确",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "analysis_spaces",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "space_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "definition",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "delivery_geometry",
+          "type_and_nullability": "geometry NULL"
+        },
+        {
+          "name": "control_ref",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/control_ref→resource_revisions",
+      "indexes": "GiST(delivery_geometry); project_id",
+      "invariants": "grid/unit/mesh；AOI/work/control分开；geometry源SRID明确，不混可视4326",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "scene_objects",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "object_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "external_identity",
+          "type_and_nullability": "text NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource_id→resources",
+      "indexes": "project_id,object_type",
+      "invariants": "源场景对象稳定ID，不按显示瓦片三角形序号持久绑定",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "scene_object_versions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "geometry",
+          "type_and_nullability": "geometry NULL"
+        },
+        {
+          "name": "mesh_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "vertical_datum",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "valid_time",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "attributes",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "precision",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; FK mesh→blobs",
+      "indexes": "GiST(geometry); project_id",
+      "invariants": "精细mesh在对象存储；显示LOD不能伪造计算精度",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "indicator_definitions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "concept_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "domain",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "output_spec",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/concept_revision→resource_revisions",
+      "indexes": "domain; concept_revision_id",
+      "invariants": "定义与recipe、算法分开，空业务定义只在draft存在",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "indicator_recipes",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "indicator_definition_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "input_requirements",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "graph_spec",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "quality_policy",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revisions→resource_revisions",
+      "indexes": "indicator_definition_revision_id",
+      "invariants": "已发布graph指向固定算法/模型版本；真实输出方能称已生成",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "algorithm_versions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "runtime_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "contract",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "package_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "capability_status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/runtime→resource_revisions; FK package→blobs",
+      "indexes": "kind,capability_status",
+      "invariants": "仅已验证可执行版本可用于正式计划；实现/许可/资格分别校验",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "method_versions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "task_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "basis_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "input_requirements",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "scoring_spec",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "estimator_or_evaluator_ref",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/estimator_or_evaluator_ref→resource_revisions",
+      "indexes": "task_type; estimator_or_evaluator_ref",
+      "invariants": "完整模板可留任务拟合参数；不是所有类型都需静态sum权重1",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "scoring_models",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "method_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "fit_inputs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "parameter_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "fit_domain",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/method_revision→resource_revisions; FK parameter→blobs",
+      "indexes": "project_id,method_revision_id",
+      "invariants": "固定拟合和参照；与颜色拉伸无关",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "weight_sets",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "estimator_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "indicator_ids",
+          "type_and_nullability": "uuid[] NOT NULL"
+        },
+        {
+          "name": "weights",
+          "type_and_nullability": "double precision[] NOT NULL"
+        },
+        {
+          "name": "fit_domain",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "diagnostics",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/estimator→resource_revisions; 数组成员通过事务/typed validation检查",
+      "indexes": "project_id,estimator_revision_id",
+      "invariants": "长度一致/有限数/ID唯一；按profile验证非负和为1，跨行非CHECK聚合；不塞10亿像元矩阵",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "classification_schemes",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "algorithm_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "breaks",
+          "type_and_nullability": "double precision[] NOT NULL"
+        },
+        {
+          "name": "labels",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "closure",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "fit_scope",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "semantic_status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/algorithm_revision→resource_revisions",
+      "indexes": "project_id,algorithm_revision_id",
+      "invariants": "断点单调/finite；采样及联合基准明确；源连续结果保持",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "model_packages",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "source_blob_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "static_report_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK blobs; FK created_by→users",
+      "indexes": "project_id,status",
+      "invariants": "接收不执行；包验证是隔离作业",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "model_versions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "package_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "contract",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "decoupling_level",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "runtime_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "decoupling_report_blob_id",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/runtime→resource_revisions; FK package→model_packages; FK report→blobs",
+      "indexes": "package_id; decoupling_level",
+      "invariants": "版本固定源码/依赖/入口/测试；未知脚本不自动宣称D2",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "runtime_environments",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "runner_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "image_digest",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "lock_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "platform",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "resource_policy",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "network_policy",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; FK lock→blobs",
+      "indexes": "runner_kind,platform",
+      "invariants": "固定digest或lock；不能挂宿主socket/总凭据",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "validation_records",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "subject_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "test_profile",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "run_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "evidence_blob_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "completed_at",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK subject→resource_revisions; FK run→runs; FK evidence→blobs",
+      "indexes": "subject_revision_id,test_profile",
+      "invariants": "工程/业务/协议/外部端点验证独立，不继承其他版本PASS",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "tasks",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "topic_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "subtype",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "owner_id",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource_id→resources; composite(project_id,topic_id)→research_topics(project_id,id); FK owner→users",
+      "indexes": "project_id,topic_id,task_type",
+      "invariants": "type为四类；工具运行映射为子型/子作业，不乱扩枚举",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "task_revisions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "task_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "workflow_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "analysis_space_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "config",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/workflow/space→resource_revisions; FK task_id→tasks",
+      "indexes": "task_id; project_id",
+      "invariants": "frozen snapshot；未保存草稿不得假已冻结",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "task_dependencies",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "downstream_task_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "upstream_task_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "relation",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "upstream_result_id",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK tasks; FK result→results; UNIQUE(downstream_task_id,upstream_task_id,relation,upstream_result_id)",
+      "indexes": "upstream_task_id",
+      "invariants": "执行依赖冻结结果；认知反馈不能直接制造无界执行环",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "input_bindings",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "slot_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "source_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "part_key",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "mapping_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "grant_id",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revisions→resource_revisions; FK grant→resource_grants; UNIQUE(task_revision_id,slot_key,source_revision_id,part_key)",
+      "indexes": "source_revision_id; task_revision_id",
+      "invariants": "草稿中的候选先保存在draft body，冻结时生成固定绑定；同输入不同合法slot可共存",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "workflow_versions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "graph_spec",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "compile_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "output_contract",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions",
+      "indexes": "compile_hash",
+      "invariants": "图节点有固定algorithm/model/adapters版本；动态迭代是受限macro",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "coupling_plans",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "bindings",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "adaptations",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "unresolved",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "decision_refs",
+          "type_and_nullability": "uuid[] NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/task_revision→resource_revisions",
+      "indexes": "project_id,task_revision_id",
+      "invariants": "硬冲突不可被rank覆盖；确认绑定明确源目标/影响hash",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "graph_nodes",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "node_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "resource_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "concept_code",
+          "type_and_nullability": "text NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; CHECK至少有明确身份",
+      "indexes": "project_id,node_kind; resource_revision_id",
+      "invariants": "对象/数据/模型/情景/约束等统一版本映射",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "graph_edges",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "edge_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "attributes",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "evidence",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project→projects",
+      "indexes": "project_id,edge_type",
+      "invariants": "hyperedge本身有关系类型及依据，不丢n元联合条件",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "graph_members",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "edge_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "node_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "role",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "ordinal",
+          "type_and_nullability": "int NOT NULL"
+        },
+        {
+          "name": "required",
+          "type_and_nullability": "boolean NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(edge_id,node_id,role); FK→graph_edges,graph_nodes",
+      "indexes": "node_id,role",
+      "invariants": "角色表达input/output/constraint/alternative，不只pairwise相似度",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "scenarios",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "base_scenario_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "base_period",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "target_period",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "assumptions",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "overrides",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revisions→resource_revisions",
+      "indexes": "project_id",
+      "invariants": "模拟/规划共用；假设参数有来源，不自动生成政策权重",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "planning_problems",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "unit_set_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "scenario_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "baseline_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "evaluation_workflow_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revisions→resource_revisions",
+      "indexes": "project_id,scenario_revision_id",
+      "invariants": "冻结目标约束变量集合通过下表关联；不是Run",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "planning_objectives",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "problem_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "metric_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "direction",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "target",
+          "type_and_nullability": "double precision NULL"
+        },
+        {
+          "name": "priority",
+          "type_and_nullability": "int NULL"
+        },
+        {
+          "name": "weight",
+          "type_and_nullability": "double precision NULL"
+        },
+        {
+          "name": "unit",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "definition",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK problem→planning_problems; FK metric→resource_revisions",
+      "indexes": "problem_revision_id",
+      "invariants": "缺价值权重不默填；true multiobjective不强要weight",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "planning_constraints",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "problem_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "hardness",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "rule_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "expression",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "scope_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "penalty",
+          "type_and_nullability": "jsonb NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK problem→planning_problems; FK rule→resource_revisions",
+      "indexes": "problem_revision_id,hardness",
+      "invariants": "单位/范围/有效期/引用有据；硬约束不能被软penalty掩盖",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "decision_variables",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "problem_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "name",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "domain",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "unit_ref",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "bounds",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "allowed_transitions",
+          "type_and_nullability": "jsonb NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK problem→planning_problems; FK unit_ref→resource_revisions",
+      "indexes": "problem_revision_id",
+      "invariants": "binary/integer/continuous/one_hot的维度、边界、索引固定",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "solver_versions",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "algorithm_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "capabilities",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "limits",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "external_service_ref",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision/algorithm→resource_revisions; FK service→data_sources",
+      "indexes": "capabilities GIN",
+      "invariants": "本地参考与真实外部端点状态分别记录；许可不是数据库secret",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "runs",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "actor_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "workflow_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "planning_problem_revision_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "manifest_blob_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "state",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "operation_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "started_at",
+          "type_and_nullability": "timestamptz NULL"
+        },
+        {
+          "name": "finished_at",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK task_revision→task_revisions; FK workflow→resource_revisions; FK problem→planning_problems; FK manifest→blobs; UNIQUE(project_id,actor_id,operation_key)",
+      "indexes": "project_id,state,created_at,id; task_revision_id",
+      "invariants": "同意图幂等，不以config_hash永久禁止重新运行；所有科学引用manifest固定",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "jobs",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "run_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "node_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "state",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "attempt",
+          "type_and_nullability": "int NOT NULL"
+        },
+        {
+          "name": "lease_owner",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "lease_token",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "lease_expires_at",
+          "type_and_nullability": "timestamptz NULL"
+        },
+        {
+          "name": "input_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "checkpoint_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "resources",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK run→runs; FK checkpoint→blobs; UNIQUE(run_id,node_key,attempt)",
+      "indexes": "state,lease_expires_at; run_id",
+      "invariants": "fencing token阻止过期worker提交；取消须执行端确认；依赖就绪才能租约",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "job_events",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "job_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "seq",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "event_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "payload",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(job_id,seq); FK job→jobs",
+      "indexes": "project_id,created_at",
+      "invariants": "进度基于真实分母；SSE支持Last-Event-ID，不传敏感环境",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "results",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "run_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "result_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "resource_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "result_kind",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "scope",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "validation_status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK run→runs; FK revision→resource_revisions; UNIQUE(run_id,result_key)",
+      "indexes": "project_id,result_kind; run_id",
+      "invariants": "只有完整文件校验后commit；结果科学内容不可变",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "plan_candidates",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "run_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "problem_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "candidate_no",
+          "type_and_nullability": "int NOT NULL"
+        },
+        {
+          "name": "allocation_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "objectives",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "feasibility_report_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "solver_status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK run→runs; FK problem→planning_problems; FK other revisions→resource_revisions; UNIQUE(run_id,candidate_no)",
+      "indexes": "problem_revision_id,solver_status",
+      "invariants": "原问题独立验可行性；非最优不能称最优；不等同正式规划",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "plan_evaluations",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "candidate_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "evaluation_run_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "baseline_result_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "metrics",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK candidate→plan_candidates; FK run→runs",
+      "indexes": "candidate_id",
+      "invariants": "评价读取候选反事实状态，不只是复用基期得分",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "comparison_specs",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "subject_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "comparability_report",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "metric_specs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "common_basis",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revision→resource_revisions; subject refs服务端逐一FK解析",
+      "indexes": "project_id",
+      "invariants": "固定Run/Result/Plan引用；多期断点和有效域明确",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "statistics_queries",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "source_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "scope",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "metric_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "result_revision_id",
+          "type_and_nullability": "uuid NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK metric/result→resource_revisions",
+      "indexes": "project_id,status",
+      "invariants": "scope=viewport/sample/selection/full显式；缓存key含分母/方法/版本",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "exports",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "requested_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "source_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "format_profile_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "state",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "manifest_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "operation_key",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK actor→users; FK format→resource_revisions; FK manifest→blobs; UNIQUE(project_id,requested_by,operation_key)",
+      "indexes": "project_id,state",
+      "invariants": "下载原件/标准数据/图件分开；export不等于公开publish",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "reports",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "facts_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "template_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "ai_action_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "documents",
+          "type_and_nullability": "jsonb NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK revisions→resource_revisions; FK ai→ai_actions",
+      "indexes": "project_id",
+      "invariants": "文字数字来自ResultFacts和引用，不能看PNG编统计",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "review_requests",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "subject_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "review_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "assigned_to",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "created_by",
+          "type_and_nullability": "uuid NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK subject→resource_revisions; FK users",
+      "indexes": "project_id,status,assigned_to",
+      "invariants": "方法使用批准、结果业务评议、规划发布分开",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "review_events",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "request_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "actor_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "decision",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "comment",
+          "type_and_nullability": "text"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK request→review_requests; FK actor→users",
+      "indexes": "request_id,created_at",
+      "invariants": "意见追加留痕；审批对象版本不能漂移",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "publications",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "subject_revision_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "visibility",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "service_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "policy",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK subject→resource_revisions",
+      "indexes": "project_id,status",
+      "invariants": "公开发布另行授权，撤销服务不抹掉原成果",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "workspace_states",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "user_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "state_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "version",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "view_state",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "updated_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "UNIQUE(user_id,project_id,state_key); FK users/projects/tasks",
+      "indexes": "user_id,project_id",
+      "invariants": "只存视图/固定引用，不存密码、大数组；恢复重新验权限",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "selection_snapshots",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "user_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "query",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "membership_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "small_members",
+          "type_and_nullability": "jsonb NULL"
+        },
+        {
+          "name": "count",
+          "type_and_nullability": "bigint NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project/users/blob",
+      "indexes": "project_id,user_id,expires_at",
+      "invariants": "跨页全选固定成员与版本；执行时复验授权并逐项结果",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "idempotency_records",
+      "scope": "global_scoped",
+      "columns": [
+        {
+          "name": "principal_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "scope_key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "key",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "request_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "response_ref",
+          "type_and_nullability": "jsonb NULL"
+        },
+        {
+          "name": "state",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "expires_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "PK(principal_id,scope_key,key); FK principal→users",
+      "indexes": "expires_at",
+      "invariants": "同键不同请求409；重放原回执；期限大于最大作业重试期并记录",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "outbox_events",
+      "scope": "global_scoped",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "aggregate_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "event_type",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "payload",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "published_at",
+          "type_and_nullability": "timestamptz NULL"
+        },
+        {
+          "name": "retry_count",
+          "type_and_nullability": "int NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK project→projects",
+      "indexes": "published_at,created_at",
+      "invariants": "与Run/Job写入同事务；重发幂等，不依赖Redis持久存活",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "audit_events",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "actor_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "action",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "subject_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "subject_version",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "request_id",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "summary",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "created_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK actors按保留主体策略；append only",
+      "indexes": "project_id,created_at,id; actor_id,created_at; action",
+      "invariants": "不记录密码/token/完整敏感输入；中文映射显示原action可查；不得UI任意删除",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "recycle_entries",
+      "scope": "project_or_global",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "resource_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "recycled_by",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "recycled_at",
+          "type_and_nullability": "timestamptz NOT NULL"
+        },
+        {
+          "name": "reason",
+          "type_and_nullability": "text"
+        },
+        {
+          "name": "restored_at",
+          "type_and_nullability": "timestamptz NULL"
+        },
+        {
+          "name": "retention_until",
+          "type_and_nullability": "timestamptz NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK resource→resources; FK actor→users",
+      "indexes": "project_id,restored_at,recycled_at",
+      "invariants": "回收关系可恢复；引用检查后有权物理清理，不清外部原目录",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "table": "ai_actions",
+      "scope": "project",
+      "columns": [
+        {
+          "name": "id",
+          "type_and_nullability": "uuid PK"
+        },
+        {
+          "name": "project_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "actor_id",
+          "type_and_nullability": "uuid NOT NULL"
+        },
+        {
+          "name": "task_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "purpose",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "provider_ref",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "model",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "prompt_hash",
+          "type_and_nullability": "text NOT NULL"
+        },
+        {
+          "name": "input_refs",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "consent_ref",
+          "type_and_nullability": "text NULL"
+        },
+        {
+          "name": "output_blob_id",
+          "type_and_nullability": "uuid NULL"
+        },
+        {
+          "name": "tool_receipts",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "usage",
+          "type_and_nullability": "jsonb NOT NULL"
+        },
+        {
+          "name": "status",
+          "type_and_nullability": "text NOT NULL"
+        }
+      ],
+      "keys_and_foreign_references": "FK users/tasks/blob",
+      "indexes": "project_id,task_id,status",
+      "invariants": "默认不外发；usage只有真实计费回执，候选与批准分开",
+      "implementation_status": "SPECIFIED_NOT_IMPLEMENTED"
+    }
+  ]
+}

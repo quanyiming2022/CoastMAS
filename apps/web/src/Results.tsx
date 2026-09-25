@@ -6,6 +6,7 @@ import { z } from "zod";
 import { request, resultSchema } from "./api";
 import { contract } from "./contracts";
 import TemporalResultView from "./TemporalResultView";
+import ProjectionResultView, { projectionResult } from "./ProjectionResultView";
 const temporalResult = contract("TemporalResult");
 import { payloadSchema } from "./result-payload";
 import { useWorkspace } from "./workspace";
@@ -245,6 +246,8 @@ export function ResultDetail() {
   );
 }
 export function ResultValue({ value }: { value: unknown }) {
+  const projection = projectionResult.safeParse(value);
+  if (projection.success) return <ProjectionResultView result={projection.data} />;
   const temporal = temporalResult.safeParse(value);
   if (temporal.success) return <TemporalResultView result={temporal.data} />;
   const preview = opticalPreview.safeParse(value);

@@ -1,6 +1,21 @@
 {
   "components": {
     "schemas": {
+      "ApproveProvidedRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "expected_version"
+        ],
+        "title": "ApproveProvidedRequest",
+        "type": "object"
+      },
       "BindingPlan": {
         "additionalProperties": false,
         "properties": {
@@ -130,6 +145,32 @@
           "variable"
         ],
         "title": "BindingTarget",
+        "type": "object"
+      },
+      "Body_ingest_api_v1_data_assets_ingest_post": {
+        "properties": {
+          "declaration": {
+            "maxLength": 4096,
+            "title": "Declaration",
+            "type": "string"
+          },
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          },
+          "project_id": {
+            "maxLength": 128,
+            "title": "Project Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "declaration",
+          "file"
+        ],
+        "title": "Body_ingest_api_v1_data_assets_ingest_post",
         "type": "object"
       },
       "Body_upload_api_v1_data_assets_upload_post": {
@@ -742,6 +783,51 @@
         "title": "Extent",
         "type": "object"
       },
+      "FeatureBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "asset_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "band": {
+            "default": 1,
+            "minimum": 1.0,
+            "title": "Band",
+            "type": "integer"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "unit": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Unit",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "unit",
+          "asset_id",
+          "version"
+        ],
+        "title": "FeatureBinding",
+        "type": "object"
+      },
       "FrameworkPlanRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1048,7 +1134,89 @@
         "title": "ImportRequest",
         "type": "object"
       },
+      "IntakeDeclaration": {
+        "additionalProperties": false,
+        "properties": {
+          "license": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "License",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source",
+            "type": "string"
+          },
+          "year": {
+            "anyOf": [
+              {
+                "maximum": 9999.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Year"
+          }
+        },
+        "required": [
+          "name",
+          "source",
+          "license"
+        ],
+        "title": "IntakeDeclaration",
+        "type": "object"
+      },
       "JsonValue": {},
+      "LocalImport": {
+        "additionalProperties": false,
+        "properties": {
+          "declaration": {
+            "$ref": "#/components/schemas/IntakeDeclaration"
+          },
+          "path": {
+            "maxLength": 2048,
+            "minLength": 1,
+            "title": "Path",
+            "type": "string"
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "source": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "source",
+          "path",
+          "declaration"
+        ],
+        "title": "LocalImport",
+        "type": "object"
+      },
       "LoginRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1675,6 +1843,69 @@
         "title": "PlanRequest",
         "type": "object"
       },
+      "PrepareFrameRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/FeatureBinding"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Features",
+            "type": "array"
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Name",
+            "type": "string"
+          },
+          "options": {
+            "$ref": "#/components/schemas/RasterFrameOptions"
+          },
+          "period": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TimeRange"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "time_resolution": {
+            "anyOf": [
+              {
+                "maxLength": 256,
+                "minLength": 1,
+                "pattern": ".*\\S.*",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time Resolution"
+          }
+        },
+        "required": [
+          "project_id",
+          "name",
+          "features",
+          "options"
+        ],
+        "title": "PrepareFrameRequest",
+        "type": "object"
+      },
       "PrepareIndicatorsRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1790,6 +2021,32 @@
         "title": "ProposalDraft",
         "type": "object"
       },
+      "ProvidedModelRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "method": {
+            "enum": [
+              "ppci_mcdc",
+              "ppr_ols"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "project_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": ".*\\S.*",
+            "title": "Project Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "method"
+        ],
+        "title": "ProvidedModelRequest",
+        "type": "object"
+      },
       "PublicationRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1863,6 +2120,55 @@
           "unit"
         ],
         "title": "QuantitativeConstraint",
+        "type": "object"
+      },
+      "RasterFrameOptions": {
+        "additionalProperties": false,
+        "properties": {
+          "mode": {
+            "enum": [
+              "all",
+              "sample"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "response_index": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Response Index"
+          },
+          "sample_size": {
+            "default": 1000,
+            "maximum": 10000.0,
+            "minimum": 4.0,
+            "title": "Sample Size",
+            "type": "integer"
+          },
+          "seed": {
+            "default": 42,
+            "maximum": 2147483647.0,
+            "minimum": 0.0,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "standardize": {
+            "title": "Standardize",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "mode",
+          "standardize"
+        ],
+        "title": "RasterFrameOptions",
         "type": "object"
       },
       "ResearchCaseSelection": {
@@ -4281,6 +4587,226 @@
           }
         },
         "summary": "Create Data"
+      }
+    },
+    "/api/v1/data-assets/ingest": {
+      "post": {
+        "operationId": "ingest_api_v1_data_assets_ingest_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_ingest_api_v1_data_assets_ingest_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Ingest Api V1 Data Assets Ingest Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ingest",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/v1/data-assets/ingest-local": {
+      "post": {
+        "operationId": "ingest_local_api_v1_data_assets_ingest_local_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocalImport"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Ingest Local Api V1 Data Assets Ingest Local Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ingest Local",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/v1/data-assets/local-files": {
+      "get": {
+        "operationId": "local_files_api_v1_data_assets_local_files_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "source",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Local Files Api V1 Data Assets Local Files Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Local Files",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/v1/data-assets/prepare-raster-frame": {
+      "post": {
+        "operationId": "prepare_api_v1_data_assets_prepare_raster_frame_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrepareFrameRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Prepare Api V1 Data Assets Prepare Raster Frame Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Prepare",
+        "tags": [
+          "data"
+        ]
       }
     },
     "/api/v1/data-assets/search": {
@@ -6897,6 +7423,95 @@
         ]
       }
     },
+    "/api/v1/models/provided-packages": {
+      "get": {
+        "operationId": "packages_api_v1_models_provided_packages_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Packages Api V1 Models Provided Packages Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Packages",
+        "tags": [
+          "models"
+        ]
+      },
+      "post": {
+        "operationId": "register_api_v1_models_provided_packages_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvidedModelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Register Api V1 Models Provided Packages Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Register",
+        "tags": [
+          "models"
+        ]
+      }
+    },
     "/api/v1/models/search": {
       "get": {
         "operationId": "search_models_api_v1_models_search_get",
@@ -7169,6 +7784,62 @@
           }
         },
         "summary": "Update Model"
+      }
+    },
+    "/api/v1/models/{identifier}/approve-provided-runtime": {
+      "post": {
+        "operationId": "approve_api_v1_models__identifier__approve_provided_runtime_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identifier",
+            "required": true,
+            "schema": {
+              "title": "Identifier",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveProvidedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/JsonValue"
+                  },
+                  "title": "Response Approve Api V1 Models  Identifier  Approve Provided Runtime Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Approve",
+        "tags": [
+          "models"
+        ]
       }
     },
     "/api/v1/models/{identifier}/copy": {

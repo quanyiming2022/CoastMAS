@@ -1,0 +1,272 @@
+{
+  "baseline": "docs/CoastMAS-import-and-method-editor-integrated-20260924.md",
+  "build": null,
+  "items": [
+    {
+      "id": "A01",
+      "scenario": "研究添加入口",
+      "required": "一次点击出现有效选择界面；无只含添加按钮的中转modal",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A02",
+      "scenario": "系统选择器取消",
+      "required": "返回原界面，不创建空资产/空研究/错误失败记录",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A03",
+      "scenario": "文件拖放/多选",
+      "required": "不绕进第二套流程，同一真实检测和组包服务",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A04",
+      "scenario": "GeoTIFF单主件定位完整",
+      "required": "不强制TFW/AUX/OVR；安全读取后自动预览",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A05",
+      "scenario": "主TIFF+TFW+AUX+OVR",
+      "required": "一个逻辑资料、成员正确，任务不出现4个评价指标",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A06",
+      "scenario": "单TFW且库有主件候选",
+      "required": "正确查询候选，不强制重传主文件；关系不明需一次核对",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A07",
+      "scenario": "单TFW且无主件",
+      "required": "待关联不冒任务输入，补选主件后自动续接，不再点“继续成组”",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A08",
+      "scenario": "TFW已有但CRS缺失",
+      "required": "不误认为完整定位；安全原值可查，地理动作明确待补",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A09",
+      "scenario": "多个同名主件/跨目录",
+      "required": "不跨包按名误绑，不泄露别的项目候选",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A10",
+      "scenario": "内嵌/PAM/TFW定位冲突",
+      "required": "显示真实差异，按依据处理；历史版本不改变",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A11",
+      "scenario": "可选OVR缺失/损坏",
+      "required": "完好原件可用，显示缓存可重建，不误作评价源值",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A12",
+      "scenario": "掩膜/解释后补",
+      "required": "新解释正确，必要下游失效；显示缓存更新不无故重算",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A13",
+      "scenario": "Shapefile/多图层包",
+      "required": "正确分组与成员检查，多层保留，任务绑定遵循明确角色",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A14",
+      "scenario": "普通CSV/文档输入",
+      "required": "不要求TIFF主件；先表格/原文，适用角色再映射",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A15",
+      "scenario": "成品指标 vs 原始资料路线",
+      "required": "接受已确认成品，且不会同时要求另一原始路线全部资料",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A16",
+      "scenario": "NDVI配方输入",
+      "required": "实际红/NIR匹配，缺NIR有具体提示，任意RGB不冒成功",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A17",
+      "scenario": "统计空间化分支",
+      "required": "行政关联与回归分配列不同所需资料；只要求选定方法需要的辅助量",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A18",
+      "scenario": "训练/预测/聚类",
+      "required": "必要角色分别计算，预测不强要真值，聚类不强要响应",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A19",
+      "scenario": "缺方法/源单位未知",
+      "required": "导入和允许查看继续，只有需要条件的节点被阻挡",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A20",
+      "scenario": "数据库入口与任务入口",
+      "required": "前者仅入库和预览，后者按意图加入固定任务；地址栏不误判目标",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A21",
+      "scenario": "接收中切任务/归档/撤权",
+      "required": "不串绑，不绕权，分别报告入库与加入结果，成功字节可按权恢复",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A22",
+      "scenario": "中断/同次重试/换文件",
+      "required": "幂等无重复，自动后台会话管理，保留成功项和有效声明",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A23",
+      "scenario": "93B文件/大文件/多项失败",
+      "required": "单位真实，进度有实际分母，不显示0.00MiB伪空；半批结果逐项明确",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A24",
+      "scenario": "点击成本与整体恢复",
+      "required": "无问题路径无重复确认；问题只问相关项；重开不丢服务器已存资料/绑定，原地图状态正常",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A25",
+      "scenario": "新建空方案",
+      "required": "无大红框、无无意义权重合计0，可以保存未完成草稿；草稿保存不被发布必需字段阻挡",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A26",
+      "scenario": "部分内容恢复",
+      "required": "填写部分内容后刷新、关闭重开保留；服务器确认前不能显示已保存，失败不丢输入",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A27",
+      "scenario": "发布不完整方案",
+      "required": "准确指出依据/指标等真实缺项，不出现Pydantic/TemplateSpec/input_value/框架链接原文；保留草稿，不创建成功版本",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A28",
+      "scenario": "按方法出现控件",
+      "required": "固定参考、其他评分方式、AHP、手工权重及实际数据驱动配置各用适用控件，不统一强迫上下限/权重",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A29",
+      "scenario": "完整方案发布与使用",
+      "required": "正确持久化固定版本；按项目所需资格执行批准后，可在研究中明确引用；发布/批准/应用状态不混同",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A30",
+      "scenario": "无批准权限",
+      "required": "不能通过改请求、勾选字段或绕前端取得批准；服务端真正拒绝，原资格不变",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A31",
+      "scenario": "修订与历史",
+      "required": "新修订有独立身份；旧版本、已有研究固定引用和旧运行结果不变",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A32",
+      "scenario": "四种实际页面",
+      "required": "同一构建提供空状态、编辑、发布失败、发布成功页面，并有实际请求/记录证据，不只静态截图",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A33",
+      "scenario": "数据/方法/判断表的导入入口",
+      "required": "相同扩展名也按明确入口正确分流；方法指标表不成为科研数据，CSV/文档不被统一要求TIFF主件",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A34",
+      "scenario": "方法发布后应用",
+      "required": "固定方法引用驱动真实输入需求与替代路线；已适用的输入保留，未满足项具体可修复；浏览方法不自动应用",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A35",
+      "scenario": "接收中切任务/方法",
+      "required": "原导入目标不随活动页面变化；新版本发布不改历史；配置变化时重新核对绑定并保留成功受管资料",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A36",
+      "scenario": "保存/发布边界与故障",
+      "required": "缺业务字段可保存，但错误类型/越权仍拒绝；发布失败不伪成功；请求不确定或重试不产生重复发布",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A37",
+      "scenario": "三种方法创建起点",
+      "required": "复制、导入、从零编制均真实可用；保留原方案、导入原文及必要来源，缺内容生成可继续草稿而不冒已发布",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "A38",
+      "scenario": "一次完整联合路径",
+      "required": "在同一构建完成方法草稿→完善→发布/适用批准→应用研究→自动提示所需资料→导入/绑定→已有实际执行链→真实成果；无重复上传、无整页套娃、无旧结果覆盖",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ]
+}

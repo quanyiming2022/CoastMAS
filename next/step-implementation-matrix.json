@@ -1,0 +1,64 @@
+{
+  "build": "58013 / artifacts/unified-business-dev8",
+  "source_baseline": "artifacts/ui-semantics-20260924/baseline-components.json",
+  "root_cause": "ResearchWorkspace mounts ResearchStepPanel and a whole TaskWorkspace; workbench.css data-processing-step filtering is used to hide unrelated sections. It does not establish independent step services.",
+  "steps": [
+    {
+      "step": "资料装配",
+      "component": "ResearchStepPanel + TaskWorkspace",
+      "api": "inputs:attach / upload-groups / source-snapshots",
+      "artifacts": "受管资料、固定输入引用",
+      "gap": "已接通输入事务；重复嵌入整页表单需移除"
+    },
+    {
+      "step": "空间统一",
+      "component": "ResearchStepPanel + TaskWorkspace",
+      "api": "processing-nodes(valid_mask)；正式assessment网格校验",
+      "artifacts": "目前仅有效覆盖图",
+      "gap": "未实现独立参考网格对齐与受管输出；不是资料不足"
+    },
+    {
+      "step": "统计空间化",
+      "component": "ResearchStepPanel说明",
+      "api": "无对应独立处理接口",
+      "artifacts": "无",
+      "gap": "未实现年鉴关联、辅助分配与下游接续；是否适用须根据配置确定"
+    },
+    {
+      "step": "指标生产",
+      "component": "通用mapping表",
+      "api": "save_task变量映射",
+      "artifacts": "绑定；未生成原始指标",
+      "gap": "已有指标引用可用；缺真实配方生产服务和独立操作"
+    },
+    {
+      "step": "指标标准化",
+      "component": "ResearchStepPanel + MethodSelector",
+      "api": "assessment执行内normalize",
+      "artifacts": "indicator-N.tif",
+      "gap": "算法已实现但没有独立阶段执行/保存与动作边界"
+    },
+    {
+      "step": "权重配置",
+      "component": "ResearchStepPanel + MethodSelector",
+      "api": "ahp/preview、ahp/import；assessment内权重",
+      "artifacts": "诊断与固定权重",
+      "gap": "AHP实际算法已实现；步骤内未接编辑、固定权重集"
+    },
+    {
+      "step": "综合计算",
+      "component": "ResearchStepPanel + TaskWorkspace",
+      "api": "tasks/execute",
+      "artifacts": "综合、原值、评分、贡献、质量TIFF",
+      "gap": "真实全域综合通过；仍重复整页总表单，未引用独立阶段产物"
+    },
+    {
+      "step": "验证交付",
+      "component": "ResearchStepPanel + TaskWorkspace + ResultView",
+      "api": "jobs/result、descriptor、inspect、bundle",
+      "artifacts": "真实地图/表格/下载",
+      "gap": "真实成果可用；尚缺完整科研验证和阶段交付界面"
+    }
+  ],
+  "status": "IMPLEMENTING; no whole-eight-step acceptance claimed"
+}

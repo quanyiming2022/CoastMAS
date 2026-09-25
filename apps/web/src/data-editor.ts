@@ -33,6 +33,11 @@ export function prepareDataRevision(
     uri: base.uri,
     checksum: base.checksum,
     quality: {
+      ...Object.fromEntries(
+        ["declarations", "file_facts"]
+          .filter((key) => key in base.quality)
+          .map((key) => [key, base.quality[key]]),
+      ),
       ...(typeof base.quality.size_bytes === "number"
         ? { size_bytes: base.quality.size_bytes }
         : {}),

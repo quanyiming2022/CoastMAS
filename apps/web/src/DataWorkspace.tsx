@@ -129,15 +129,12 @@ function Workspace({ id, projectId }: { id?: string; projectId: string }) {
       let candidate: Record<string, unknown>;
       if (!id) {
         if (!file) throw new Error("请选择实际数据文件");
-        if (file.size > 64 * 1024 * 1024)
-          throw new Error("文件不得超过 64 MiB");
-        const digest = await crypto.subtle.digest(
-          "SHA-256",
-          await file.arrayBuffer(),
-        );
-        const checksum = Array.from(new Uint8Array(digest), (byte) =>
-          byte.toString(16).padStart(2, "0"),
-        ).join("");
+        const limit = ["GeoTIFF", "COG"].includes(String(current.format))
+          ? 2 * 1024 ** 3
+          : 64 * 1024 ** 2;
+        if (file.size > limit) throw new Error("文件超过当前格式的接入上限");
+        // Server computes the checksum over a disk snapshot; no whole-file browser buffer.
+        const checksum = "0".repeat(64);
         candidate = {
           ...current,
           checksum,

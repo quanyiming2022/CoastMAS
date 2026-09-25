@@ -1,0 +1,43 @@
+{
+  "recorded_at": "2026-09-25T02:13:57.540102+00:00",
+  "served_build": "master-v3-dev25",
+  "before_commit": "88f7b629c1bde2c91090e2ff1a47917567895b38",
+  "scope": "Existing development baseline; no product code changed by the GitHub onboarding task.",
+  "checks": [
+    {
+      "check": "backend",
+      "cwd": "next",
+      "command": ".venv/bin/python -m pytest -q tests",
+      "exit_code": 0,
+      "evidence": "backend.log"
+    },
+    {
+      "check": "frontend",
+      "cwd": "next/web",
+      "command": "npm test",
+      "exit_code": 0,
+      "evidence": "frontend.log"
+    },
+    {
+      "check": "lint",
+      "cwd": "next/web",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "evidence": "lint.log"
+    },
+    {
+      "check": "build",
+      "cwd": "next/web",
+      "command": "npm run build",
+      "exit_code": 0,
+      "evidence": "build.log"
+    },
+    {
+      "check": "browser",
+      "cwd": "next/web",
+      "command": "npx playwright test e2e/builtin-indicators.spec.ts e2e/desktop-visual.spec.ts e2e/planning-objects.spec.ts e2e/planning-units.spec.ts e2e/v3-navigation.spec.ts",
+      "exit_code": 1,
+      "evidence": "browser.log"
+    }
+  ]
+}

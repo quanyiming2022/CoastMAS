@@ -1,0 +1,38 @@
+{
+  "compilation_date": "2026-09-25",
+  "input_count": 3,
+  "unique_content_count": 2,
+  "files": [
+    {
+      "id": "S1",
+      "filename": "粘贴的文本 (1).txt",
+      "version": "V3.0",
+      "bytes": 33045,
+      "line_count": 2353,
+      "sha256": "c5314508021564fd5cf0016b9c78078441881ba48d1d3670cfd70f63a6f0d6f1",
+      "duplicate_of": null,
+      "role": "规划融合扩展"
+    },
+    {
+      "id": "S2",
+      "filename": "粘贴的文本 (2).txt",
+      "version": "V2.0",
+      "bytes": 32871,
+      "line_count": 2232,
+      "sha256": "90154307d552278c5134ec7ac798eebbac3bf0fcf948ff0635ac2aaed4772c1c",
+      "duplicate_of": null,
+      "role": "数据/指标/模型/Coupler底层总架构"
+    },
+    {
+      "id": "S3",
+      "filename": "粘贴的文本 (3).txt",
+      "version": "V3.0",
+      "bytes": 33045,
+      "line_count": 2353,
+      "sha256": "c5314508021564fd5cf0016b9c78078441881ba48d1d3670cfd70f63a6f0d6f1",
+      "duplicate_of": "S1",
+      "role": "规划融合扩展"
+    }
+  ],
+  "other_basis": "已在本轮对话中明确的交互裁决单列，不将旧任务书当成第四个本次附件。"
+}

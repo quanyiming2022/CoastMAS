@@ -10,6 +10,7 @@ from fastapi import APIRouter, Query, Request
 from pydantic import JsonValue
 from sqlalchemy import select
 
+from coastmas.adapters.projection_pursuit import ProjectionFrame
 from coastmas.app.data_routes import data_resource, inspect_isolated, stored_content
 from coastmas.app.dependencies import CurrentUser, DatabaseSession, artifact_store
 from coastmas.app.planning_routes import PlanRequest, create_plan
@@ -182,7 +183,7 @@ def prepare(
         item
         for item in data.variables
         if item.name == "frame"
-        and item.standard_name == "indicator_frame"
+        and item.standard_name in {"indicator_frame", "projection_pursuit_frame"}
         and item.data_type == "json"
     ]
     if (
@@ -191,8 +192,13 @@ def prepare(
         or data.quality.get("validated") is not True
         or len(variables) != 1
     ):
-        raise ConstraintError("preparation requires a validated JSON indicator frame")
-    if variables[0].spatial_support != framework.spatial_support:
+        raise ConstraintError(
+            "select validated indicator observations or prepared raster observations"
+        )
+    raster_observations = variables[0].standard_name == "projection_pursuit_frame"
+    if raster_observations and framework.spatial_support != "grid":
+        raise ConstraintError("raster cells require a grid indicator framework")
+    if not raster_observations and variables[0].spatial_support != framework.spatial_support:
         raise ConstraintError("framework and observations have different spatial supports")
     size = data.quality.get("size_bytes")
     if not isinstance(size, int) or isinstance(size, bool) or not 0 < size <= 16_777_216:
@@ -201,7 +207,11 @@ def prepare(
     document = json.loads(content)
     if not isinstance(document, dict) or "frame" not in document:
         raise ConstraintError("stored observations lack an indicator frame")
-    observations = IndicatorFrame.model_validate(document["frame"])
+    observations: IndicatorFrame | ProjectionFrame = (
+        ProjectionFrame.model_validate(document["frame"])
+        if raster_observations
+        else IndicatorFrame.model_validate(document["frame"])
+    )
     derived = apply_framework(framework, observations)
     payload = json.dumps(
         {
@@ -209,6 +219,8 @@ def prepare(
             "framework": {"id": identifier, "version": framework.version},
             "observations": body.data.model_dump(mode="json"),
             "weight_method": framework.indicators[0].weight_method,
+            "locations": observations.model_dump(mode="json").get("locations"),
+            "observation_scope": data.quality.get("scope"),
         },
         ensure_ascii=False,
         allow_nan=False,
@@ -222,7 +234,18 @@ def prepare(
             "name": framework.name[:230] + " / prepared indicators",
             "checksum": digest,
             "quality": {},
-            "variables": (variables[0],),
+            "variables": (
+                variables[0].model_copy(
+                    update={
+                        "standard_name": "indicator_frame",
+                        "spatial_support": framework.spatial_support,
+                        "description": (
+                            "Indicators derived from explicit framework formulas "
+                            "and source observations"
+                        ),
+                    }
+                ),
+            ),
         }
     )
     report = inspect_isolated(payload, prepared)
@@ -232,7 +255,9 @@ def prepare(
         update={
             "uri": stored.uri,
             "quality": {
+                **data.quality,
                 **report.metadata,
+                "source_values": "raw_before_model_standardization",
                 "framework_id": identifier,
                 "framework_version": framework.version,
                 "weight_method": framework.indicators[0].weight_method,

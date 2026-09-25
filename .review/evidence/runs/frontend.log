@@ -1,0 +1,17 @@
+
+> coastmas-task-workspace@2.0.0 test
+> vitest run
+
+
+ RUN  v5.0.1 <repository>/next/web
+
+
+ Test Files  28 passed (28)
+      Tests  72 passed (72)
+   Start at  10:06:17
+   Duration  4.62s (environment 57%, tests 19%, import 9%, transform 8%, setup 7%)
+
+Environment  jsdom was created 28 times · 20.80s total, 57% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

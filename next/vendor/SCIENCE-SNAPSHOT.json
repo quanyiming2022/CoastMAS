@@ -1,0 +1,115 @@
+{
+  "purpose": "Private scientific implementation snapshot; no old API, database or compatibility layer",
+  "modules": [
+    {
+      "module": "coastmas.domain.screening",
+      "sha256": "e36f941f3706d5010767108702268ef9e310cf62d16a76eeb265112a16bbf62b",
+      "origin": "src/coastmas/domain/screening.py"
+    },
+    {
+      "module": "coastmas.core.errors",
+      "sha256": "b2d01bcd0fbfaed2346bb52318d230a8b44b0b26a6801e0b99a2ba50804b024f",
+      "origin": "src/coastmas/core/errors.py"
+    },
+    {
+      "module": "coastmas.domain.remote_sensing",
+      "sha256": "1b5ca72e9cc1e102b8eb57f6a3123ca630395bd7363e21d5366ea18efb5e888e",
+      "origin": "src/coastmas/domain/remote_sensing.py"
+    },
+    {
+      "module": "coastmas.core.numeric",
+      "sha256": "218de5a78ab66eb253b5c563f94c9ee634f486d2bf8a09725e394c7f72261eb7",
+      "origin": "src/coastmas/core/numeric.py"
+    },
+    {
+      "module": "coastmas.domain.indicator_framework",
+      "sha256": "102ec930ddfddb44bfb3c1b6a67820ca316fdb174a05cd0673dd2a1c9a237f82",
+      "origin": "src/coastmas/domain/indicator_framework.py"
+    },
+    {
+      "module": "coastmas.domain.raster_units",
+      "sha256": "e494eb4d99da394d1fbd4535f92c216a826771ed1126583948dbb3ce517122c1",
+      "origin": "src/coastmas/domain/raster_units.py"
+    },
+    {
+      "module": "coastmas.domain.raster",
+      "sha256": "a215f90a4e586584732c041bd82741dc8e67fcfc4d96a413b98050af03742a3a",
+      "origin": "src/coastmas/domain/raster.py"
+    },
+    {
+      "module": "coastmas.domain.assessment",
+      "sha256": "026ee366b1ca9d9d69b73db2f2c07c09eae785bb5ff59fe8bcb73a6334868097",
+      "origin": "src/coastmas/domain/assessment.py"
+    },
+    {
+      "module": "coastmas.core.contracts",
+      "sha256": "b5ec21ed500ab4253889fd4f67a87989d604c9238a1f368050f089e772c10beb",
+      "origin": "src/coastmas/core/contracts.py"
+    },
+    {
+      "module": "coastmas.core.binding",
+      "sha256": "799e6aec367c69693b954a3be817fdf2ce5569a2d6d8fad7ce71c65a2be3be62",
+      "origin": "src/coastmas/core/binding.py"
+    },
+    {
+      "module": "coastmas.adapters.geofiles",
+      "sha256": "978f281902f4a1be5f5c19184ff3d2376c9c681dd2d781913c6e6dd4670d16da",
+      "origin": "src/coastmas/adapters/geofiles.py"
+    },
+    {
+      "module": "coastmas.domain.grid_conservation",
+      "sha256": "8c92d239c823a7a6c4081bb5cb50bb6b37f98465eb0ba43f0f72a7ea4fe9a514",
+      "origin": "src/coastmas/domain/grid_conservation.py"
+    },
+    {
+      "module": "coastmas.domain.indicator_frames",
+      "sha256": "e79e1ad746056ad20bcafdff6f6548b5b00274d8439b373b13a50e49b396fdb0",
+      "origin": "src/coastmas/domain/indicator_frames.py"
+    },
+    {
+      "module": "coastmas.core.indicators",
+      "sha256": "cbf8cb5fa4958c77aee29d2b2bec2afd71ac0bc4a884bb56d4982bcbe331e439",
+      "origin": "src/coastmas/core/indicators.py"
+    },
+    {
+      "module": "coastmas.adapters.projection_pursuit",
+      "sha256": "33fcc9662b0e1352a07be86e8185753cf4e98d1b05dee9b3bd2820c1f54e63e6",
+      "origin": "src/coastmas/adapters/projection_pursuit.py"
+    },
+    {
+      "module": "coastmas.adapters.runtime",
+      "sha256": "b186db7c53dac936c1504597056cb84c0f3c3c43ebcb3db1fc4e599535cc3406",
+      "origin": "src/coastmas/adapters/runtime.py"
+    },
+    {
+      "module": "coastmas.adapters.docker",
+      "sha256": "873c10b9c41df9e9f320ea6fc42ac711f037f00d568a7b36418dd0e8e23091df",
+      "origin": "src/coastmas/adapters/docker.py"
+    },
+    {
+      "module": "coastmas.core.optimization",
+      "sha256": "75b32de6d4f58df07e0e3155dda2b3b8e55a2b8a4d0a92de3e2a0855e4e740a6",
+      "origin": "src/coastmas/core/optimization.py"
+    },
+    {
+      "module": "coastmas.domain.optimization",
+      "sha256": "10bfabbdcfa21630bb2fb55f87515715250218546a49a8e3e4484d5b0d0a3a3d",
+      "origin": "src/coastmas/domain/optimization.py"
+    },
+    {
+      "module": "coastmas.core.decomposition",
+      "sha256": "91b1a1c0ff55b45cb5cb062e315d3b98ee4a865a8bddbfed7d6fdcad319a8f40",
+      "origin": "src/coastmas/core/decomposition.py"
+    },
+    {
+      "module": "coastmas.core.raster_frame",
+      "sha256": "b42b072a7771d2c8fa38dc48c757c342f9f78dddfe110fd66afe8efe06a92607",
+      "origin": "src/coastmas/core/raster_frame.py"
+    },
+    {
+      "module": "coastmas.core.temporal_adaptation",
+      "sha256": "669efa518b09e904fae0cb3ea6f149e7d53c0f593a2bdde23ff8ea0dfa82ed4c",
+      "origin": "src/coastmas/core/temporal_adaptation.py"
+    }
+  ]
+}

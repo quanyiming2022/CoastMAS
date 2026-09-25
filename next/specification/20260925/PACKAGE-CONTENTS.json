@@ -1,0 +1,70 @@
+{
+  "governing_document": "CoastMAS-Codex-master-spec-20260925.md",
+  "files": [
+    {
+      "file": "CoastMAS-Codex-master-spec-20260925.md",
+      "bytes": 315340,
+      "sha256": "43d1136eda825f33a6baff4b1d69a4cc90ebe82c48e886309b09ef1923cb1ab7"
+    },
+    {
+      "file": "README-CODEX.md",
+      "bytes": 905,
+      "sha256": "968b2e93e90df84c8a0a50b2e91bb86c321353c303024ad124ffe38cf906648a"
+    },
+    {
+      "file": "acceptance-matrix.json",
+      "bytes": 76375,
+      "sha256": "bd26fb10abcea4d46c91239d9cba14f6cd9583c171a38e39401da6a0f63d9321"
+    },
+    {
+      "file": "algorithm-catalog.json",
+      "bytes": 105825,
+      "sha256": "c6967709c6b83e81f867cf213b1df9fb03365379fafc638f236b5718d14e6ab5"
+    },
+    {
+      "file": "api-contracts.json",
+      "bytes": 56875,
+      "sha256": "bbccd3786b3296bf6d2e4967864878b1c8e9cc133cbf5fb9aa8d37716bed1156"
+    },
+    {
+      "file": "contract-examples.json",
+      "bytes": 17274,
+      "sha256": "a318d47cfac7d3f9d873dccb6279a2b2fc3c54cba1606fd5c58f69175a786ac6"
+    },
+    {
+      "file": "contracts.schema.json",
+      "bytes": 37757,
+      "sha256": "527673ee573638c7e20f9e37b6acb2920cdf923f2da7423e33b5597a962c2f3c"
+    },
+    {
+      "file": "database-design.json",
+      "bytes": 87141,
+      "sha256": "357f9245b0c3033552e9a0bde156310d037031adbf62c24a6759d71fd2736845"
+    },
+    {
+      "file": "external-mechanisms.json",
+      "bytes": 4494,
+      "sha256": "d7d2617d8b67486b52df657b0b3aebddb79806ed5c18115cd1e55be03480f984"
+    },
+    {
+      "file": "implementation-plan.json",
+      "bytes": 9029,
+      "sha256": "b53ca2c36d5cba24154870cf3e7bb0827b045c79807ef343801bd8720380434b"
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 1138,
+      "sha256": "77c2f06b1e5eb6cf1f3f751545a3b2a5340a280283842c7ae890eb3548edfd4e"
+    },
+    {
+      "file": "source-traceability.json",
+      "bytes": 79410,
+      "sha256": "07b89387ac9006d1d323f23ce8f73af70f02d9c30f7ec1853eff1c412c932d94"
+    },
+    {
+      "file": "validation-report.json",
+      "bytes": 6165,
+      "sha256": "a6ae56da0ef08cb61d7e116866afd5aacf088e7f44a8f2bb571d33f9a7b90603"
+    }
+  ]
+}

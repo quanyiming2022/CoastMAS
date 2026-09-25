@@ -146,3 +146,22 @@ def test_unknown_observation_units_are_a_scientific_error():
     payload["columns"][1]["unit"] = "unknown_observation_unit"
     with pytest.raises(ConstraintError, match="unit"):
         apply_framework(framework(), IndicatorFrame.model_validate(payload))
+
+
+def test_framework_accepts_prepared_raw_raster_observations_without_fake_reference_columns():
+    from coastmas.adapters.projection_pursuit import ProjectionFrame
+
+    raw = ProjectionFrame(
+        row_ids=("r0c0", "r0c1", "r1c0", "r1c1"),
+        feature_names=("pressure", "height_cm"),
+        feature_units=("1", "cm"),
+        values=((0, 0), (1, 100), (0, 100), (1, 200)),
+        standardize=True,
+        observation_scope="sample_only",
+        joint_valid_cells=100,
+    )
+    result = apply_framework(framework(spatial_support="grid"), raw)
+    assert result.unit_ids == raw.row_ids
+    assert result.values == ((0, 0), (1, 1), (1, 0), (2, 1))
+    assert result.years is None
+    assert result.columns[0].lower == 0 and result.columns[0].upper == 2

@@ -1,0 +1,2461 @@
+{
+  "status": "ALL_APPLICATION_TESTS_NOT_RUN",
+  "tests": [
+    {
+      "id": "UI-01",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "完整中文导航",
+      "fixture": "1440x900/1366x768/1920x1080",
+      "action": "逐主入口打开",
+      "expected": "默认中文可读；项目用户设置独立；非强制细轨",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-02",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "统一MapHost",
+      "fixture": "空间任务+目录",
+      "action": "数据→方法→任务再返回",
+      "expected": "地图/视口/当前研究保留，不新建多个宿主或串任务",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-03",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "Dock拖动",
+      "fixture": "数据/方法/任务目录30+记录",
+      "action": "拖高、收起、最大化、还原",
+      "expected": "高度持久；图/虚拟表重测，无计数有而行不可见",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-04",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "短工具栏",
+      "fixture": "长名字/筛选/草稿列表",
+      "action": "改变面板宽度",
+      "expected": "无重叠；有行可见；新建/导入/继续草稿可操作",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-05",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "三种状态分开",
+      "fixture": "四个图层和多个运行",
+      "action": "显隐、勾选、搜索、查看",
+      "expected": "显隐不绑数据、批选不换研究、搜索不自动隐藏图层",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-06",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "一次导入",
+      "fixture": "空输入",
+      "action": "点击添加数据",
+      "expected": "首个应用dialog直接可选择，无空中转modal",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-07",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "批量加入",
+      "fixture": "多类型库中数据+长名",
+      "action": "多选后一次加入",
+      "expected": "短按钮、准确目标、各项回执；无逐行文件名长按钮",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-08",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "八步非重复表单",
+      "fixture": "四类Task",
+      "action": "逐步骤进入/恢复",
+      "expected": "每步真实专用控件，无整页TaskForm重复嵌入",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-09",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "正常空状态",
+      "fixture": "0输入0运行",
+      "action": "打开数据步骤",
+      "expected": "仅必要空状态/添加；无SHA/WKT/空运行/合计0红框",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-10",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "失效状态",
+      "fixture": "未保存/冲突/历史结果",
+      "action": "编辑配置、查看旧Run",
+      "expected": "保存与历史变化精确；不复制工程说明长文",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-11",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "模块职责",
+      "fixture": "project/user/settings",
+      "action": "打开各页CRUD",
+      "expected": "项目成员归项目、账号归用户、设置只有系统连接资源",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-12",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "目录查询",
+      "fixture": "100+资源跨页",
+      "action": "搜索排序筛选/全选过滤",
+      "expected": "items/count同范围；选集固定；部分失败逐条",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-13",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "地图图例",
+      "fixture": "常量/连续/类别/30图层",
+      "action": "切层隐藏活动层",
+      "expected": "图例对应活动可见层，单值不伪渐变，统计scope清楚",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "UI-14",
+      "group": "UI",
+      "development_task": "W03",
+      "scenario": "键盘和错误",
+      "fixture": "表格/dialog/splitter",
+      "action": "Tab/Esc/方向键/错误定位",
+      "expected": "焦点有序、完整名称可访问；关闭不丢已存草稿",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-01",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "混合导入",
+      "fixture": "多个TIFF/GPKG/CSV",
+      "action": "一次选择",
+      "expected": "按真实类型检测，独立成功项保留，不强制同一格式",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-02",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "完整GeoTIFF",
+      "fixture": "可靠定位主TIFF无任何副车",
+      "action": "导入",
+      "expected": "不强求TFW/OVR；自动真实预览/原生点查",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-03",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "TIFF成组",
+      "fixture": "TIFF+TFW+AUX+OVR",
+      "action": "导入一组",
+      "expected": "一个逻辑数据集，成员角色正确，输入不计4项",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-04",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "孤立附件有主件",
+      "fixture": "TFW+库内同名主件候选",
+      "action": "补充附件",
+      "expected": "只在可信关系充分时自动，其他一次核对，不重传主件",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-05",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "孤立附件无主件",
+      "fixture": "93字节TFW",
+      "action": "导入后补主件",
+      "expected": "显示93 B；待关联不计独立输入；补主件自动续接",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-06",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "定位冲突",
+      "fixture": "内嵌与TFW不同",
+      "action": "导入",
+      "expected": "实际差异及依据选择；不默认4326或驱动优先级假过",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-07",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "VAT业务包",
+      "fixture": "qs TIFF/VAT.DBF/VAT.CPG/两种XML",
+      "action": "导入查看属性",
+      "expected": "类码/计数/名称/编码正确，不当缺SHP，不把COUNT当权重",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-08",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "多个同名",
+      "fixture": "不同目录/解释版本TIFF",
+      "action": "导入及选择",
+      "expected": "显示集合/版本；不只按名称或主件hash合并",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-09",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "qs分组",
+      "fixture": "qs/qs_A/qs_B/qs_C未知关系",
+      "action": "单独看、组合评价",
+      "expected": "查看不强问；组合需关系时集中核对，不猜情景/指标",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-10",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "解释后补",
+      "fixture": "既有TIFF新增mask或RAT",
+      "action": "重解析/复用",
+      "expected": "新解释版本；历史不改；纯overview重建不无故重算",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-11",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "多图层容器",
+      "fixture": "GPKG/NetCDF多个层",
+      "action": "导入",
+      "expected": "真实层全部可发现，显示第一层不自动全部计算绑定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-12",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "半批失败",
+      "fixture": "一正常一损坏文件",
+      "action": "导入/重试",
+      "expected": "成功保留、仅失败重试；没有伪全部失败或成功",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-13",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "中断与关闭",
+      "fixture": "大文件分段传输",
+      "action": "断网、关dialog、重开",
+      "expected": "真实已收段恢复；需要本机字节则说明；不假后台读未授权文件",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-14",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "重试幂等",
+      "fixture": "同一operation_id",
+      "action": "多次complete/加入",
+      "expected": "不重复资产/Run；新明确意图仍允许独立使用",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-15",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "目录范围",
+      "fixture": "用户选择子目录+symlink/大目录",
+      "action": "盘点与导入",
+      "expected": "只选授权范围，超额先提示，不整盘遍历",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-16",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "目标上下文",
+      "fixture": "导入中切任务/项目或回收旧任务",
+      "action": "上传完成",
+      "expected": "绑定原目标；失权/回收只给相关修复，已入库数据不丢",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-17",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "原件快照",
+      "fixture": "本地原件随后改动/移动",
+      "action": "重新打开受管版本",
+      "expected": "仍可读已导入原件；新变化明确新版本",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "DATA-18",
+      "group": "DATA",
+      "development_task": "W04",
+      "scenario": "输入需求OR",
+      "fixture": "已有NDVI与原影像路线",
+      "action": "应用不同recipe",
+      "expected": "只要求选定分支，缺算法实现不伪数据不足",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-01",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "半像元错位",
+      "fixture": "相同30m但origin差15m",
+      "action": "比对/对齐",
+      "expected": "识别错位，目标grid完全一致后才逐像元计算",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-02",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "旋转/剪切",
+      "fixture": "非north-up栅格",
+      "action": "范围预览和点查",
+      "expected": "用完整transform，不能轴对齐矩形假定位",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-03",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "合法零和负值",
+      "fixture": "0/负/NoData/alpha/mask混合",
+      "action": "渲染和计算",
+      "expected": "合法值保留，无效不入分母，文件/点查一致",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-04",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "单位维度",
+      "fixture": "米/千米/摄氏开氏/不同量纲",
+      "action": "转换",
+      "expected": "scale/offset正确，不相容量纲拒绝",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-05",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "源单位与目标",
+      "fixture": "CRS米但band unit unknown",
+      "action": "准备评价",
+      "expected": "不得把坐标单位或模板目标反填源单位",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-06",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "类别/总量/密度",
+      "fixture": "分类图+count+density",
+      "action": "不同分辨率转换",
+      "expected": "类别无新码，总量核算，密度面积积分与缺测覆盖正确",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-07",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "地理显示与分析",
+      "fixture": "4326/投影栅格+WebMercator",
+      "action": "上图、平移、调整透明度",
+      "expected": "显示不改源或AnalysisSpace，不触发科学重算",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-08",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "三个域",
+      "fixture": "AOI内无最近目标、外有地物",
+      "action": "距离/halo/裁剪",
+      "expected": "外部目标可参与，边缘不截断，最终按交付AOI输出",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-09",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "垂向/非结构网格",
+      "fixture": "node/cell差异或垂向基准不同",
+      "action": "Coupler适配",
+      "expected": "非法直接连接拒绝，合法转换有记录",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-10",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "时间支撑",
+      "fixture": "瞬时/累计/平均及重叠区间",
+      "action": "时间适配",
+      "expected": "分母/时间积分正确；不重复累计，不未来泄漏",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-11",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "CF日历",
+      "fixture": "1.12/1.13约定子集含360_day",
+      "action": "导入/适配/导出",
+      "expected": "calendar/bounds/cell_methods保留，不伪Gregorian日期",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-12",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "COG链",
+      "fixture": "真COG+普通TIFF+代理Range",
+      "action": "冷/热读取下载",
+      "expected": "COG布局与206两项证据，普通TIFF也能有界预览",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "GEO-13",
+      "group": "GEO",
+      "development_task": "W05",
+      "scenario": "跨日期线",
+      "fixture": "跨180度/投影边界数据",
+      "action": "定位与空间索引",
+      "expected": "合理分割bbox，不把局部当全世界或丢数据",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-01",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "宽长不统一",
+      "fixture": "地区+多年列、year-region多字段表",
+      "action": "解析/映射",
+      "expected": "同一规范长表语义，保留原行列与表头",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-02",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "方言与编码",
+      "fixture": "BOM/引号换行/分号/逗号小数/CPG",
+      "action": "解析",
+      "expected": "候选一次确认，不把数字代码前导零丢掉",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-03",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "年鉴口径",
+      "fixture": "万人/人、万元/亿元、现价/不变价",
+      "action": "单位/时间整理",
+      "expected": "只作合法换算，价格口径不凭空统一",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-04",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "合计和重复",
+      "fixture": "总计小计/重复地区期次/空与0",
+      "action": "规范化",
+      "expected": "不重复计入，问题行可定位，未知不填0",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-05",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "行政边界",
+      "fixture": "同名异地/代码变更/边界版本变化",
+      "action": "关联",
+      "expected": "可信映射或一次核对，不模糊匹配自动成功",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-06",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "总量基准",
+      "fixture": "T100 q=[1,2,1]",
+      "action": "SP_PRIOR",
+      "expected": "输出25,50,25，逐控制区及边界贡献回算",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-07",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "零与无数据",
+      "fixture": "T0/T未知/q全0/负净流量",
+      "action": "分配",
+      "expected": "四种情况独立；不得负量套非负分配",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-08",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "部分海岸域",
+      "fixture": "县总量+县内小AOI",
+      "action": "空间化后裁剪",
+      "expected": "完整控制域核算，不全部总量塞AOI",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-09",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "回归分割",
+      "fixture": "真实地区×时期样本",
+      "action": "训练/验证与下推",
+      "expected": "训练预处理仅训练；不复制县总量造像元样本；守恒非精度",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TAB-10",
+      "group": "TAB",
+      "development_task": "W06",
+      "scenario": "分产业",
+      "fixture": "分项与总量口径不同/海洋行业",
+      "action": "SP_SECTOR",
+      "expected": "分别解释核算，不静默补齐总量或全分陆地住宅",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-01",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "指标目录逐项",
+      "fixture": "附录A每项L/A/R",
+      "action": "parameterized能力/runner/正反例",
+      "expected": "每项有固定profile、真实实现与测试；PLANNED不得运行",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-02",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "NDVI基准",
+      "fixture": "red=.2 nir=.6",
+      "action": "生产指标",
+      "expected": "ndvi=.5；反射率/scale/QA/零分母另验",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-03",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "缺NIR",
+      "fixture": "只有RGB",
+      "action": "NDVI recipe",
+      "expected": "缺波段精确提示，不猜第三通道",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-04",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "扩张速度",
+      "fixture": "A0=100 A1=120 dt=5",
+      "action": "速度/强度计算",
+      "expected": "绝对4面积/年、线性相对4%/年；强度分母独立",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-05",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "土地强度与类别",
+      "fixture": "类别码乱序/强度系数固定",
+      "action": "指标生成",
+      "expected": "换码不改变含义；未知码不猜评分",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-06",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "评分与颜色",
+      "fixture": "相同原值不同style",
+      "action": "标准化/地图拉伸",
+      "expected": "display不改变ScoringModel；fit作用域固定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-07",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "AHP手算",
+      "fixture": "w=[.2,.3,.5]的互反比值矩阵",
+      "action": "权重与一致性",
+      "expected": "权重对照，n=1/2诊断明确，矛盾矩阵不篡改",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-08",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "Entropy/CRITIC退化",
+      "fixture": "常量/全0/缺值/样本不足",
+      "action": "估权",
+      "expected": "明确诊断/已选回退，不静默默认等权",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-09",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "PCA输出类型",
+      "fixture": "相同输入固定scaler/seed",
+      "action": "fit/apply",
+      "expected": "保存components/variance/score；不是直接WeightSet",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-10",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "评价PP与PPCI",
+      "fixture": "各自原实现小样本",
+      "action": "分别封装/运行",
+      "expected": "目标/输出/验证分开，不能聚类替赋权",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-11",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "WLC基准",
+      "fixture": "U=.4,.6,.8 w=.2,.3,.5",
+      "action": "综合及explain",
+      "expected": "贡献.08,.18,.40，总分.66，按ID而非顺序绑定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-12",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "WLC缺层",
+      "fixture": "任一必需指标NoData",
+      "action": "综合",
+      "expected": "该单元质量正确，不填0或偷偷再分权",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-13",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "非WLC",
+      "fixture": "TOPSIS/fuzzy/DEA命名profile",
+      "action": "run",
+      "expected": "原算法对照，不套二次加权或假贡献",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-14",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "全图与块",
+      "fixture": "小整图及大图固定fit",
+      "action": "full/window对照",
+      "expected": "值/mask/grid在预设容差内，无每块重新估权",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-15",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "分级边界",
+      "fixture": "values[0,.3,.31,.7,.71,1],breaks[.3,.7,1]",
+      "action": "分级",
+      "expected": "[1,1,2,2,3,3]，原连续保留，k/单值异常正确",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ALG-16",
+      "group": "ALG",
+      "development_task": "W08",
+      "scenario": "共同断点",
+      "fixture": "两期分布不同",
+      "action": "联合/基准/逐期分级",
+      "expected": "可比规则明确，逐期相对类不冒绝对风险改善",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-01",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "空草稿",
+      "fixture": "新建空方法",
+      "action": "保存/刷新/关闭重开",
+      "expected": "不预发发布红框，空业务内容可保存，类型安全有效",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-02",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "部分编辑",
+      "fixture": "已填指标部分规则",
+      "action": "切tab/网络中断恢复",
+      "expected": "已确认服务端内容不丢，无重复输入",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-03",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "不完整发布",
+      "fixture": "无依据/指标",
+      "action": "publish",
+      "expected": "422短字段定位，草稿保留，无Pydantic raw error",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-04",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "条件控件",
+      "fixture": "minmax/AHP/entropy/类别评分",
+      "action": "切配置",
+      "expected": "只出现适用字段，无通用上下限权重套全部方法",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-05",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "真实发布使用",
+      "fixture": "完整方法profile",
+      "action": "发布→批准→显式应用",
+      "expected": "不可变版本正确引用，未应用不改任务",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-06",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "无权限批准",
+      "fixture": "分析用户篡改is_approved",
+      "action": "请求审批端点",
+      "expected": "403；普通复选框不能绕过",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-07",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "旧版保护",
+      "fixture": "方法v1已有Run，编辑v2",
+      "action": "发布v2/查看旧Run",
+      "expected": "旧引用不漂移；新版本不会自动覆盖",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-08",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "方法文件导入",
+      "fixture": "JSON/YAML/CSV指标表",
+      "action": "导入/映射/保存",
+      "expected": "走方法解析非数据算法，错误定位，公式安全",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-09",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "无数据发布模板",
+      "fixture": "完整entropy/PCA输入签名但未选任务数据",
+      "action": "发布模板/后续fit",
+      "expected": "允许方法定义发布，运行再核必要数据",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "METHOD-10",
+      "group": "METHOD",
+      "development_task": "W08",
+      "scenario": "目标切换",
+      "fixture": "编辑方法同时切任务/项目",
+      "action": "保存并应用",
+      "expected": "保存对象固定，应用到明确且授权任务",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-01",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "新Python包",
+      "fixture": "未预注册带测试示例包",
+      "action": "上传→静态→隔离测试→发布",
+      "expected": "真实可执行，不以预置两个模型代通用上传",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-02",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "新R包",
+      "fixture": "实际R源码/依赖",
+      "action": "同上",
+      "expected": "源码原实现对照，依赖隔离和错误恢复",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-03",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "上传不执行",
+      "fixture": "包含安装hook/恶意import/pickle",
+      "action": "接收/检查",
+      "expected": "Web服务不执行/安装/反序列化",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-04",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "拆分等价",
+      "fixture": "预处理/核心/后处理可拆源包",
+      "action": "D0/D1封装对照",
+      "expected": "同输入原包/重组值一致，变化和不可拆边界记录",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-05",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "契约失败",
+      "fixture": "错单位/shape/calendar/location",
+      "action": "模型验证",
+      "expected": "科学错误定位，不由类型转换强行放行",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-06",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "真实外部协议",
+      "fixture": "受控REST/HPC/OCI/CLI/BMI服务",
+      "action": "执行/取消/失败",
+      "expected": "同manifest，remote_unknown明确，不重复收费提交",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-07",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "训练预测",
+      "fixture": "真实响应训练及无响应预测",
+      "action": "fit/apply",
+      "expected": "训练预处理固定，预测不强要真值",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-08",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "环境资格",
+      "fixture": "发布后代码/依赖改变",
+      "action": "运行尝试",
+      "expected": "需新版本/新测试，旧批准不绕过",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-09",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "隔离边界",
+      "fixture": "越权路径/网络/socket/资源超限",
+      "action": "运行",
+      "expected": "受限失败、有审计、其他任务不受影响",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "MODEL-10",
+      "group": "MODEL",
+      "development_task": "W10",
+      "scenario": "ArcGIS适配",
+      "fixture": "无许可及有授权参考环境",
+      "action": "工具映射/数值对照",
+      "expected": "核心开源路径不依赖许可；未测外部不得PASS",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-01",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "硬门禁先行",
+      "fixture": "高语义分但单位/权限冲突",
+      "action": "match",
+      "expected": "拒绝直接/非法路径，不被总分抵消",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-02",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "AND-OR替代",
+      "fixture": "成品指标或原影像路径",
+      "action": "compile",
+      "expected": "不同时强要两条路线；真实缺项定位",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-03",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "CSV到density",
+      "fixture": "有据行政总量/先验+模型需求",
+      "action": "compose+run",
+      "expected": "解析/关联/守恒/面积/网格合法；无假设不静默平摊",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-04",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "n元超边",
+      "fixture": "模型需两个时相+边界",
+      "action": "超图查询/编译",
+      "expected": "全部必需端口与角色保留，二元相似边不代联合条件",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-05",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "无界循环",
+      "fixture": "普通DAG循环与合法macro",
+      "action": "validate",
+      "expected": "前者拒绝，后者有明确时间/迭代停止规则",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-06",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "反事实来源",
+      "fixture": "方案覆层+基期",
+      "action": "Coupler绑定再评价",
+      "expected": "读候选状态，未变依赖复用，原件不改",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-07",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "动态守恒",
+      "fixture": "A100 B0 k.1步长1两步",
+      "action": "SDK耦合",
+      "expected": "A81 B19 total100，交换/时间日志正确",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-08",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "未收敛",
+      "fixture": "双向模型不满足tol",
+      "action": "max_iter",
+      "expected": "失败或已明确降级，不能无条件success",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-09",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "时间与mesh",
+      "fixture": "累计量/瞬时量、node/cell、垂向差异",
+      "action": "交换",
+      "expected": "合法映射/积分或明确拒绝，守恒账本可查",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-10",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "checkpoint恢复",
+      "fixture": "动态模型中途kill",
+      "action": "恢复/对照整跑",
+      "expected": "有真实恢复能力或安全重跑阶段，不假续算",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-11",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "3D约束",
+      "fixture": "对象LOD/地块/岸线+规则",
+      "action": "约束编译",
+      "expected": "精度/基准/来源固定，瓦片三角网不冒水动力网格",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "COUPLE-12",
+      "group": "COUPLE",
+      "development_task": "W12",
+      "scenario": "几何代数与消融",
+      "fixture": "明确Cl(3,0)局部场景",
+      "action": "基线/rotor/超图实验",
+      "expected": "数值/成本实测，不宣称科学创新已经证明",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-01",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "PlanningProblem类型",
+      "fixture": "grid/parcels/facility/continuous",
+      "action": "编译",
+      "expected": "单位/变量/约束完整，非所有规划强栅格",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-02",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "缺成本/政策",
+      "fixture": "预算必需但成本缺，源文示例阈值",
+      "action": "预检",
+      "expected": "不填0、不默认25度100m，具体责任项",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-03",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "小MILP基准",
+      "fixture": "cost[4,5,2,3],benefit[8,9,4,5],第2候选禁用,budget6",
+      "action": "求解+独立检验",
+      "expected": "选第1/3项，成本6收益12，与枚举相同",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-04",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "无可行/无界/时限",
+      "fixture": "三类专用问题",
+      "action": "solve",
+      "expected": "精确状态；有incumbent不称已证最优",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-05",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "硬约束独立检查",
+      "fixture": "solver输出违禁项",
+      "action": "提交candidate",
+      "expected": "拒绝或明确不可行，不以低罚分当合法",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-06",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "true multiobjective",
+      "fixture": "经济/生态/风险三个方向",
+      "action": "NSGA-II/MOEA-D",
+      "expected": "返回目标向量与未支配集，不私设价值权重",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-07",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "场景固定",
+      "fixture": "baseline/scenario改变",
+      "action": "新建问题/历史查看",
+      "expected": "同一Scenario版本sim/planning共用，旧Run不变",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-08",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "反事实再评价",
+      "fixture": "用地候选改变建设范围",
+      "action": "evaluate",
+      "expected": "改变相应指标/暴露/成本，不能重复原score作方案结果",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-09",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "任务结果引用",
+      "fixture": "评价→模拟→规划→比较",
+      "action": "执行完整链",
+      "expected": "无下载重上传；完整依赖run/result refs固定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-10",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "QUBO本地",
+      "fixture": "小可枚举问题/惩罚不足反例",
+      "action": "encode+sample+decode",
+      "expected": "能量与原目标/可行性分别核；不能违硬约束冒成功",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-11",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "量子/商业远端",
+      "fixture": "缺凭据/有受控协议服务",
+      "action": "submit/cancel",
+      "expected": "未授权不调用；本地验证和真实远端NOT_RUN区分",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PLAN-12",
+      "group": "PLAN",
+      "development_task": "W14",
+      "scenario": "规划发布",
+      "fixture": "计算完成未部门批准",
+      "action": "查看/分享/发布",
+      "expected": "不能自动正式规划；权限和审查版本固定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-01",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "原生点查",
+      "fixture": "连续/等级/源/目标网格",
+      "action": "inspect/explain",
+      "expected": "原生值而非PNG，固定来源/rowcol/mask、单位",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-02",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "面积转移基准",
+      "fixture": "2x2 t0[1,1,2,2] t1[1,2,2,1],cell100",
+      "action": "面积/转移",
+      "expected": "2x2矩阵全100，总400；NoData独立分母",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-03",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "非等积面积",
+      "fixture": "经纬网/投影格网",
+      "action": "统计",
+      "expected": "测地/等积面积正确，不用3857直接平方像元",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-04",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "历史一致性",
+      "fixture": "多个Run+当前草稿已改",
+      "action": "地图/表/图/下载",
+      "expected": "均指向所选Run，不被最新请求污染",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-05",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "统计范围",
+      "fixture": "sample/viewport/full/当前页",
+      "action": "查询/导出",
+      "expected": "范围及计数准确，完整下载不是当前页或10000上限",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-06",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "空间结果分支",
+      "fixture": "真实TIFF/GPKG和无空间CSV",
+      "action": "成果页",
+      "expected": "空间默认真地图，非空间表图不伪地图，输入不冒成果",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-07",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "报告facts",
+      "fixture": "结构化真实指标与未知项",
+      "action": "无AI/有AI报告",
+      "expected": "数字/单位/域/引用可反查，未知不生成结论",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-08",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "图件格式",
+      "fixture": "TIFF/COG/GPKG/CSV/PNG/SVG/DOCX/PDF",
+      "action": "下载并打开",
+      "expected": "数值数据保留；字体/分页/图例无裁切；不以PNG代TIFF",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-09",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "可比性",
+      "fixture": "不同评分/权重/断点/时期",
+      "action": "比较",
+      "expected": "不相容拒差值但可并排，转换有依据",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESULT-10",
+      "group": "RESULT",
+      "development_task": "W17",
+      "scenario": "服务发布",
+      "fixture": "私有成果+受限原件",
+      "action": "OGC/原生API/公开发布",
+      "expected": "同执行来源，公开另授权，不泄露受限原件",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-01",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "项目隔离",
+      "fixture": "两项目同名同hash数据",
+      "action": "目录/预览/blob/cache/API",
+      "expected": "无跨项目存在性泄露，固定授权不由query决定",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-02",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "角色拒绝",
+      "fixture": "viewer/analyst/editor/owner/system_admin",
+      "action": "各写/批准动作",
+      "expected": "矩阵有allow和deny，管理员不自动读私有数据",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-03",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "DB连接隔离",
+      "fixture": "复用连接池/worker",
+      "action": "切用户项目",
+      "expected": "RLS上下文清理，非owner/BYPASSRLS，SQL越权测试",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-04",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "最后负责人",
+      "fixture": "最后有效admin/owner",
+      "action": "并发停用/移除",
+      "expected": "事务保护，不临时无人负责",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-05",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "任务与项目状态",
+      "fixture": "活跃项目回收旧任务",
+      "action": "新建/加入/恢复",
+      "expected": "旧任务不全局锁项目，错误明确对象",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-06",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "来源三层",
+      "fixture": "配置连接/授权项目/导入",
+      "action": "分别执行",
+      "expected": "无重复CRUD，不因授权自动导入目录",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-07",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "撤权与缓存",
+      "fixture": "已打开地图/下载链接/草稿",
+      "action": "撤销成员或grant",
+      "expected": "后续请求拒绝、旧敏感展示清理，保留审计",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-08",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "密码与密钥",
+      "fixture": "创建/重置/provider配置",
+      "action": "保存/错误/日志",
+      "expected": "无明文秘密入草稿/日志/报告；实际重置渠道",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-09",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "AI外发与注入",
+      "fixture": "数据内恶意指令/未知代码",
+      "action": "AI建议和工具调用",
+      "expected": "外发白名单/预算；内容不覆盖系统指令，不自动批准",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "AUTH-10",
+      "group": "AUTH",
+      "development_task": "W02",
+      "scenario": "审计与回收",
+      "fixture": "各种修改/批选/误回收",
+      "action": "查询/恢复",
+      "expected": "单一审计真源，秘密脱敏，原件保护",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-01",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "Schema与迁移",
+      "fixture": "空PG和代表旧快照",
+      "action": "初始化/迁移/恢复",
+      "expected": "FK/索引/版本不可变与保护检查，未知不猜迁移",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-02",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "草稿乐观并发",
+      "fixture": "两个浏览器同revision",
+      "action": "并发save",
+      "expected": "旧If-Match412，只修变化，不覆盖他人",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-03",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "同意图提交",
+      "fixture": "网络重试/双击/用户再次运行",
+      "action": "POST runs",
+      "expected": "同键复用，不同意图允许新Run；同键不同payload409",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-04",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "outbox可靠性",
+      "fixture": "DB提交后队列失败",
+      "action": "恢复发送",
+      "expected": "Run不丢、事件可重发不重算重复发布",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-05",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "worker租约",
+      "fixture": "旧worker暂停到过期",
+      "action": "新worker接管/旧提交",
+      "expected": "fencing阻旧提交，幂等产物",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-06",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "取消状态",
+      "fixture": "训练/模拟/远端作业",
+      "action": "cancel/retry",
+      "expected": "requested不冒canceled；真正终止、资源释放",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-07",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "大文件与全域",
+      "fixture": "约399MiB/11416x9000及30层多Run",
+      "action": "冷/热加载/点查/全域运算",
+      "expected": "真实耗时RSS/范围/hash，无隐藏样本化、无限内存",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-08",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "恶意数据包",
+      "fixture": "ZIP traversal/bomb/XML实体/VRT外链",
+      "action": "导入",
+      "expected": "隔离拒绝受影响项，合法其他文件保留",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-09",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "同构建回归",
+      "fixture": "全部本地相关测试+外部矩阵",
+      "action": "完整套件",
+      "expected": "不挑用例冒全PASS；缺授权/真实数据逐项NOT_RUN/BLOCKED",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OPS-10",
+      "group": "OPS",
+      "development_task": "W18",
+      "scenario": "干净交付",
+      "fixture": "新环境/端口/备份",
+      "action": "一条启动/停止/恢复",
+      "expected": "实际build入口明确，依赖锁/账号初始化安全，无清库副作用",
+      "evidence": [
+        "build/code identity",
+        "actual input/config/refs",
+        "request and persistence/job receipts",
+        "output/visual/error proof as applicable"
+      ],
+      "status": "NOT_RUN"
+    }
+  ],
+  "numeric_fixtures": {
+    "F01_wlc": {
+      "scores": [
+        0.4,
+        0.6,
+        0.8
+      ],
+      "weights": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "contributions": [
+        0.08000000000000002,
+        0.18,
+        0.4
+      ],
+      "score": 0.66
+    },
+    "F02_ndvi": {
+      "red": 0.2,
+      "nir": 0.6,
+      "expected": 0.5
+    },
+    "F03_spatial_allocation": {
+      "total": 100,
+      "q": [
+        1,
+        2,
+        1
+      ],
+      "expected": [
+        25,
+        50,
+        25
+      ]
+    },
+    "F04_planning": {
+      "cost": [
+        4,
+        5,
+        2,
+        3
+      ],
+      "benefit": [
+        8,
+        9,
+        4,
+        5
+      ],
+      "excluded_zero_based": [
+        1
+      ],
+      "budget": 6,
+      "expected_selection": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "benefit_expected": 12
+    },
+    "F05_classes": {
+      "values": [
+        0,
+        0.3,
+        0.31,
+        0.7,
+        0.71,
+        1
+      ],
+      "upper_bounds": [
+        0.3,
+        0.7,
+        1
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ]
+    },
+    "F06_transfer": {
+      "t0": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "t1": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "cell_area": 100,
+      "expected_area_matrix": [
+        [
+          100,
+          100
+        ],
+        [
+          100,
+          100
+        ]
+      ]
+    },
+    "F07_dynamic": {
+      "A0": 100,
+      "B0": 0,
+      "k": 0.1,
+      "dt": 1,
+      "steps": 2,
+      "expected_A": 81,
+      "expected_B": 19
+    },
+    "F08_expansion": {
+      "A0": 100,
+      "A1": 120,
+      "years": 5,
+      "absolute_per_year": 4,
+      "linear_percent_per_year": 4
+    }
+  },
+  "evidence_policy": "fixtures验证程序仅核对规格中的算术，不是应用runner/API/浏览器/业务验证；真实私有数据与合成分别标记。"
+}

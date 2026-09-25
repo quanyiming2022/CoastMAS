@@ -3,10 +3,11 @@
 import hashlib
 import json
 from dataclasses import dataclass
+from typing import cast
 from uuid import uuid4
 
 from pydantic import JsonValue
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
 from coastmas.core.collaboration import ProposalComment, ProposalSpec
@@ -87,6 +88,19 @@ def fingerprint(spec: dict[str, JsonValue]) -> str:
         spec, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
     ).encode()
     return hashlib.sha256(content).hexdigest()
+
+
+def storage_document(session: Session, spec: dict[str, JsonValue]) -> dict[str, JsonValue]:
+    """Hash the exact JSONB representation, including PostgreSQL numeric normalization.
+
+    e.g. a large floating NoData token may return from JSONB as an integer. We do
+    not round it, relax integrity checks, or rewrite any existing version.
+    """
+    value = session.execute(
+        text("SELECT CAST(:document AS jsonb)"),
+        {"document": json.dumps(spec, ensure_ascii=False, allow_nan=False)},
+    ).scalar_one()
+    return cast(dict[str, JsonValue], value)
 
 
 def workflow_references(
@@ -200,6 +214,7 @@ def create_resource(
     if not isinstance(enabled, bool):
         raise CoastMASError("VALIDATION_ERROR", "enabled must be boolean")
     references = workflow_references(session, project_id=project_id, kind=kind, spec=spec)
+    spec = storage_document(session, spec)
     checksum = fingerprint(spec)
     session.add(
         Resource(
@@ -309,6 +324,7 @@ def update_resource(
     references = workflow_references(
         session, project_id=resource.project_id, kind=resource.kind, spec=spec
     )
+    spec = storage_document(session, spec)
     checksum = fingerprint(spec)
     session.add(
         ResourceVersion(

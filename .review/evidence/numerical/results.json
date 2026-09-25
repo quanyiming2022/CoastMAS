@@ -1,0 +1,288 @@
+{
+  "origin_kind": "engineering_fixture",
+  "status": "PASS",
+  "absolute_tolerance": 1e-12,
+  "ndvi": {
+    "bands": {
+      "red": [
+        0.2,
+        0.0,
+        0.2
+      ],
+      "nir": [
+        0.6,
+        0.0,
+        0.6
+      ]
+    },
+    "masks": {
+      "red": [
+        true,
+        true,
+        false
+      ],
+      "nir": [
+        true,
+        true,
+        false
+      ]
+    },
+    "values": [
+      0.49999999999999994,
+      null,
+      null
+    ],
+    "valid": [
+      true,
+      false,
+      false
+    ],
+    "algorithm": "spectral/1.0.0"
+  },
+  "planning_problem": {
+    "unit_ids": [
+      "a",
+      "b",
+      "c"
+    ],
+    "mode": "pareto_multiobjective",
+    "objectives": [
+      {
+        "code": "cost",
+        "direction": "min",
+        "coefficients": [
+          2.0,
+          5.0,
+          3.0
+        ],
+        "unit": "CNY"
+      },
+      {
+        "code": "gain",
+        "direction": "max",
+        "coefficients": [
+          4.0,
+          8.0,
+          5.0
+        ],
+        "unit": "ha"
+      }
+    ],
+    "constraints": [
+      {
+        "id": "budget",
+        "coefficients": [
+          2.0,
+          5.0,
+          3.0
+        ],
+        "upper": 5.0,
+        "unit": "CNY"
+      }
+    ],
+    "upper_bounds": [
+      1,
+      1,
+      1
+    ]
+  },
+  "pareto": {
+    "solver": "exact_binary_pareto/1.0.0",
+    "status": "complete",
+    "searched_states": 8,
+    "total_states": 8,
+    "pareto_scope": "complete_problem",
+    "candidates": [
+      {
+        "selected": [],
+        "decision_values": [
+          0,
+          0,
+          0
+        ],
+        "objective_vector": {
+          "cost": 0.0,
+          "gain": 0.0
+        },
+        "feasibility": {
+          "feasible": true,
+          "binary_domain": true,
+          "constraints": [
+            {
+              "id": "budget",
+              "achieved": 0.0,
+              "lower_residual": null,
+              "upper_residual": 5.0,
+              "unit": "CNY",
+              "feasible": true
+            }
+          ],
+          "absolute_tolerance": 1e-07,
+          "checker_version": "1.0.0"
+        },
+        "business_state": "calculated",
+        "business_validated": false
+      },
+      {
+        "selected": [
+          "a"
+        ],
+        "decision_values": [
+          1,
+          0,
+          0
+        ],
+        "objective_vector": {
+          "cost": 2.0,
+          "gain": 4.0
+        },
+        "feasibility": {
+          "feasible": true,
+          "binary_domain": true,
+          "constraints": [
+            {
+              "id": "budget",
+              "achieved": 2.0,
+              "lower_residual": null,
+              "upper_residual": 3.0,
+              "unit": "CNY",
+              "feasible": true
+            }
+          ],
+          "absolute_tolerance": 1e-07,
+          "checker_version": "1.0.0"
+        },
+        "business_state": "calculated",
+        "business_validated": false
+      },
+      {
+        "selected": [
+          "c"
+        ],
+        "decision_values": [
+          0,
+          0,
+          1
+        ],
+        "objective_vector": {
+          "cost": 3.0,
+          "gain": 5.0
+        },
+        "feasibility": {
+          "feasible": true,
+          "binary_domain": true,
+          "constraints": [
+            {
+              "id": "budget",
+              "achieved": 3.0,
+              "lower_residual": null,
+              "upper_residual": 2.0,
+              "unit": "CNY",
+              "feasible": true
+            }
+          ],
+          "absolute_tolerance": 1e-07,
+          "checker_version": "1.0.0"
+        },
+        "business_state": "calculated",
+        "business_validated": false
+      },
+      {
+        "selected": [
+          "a",
+          "c"
+        ],
+        "decision_values": [
+          1,
+          0,
+          1
+        ],
+        "objective_vector": {
+          "cost": 5.0,
+          "gain": 9.0
+        },
+        "feasibility": {
+          "feasible": true,
+          "binary_domain": true,
+          "constraints": [
+            {
+              "id": "budget",
+              "achieved": 5.0,
+              "lower_residual": null,
+              "upper_residual": 0.0,
+              "unit": "CNY",
+              "feasible": true
+            }
+          ],
+          "absolute_tolerance": 1e-07,
+          "checker_version": "1.0.0"
+        },
+        "business_state": "calculated",
+        "business_validated": false
+      }
+    ],
+    "elapsed_seconds": 7.795801502652466e-05,
+    "checkpoint_supported": false
+  },
+  "milp": {
+    "solver": "scipy_milp/1.0.0",
+    "candidates": [
+      {
+        "selected": [
+          "a",
+          "c"
+        ],
+        "decision_values": [
+          1,
+          0,
+          1
+        ],
+        "objective_vector": {
+          "gain": 9.0
+        },
+        "feasibility": {
+          "feasible": true,
+          "binary_domain": true,
+          "constraints": [
+            {
+              "id": "budget",
+              "achieved": 5.0,
+              "lower_residual": null,
+              "upper_residual": 0.0,
+              "unit": "CNY",
+              "feasible": true
+            }
+          ],
+          "absolute_tolerance": 1e-07,
+          "checker_version": "1.0.0"
+        },
+        "business_state": "calculated",
+        "business_validated": false
+      }
+    ],
+    "elapsed_seconds": 0.0008796250040177256,
+    "checkpoint_supported": false,
+    "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "status": "optimal"
+  },
+  "independent_invalid_candidate_check": {
+    "feasible": false,
+    "binary_domain": true,
+    "constraints": [
+      {
+        "id": "budget",
+        "achieved": 10.0,
+        "lower_residual": null,
+        "upper_residual": -5.0,
+        "unit": "CNY",
+        "feasible": false
+      }
+    ],
+    "absolute_tolerance": 1e-07,
+    "checker_version": "1.0.0"
+  },
+  "limitations": [
+    "Small exact binary problem; no full Planning business acceptance.",
+    "No confidence, uncertainty, or business accuracy claim."
+  ]
+}

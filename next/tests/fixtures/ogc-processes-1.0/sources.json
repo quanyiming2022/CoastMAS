@@ -1,0 +1,122 @@
+{
+  "exception.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/exception.yaml",
+    "sha256": "56688e9a1a3cd27e0b6258cdae97137bc268085c5365ebb7861ff179c467094f"
+  },
+  "results.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/results.yaml",
+    "sha256": "f31bff8d775cc5deb1720854da915c93703534b06f777d8bec7ed96c0028a2db"
+  },
+  "inlineOrRefData.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/inlineOrRefData.yaml",
+    "sha256": "46b575a60c0622fd1a472b8cdea8ca8d87b4287008d14a3f5bec66f37a835b77"
+  },
+  "link.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/link.yaml",
+    "sha256": "2d0e5bb1edeecef71772d2d342c67aba5396607f7a174e28ed968f2d6d135c13"
+  },
+  "qualifiedInputValue.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/qualifiedInputValue.yaml",
+    "sha256": "0380bd587cbb0a3a03747207295ba2cfae07e9b5468eafbc7e84bced8fad6422"
+  },
+  "inputValue.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/inputValue.yaml",
+    "sha256": "0d06684e5fdc90a4716b303ca8a2263224cdf79a5bb8e58fb29b364cdc0684f7"
+  },
+  "inputValueNoObject.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/inputValueNoObject.yaml",
+    "sha256": "b865c99e827c2f971f37658cd2dc2cb1139374cbb22ca9ef2863b89fd9e44954"
+  },
+  "bbox.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/bbox.yaml",
+    "sha256": "75c5a129afd91e12c595aefc247a4cf212187bfc08b4ce47ca8fb4716a0f6a25"
+  },
+  "binaryInputValue.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/binaryInputValue.yaml",
+    "sha256": "ce9edf29450bd6a273debd7650c812ba1dbf32aaaad00a1445b3f558bea722e5"
+  },
+  "format.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/format.yaml",
+    "sha256": "0200d0b28b83df916af77abeda99bc543e15f33d4437e572fbefa5baa80c718d"
+  },
+  "jobList.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/jobList.yaml",
+    "sha256": "717c88b0fd608e6cd5245b6d7d8f0335f7855da9bf1cc2b261a92f78fa87c68b"
+  },
+  "statusInfo.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/statusInfo.yaml",
+    "sha256": "a20d626564c2a558f9e784e32e95cb21b4e95191e59f6211a6f8d17e40634b53"
+  },
+  "statusCode.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/statusCode.yaml",
+    "sha256": "7959ed400c7fa1783bf53d2081d52795c8187247db7301d89476c3b8d81ce09b"
+  },
+  "execute.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/execute.yaml",
+    "sha256": "2ff075f3a61892f89a97e35800c5500b0cb162262e77c10d5f38b46ce66216b5"
+  },
+  "subscriber.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/subscriber.yaml",
+    "sha256": "6aed74ad12901ee42ccb7b7ae569a38fa2eb14aec69124ce0115a134095f2421"
+  },
+  "output.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/output.yaml",
+    "sha256": "d2ea70acbc476700645baf1675525139b3f74f3b22a00b4d727ba724b8f35a6a"
+  },
+  "transmissionMode.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/transmissionMode.yaml",
+    "sha256": "0bc29781d20eeae1e633eb76c4d2bf90e745a920efd17319a5157993bd55b23b"
+  },
+  "process.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/process.yaml",
+    "sha256": "8bd9b5e891d035824dfb485b87528c3a48cd409621727e880c5e12b50e41248c"
+  },
+  "outputDescription.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/outputDescription.yaml",
+    "sha256": "cad3245872dcf98194beda01a409de0c6ce9b69e2d2c925f2ce4cd1b32035cee"
+  },
+  "schema.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/schema.yaml",
+    "sha256": "f9c235e6fc6229bb9a5c78b560b6298ae55bd66263e759203be32f1f7fa165dd"
+  },
+  "reference.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/reference.yaml",
+    "sha256": "e649c7f6c5f640d47496eb7a8c09e44cdfac4d58d4e3fbe110721ff3e267f604"
+  },
+  "descriptionType.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/descriptionType.yaml",
+    "sha256": "0ef8d50383d3e41fcfec62ac57b3625470d5ab26f08a4e964cb2961faf4b62f2"
+  },
+  "additionalParameter.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/additionalParameter.yaml",
+    "sha256": "9371d5cd721a00ddde6f3a6e76c30c40c65c9d43086ece0d60493cf685434a14"
+  },
+  "metadata.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/metadata.yaml",
+    "sha256": "2b07162dfb1722a3e494145f5fcd5884eddf8dc5f0bab43f99a36b808beb4f96"
+  },
+  "inputDescription.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/inputDescription.yaml",
+    "sha256": "3c7f000453fdc87012ec2464201bea3909135a648b5e26d0b6a8e6589ff129d2"
+  },
+  "processSummary.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/processSummary.yaml",
+    "sha256": "c460f5837a4f3dce830f2e43cd52161cadaffd435474a191b54ca18383e7ef85"
+  },
+  "jobControlOptions.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/jobControlOptions.yaml",
+    "sha256": "925126fa0148d4d1985bc540b258ddda2bd2646fa54ebba4e783f48a0430133c"
+  },
+  "processList.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/processList.yaml",
+    "sha256": "10dac6fd22d6fd0372d4a54a377c631dc9654116f84d56c55355cb69c1e10925"
+  },
+  "confClasses.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/confClasses.yaml",
+    "sha256": "66bcfdca6ad3da9d70454286cbdec803e808c85f37676148de6caafdd991d29a"
+  },
+  "landingPage.yaml": {
+    "url": "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas/landingPage.yaml",
+    "sha256": "ea053e805c13c17022d55e90cd47d569d922605138e1a28cd5c55b911704bf56"
+  }
+}

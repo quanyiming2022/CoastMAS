@@ -1,0 +1,46 @@
+import {test,expect} from '@playwright/test';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {evidenceDirectory,evidencePath} from './evidence';
+
+test('A06 A21 A23 orphan sidecar reuse, exact bytes, conflict recovery and partial batch',async({page})=>{
+ test.setTimeout(120000);
+ if(!process.env.COASTMAS_NEXT_TEST_URL?.endsWith(':58013'))throw new Error('isolated58013 only');
+ const access=JSON.parse(await readFile(process.env.COASTMAS_NEXT_ACCESS_FILE!,'utf8'));
+ await mkdir(evidenceDirectory,{recursive:true});await page.setViewportSize({width:1440,height:900});
+ await page.goto('/research');await page.getByLabel('邮箱',{exact:true}).fill(access.email);await page.getByLabel('密码',{exact:true}).fill(access.password);await page.getByRole('button',{name:'登录',exact:true}).click();await expect(page.getByRole('link',{name:'工作台',exact:true})).toBeVisible();
+ const session=await(await page.request.get('/api/session')).json(),headers={'X-CSRF-Token':session.csrf};
+ const project=await(await page.request.post('/api/projects',{headers,data:{name:'导入恢复工程验收 '+Date.now()}})).json();
+ const raw=await readFile('/Users/quanyiming/Projects/CoastMAS/next/artifacts/unified-business-20260924/fixtures/coast.tif');
+ const original=await(await page.request.post('/api/projects/'+project.id+'/assets',{headers,multipart:{file:{name:'coast.tif',mimeType:'image/tiff',buffer:raw}}})).json();
+ const task=await(await page.request.post('/api/tasks',{headers,data:{project_id:project.id,goal:'comprehensive-assessment',title:'附件接入与并发恢复'}})).json();
+ await page.goto('/tasks/'+task.id+'?project='+project.id);await page.getByRole('tab',{name:'输入 0',exact:true}).click();
+ const left=page.getByRole('complementary',{name:'研究内容管理器',exact:true});await left.getByRole('button',{name:'添加资料',exact:true}).click();
+ const importer=page.getByRole('dialog',{name:'添加研究输入',exact:true});
+ let world=await readFile('/Users/quanyiming/Projects/CoastMAS/next/artifacts/unified-business-20260924/fixtures/coast.tfw');world=Buffer.concat([world,Buffer.alloc(93-world.length,32)]);expect(world.length).toBe(93);
+ const uploads:string[]=[];page.on('request',r=>{if(r.method()==='POST'&&new URL(r.url()).pathname.endsWith('/uploads'))uploads.push(r.postDataJSON()?.name);});
+ await importer.getByLabel('选择并导入资料',{exact:true}).setInputFiles({name:'coast.tfw',mimeType:'text/plain',buffer:world});
+ await expect(importer.getByRole('status')).toContainText('93 B / 93 B');await expect(page.getByRole('tab',{name:'输入 0',exact:true})).toBeVisible();
+ await expect(importer.getByRole('button',{name:'关联这份影像：coast.tif · 版本1',exact:true})).toBeVisible();await page.screenshot({path:evidencePath('orphan-93-bytes.png')});
+ await importer.getByRole('button',{name:'关联这份影像：coast.tif · 版本1',exact:true}).click();await expect(page.getByRole('tab',{name:'输入 1',exact:true})).toBeVisible();
+ expect(uploads).not.toContain('coast.tif');let current=await(await page.request.get('/api/tasks/'+task.id)).json();const version=await(await page.request.get('/api/assets/'+current.draft.selection[0].asset_id)).json();expect(version.revision).toBe(2);expect(version.facts.logical_package.previous_asset_id).toBe(original.asset.id);
+ expect(await(await page.request.get('/api/assets/'+original.asset.id)).json()).toEqual(original.asset);
+ await importer.getByRole('button',{name:'关闭',exact:true}).click();await expect(page.locator('.research-map .maplibregl-canvas')).toBeVisible();await page.reload();await expect(page.locator('.research-map .maplibregl-canvas')).toBeVisible();await page.getByRole('tab',{name:'输入 1',exact:true}).click();await left.getByRole('button',{name:'添加资料',exact:true}).click();
+ // Interrupt only this test's transfer at a real request boundary; the server receives unchanged bytes.
+ let release:()=>void=()=>{};const gate=new Promise<void>(resolve=>{release=resolve;});let intercepted:()=>void=()=>{};const hit=new Promise<void>(resolve=>{intercepted=resolve;});
+ await page.route('**/api/uploads/*/parts/0',async route=>{intercepted();await gate;await route.continue();});
+ await importer.getByLabel('选择并导入资料',{exact:true}).setInputFiles({name:'concurrent.csv',mimeType:'text/csv',buffer:Buffer.from('id,x\n1,0.25\n')});await hit;
+ current=await(await page.request.get('/api/tasks/'+task.id)).json();const changed=await page.request.put('/api/tasks/'+task.id,{headers,data:{expected_revision:current.revision,draft:{...current.draft,title:'另一个窗口已修改本研究'}}});expect(changed.ok()).toBe(true);release();
+ await expect(importer.getByText('研究配置已更新，请核对变化后重试。',{exact:true})).toBeVisible();await page.screenshot({path:evidencePath('received-binding-conflict.png')});
+ const afterConflict=await(await page.request.get('/api/tasks/'+task.id)).json();expect(afterConflict.draft.selection).toHaveLength(1);
+ await importer.getByRole('button',{name:'关闭',exact:true}).click();await page.reload();await page.getByRole('tab',{name:'输入 1',exact:true}).click();await left.getByRole('button',{name:'添加资料',exact:true}).click();
+ await importer.getByRole('button',{name:'核对后加入当前草稿',exact:true}).click();await expect(page.getByRole('tab',{name:'输入 2',exact:true})).toBeVisible();await page.unroute('**/api/uploads/*/parts/0');
+ const countsBefore=uploads.length;
+ await importer.getByLabel('选择并导入资料',{exact:true}).setInputFiles([{name:'good.csv',mimeType:'text/csv',buffer:Buffer.from('id,y\n2,0.8\n')},{name:'broken.bin',mimeType:'application/octet-stream',buffer:Buffer.from([0,255,0,5])}]);
+ await expect(importer.getByRole('list',{name:'本批导入结果',exact:true})).toContainText('good.csv · 已入库并加入研究');await expect(importer.getByRole('list',{name:'本批导入结果',exact:true})).toContainText('broken.bin · 未完成');await expect(page.getByRole('tab',{name:'输入 3',exact:true})).toBeVisible();
+ await page.screenshot({path:evidencePath('partial-batch-results.png')});
+ const dropFiles=await page.evaluateHandle(()=>{const dt=new DataTransfer();dt.items.add(new File(['id,z\n3,0.6\n'],'dropped.csv',{type:'text/csv'}));return dt;});
+ await importer.getByLabel('资料拖放区',{exact:true}).dispatchEvent('drop',{dataTransfer:dropFiles});
+ await expect(page.getByRole('tab',{name:'输入 4',exact:true})).toBeVisible();await dropFiles.dispose();
+ const ledger=await(await page.request.get('/api/tasks/'+task.id+'/import-targets')).json();const saved=await(await page.request.get('/api/tasks/'+task.id)).json();
+ await writeFile(evidencePath('recovery.json'),JSON.stringify({build:'unified-business-dev14',project:project.id,task:task.id,original:original.asset.id,interpretation:version.id,world_bytes:93,no_browser_primary_retransfer:!uploads.includes('coast.tif'),conflict_kept_inputs:afterConflict.draft.selection.length,recovered_without_retransfer:countsBefore===uploads.length-3,saved,ledger,uploads},null,2));
+});

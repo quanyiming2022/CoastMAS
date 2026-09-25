@@ -16,3 +16,6 @@ artifacts/runtime/
 .hypothesis/
 
 apps/web/dist/
+
+# New review evidence is curated under .review; preserve already tracked history.
+artifacts/

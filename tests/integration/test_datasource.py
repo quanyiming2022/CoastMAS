@@ -230,3 +230,39 @@ def test_explicit_cubic_binding_reads_real_geotiff_and_keeps_fixed_target_grid(s
     )
     result = StoredDataResolver(storage).resolve(source, variable(), binding, context)
     np.testing.assert_allclose(result, np.full((4, 4), 2.5), rtol=0, atol=1e-12)
+
+
+def test_declared_missing_file_unit_reaches_execution_without_rewriting_source(storage, tmp_path):
+    import rasterio
+    from coastmas.core.file_ingestion import inspect_raster_file
+
+    path = tmp_path / "raw.tif"
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        width=2,
+        height=2,
+        count=1,
+        dtype="float32",
+        crs="EPSG:32650",
+        transform=Affine(10, 0, 500000, 0, -10, 3500000),
+        nodata=-9999,
+    ) as output:
+        output.write(np.array([[100, 0], [-9999, 300]], dtype="float32"), 1)
+    content = path.read_bytes()
+    record = storage.put("declared/input.tif", content)
+    source = asset(
+        uri=record.uri,
+        checksum=record.sha256,
+        crs="EPSG:32650",
+        vertical_datum=None,
+        spatial_extent=None,
+        variables=[variable(unit="cm")],
+    )
+    measured = inspect_raster_file(path, source)
+    source = source.model_copy(update={"quality": measured.metadata})
+    assert StoredDataResolver(storage).resolve(
+        source, variable(), workflow().input_bindings[0], scene()
+    ) == [[1, 0], [None, 3]]
+    assert path.read_bytes() == content

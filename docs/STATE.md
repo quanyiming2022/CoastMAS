@@ -134,3 +134,42 @@
 - 发现并修复：数据标识含点号时前端文档直达404（仅页面分发，不改API契约）；结果对照手机网格最小宽度导致溢出；链接规则覆盖主按钮文字导致低对比度。失败证据完整保留，未屏蔽错误或缩减断言。
 - 主API44796、worker44797、beat33314未因UI工作重启或停止。前端dist已构建；主API内的页面分发修复尚未加载，必须在后续维护/部署安全点加载，当前直接刷新带后缀资源详情仍可能404。不能把隔离环境通过说成在线API已更新。
 - 原任务接续：先补科研人工修订观测入口/审计，之后完整错误注入、消融、性能与十二项科研报告；保留跨CRS守恒、非内置运行审批、诊断/缓存/保留清理、可选GeoAI授权API、统一部署/构建身份和分支覆盖率等缺口。全范围验收仍NOT_RUN，绝非项目完成。
+
+## 本机启动脚本交付（2026-09-21）
+- 新增 start-coastmas.command 与 scripts/start_local.py：从任意目录启动，等待已有基础设施健康，复用本项目服务，启动缺失 API/worker/beat；启动锁、未知端口占用、重复服务、缺依赖和启动失败均明确报错。不执行 init，不重置账号／数据，不停止既有进程。
+- 134846163260Z-local-start-safeguards：11 项隔离测试通过；新增脚本 ruff、mypy、bash 语法检查通过。首次失败为尚无实现及测试未模拟进程存在性，修正后通过。
+- 本轮开始旧 API44796/worker44797/beat33314 已不运行，58000 无监听；数据库/Redis/MinIO 健康。134909576126Z-local-start-live 实际启动通过，134933300021Z-local-start-repeat 再次执行复用相同 PID。当前 worker91592、beat91593、API91594，日志 artifacts/runtime/start-local/。未停止任何旧计算或重置科研数据。
+- 主 API 新启动已加载此前页面分发修复，带后缀资源路径请求 HTML 返回200；此前“等待加载”记载现已过时。此项仅文档路由检查，不冒充科研计算或全站浏览器回归。
+- 用户文档已提供简明及详细版（22节/33处表格）；原研发下一步仍为人工修订观测/科研实验等未完成项，项目未完成。
+
+## data_quan业务接入检查点（2026-09-23）
+- 保留全部既有未提交文档／启动脚本；新增core/business_intake.py、检查CLI、/data/intake页面及相关单元／浏览器测试。源目录只读，未运行R／附带二进制，未导入正式科研数据。
+- 实际读取40栅格／2模型／0错误，33种严格网格；报告与用户声明见artifacts/runtime/business-intake/，不可提交私有原始资料。用户确认2022、开放网站、非商业、珠三角距离m；未把年份补成完整观测期。
+- 9项Python测试、60项前端测试、lint／mypy／类型／构建通过；真实浏览器1流程及三视口通过，四张实际审阅图见artifacts/business-intake/。精确证据索引见docs/business-data-integration.md；初次CLI错误、数据库停机、浏览器定位错误记录保留。
+- 原CoastMAS基础容器停机，已只启动对应三个容器；原58000不可达，现用安全启动器恢复并通过健康检查，证据102521597798Z-business-intake-local-start。未停止计算或重置数据。
+- 当前科学接入BLOCKED于指标／分类及A/B/C字典、目标方法、TN原投影／正确文件；源网址／许可依据待补。TN自称经纬度但坐标为数十万／数百万，用户“与FVC等相同”不足以消除冲突，不强改标签。4份大栅格尚超执行上限，分块执行仍未实现；PPCI聚类和pprRFA回归不得冒充综合评价。
+- 下一入口：收到上述业务定义后接真实绑定／目标网格与分块执行／模型运行验证；同时保留原科研人工修订观测、实验与其余全范围缺口。检查页通过不等于真实业务计算或整体完成。
+
+## 真实接入与模型修复续接（2026-09-23，进行中）
+- 本次委托范围与唯一新增矩阵：docs/business-integration-repair-task.md；不能只交检查报告。旧检查点中“未执行R、64MiB上传上限、等待科学定义才继续工程”已被下述增量替代。
+- 实际新增2GiB磁盘分块上传/下载、项目白名单本地接入、自动事实登记；原数据只读。40个真实文件在隔离库完成导入与源SHA对照，399MiB浏览器上传/下载通过。证据113112159150Z-business-import-real-browser-fixed；全后端473项通过113122846135Z（早于后续模型/准备功能）。JSONB巨大浮点NoData导致完整性指纹不一致已复现修复，失败证据保留。
+- PPCI/pprRFA源码排除原二进制后在固定R容器构建；实际原实现数值对照聚类分组差0、回归差0。新增脚本build_projection_release.py形成源指纹、镜像、依赖版本、proof与release；当前私有release在artifacts/runtime/projection-release-20260923-v1/release.json。不得把iris技术对照说成业务回归通过。
+- 模型中心已接登记/原管理员权限审批/不可变版本；API与worker共同读取受信release并核验proof哈希。前端和审批接口相关测试通过；尚需真实浏览器闭环最终结果。
+- 新增/data/prepare：从真实受管栅格选择变量/单位/波段，严格同网格、512窗口扫描、完整共同有效分母，最多10000观测；大图显式随机样本有固定种子/原始行列/WGS84位置，不冒充全图分类。记录源资产版本/hash及声明，未知时期不补。结果新增观测分页表/位置地图。
+- 当前真实4份PRD→400显式样本→PPCI→工作流/结果E2E运行中：projection-workflow.spec.ts，evidence projection-real-workflow。发现测试BindingPlan状态须使用既有枚举VALIDATED/BLOCKED/MANUAL_REVIEW，当前脚本误写PENDING，待本轮证据完成后修正；源码在证据运行期冻结。
+- 主API/worker尚未加载本次后端变更，未重启计算服务；不要宣称58000已经可用新接口。未完成：所有格式自动接入、实体/时间/评价/优化映射、全图分块推理、两模型完整业务闭环与科学目标；继续自主修工程，不以少量科学待确认停止研发。全范围仍未完成。
+- 更新：132301258995Z-projection-real-workflow-fixed已PASS。四份418826745字节TIFF，102744000总像元、47355311共同有效、400显式样本；实际审批→预检→Redis worker→PPCI容器→成功结果/地图/分页/下载，模型计算1.97s、LLM0次。截图及result.json在artifacts/projection-workflow/1790169890810/；1440/390已审阅，1366需补审阅。选择框标签与测试枚举已修正，初次失败证据保留。
+- 132221858905Z前端65测试/lint/类型/构建PASS；132115697040Z相关后端PASS。完整后端回归business-repair-backend-regression正在执行，源码冻结。
+- 下一精确修复：projection_catalog.release未配置时configuration_value默认空串抛RuntimeError，GET provided-packages会500；补缺配置测试并以非空sentinel转换友好不可用。随后补pprRFA工作流、准备映射缺口和正式部署。只读核查主库0运行/0排队、102成功/1既有失败；主PID22481worker/22482beat/22483api，未停止。原科研研发缺口全部保留。
+- 132741985997Z完整后端483测试PASS；随后修复未配置release的500，133416581556Z配置边界4测试+ruff/mypy通过。
+- 正式维护初次被自动审批按旧UI禁止停止服务规则拒绝；用户随后两次明确“允许本次空闲维护重启”，才执行。无运行/排队任务时API/worker正常退出；退出瞬间目录核实竞态导致维护脚本报错，检查两者确已退出后安全启动器恢复成功。当前worker44890、API44891，beat22482原样保留。健康、新模型包与40文件授权列表已验证；未强杀、未重置任何数据。
+- 正式项目“data_quan 真实业务”：d6b47848-626d-4259-ab91-64adfa4bcab4。40真实TIFF均已实际登记、逐份SHA/大小匹配；两个固定R模型均v2 EXECUTABLE（技术审批）。登记清单artifacts/runtime/business-intake/managed-assets.jsonl；运行日志managed-import-20260923.log；配置备份私有。未创建假评价、业务运行或测试结果污染该项目。主API/worker已加载本轮上传/输入准备/PPCI结果功能。
+- 新续改（尚未加载正式服务）：domain/indicator_framework及app/indicator_routes接收ProjectionFrame原始栅格观测，严格grid支持、沿用公式/单位/方向/参考范围，保留样本范围与位置；raster_frame_routes登记真实源ResourceDependency；IndicatorFrameworks说明更新。18相关测试+类型通过。下一步补相关浏览器/数值与所有门禁，随后继续回归模型工作流、CSV/实体/时间/优化映射及全图推理，不宣称总任务完成。
+
+- 最新空闲维护：按用户再次明确授权，主库无QUEUED/RUNNING后正常重启API/worker；当前API46670、worker46669，beat22482保留。健康就绪、历史102成功/1既有失败不变。证据artifacts/business-import/maintenance-20260923T135814Z.json。已加载栅格→评价输入桥接及完整分母校验。
+- 135656310328Z-business-unit-prefill-frontend：65项前端测试、lint、类型/构建通过；准备输入页面按固定资产版本自动带入变量或用户已确认单位，未知仍留空。旧1366截图已补审阅。新隔离浏览器business-models-assessment-browser执行中，追加评价单位转换及实际pprRFA工作流；未完成前不能记PASS。
+
+- 140404955350Z追加真实浏览器PASS：400行评价转换误差3.55e-15；pprRFA完整预检/worker/输出与下载，400拟合值/残差/位置吻合，训练RMSE647.32m仅是工程夹具训练误差，不构成业务有效性。截图审阅发现桌面地图仍加载，追加map-ready测试（等待地图与画布尺寸）正在执行，视觉未最终PASS。先前精确标签定位失败证据140035592602Z保留。
+
+- 140854128358Z-business-models-assessment-browser-map-ready最终PASS，源码冻结；评价转换、PPCI与pprRFA真实400观测工程工作流、地图/表格/完整下载、三视口无整页溢出。artifacts/projection-workflow/1790172635933/为本轮截图与真实结果；回归1440/1366/390地图就绪图已实际审阅。先前加载中截图保留但不作为视觉通过证据，未改地图业务逻辑。隔离测试资源已清理。正式库仍未生成工程测试评价或回归结果。
+- 当前精确续接：core/file_ingestion.py与app/ingestion_routes.py仅自动识别TIFF；复用data_inspection.py既有CSV/GeoJSON/GeoPackage/NetCDF/JSON解析补自动事实接入和字段映射，随后实体/时间/优化及全图分块推理。已有功能不重写；科学字典/A-B-C/正式目标/TN真CRS只阻断对应正式结论。原全范围科研与覆盖率等缺口仍保留，项目未完成。

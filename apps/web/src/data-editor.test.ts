@@ -36,3 +36,26 @@ it("preserves immutable file identity and size while revoking edited quality app
   expect(revision.quality).toEqual({ size_bytes: 12, validated: false });
   expect(revision.version).toBe(4);
 });
+it("keeps intake provenance when adding scientific mappings, without retaining validation", () => {
+  const base = {
+    ...freshData(),
+    name: "Raster",
+    source: "User source",
+    license: "Noncommercial",
+    uri: "s3://private/data",
+    checksum: "a".repeat(64),
+    quality: {
+      size_bytes: 99,
+      declarations: { year: 2022 },
+      file_facts: { unit: null },
+      validated: true,
+    },
+  };
+  const revision = prepareDataRevision(
+    { ...base, quality: { declarations: { year: 1900 } } },
+    base,
+  );
+  expect(revision.quality.declarations).toEqual({ year: 2022 });
+  expect(revision.quality.file_facts).toEqual({ unit: null });
+  expect(revision.quality.validated).toBe(false);
+});

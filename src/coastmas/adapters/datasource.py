@@ -75,7 +75,7 @@ class StoredDataResolver:
                 or not np.isclose(declared, measured, rtol=1e-9, atol=0)
             ):
                 raise ConstraintError("catalog resolution differs from the actual raster")
-            grid = decode_geotiff(content)
+            grid = decode_geotiff(content, declared_unit=source.unit)
             if (
                 asset.type != "raster"
                 or target.data_type != "raster"

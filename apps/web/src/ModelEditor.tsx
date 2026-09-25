@@ -1,3 +1,4 @@
+import ProvidedModels from "./ProvidedModels";
 import { useMemo, useState, type ChangeEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -248,6 +249,9 @@ function Editor({
             <li key={index}>{error}</li>
           ))}
         </ul>
+      ) : null}
+      {!historical && !dirty ? (
+        <ProvidedModels projectId={projectId} model={base} onSaved={saved} />
       ) : null}
       <Panel title="模型文件与版本">
         <label>

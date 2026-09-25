@@ -64,6 +64,9 @@ const SourceEditor = lazy(() =>
   import("./DataSources").then((module) => ({ default: module.SourceEditor })),
 );
 const TemporalAdaptation = lazy(() => import("./TemporalAdaptation"));
+const DataImport = lazy(() => import("./DataImport"));
+const RasterFrame = lazy(() => import("./RasterFrame"));
+const BusinessIntake = lazy(() => import("./BusinessIntake"));
 const DataWorkspace = lazy(() => import("./DataWorkspace"));
 const ModelEditor = lazy(() => import("./ModelEditor"));
 const SceneWorkspace = lazy(() => import("./SceneWorkspace"));
@@ -192,6 +195,9 @@ export default function App() {
                 <Route path="/data-sources/new" element={<SourceEditor />} />
                 <Route path="/data-sources/:id" element={<SourceEditor />} />
                 <Route path="/temporal" element={<TemporalAdaptation />} />
+                <Route path="/data/intake" element={<BusinessIntake />} />
+                <Route path="/data/import" element={<DataImport />} />
+                <Route path="/data/prepare" element={<RasterFrame />} />
                 <Route path="/data/new" element={<DataWorkspace />} />
                 <Route path="/data/:id/workspace" element={<DataWorkspace />} />
                 <Route path="/models/new" element={<ModelEditor />} />

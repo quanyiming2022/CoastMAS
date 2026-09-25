@@ -2,7 +2,21 @@
 
 当前入口 `http://127.0.0.1:58000`。管理员凭证位于项目私有 `artifacts/runtime/demo-access.json`，不在本文件或 Git 中。初始化不会重置已有密码或覆盖已修改目录版本。
 
-## 启动
+## 一键启动（本机已安装环境）
+
+在 Finder 中双击项目根目录的 `start-coastmas.command`，或在终端执行：
+
+```sh
+/Users/quanyiming/projects/CoastMAS/start-coastmas.command
+```
+
+脚本自动定位项目，复用同一项目已有的 API、worker、beat，仅启动缺失进程；数据库、Redis 和对象存储使用现有容器与卷，等待健康后启动应用。成功显示 `http://127.0.0.1:58000`，服务在后台运行，关闭启动窗口不会主动停止它们。重复执行不会重置账号、重建数据、重新播种演示或停止已有计算；它也不会强制重启旧服务加载代码更新。
+
+使用前打开 Docker Desktop。需要本项目已安装的 `.venv`、私有 `.env`、已有数据库初始化及前端 `apps/web/dist`。缺少环境或构建会明确报错，不自动安装依赖或更改科学数据。当前基础设施使用本机已有 MinIO 镜像和数据卷，因此本脚本不是全新电脑的一键安装器。
+
+日志与进程编号位于 `artifacts/runtime/start-local/`（私有目录），包括 `infrastructure.log`、`api.log`、`worker.log`、`beat.log` 和 `services.json`。检查网页与依赖就绪、服务进程存活不等于已完成一次科研计算验收。异常后已启动服务保留，修复原因后可再次执行；不手动按旧 PID 结束不明进程。58000 被无法确认的程序占用、发现重复服务或另一次启动正在执行时，脚本拒绝继续并说明原因。
+
+## 手动启动／首次准备
 
 先启动 `docker compose -f docker-compose.infra.yml up -d`，准备 `.env` 的数据库、对象存储和管理员配置，再运行：
 

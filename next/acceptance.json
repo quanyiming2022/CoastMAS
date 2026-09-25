@@ -1,0 +1,2414 @@
+{
+  "authority": "docs/CoastMAS-standalone-professional-workbench-spec-20260924.md；用户明确采用的单一完整基线，T01—T14/A01—A82。",
+  "items": [
+    {
+      "id": "B01",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/postgres-init-green.log",
+        "artifacts/batches-all-backend.log",
+        "artifacts/semantic-all-backend.log",
+        "artifacts/semantic-web-unit.log",
+        "artifacts/browser-evidence/draft-conflict-recovery.json",
+        "artifacts/clean-python-tests.log",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-launcher-tests.log",
+        "tests/test_comparison.py",
+        "tests/test_collaboration.py",
+        "artifacts/current-browser-evidence/result-comparison.json",
+        "artifacts/current-browser-evidence/collaboration.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "所列新能力通过；不代表B01—B13全范围完成。跨来源/跨时期/不同模型的可比性、完整协同业务和其余未实现功能继续研发。"
+    },
+    {
+      "id": "B02",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/real-40-tiff-intake.json",
+        "artifacts/batches-integrity-green.log",
+        "artifacts/browser-evidence/batch-recovery.json",
+        "artifacts/browser-evidence/large-raster.json",
+        "artifacts/current-browser-evidence/large-raster.json",
+        "artifacts/current-browser-evidence/csvw-package.json",
+        "artifacts/source-revocation-race-green.log",
+        "artifacts/current-browser-evidence/source-authorization.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "本条仅列明路径经过实测；全部需求仍需补齐，不能据此宣布项目完成。"
+    },
+    {
+      "id": "B03",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/method-validation-green.log",
+        "artifacts/browser-evidence/method-assessment.json",
+        "artifacts/semantic-all-backend.log",
+        "artifacts/semantic-web-unit.log",
+        "artifacts/browser-evidence/draft-conflict-recovery.json",
+        "artifacts/current-gate-browser.log"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅所列新功能与实测路径通过；全范围、角色/标准全部阶段及最终完整交付仍未完成"
+    },
+    {
+      "id": "B04",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/method-all-backend.log",
+        "artifacts/browser-evidence/method-assessment.json",
+        "artifacts/semantic-all-backend.log",
+        "artifacts/semantic-web-unit.log",
+        "artifacts/browser-evidence/draft-conflict-recovery.json",
+        "artifacts/real-source-declarations.json",
+        "artifacts/browser-evidence/source-statement.json",
+        "artifacts/current-browser-evidence/definition-reuse.json",
+        "artifacts/current-browser-evidence/source-statement.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅所列新功能与实测路径通过；全范围、角色/标准全部阶段及最终完整交付仍未完成"
+    },
+    {
+      "id": "B05",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/csvw-decision-green.log",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/csvw-package.json",
+        "tests/test_temporal_adaptation.py",
+        "artifacts/current-browser-evidence/temporal-task.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅所列新功能与实测路径通过；全范围、角色/标准全部阶段及最终完整交付仍未完成"
+    },
+    {
+      "id": "B06",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/entity-layer-green.log",
+        "artifacts/current-browser-evidence/process-service.json",
+        "artifacts/current-browser-evidence/entity-map-390.png",
+        "tests/test_temporal_adaptation.py",
+        "artifacts/current-browser-evidence/temporal-task.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "本条仅列明路径经过实测；全部需求仍需补齐，不能据此宣布项目完成。"
+    },
+    {
+      "id": "B07",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/method-all-backend.log",
+        "artifacts/browser-evidence/method-assessment.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅列出的新功能和实测路径通过；全范围、全部角色/标准阶段及最终同构建全套验收仍未完成"
+    },
+    {
+      "id": "B08",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/new-model-api-evidence.json",
+        "artifacts/small-full-domain-proof.json",
+        "artifacts/raster-api-green.log",
+        "artifacts/outputs-green.log",
+        "artifacts/real-full-domain-evidence.json",
+        "artifacts/real-output-integrity.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅列出的新功能和实测路径通过；全范围、全部角色/标准阶段及最终同构建全套验收仍未完成"
+    },
+    {
+      "id": "B09",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/science-green.log",
+        "artifacts/navigation-cache-fixed.log",
+        "artifacts/batches-browser.log",
+        "artifacts/browser-evidence/batch-recovery.json",
+        "artifacts/semantic-all-backend.log",
+        "artifacts/semantic-web-unit.log",
+        "artifacts/browser-evidence/draft-conflict-recovery.json",
+        "artifacts/current-browser-evidence/draft-conflict-recovery.json",
+        "artifacts/worker-recovery-green.log",
+        "tests/test_comparison.py",
+        "tests/test_collaboration.py",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/result-comparison.json",
+        "artifacts/current-browser-evidence/collaboration.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "所列新能力通过；不代表B01—B13全范围完成。跨来源/跨时期/不同模型的可比性、完整协同业务和其余未实现功能继续研发。"
+    },
+    {
+      "id": "B10",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/new-model-api-evidence.json",
+        "artifacts/small-full-domain-proof.json",
+        "artifacts/raster-api-green.log",
+        "artifacts/outputs-green.log",
+        "artifacts/real-full-domain-evidence.json",
+        "artifacts/current-gate-original-models.log"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "仅所列新功能与实测路径通过；全范围、角色/标准全部阶段及最终完整交付仍未完成"
+    },
+    {
+      "id": "B11",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/new-model-api-evidence.json",
+        "artifacts/small-full-domain-proof.json",
+        "artifacts/raster-api-green.log",
+        "artifacts/outputs-green.log",
+        "artifacts/real-output-integrity.json",
+        "artifacts/browser-evidence/method-assessment.json",
+        "artifacts/current-browser-evidence/run-history.json",
+        "artifacts/allocation-export-green.log",
+        "artifacts/entity-map-green.log",
+        "artifacts/current-browser-evidence/process-service.json",
+        "tests/test_temporal_adaptation.py",
+        "artifacts/current-browser-evidence/temporal-task.json",
+        "tests/test_comparison.py",
+        "tests/test_collaboration.py",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/result-comparison.json",
+        "artifacts/current-browser-evidence/collaboration.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "所列新能力通过；不代表B01—B13全范围完成。跨来源/跨时期/不同模型的可比性、完整协同业务和其余未实现功能继续研发。"
+    },
+    {
+      "id": "B12",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "artifacts/current-gate-browser.log",
+        "artifacts/current-browser-evidence/run-history.json",
+        "README.md",
+        "tests/test_temporal_adaptation.py",
+        "artifacts/current-browser-evidence/temporal-task.json",
+        "tests/test_comparison.py",
+        "tests/test_collaboration.py",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/result-comparison.json",
+        "artifacts/current-browser-evidence/collaboration.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "所列新能力通过；不代表B01—B13全范围完成。跨来源/跨时期/不同模型的可比性、完整协同业务和其余未实现功能继续研发。"
+    },
+    {
+      "id": "B13",
+      "status": "PARTIALLY_IMPLEMENTED_VERIFIED",
+      "evidence": [
+        "tests/test_process_service.py",
+        "tests/fixtures/ogc-processes-1.0/sources.json",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/process-service.json"
+      ],
+      "requirement_source": "docs/audits/20260923-full-site/implementation-backlog.md",
+      "remaining": "已执行qualified JSON task/document/reference异步子集；未支持全部Core输入/输出模式、过滤器、callback与终态删除；不声明完整标准符合/认证。"
+    }
+  ],
+  "cancelled_requirements": [
+    {
+      "name": "旧页面/导航/路由一致",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "新契约、用户任务和科学结果验收，不记旧兼容PASS"
+    },
+    {
+      "name": "旧API/请求字段兼容",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "新契约、用户任务和科学结果验收，不记旧兼容PASS"
+    },
+    {
+      "name": "旧内部契约与表结构",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "新契约、用户任务和科学结果验收，不记旧兼容PASS"
+    },
+    {
+      "name": "旧UI快照与逐字段等价",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "新契约、用户任务和科学结果验收，不记旧兼容PASS"
+    },
+    {
+      "name": "旧数据可执行迁移",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "新契约、用户任务和科学结果验收，不记旧兼容PASS"
+    },
+    {
+      "requirement": "同项目同hash总返回同一资产ID；旧逐卡手动预览及其UI定位断言",
+      "status": "需求已取消",
+      "replacement": "test_asset_identity.py 独立身份/意图重放；共享资料查看区与既有数值/下载/恢复断言，未删除科学行为验证。"
+    },
+    {
+      "name": "顶部八步横栏/下拉入口、默认无文字主导航轨",
+      "status": "REQUIREMENT_CANCELLED",
+      "replacement": "完整中文主菜单与唯一72px右侧八步栏；两字显示，完整名称可访问。"
+    }
+  ],
+  "scientific_blockers": [
+    "TN可信CRS",
+    "指标/类别/A-B-C字典",
+    "正式目标/认可方法与回归响应、验证设计",
+    "来源/许可证据"
+  ],
+  "current_gate": {
+    "status": "PASS_FOR_DIRECTED_UI_AND_IMPLEMENTED_PATHS",
+    "scope": "研究内容管理器、右侧流程栏/两字标签、图例和真实状态；A数值表格与B实际空间成果同构建",
+    "backend": 189,
+    "frontend_unit": 51,
+    "browser": 9,
+    "browser_invocations": [
+      8,
+      1
+    ],
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "evidence": "artifacts/map-overlay-release-evidence.json",
+    "not_completion": true
+  },
+  "standard_updates": [
+    {
+      "profile": "CSVW packaged tables",
+      "standard": "W3C-REC-2015-12-17",
+      "parser": "csvw-package-1",
+      "reference": "https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/",
+      "stages": {
+        "recognition": "PASS_FOR_SCOPE",
+        "validation": "PARTIAL",
+        "semantic_reading": "PARTIAL",
+        "mapping": "PASS_FOR_PRIMARY_KEY_AND_TYPED_COLUMNS",
+        "task_use": "PASS_ASSESSMENT_AND_INSPECTION",
+        "export": "PASS_RESULT_CSVW",
+        "loss": "ORIGINAL_BYTES_RETAINED_NUMERIC_METHODS_FLOAT64"
+      },
+      "evidence": [
+        "tests/test_csvw.py",
+        "artifacts/current-gate-backend.log",
+        "artifacts/current-browser-evidence/csvw-package.json",
+        "tests/test_comparison.py"
+      ],
+      "remaining": "自定义日期、外键、虚拟列等未完成属性明确阻断相关计算；独立元数据与分散文件的自动关联尚未实现。"
+    },
+    {
+      "profile": "OGC API Processes Part1 Core 1.0 implemented subset",
+      "reference": "https://docs.ogc.org/is/18-062r2/18-062r2.html",
+      "stages": {
+        "recognition": "PASS_DISCOVERY_VERSIONED_ENDPOINT",
+        "validation": "PASS_OFFICIAL_SCHEMAS_FOR_SUBSET",
+        "semantic_reading": "FIXED_TASK_REVISION",
+        "mapping": "PASS_SAME_MANIFEST",
+        "task_use": "PASS_ACTUAL_ENTITIES_NATIVE_EQUIVALENCE",
+        "export": "PASS_FULL_JSON_RESULT_LINK",
+        "loss": "UNSUPPORTED_VARIANTS_REJECTED_NO_SILENT_COERCION"
+      },
+      "conformsTo": [],
+      "evidence": [
+        "tests/test_process_service.py",
+        "artifacts/current-browser-evidence/process-service.json"
+      ],
+      "remaining": "未执行完整OGC ATS，不声明全Core/Dismiss符合。"
+    },
+    {
+      "profile": "CF time one-dimensional bounded subset",
+      "versions": [
+        "1.7",
+        "1.8",
+        "1.9",
+        "1.10",
+        "1.11",
+        "1.12"
+      ],
+      "stages": {
+        "recognition": "PASS_DECLARED_VERSIONS",
+        "validation": "PASS_FOR_SUPPORTED_AXES_AND_CELL_METHODS",
+        "semantic_reading": "PASS_NATIVE_CALENDAR_BOUNDS_UNITS",
+        "mapping": "PASS_FILE_AUTO_CHOICES",
+        "task_use": "PASS_SIX_METHODS_WITH_SCIENTIFIC_PRECONDITIONS",
+        "export": "PASS_JSON_CSVW_NATIVE_CALENDAR_STRINGS",
+        "loss": "NO_PARTIAL_INTERVAL_OR_SILENT_CALENDAR_CONVERSION"
+      },
+      "evidence": [
+        "tests/test_temporal_adaptation.py",
+        "artifacts/current-browser-evidence/temporal-task.json"
+      ],
+      "remaining": "多维CF、气候平均和复杂cell_methods不在当前实现子集；不声明完整CF符合。"
+    }
+  ],
+  "implemented_scope_notes": {
+    "comparison": "assessment / optimization / one-dimensional CF temporal only; 100000 rows and 256MiB per input; conservative same-source basis; offset-temperature differences explicitly incremental",
+    "collaboration": "immutable comparison-run discussion and technical review; viewer remains read-only; no automatic policy/science approval",
+    "not_implemented": [
+      "cross-source/time comparability",
+      "full model comparison",
+      "workflow execution and planner",
+      "research A/B/C",
+      "remaining standard profile stages",
+      "complete spatial/temporal bridges and management-unit business pipeline"
+    ],
+    "automatic_view": "数据资源入口支持无任务前置的分段上传、单活动栅格窗口瓦片、原生点查与服务端个人视图；缺定位为非地理图像。任务内原接入/矢量/多图层/RGB自动显示尚未统一，不计完整I02。"
+  },
+  "baseline": {
+    "file": "docs/CoastMAS-standalone-professional-workbench-spec-20260924.md",
+    "sha256": "f9b64cf500bff24617c1c6711bfdf85d20552dcd34c36c393bd2cd958f08a905",
+    "full_project_complete": false
+  },
+  "latest_acceptance": [
+    {
+      "id": "A01",
+      "title": "已定位真实大TIFF首次上传",
+      "required": "无手画边界、无建实体/方法/场景前置；自动图层+定位+实际栅格",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A02",
+      "title": "只有文件/定位完整、单位和概念未知",
+      "required": "仍可查看原始值，未知单位明示；不猜科学意义",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A03",
+      "title": "当前距离TIFF代表规模",
+      "required": "读取实际尺寸/hash；有界显示与原生点查；不是仅显示外框",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A04",
+      "title": "旋转/斜切/半像元错位栅格",
+      "required": "完整变换与定位正确，多输入不按行号错叠",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A05",
+      "title": "0/负值/alpha/NoData/多波段mask",
+      "required": "合法值不被删除；图例/点查/文件一致",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A06",
+      "title": "多岛、内部洞、全部NoData",
+      "required": "保留真实mask；足迹不被当真实岸线，空数据不伪填",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A07",
+      "title": "缺CRS/定位冲突/TN类异常",
+      "required": "原件保留、非地理预览可用；不默认4326或猜范围",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A08",
+      "title": "有支持链的GCP/RPC/地理定位数组",
+      "required": "真实定位路径和必要依据；不支持组合明确说明且不假定位",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A09",
+      "title": "多图层矢量与跨远域资料",
+      "required": "全层登记与可发现，自动概览不丢层，不反复抢视口",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A10",
+      "title": "跨日期变更线/投影边界",
+      "required": "正确范围或明确显示能力限制，不把局部铺满全球",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A11",
+      "title": "COG与非COG",
+      "required": "布局和Range分别测试；普通TIFF不因非COG无法初步查看",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A12",
+      "title": "地图缩放/图例/视口与点查",
+      "required": "显示变化不改分析hash；原生值不来自低分辨率图取色",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json",
+        "tests/test_task_views.py",
+        "web/src/useViewState.test.tsx",
+        "web/e2e/large-raster.spec.ts",
+        "artifacts/task-view-browser-final/large-raster.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A13",
+      "title": "接入中断/同意图重试/半批失败",
+      "required": "同段幂等、成功项保留、草稿声明不重填",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/upload_sessions.py",
+        "web/src/CatalogUpload.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_upload_sessions.py",
+        "web/src/resumableUpload.test.ts",
+        "artifacts/catalog-gate-browser-evidence/upload-resume.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A14",
+      "title": "上传后刷新/关闭重开",
+      "required": "原件已受管则不用再选文件；视图/引用和有效草稿恢复",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx",
+        "src/coastmas_next/upload_sessions.py",
+        "web/src/CatalogUpload.tsx",
+        "src/coastmas_next/catalog.py",
+        "web/src/Catalog.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json",
+        "tests/test_upload_sessions.py",
+        "web/src/resumableUpload.test.ts",
+        "artifacts/catalog-gate-browser-evidence/upload-resume.json",
+        "tests/test_task_views.py",
+        "web/src/useViewState.test.tsx",
+        "web/e2e/large-raster.spec.ts",
+        "artifacts/task-view-browser-final/large-raster.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A15",
+      "title": "同hash不同声明/权限/项目",
+      "required": "不自动合并业务身份，不泄露其他项目存在性",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "implemented_for_case",
+      "modules": [
+        "src/coastmas_next/intake.py",
+        "src/coastmas_next/schema_upgrades.py"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_asset_identity.py",
+        "tests/test_upload_sessions.py",
+        "tests/test_batches.py",
+        "verification/test_postgres_initialization.py",
+        "artifacts/task-view-backend.log",
+        "artifacts/task-view-model-database.log"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A16",
+      "title": "CSV/TSV方言和CSVW",
+      "required": "分隔符、引号、BOM、空值、前导零与语义引用正确",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A17",
+      "title": "GeoPackage/Shapefile/GeoJSON",
+      "required": "多层/配套/编码/几何真实映射，有损或不支持扩展有依据",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A18",
+      "title": "CF1.12及核实状态的1.13子集",
+      "required": "calendar/bounds/cell_methods/grid_mapping/packing未丢；360_day不伪UTC",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A19",
+      "title": "STAC与远程引用",
+      "required": "真资产关系/时空/扩展与固定读取，禁止SSRF/越权与秘密外发",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A20",
+      "title": "新批次与源/方法/许可变化",
+      "required": "重读事实、新绑定、复用认可知识；只失效真正相关内容",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A21",
+      "title": "标准支持正向矩阵",
+      "required": "每个承诺阶段有成功样例及反例，不能只识别或只会拒绝",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A22",
+      "title": "大目录/跨页批选/引用",
+      "required": "实际规模搜索排序正确，选择范围明确，操作不按当前页冒全部",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/catalog.py",
+        "web/src/Catalog.tsx"
+      ],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A23",
+      "title": "年鉴电子表与数字文档",
+      "required": "原文位置、地区/时期/单位和真实值保持，不逐行重录",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A24",
+      "title": "合计小计/区划变更/代码前导零",
+      "required": "不重复求和，不猜边界，对照和异常可追溯",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A25",
+      "title": "人口分配T=100,q=[1,2,1]",
+      "required": "输出[25,50,25]；多行政区分别核算，不只总和",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A26",
+      "title": "AOI只覆盖县内海岸及边界像元",
+      "required": "完整控制域分配后裁剪，保存跨区贡献，不强塞全县总量",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A27",
+      "title": "T未知/真0/q全0/密度或每格量",
+      "required": "不错误填0；不重复乘面积；失败或认可回退标明",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A28",
+      "title": "回归空间化训练/验证",
+      "required": "独立行政/空间划分，不复制县总量造像元独立样本",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A29",
+      "title": "守恒与独立验证",
+      "required": "两类指标分开，无独立数据无假R²/置信区间",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A30",
+      "title": "原始影像计算指标",
+      "required": "实际波段/scale/offset/QA公式对照，不只加载成品NDVI",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A31",
+      "title": "土地利用/道路计算距离与密度",
+      "required": "真筛选/缓冲/距离/密度/重分类；AOI外地物和块边缘不漏",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A32",
+      "title": "栅矢转换与不同数值语义",
+      "required": "类别合法、总量守恒、比例和面积统计正确",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A33",
+      "title": "标准化常量/超界/缺层/跨期",
+      "required": "真实规则与诊断，无暗中截断/填0/改参照",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A34",
+      "title": "AHP合法/矛盾矩阵与退化阶数",
+      "required": "真实权重与适用一致性；不篡改专家输入",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A35",
+      "title": "评价型PP与PPCI聚类",
+      "required": "不互相冒用；真实目标/规则/数值基准及权重或直接得分",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A36",
+      "title": "综合0.66夹具",
+      "required": "文件、点查、表格和贡献图一致；指标顺序变化不错配",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A37",
+      "title": "小图整算与分块、大图全域",
+      "required": "固定预处理/权重，位置/mask/数值按预置容差一致，完整产物",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A38",
+      "title": "新R和Python算法包分别上传",
+      "required": "未预登记包→静态检查→隔离验证→发布→分析者真实运行",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A39",
+      "title": "缺依赖/不安全包/未经批准版本",
+      "required": "普通上传不执行；失败保留，权限不被绕过",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A40",
+      "title": "地图—表格—图表—流程联动",
+      "required": "稳定身份和版本正确，异步旧响应不能污染新图",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A41",
+      "title": "样本/视口/选区/全域统计",
+      "required": "分母和定义清晰，不能当前页冒全域",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A42",
+      "title": "比较与敏感性",
+      "required": "可比性核对、共用合理色标、真实差值，原方法/成果不覆盖",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A43",
+      "title": "数据导出与科研图件",
+      "required": "实际打开GeoTIFF/COG/矢量/CSV与PNG/PDF/SVG，元信息/图例/来源正确",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A44",
+      "title": "目录/任务/运行/成果管理",
+      "required": "业务可找到，当前环节明确；不是卡片墙或长页找历史",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/catalog.py",
+        "web/src/Catalog.tsx"
+      ],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "tests/test_task_views.py",
+        "web/src/useViewState.test.tsx",
+        "web/e2e/large-raster.spec.ts",
+        "artifacts/task-view-browser-final/large-raster.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A45",
+      "title": "资料质检与其他任务分支",
+      "required": "不要求无关字段；优化/时间/变化/科研/协同不被新例子删掉",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A46",
+      "title": "草稿并发/会话失效/撤权",
+      "required": "无已保存内容丢失，无越权草稿/瓦片/缓存/导出访问",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/upload_sessions.py",
+        "web/src/CatalogUpload.tsx",
+        "src/coastmas_next/catalog.py",
+        "web/src/Catalog.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_upload_sessions.py",
+        "web/src/resumableUpload.test.ts",
+        "artifacts/catalog-gate-browser-evidence/upload-resume.json",
+        "tests/test_geospatial_view.py",
+        "tests/test_task_views.py",
+        "web/src/useViewState.test.tsx",
+        "web/e2e/large-raster.spec.ts",
+        "artifacts/task-view-browser-final/large-raster.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A47",
+      "title": "双击/重试/主动复跑/取消恢复",
+      "required": "同意图不重复，主动复跑允许，worker和发布状态真实",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/upload_sessions.py",
+        "web/src/CatalogUpload.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_upload_sessions.py",
+        "web/src/resumableUpload.test.ts",
+        "artifacts/catalog-gate-browser-evidence/upload-resume.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A48",
+      "title": "测试夹具、服务与原件保护",
+      "required": "无写入真实项目的未说明夹具，不改原件或删历史",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A49",
+      "title": "视口/键盘/错误/底图离线",
+      "required": "三视口正常，焦点/标签可用，底图失败不冒数据丢失",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json",
+        "tests/test_task_views.py",
+        "web/src/useViewState.test.tsx",
+        "web/e2e/large-raster.spec.ts",
+        "artifacts/task-view-browser-final/large-raster.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A50",
+      "title": "真实混合源全流程",
+      "required": "原始遥感+地物+年鉴+边界→空间化→指标→赋权→全域综合→解释/出图",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A51",
+      "title": "性能与标准服务",
+      "required": "参考环境冷/热首图/查询/RSS真实测量，标准API实际执行与原生结果一致",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [
+        "src/coastmas_next/geospatial_view.py",
+        "web/src/AssetMap.tsx"
+      ],
+      "evidence": [],
+      "historical_candidate_evidence": [
+        "tests/test_geospatial_view.py",
+        "web/e2e/catalog.spec.ts",
+        "artifacts/catalog-gate-browser-evidence/catalog.json",
+        "artifacts/catalog-render-measurement.json"
+      ],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A52",
+      "title": "同构建完整回归和干净启动",
+      "required": "后端/前端/契约/安全/浏览器/数值测试与启动说明，未运行如实",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "partial",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A53",
+      "title": "独立任务书执行",
+      "required": "不要求历史文档/旧编号；本文所有章节与T/A编号可在单文件定位",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A54",
+      "title": "GeoAI式结构",
+      "required": "1440×900/1366×768中央主视图满足第3.2预算，左右/底部可收起；不是居中长表单",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A55",
+      "title": "面板与响应布局",
+      "required": "拖拽/收起后地图尺寸与点位正确，不反复fit；390宽/200%缩放可操作，无隐藏主按钮",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A56",
+      "title": "首页和业务导航",
+      "required": "八业务环节及年鉴/GIS/指标/权重/模型入口可发现；无强制任务名前置和四菜单掩盖能力",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A57",
+      "title": "任务专业目录",
+      "required": "200条任务可搜索/分类/排序/分页；当前环节、最近运行、成果与配置版本分别显示",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A58",
+      "title": "全集合搜索",
+      "required": "查询命中第2页以外/中文/文件名，晚到响应不覆盖；无结果与错误区分",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A59",
+      "title": "分类和集合",
+      "required": "真实类型/处理阶段/用途/标签筛选；移动集合不复制字节，不靠名字猜测试身份",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A60",
+      "title": "列、密度与保存视图",
+      "required": "固定表头/列显隐/调整宽度/密度有效，刷新/重开保留个人设置，不污染他人视图",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A61",
+      "title": "点击行为",
+      "required": "行详情、名称导航、checkbox批选、图层眼睛显隐、用于分析各自独立，无事件冒泡误运行",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A62",
+      "title": "跨页与全部筛选选择",
+      "required": "明确集合/数量；查询快照后新增数据不误入；排除项生效，不能只操作首20条",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A63",
+      "title": "元数据编辑",
+      "required": "改名/备注/标签服务端持久，失败不假成功；历史计算和原件hash不受展示名影响",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A64",
+      "title": "科学数据修订",
+      "required": "表格纠错/字段或几何修订产生新版本，原值/原图层和旧结果可追溯；单位变化触发相关失效",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A65",
+      "title": "并发编辑",
+      "required": "两浏览器基于旧revision提交发生可解释冲突；不以最后写入覆盖他人",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A66",
+      "title": "真正删除/回收",
+      "required": "对允许对象确认后回收，刷新/重登仍排除；无真实记录仅CSS隐藏判FAIL",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A67",
+      "title": "回收站恢复",
+      "required": "分类检索、权限、父项目/名称冲突与恢复正确；图层/列表/计数和引用可核查",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A68",
+      "title": "引用/运行锁保护",
+      "required": "正在运行、被成果引用、共享blob、只读外部源的删除限制正确；不能绕过或误擦源目录",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A69",
+      "title": "批量部分失败",
+      "required": "明确逐项成功/阻塞/权限/版本冲突；重新提交不重复执行，新增依赖及时阻断",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A70",
+      "title": "永久清理",
+      "required": "管理员预检/确认，非管理员后端拒绝；合法无引用副本真实清理，失败重试不伤共享原件",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A71",
+      "title": "全目录写操作覆盖",
+      "required": "任务/资料/集合/方法/模型/运行/成果/导出均按能力有对应动作；不可变日志明确只读",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A72",
+      "title": "方法与模型分离",
+      "required": "普通入口先使用，维护/导入独立；工程用途可筛选；允许格式不能靠勾选伪造能力",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A73",
+      "title": "输出合同完整性",
+      "required": "缺少必需栅格/表文件时计算不可假完整成功；原输入引用不能充当输出",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A74",
+      "title": "分析成果首屏",
+      "required": "实际空间分析结束打开对应主成果，无下载再上传步骤；不是输入TIFF或状态＋两个下载按钮",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [
+        "artifacts/professional-build-evidence.json",
+        "artifacts/professional-browser-verified/professional-first-chain.json"
+      ],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。 本次第一链路：实际建设用地大TIFF、专业桌面画布、原生点查、目录修改/回收/恢复和真实全网格覆盖产物已实测；仅这些子项通过，整项全部条件尚未统一完成，不把NOT_RUN提升为全项PASS。"
+    },
+    {
+      "id": "A75",
+      "title": "无空间与质检结果",
+      "required": "文本探针表/质检显示真实摘要/问题/表，无假地图，无评价方向或响应前置",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A76",
+      "title": "渲染失败与重建",
+      "required": "输出存在但瓦片/统计失败有明确状态与重试，修显示不重算/篡改科学结果",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A77",
+      "title": "固定run一致性",
+      "required": "切两次不同结果，图层/权重/点查/导出同步固定正确版本，过期请求无污染",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A78",
+      "title": "草稿与视图恢复",
+      "required": "返回/刷新/关闭重开恢复已同步值；离线未同步不假已保存；布局重置不改科学配置",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A79",
+      "title": "真实目标浏览器",
+      "required": "Chromium与可用Safari/WebKit的关键目录、弹层、地图和恢复实测；环境缺失如实列未测",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A80",
+      "title": "数据隔离与现场",
+      "required": "夹具不写真实默认项目，当前入口的构建/worker/schema可核对，不拿另一环境截图替代",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A81",
+      "title": "最少填写测量",
+      "required": "初次未知与模板复用分别量化：新事实、选择、确认、导航、恢复；不能后台预填冒用户少填",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    },
+    {
+      "id": "A82",
+      "title": "整体交付门禁",
+      "required": "T01—T14和A01—A81逐项有证据/状态，产品体验与工程/科学分别签出，无关键缺项仍报完成",
+      "engineering_status": "NOT_RUN",
+      "business_status": "NOT_RUN",
+      "implementation": "not_implemented",
+      "modules": [],
+      "evidence": [],
+      "historical_candidate_evidence": [],
+      "scope_note": "历史证据只作为当前正确模块的候选依据；按独立版新构建重新核验，不自动继承PASS。"
+    }
+  ],
+  "implementation_tasks": [
+    {
+      "id": "T01",
+      "title": "现场与最小合同",
+      "delivery": "核当前构建、相关模块、资产/权限/草稿/产物身份和隔离测试；给当前可复现差距写测试",
+      "dependencies": "无；不全库重审、不丢未提交修改",
+      "status": "IN_PROGRESS",
+      "evidence": []
+    },
+    {
+      "id": "T02",
+      "title": "专业外壳与通用目录",
+      "delivery": "第3节P01—P03骨架接真实数据；第6.1目录查询、组件、语义点击和能力投影",
+      "dependencies": "T01；优先与T03一起可运行，不只视觉样机",
+      "status": "IN_PROGRESS",
+      "evidence": []
+    },
+    {
+      "id": "T03",
+      "title": "上传即看与恢复",
+      "delivery": "安全接入、自动定位、图层、真实图例/点查、批量和持久恢复",
+      "dependencies": "T01/T02最小合同，标准登记只需最小身份不等全量",
+      "status": "IN_PROGRESS",
+      "evidence": []
+    },
+    {
+      "id": "T04",
+      "title": "增删改查与回收",
+      "delivery": "所有目录对象的真实编辑/修订、批量、删除预检、回收、恢复、条件清理和并发",
+      "dependencies": "T02最小目录；逐对象适配，不只数据目录有CRUD",
+      "status": "IN_PROGRESS",
+      "evidence": []
+    },
+    {
+      "id": "T05",
+      "title": "标准与有效语义",
+      "delivery": "格式正向/反例、版本分阶段能力、声明/模板/绑定、按动作的缺口、适配计划",
+      "dependencies": "T01/T03；自身schema先定义，不与接入循环等待",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T06",
+      "title": "空间工具与指标",
+      "delivery": "网格、栅矢/波段/字段/距离/密度算子、IndicatorRecipe、阶段产物与视图",
+      "dependencies": "T03/T05；T02工作区",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T07",
+      "title": "年鉴与统计空间化",
+      "delivery": "提取、行政绑定、AREA/PRIOR/REG/SECTOR、控制域、守恒和独立验证",
+      "dependencies": "T05/T06；原文/表/地图同屏",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T08",
+      "title": "模型算法上传",
+      "delivery": "新R/Python包静态检查、隔离验证、发布和使用，核真实提供模型原包",
+      "dependencies": "T01/T05；T02目录；不以维护方法代替",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T09",
+      "title": "标准化、赋权与全域综合",
+      "delivery": "AHP、明确评价型PP、固定模型/权重、贡献/质量、全域真实输出",
+      "dependencies": "T06；PP特定runner依T08；无科学数据继续工程但不伪业务",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T10",
+      "title": "结果自动展示与跨视图",
+      "delivery": "ResultDescriptor、主产物、真实图/表/查询、历史切换、显示失败恢复",
+      "dependencies": "T03最小显示，随T06—T09产物同步；不等全部算法结束才开工",
+      "status": "IN_PROGRESS",
+      "evidence": []
+    },
+    {
+      "id": "T11",
+      "title": "科研出图与导出",
+      "delivery": "单一导出入口、标准数据和版式/图集、可比性和敏感性",
+      "dependencies": "T10和相应计算能力",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T12",
+      "title": "其余独立业务与服务",
+      "delivery": "第13节全部能力、标准过程接口、研究验证/协同/权限/来源关系",
+      "dependencies": "按实际算子依赖T05—T09，可交错，不全量互等",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T13",
+      "title": "全站覆盖与文档",
+      "delivery": "P01—P09、所有对象目录、实际状态和帮助；启动/操作说明",
+      "dependencies": "随T02—T12逐项落地",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "T14",
+      "title": "完整回归与交付",
+      "delivery": "A01—A82、同构建真实场景、目录CRUD、数值/标准/权限/性能与访问入口",
+      "dependencies": "全部适用子项；缺项如实，不以定向通过冒整体",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    }
+  ],
+  "previous_gate": {
+    "status": "PASS_FOR_IMPLEMENTED_TEST_SCOPE_ONLY",
+    "backend_tests": 150,
+    "frontend_unit_tests": 31,
+    "real_browser_tests": 18,
+    "original_model_and_clean_db_tests": 4,
+    "evidence": [
+      "artifacts/catalog-gate-backend.log",
+      "artifacts/catalog-gate-web-unit.log",
+      "artifacts/catalog-gate-original-models.log",
+      "artifacts/catalog-gate-browser-final.log",
+      "artifacts/catalog-gate-lint-final.log",
+      "artifacts/catalog-gate-web-lint.log",
+      "artifacts/catalog-gate-web-type.log",
+      "artifacts/catalog-gate-web-build.log"
+    ],
+    "not_claimed": "I01—I11及A01—A52整体未完成；真实性能只测单次，不宣称p95/并发容量。"
+  },
+  "evidence_limitations": [
+    "catalog-browser/catalog-before-1440.png误捕获登录中状态，排除为资料库修改前证据；未伪造修改前截图。",
+    "原TIFF有外部.ovr/.aux.xml，受管单文件无外部概览；两种条件的显示样本不同，性能分别记录。原生点查对照一致。",
+    "catalog-gate-browser.log为17通过/1旧标题断言失败，更新显示名称后完整18项通过；未删除行为断言。",
+    "backend warnings include upstream deprecations and intentionally ungeoreferenced PNG/test fixtures; not suppressed.",
+    "task-view首轮浏览器10通过8失败：旧article/全局文本定位不再匹配新工作区；失败轨迹保留于task-view-first-browser-failures；精确绑定新列表/成果表后18项通过59.4秒。查看截图后修复手机nav顺序污染，不盲目更新快照。"
+  ],
+  "historical_baseline": {
+    "file": "docs/coastmas-complete-development-design-20260924.md",
+    "sha256": "5735de0881e7a18e6a75952c6012d31434067d2fe253deff85e6e7338b390872",
+    "full_project_complete": false
+  },
+  "historical_implementation_tasks": [
+    {
+      "id": "I01",
+      "name": "基线与契约",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I02",
+      "name": "上传即看",
+      "status": "IN_PROGRESS",
+      "next": "完善任务内自动图层、多图层矢量、RGB/逐层显示与受控本地来源统一恢复"
+    },
+    {
+      "id": "I03",
+      "name": "专业外壳与目录",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I04",
+      "name": "多标准与语义",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I05",
+      "name": "GIS与指标生产",
+      "status": "NOT_IMPLEMENTED",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I06",
+      "name": "年鉴与空间化",
+      "status": "NOT_IMPLEMENTED",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I07",
+      "name": "模型上传发布",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I08",
+      "name": "评价与全域",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I09",
+      "name": "可视分析与科研制图",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I10",
+      "name": "其他任务与服务",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    },
+    {
+      "id": "I11",
+      "name": "完整回归交付",
+      "status": "IN_PROGRESS",
+      "next": "按最新设计对应章节补齐，旧代码/测试不自动计完成"
+    }
+  ],
+  "latest_work_package": {
+    "status": "FIRST_INTERNAL_CHAIN_VERIFIED",
+    "evidence": [
+      "artifacts/professional-browser-verified/professional-first-chain.json",
+      "artifacts/professional-coverage-independent.json",
+      "artifacts/professional-browser-verified",
+      "artifacts/professional-workbench-before",
+      "artifacts/professional-build-evidence.json"
+    ],
+    "remaining": [
+      "Full business navigation and project/task management",
+      "Lifecycle for remaining resource types, full bulk and permanent purge",
+      "Multi-layer/RGB/vector interactive workspace and resizable panels",
+      "Remaining standards, GIS, indicators, yearbook, AHP/evaluation-PP, uploads, research and publication scope in T01-T14"
+    ],
+    "full_project_complete": false
+  },
+  "gate_before_current_ui": {
+    "status": "PASS_FOR_IMPLEMENTED_TEST_SCOPE_ONLY",
+    "scope": "Professional first internal chain plus prior implemented regression; all A01-A82 still assessed separately",
+    "backend": 169,
+    "frontend_unit": 35,
+    "browser": 19,
+    "original_model_postgresql": 4,
+    "evidence": "artifacts/professional-build-evidence.json",
+    "code_build_sha256": "ef8d463b846bdf9505e1d885edbca909ccd69fc2daa6216967217300a196888a",
+    "not_completion": true
+  },
+  "directed_ui_followup": {
+    "rail": {
+      "status": "PASS",
+      "labels": [
+        "资料",
+        "对齐",
+        "落图",
+        "指标",
+        "标化",
+        "权重",
+        "综合",
+        "验证"
+      ],
+      "evidence": "artifacts/map-overlay-browser-release/native-point-checks.json"
+    },
+    "content_manager": {
+      "status": "PASS_FOR_TESTED_SCOPE",
+      "evidence": [
+        "artifacts/map-overlay-browser-release/research-panels.json",
+        "artifacts/map-overlay-browser-release/content-panel-stress.json"
+      ],
+      "coverage": "1份真实输入/4成果/2运行及30层/12运行/长名/多类型/上传/授权目录/权限/真实失败/持久恢复"
+    },
+    "map_display": {
+      "status": "PASS_FOR_TESTED_SCOPE",
+      "evidence": "artifacts/map-overlay-browser-release/map-overlay.json",
+      "coverage": "默认关闭、个人持久化、当前可见层、单值/近值/256原始色表、慢加载/503/重试/409，无地图保存横幅"
+    },
+    "branches": {
+      "A": "PASS_NUMERICAL_TABLE_WITHOUT_FALSE_GEOMETRY",
+      "B": "PASS_REAL_RASTER_WITH_NATIVE_INSPECT_AND_EXPORT",
+      "evidence": [
+        "artifacts/map-overlay-browser-release/desktop-research-continuity.json",
+        "artifacts/map-overlay-browser-release/result-branches.json",
+        "artifacts/map-overlay-browser-release/full-grid-independent.json"
+      ],
+      "not_verified": "全量矢量专题结果、科研图件模板和其余T01—T14范围不能由此计PASS"
+    },
+    "screenshots": [
+      "artifacts/research-panels-paired",
+      "artifacts/map-overlay-paired"
+    ],
+    "failed_attempts": [
+      "artifacts/map-overlay-final-failures",
+      "artifacts/map-overlay-independent-release.log"
+    ],
+    "remaining": "全项目与科学阻塞见STATE.md，未实现算法不能因入口可点击记为完成"
+  },
+  "development_data_cleanup": {
+    "status": "PASS",
+    "scope": "automatic test records only; manual research and real data retained",
+    "verification": "artifacts/cleanup-20260924/verification.json",
+    "browser": "artifacts/cleanup-20260924/browser-verification.json",
+    "historical_test_ids_online": false,
+    "future_tests_require_new_runtime": true
+  },
+  "unified_business_round": {
+    "authority": "/Users/quanyiming/Downloads/CoastMAS-unified-business-and-management-redesign-20260924.md",
+    "execution": "N01–N08; user requests menu label 工作台",
+    "environment": "next/.state/unified-business-20260924; port58013; no tests on58012",
+    "items": [
+      {
+        "id": "U01",
+        "group": "归属/管理",
+        "requirement": "设置页不再渲染项目、用户、成员CRUD；跳转唯一管理入口，数据一致。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U02",
+        "group": "归属/管理",
+        "requirement": "创建/修改项目刷新有效；查看项目不切研究，进入项目才切换。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U03",
+        "group": "归属/管理",
+        "requirement": "成员使用真实检索选择器；超过50个候选仍能搜索定位，无须复制ID。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U04",
+        "group": "归属/管理",
+        "requirement": "系统账号创建/编辑/启停和项目成员变更分开授权；重置密码无旧密码泄露。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U05",
+        "group": "归属/管理",
+        "requirement": "最后有效系统管理员与项目负责人保护在并发操作下有效。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U06",
+        "group": "归属/管理",
+        "requirement": "系统管理员无项目读取资格时不能读项目数据；项目负责人不能改系统账号权限。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U07",
+        "group": "归属/管理",
+        "requirement": "连接定义、项目授权、实际导入为独立状态；前两项不会出现在资料库冒已导入。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U08",
+        "group": "归属/管理",
+        "requirement": "审计动作中文化、真实对象名称与可复制ID；项目活动与全局审计查询同一记录，不可改历史。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U09",
+        "group": "绑定/恢复",
+        "requirement": "活跃项目的旧任务已回收，仍可新建研究、导入资料和浏览方法，不继承旧task_id或全局锁。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U10",
+        "group": "绑定/恢复",
+        "requirement": "项目本身已归档时拒绝相应写入，给准确主体和换项目/有权恢复入口，不绕过检查。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U11",
+        "group": "绑定/恢复",
+        "requirement": "一项资料已回收，仅拒绝该资料加入；其余批选项按策略正常且结果逐项明确。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U12",
+        "group": "绑定/恢复",
+        "requirement": "无活动研究，选择或新建并加入成功；不预建重复空任务。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U13",
+        "group": "绑定/恢复",
+        "requirement": "真实资料加入后输入数、关系、revision及相应视图更新；刷新/重登仍存在。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U14",
+        "group": "绑定/恢复",
+        "requirement": "双击与网络丢回执重试不重复输入；已有引用显示已加入，不静默无反应。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U15",
+        "group": "绑定/恢复",
+        "requirement": "草稿revision冲突返回实际变化，不覆盖他人编辑。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U16",
+        "group": "绑定/恢复",
+        "requirement": "加入请求后切任务，晚回执不写入新任务；发起时目标可审计。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U17",
+        "group": "绑定/恢复",
+        "requirement": "权限撤销/会话失效后不得继续写入或读缓存私有内容；错误不显示空目录。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U18",
+        "group": "绑定/恢复",
+        "requirement": "恢复回收任务重新核父项目/引用，旧成果不被新草稿覆盖；科学资格不自动恢复。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U19",
+        "group": "导入/分类",
+        "requirement": "空项目进入资源页不会自动扫描服务器/fixtures；只有显式导入生成新记录。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U20",
+        "group": "导入/分类",
+        "requirement": "原始文件导入受管后，外部路径删除/变更不影响已承诺完成的版本查看、计算和下载。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U21",
+        "group": "导入/分类",
+        "requirement": "同字节不同项目/许可不合并业务身份，不泄露跨项目存在性。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U22",
+        "group": "导入/分类",
+        "requirement": "TIFF+TFW+AUX.XML+OVR组成一个逻辑资料，附件不是4个指标。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U23",
+        "group": "导入/分类",
+        "requirement": "仅TFW/OVR等给补主件入口，不报CSV方言错误，不独立作为评价输入。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U24",
+        "group": "导入/分类",
+        "requirement": "缺CRS/定位冲突时保留原件和适用非空间预览，禁止默认4326或猜位置。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U25",
+        "group": "导入/分类",
+        "requirement": "后补关键定位/掩膜改变解释形成新版本；历史仍按旧快照读取。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U26",
+        "group": "导入/分类",
+        "requirement": "可选OVR损坏可从主件重建显示；关键定位附件失败不能同样静默忽略。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U27",
+        "group": "导入/分类",
+        "requirement": "同名附件不同目录/项目不误关联，原成员相对关系和安全映射可核对。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U28",
+        "group": "导入/分类",
+        "requirement": "半批失败、断网续传保留成功原件；后续同文件只传/处理未完成部分。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U29",
+        "group": "导入/分类",
+        "requirement": "源复制过程中变化或短读要检测；不发布无法说明版本的混合快照。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U30",
+        "group": "导入/分类",
+        "requirement": "导入完成前目标研究被回收：项目资产保留，清楚标未加入，不加入后来另选任务。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U31",
+        "group": "导入/分类",
+        "requirement": "CSV/XLSX前导零、空/0、单位、表区域及来源正确；普通表格不强行上图。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U32",
+        "group": "导入/分类",
+        "requirement": "GPKG多层、Shapefile配套、几何/编码和分类信息真实导入并可用。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U33",
+        "group": "导入/分类",
+        "requirement": "承诺的NetCDF/CF等标准版本分别有正向使用/导出及反例，不仅识别文件。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U34",
+        "group": "导入/分类",
+        "requirement": "ZIP路径、XML外部实体、未授权URL、符号链接等不能越权读取宿主或外发数据。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U35",
+        "group": "导入/分类",
+        "requirement": "类型/阶段/用途分类来自真实解析/血缘/创建上下文，不从名称直接猜；模型包不混指标。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U36",
+        "group": "目录/Dock",
+        "requirement": "资料工具栏紧凑一行；项目固定范围不再占半屏框；长名称/未知大小仍准确。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U37",
+        "group": "目录/Dock",
+        "requirement": "任务/资料/方法/模型/运行/成果完整授权搜索排序分页，跨页结果可发现。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U38",
+        "group": "目录/Dock",
+        "requirement": "全选本页与全选筛选结果区别明确，操作期间新到记录不意外加入选集。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U39",
+        "group": "目录/Dock",
+        "requirement": "批量编辑/回收逐项授权、失败原因与恢复明确；刷新后真实生效且不删共享原件。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U40",
+        "group": "目录/Dock",
+        "requirement": "从Dock分隔线连续向上/下拖动改变实际高度，表格和地图尺寸更新无拉伸残影。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U41",
+        "group": "目录/Dock",
+        "requirement": "拖动经过地图不触发平移；松开/取消后拖拽状态完全清理。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U42",
+        "group": "目录/Dock",
+        "requirement": "收起、重开、最大化、恢复保留先前高度、筛选、选择和地图视口。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U43",
+        "group": "目录/Dock",
+        "requirement": "键盘方向/Enter调整与恢复可用，焦点和separator名称/值对应实际布局。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U44",
+        "group": "目录/Dock",
+        "requirement": "调整布局只改ViewState，不增加科学草稿版本、不重算、不重复fit。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U45",
+        "group": "目录/Dock",
+        "requirement": "1366×768/1440×900与长内容下表头/分页可用；窄主菜单只由用户主动选择。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U46",
+        "group": "方案/目标",
+        "requirement": "方法目录有真实新建、导入、克隆、使用入口，权限不足说明原因而非假按钮。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U47",
+        "group": "方案/目标",
+        "requirement": "方法JSON/YAML及映射CSV/XLSX导入字段与行错误清楚，导出后可正确再导入。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U48",
+        "group": "方案/目标",
+        "requirement": "编辑已发布方法形成新版本；应用到任务引用固定版本，查看不修改共享规则。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U49",
+        "group": "方案/目标",
+        "requirement": "工程方法不默认当业务认可；名称相近或单位相同不能误绑不同指标。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U50",
+        "group": "方案/目标",
+        "requirement": "新建研究展示业务目标，不直接枚举地理实体/质检/具体算法；工具仍可从相应入口使用。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U51",
+        "group": "方案/目标",
+        "requirement": "未登记R/Python包实际上传、隔离验证、发布、调用；不是预置包演示代替接入。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U52",
+        "group": "八步/数值",
+        "requirement": "第1步仅必要资料选择与缺口，不重复任务名/声明/通用角色；任务内来源和输入正确复用。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U53",
+        "group": "八步/数值",
+        "requirement": "第2步真实同网格复用/异网格对齐；半格错位、旋转、类别与总量转换有数值反例。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U54",
+        "group": "八步/数值",
+        "requirement": "年鉴提取可返回原页/单元格，行政代码、年份、统计口径与边界匹配正确。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U55",
+        "group": "八步/数值",
+        "requirement": "无年鉴需要正确不适用；有需要但缺材料明确阻塞，不把没实现冒跳过。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U56",
+        "group": "八步/数值",
+        "requirement": "人口分配T=100、q=[1,2,1]输出[25,50,25]；多行政区分别核算。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U57",
+        "group": "八步/数值",
+        "requirement": "海岸AOI只是县的一部分时不吸收全县总量；跨区贡献和密度/数量面积关系正确。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U58",
+        "group": "八步/数值",
+        "requirement": "回归不复制县总量造像元独立样本；守恒与独立验证分开，无假置信区间。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U59",
+        "group": "八步/数值",
+        "requirement": "从原始影像实际算指数，从土地利用/道路实际算距离/密度/比例，不仅导入成品指标。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U60",
+        "group": "八步/数值",
+        "requirement": "第5步常量/缺测/超界/单位冲突、不同时间参考规则正确，不用预览值域冒全域。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U61",
+        "group": "八步/数值",
+        "requirement": "AHP矩阵导入、顺序匹配、权重/一致性及矛盾处理可核对，不自动修改判断。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U62",
+        "group": "八步/数值",
+        "requirement": "评价型PP的真实目标/输出/基准独立验证，不用PPCI簇号或任意重要度代替权重。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U63",
+        "group": "八步/数值",
+        "requirement": "评分[0.4,0.6,0.8]与权重[0.2,0.3,0.5]给贡献[0.08,0.18,0.40]及综合0.66。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U64",
+        "group": "八步/数值",
+        "requirement": "小图整算与分块、实际大图全域网格/mask/数值一致；固定预处理和权重，不暗截10000行。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U65",
+        "group": "成果/完整",
+        "requirement": "实际综合产物自动上图；图层、点查、表格、图例和导出固定同一运行。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U66",
+        "group": "成果/完整",
+        "requirement": "所有指标、评分、权重、贡献、综合、质量及图件真实可打开；子集不冒完整包。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U67",
+        "group": "成果/完整",
+        "requirement": "修改权重不重做无关原始接入；改网格仅失效相关后代；改样式不重算科学。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U68",
+        "group": "成果/完整",
+        "requirement": "独立业务验证缺失仍可看有标识研究结果，但不能标业务通过或伪造统计。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U69",
+        "group": "成果/完整",
+        "requirement": "活跃项目回收旧任务→新建→导入→加入→选/导方法→八步→成果完整端到端。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      },
+      {
+        "id": "U70",
+        "group": "成果/完整",
+        "requirement": "同构建后端/契约/界面/权限/数值/浏览器全套相关回归，用户实际入口和启动配置可复核。",
+        "engineering": "NOT_RUN",
+        "business": "NOT_RUN",
+        "evidence": []
+      }
+    ]
+  }
+}

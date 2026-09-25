@@ -1,0 +1,607 @@
+{
+  "status": "ILLUSTRATIVE_ENGINEERING_NOT_USER_DATA",
+  "examples": {
+    "GridSpec": {
+      "crs_wkt": "LOCAL_CS[\"EngineeringFixture\",UNIT[\"metre\",1]]",
+      "transform": [
+        0,
+        10,
+        0,
+        20,
+        0,
+        -10
+      ],
+      "width": 2,
+      "height": 2,
+      "axis_order": "x,y",
+      "vertical_datum": null,
+      "extent": [
+        0,
+        0,
+        20,
+        20
+      ]
+    },
+    "DataProfile": {
+      "schema_version": "coastmas.data-profile/1.0",
+      "source_ref": {
+        "resource_id": "2929a147-48e0-5770-87a1-e359001074d8",
+        "revision_id": "6b27bd55-23ef-5985-afd3-53ac2cfb7df1",
+        "kind": "dataset"
+      },
+      "representation": "raster",
+      "concept_ref": {
+        "resource_id": "889eaea4-1c71-59c7-a2b9-997ec92c2c9e",
+        "revision_id": "90f7881c-78c6-5285-93f5-b632e1b211be",
+        "kind": "concept"
+      },
+      "semantic_status": "known",
+      "quantity_kind": "continuous",
+      "unit": "1",
+      "scale": 1,
+      "offset": 0,
+      "spatial_ref": {
+        "resource_id": "fbbcffa0-c65c-58ae-aba5-dd8e6e75c603",
+        "revision_id": "880927f9-951f-52e1-856c-03e58f2990ba",
+        "kind": "analysis_space"
+      },
+      "temporal": {
+        "calendar": "proleptic_gregorian",
+        "precision": "year",
+        "start": null,
+        "end": null,
+        "year": 2025,
+        "support": "unknown",
+        "unit": null
+      },
+      "mask_ref": {
+        "resource_id": "d4a82695-5ef5-5410-9aee-8f4a37441bd0",
+        "revision_id": "e9313ef9-443a-5996-a2d6-ca8e35e29a74",
+        "kind": "dataset"
+      },
+      "distribution": {
+        "scope": "sample",
+        "count": 4,
+        "seed": 42,
+        "min": 0.2,
+        "max": 0.6
+      },
+      "evidence": [
+        {
+          "kind": "source_reference",
+          "source_ref": null,
+          "locator": "工程夹具F01",
+          "statement": "仅用于协议验证的明确工程例子，不代表实际海岸业务方法。",
+          "status": "declared"
+        }
+      ]
+    },
+    "ModelContract": {
+      "schema_version": "coastmas.model-contract/1.0",
+      "code": "indicator.ndvi",
+      "version": "1.0.0",
+      "kind": "indicator",
+      "inputs": [
+        {
+          "key": "red",
+          "concept_code": "reflectance.red",
+          "representation": [
+            "raster"
+          ],
+          "quantity_kind": "continuous",
+          "unit_dimension": "dimensionless",
+          "unit_required": true,
+          "time_role": "any",
+          "location": "cell",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "required_when": null,
+          "allowed_adapter_codes": [
+            "data.align_grid"
+          ],
+          "missing_policy": "propagate"
+        },
+        {
+          "key": "nir",
+          "concept_code": "reflectance.nir",
+          "representation": [
+            "raster"
+          ],
+          "quantity_kind": "continuous",
+          "unit_dimension": "dimensionless",
+          "unit_required": true,
+          "time_role": "any",
+          "location": "cell",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "required_when": null,
+          "allowed_adapter_codes": [
+            "data.align_grid"
+          ],
+          "missing_policy": "propagate"
+        }
+      ],
+      "outputs": [
+        {
+          "key": "ndvi",
+          "concept_code": "vegetation.ndvi",
+          "representation": [
+            "raster"
+          ],
+          "quantity_kind": "continuous",
+          "unit_dimension": "dimensionless",
+          "unit_required": true,
+          "time_role": "any",
+          "location": "cell",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "required_when": null,
+          "allowed_adapter_codes": [
+            "data.align_grid"
+          ],
+          "missing_policy": "propagate"
+        }
+      ],
+      "parameter_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "runtime": {
+        "kind": "python",
+        "environment_ref": {
+          "resource_id": "f6f481e1-c2b9-5ca0-9b16-328d9a98221b",
+          "revision_id": "b5da5f10-3f77-5952-aecf-5b629dbe1db9",
+          "kind": "runtime"
+        },
+        "entrypoint": "coastmas_plugins.ndvi:run"
+      },
+      "execution": {
+        "mode": "batch",
+        "chunk_mode": "window",
+        "deterministic": true,
+        "seed_parameter": null,
+        "network": "disabled",
+        "max_memory_mib": 1024
+      },
+      "spatial_requirements": {
+        "same_grid": true
+      },
+      "temporal_requirements": {
+        "same_observation_support": true
+      },
+      "validation_profile_ref": {
+        "resource_id": "cbe27311-2254-5ce6-a4f0-51fd61dd45b1",
+        "revision_id": "75e68d05-9282-5da7-b8e9-e9918f38c160",
+        "kind": "validation_profile"
+      }
+    },
+    "CouplingPlan": {
+      "schema_version": "coastmas.coupling-plan/1.0",
+      "task_id": "38047c5a-aa82-565c-956e-5d02a34da0e4",
+      "task_draft_revision": 4,
+      "bindings": [
+        {
+          "slot_key": "red",
+          "source_ref": {
+            "resource_id": "2929a147-48e0-5770-87a1-e359001074d8",
+            "revision_id": "6b27bd55-23ef-5985-afd3-53ac2cfb7df1",
+            "kind": "dataset"
+          },
+          "mapping_ref": {
+            "resource_id": "9055d5f3-1e24-5dd2-9835-508fd36614b0",
+            "revision_id": "73650f55-377f-5626-a3ee-1ee8853821b0",
+            "kind": "mapping"
+          },
+          "approval_ref": null
+        },
+        {
+          "slot_key": "nir",
+          "source_ref": {
+            "resource_id": "2929a147-48e0-5770-87a1-e359001074d8",
+            "revision_id": "6b27bd55-23ef-5985-afd3-53ac2cfb7df1",
+            "kind": "dataset"
+          },
+          "mapping_ref": {
+            "resource_id": "9055d5f3-1e24-5dd2-9835-508fd36614b0",
+            "revision_id": "73650f55-377f-5626-a3ee-1ee8853821b0",
+            "kind": "mapping"
+          },
+          "approval_ref": null
+        }
+      ],
+      "adapters": [],
+      "issues": [],
+      "workflow_ref": {
+        "resource_id": "589a507f-1e81-5a5a-87ea-33fcf2dc8b26",
+        "revision_id": "1559eb92-10cd-50d8-802c-cfcf1feab127",
+        "kind": "workflow"
+      },
+      "hard_checks": {
+        "permission": "pass",
+        "semantic": "pass",
+        "units": "pass",
+        "space_time": "pass"
+      },
+      "status": "ready"
+    },
+    "MethodDraft": {
+      "schema_version": "coastmas.method-draft/1.0",
+      "name": "",
+      "revision": 1,
+      "task_type": "assessment",
+      "indicators": [],
+      "estimator_or_evaluator_ref": null,
+      "basis_text": "",
+      "basis_refs": []
+    },
+    "MethodVersion": {
+      "schema_version": "coastmas.method-version/1.0",
+      "name": "工程数值方法",
+      "method_ref": {
+        "resource_id": "029b8c0f-8b6b-5c9e-b773-13aa307a45e4",
+        "revision_id": "3153d215-19d5-5ec0-bc8b-35f7cc6110d0",
+        "kind": "method"
+      },
+      "task_type": "assessment",
+      "indicators": [
+        {
+          "indicator_ref": {
+            "resource_id": "3bf121b7-7b46-52d1-bf88-b5e9f2c7344b",
+            "revision_id": "0a91db7b-70cd-5d83-8abd-732141709b1a",
+            "kind": "indicator"
+          },
+          "method": "minmax",
+          "direction": "higher_score",
+          "parameters": {
+            "lower": 0,
+            "upper": 1,
+            "outside": "error"
+          },
+          "basis_refs": [
+            {
+              "kind": "source_reference",
+              "source_ref": null,
+              "locator": "工程夹具F01",
+              "statement": "仅用于协议验证的明确工程例子，不代表实际海岸业务方法。",
+              "status": "declared"
+            }
+          ]
+        }
+      ],
+      "estimator_or_evaluator_ref": {
+        "resource_id": "ebf4d554-4f65-5b57-9397-5bb246d7d1ae",
+        "revision_id": "403ab163-23cb-574d-97d3-e75960b96d66",
+        "kind": "evaluator"
+      },
+      "basis_refs": [
+        {
+          "kind": "source_reference",
+          "source_ref": null,
+          "locator": "工程夹具F01",
+          "statement": "仅用于协议验证的明确工程例子，不代表实际海岸业务方法。",
+          "status": "declared"
+        }
+      ],
+      "input_requirements": {
+        "all_of": [
+          "fixture-indicator"
+        ]
+      }
+    },
+    "WeightSet": {
+      "schema_version": "coastmas.weight-set/1.0",
+      "method_ref": {
+        "resource_id": "46b49d93-59a7-5476-8829-4f6681a17de0",
+        "revision_id": "fc3faaaf-9a6b-5bc7-b3a2-8e4562674ea3",
+        "kind": "estimator"
+      },
+      "indicator_refs": [
+        {
+          "resource_id": "62eeca9d-d5eb-5e4e-b6a7-c0957802ba77",
+          "revision_id": "83c045ac-7f58-5d37-997d-568d2bf128ea",
+          "kind": "indicator"
+        },
+        {
+          "resource_id": "ebf1a4da-3373-5635-a5af-236cec220296",
+          "revision_id": "e646a1b2-5473-5eed-a051-bc5978f20e01",
+          "kind": "indicator"
+        },
+        {
+          "resource_id": "319cd3a8-eb70-5fa3-a59a-a5884a81e8d9",
+          "revision_id": "e8c18358-fff3-5cc0-9f71-80a32bdbb1fd",
+          "kind": "indicator"
+        }
+      ],
+      "weights": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "fit_scope_ref": null,
+      "judgment_ref": null,
+      "profile_constraints": {
+        "nonnegative": true,
+        "sum_target": 1,
+        "sum_atol": 1e-09
+      },
+      "diagnostics": {
+        "origin": "explicit_engineering_fixture"
+      }
+    },
+    "ClassScheme": {
+      "schema_version": "coastmas.class-scheme/1.0",
+      "algorithm_ref": {
+        "resource_id": "69d3307f-4fc3-54c2-a3b8-cf103a25d0d2",
+        "revision_id": "fcb8977b-91e8-525f-b2ac-35f8b3d96da3",
+        "kind": "classifier"
+      },
+      "breaks": [
+        0.3,
+        0.7,
+        1
+      ],
+      "labels": [
+        "第1组",
+        "第2组",
+        "第3组"
+      ],
+      "closure": "first_closed_then_left_open_right_closed",
+      "fit_scope": {
+        "kind": "fixed",
+        "source_refs": [
+          {
+            "resource_id": "1c2612af-396d-5d16-8dbf-46e9bb923694",
+            "revision_id": "d546784d-c122-5e4c-90c9-c83740c9c3ed",
+            "kind": "dataset"
+          }
+        ],
+        "seed": null,
+        "n": null
+      },
+      "business_meaning": "statistical_groups",
+      "nodata_code": 0,
+      "out_of_range": "error"
+    },
+    "PlanningProblem": {
+      "schema_version": "coastmas.planning-problem/1.0",
+      "problem_ref": {
+        "resource_id": "af69276f-891c-53bd-8515-5d1efc8a4703",
+        "revision_id": "cd8d9c5d-5a51-57e7-a210-1c276287ed80",
+        "kind": "planning_problem"
+      },
+      "scenario_ref": {
+        "resource_id": "fb415eba-f0f9-5dc4-b04f-d6cc49dc2f1f",
+        "revision_id": "9992b739-718e-5935-b2a2-7e6ee646fe47",
+        "kind": "scenario"
+      },
+      "baseline_refs": [
+        {
+          "resource_id": "96faa208-5a26-54a4-bc95-ea62fdca18ba",
+          "revision_id": "75817318-67ca-51a1-9968-87f204bdba6d",
+          "kind": "dataset"
+        }
+      ],
+      "unit_set_ref": {
+        "resource_id": "ac4d29a9-0cfd-5436-96c8-3a3397da91f8",
+        "revision_id": "f617f3fe-64ba-5a48-a17d-50e491c60b0e",
+        "kind": "unit_set"
+      },
+      "variables": [
+        {
+          "code": "select",
+          "domain": "binary",
+          "unit_set_ref": {
+            "resource_id": "ac4d29a9-0cfd-5436-96c8-3a3397da91f8",
+            "revision_id": "f617f3fe-64ba-5a48-a17d-50e491c60b0e",
+            "kind": "unit_set"
+          },
+          "lower": 0,
+          "upper": 1,
+          "allowed_categories": []
+        }
+      ],
+      "objectives": [
+        {
+          "code": "benefit",
+          "metric_ref": {
+            "resource_id": "1bc94207-be0b-5a3a-a17e-634a84c6d42e",
+            "revision_id": "cbe1455b-935d-55b0-9323-c88cd899a2ca",
+            "kind": "metric"
+          },
+          "direction": "max",
+          "unit": "fixture_unit",
+          "weight": null,
+          "target": null,
+          "aggregation": "sum"
+        }
+      ],
+      "constraints": [
+        {
+          "code": "budget",
+          "kind": "hard",
+          "expression_ast": {
+            "op": "le",
+            "left": {
+              "op": "dot",
+              "args": [
+                "cost",
+                "select"
+              ]
+            },
+            "right": 6
+          },
+          "unit": "fixture_cost",
+          "source_refs": [
+            {
+              "resource_id": "8a035499-febe-55a1-b496-8798c5dd1bc4",
+              "revision_id": "69d00605-b7db-58be-8f8c-c5bef3039c40",
+              "kind": "dataset"
+            }
+          ],
+          "penalty": null
+        },
+        {
+          "code": "protect_unit2",
+          "kind": "hard",
+          "expression_ast": {
+            "op": "eq",
+            "left": {
+              "op": "at",
+              "args": [
+                "select",
+                1
+              ]
+            },
+            "right": 0
+          },
+          "unit": "1",
+          "source_refs": [
+            {
+              "resource_id": "d2cb282e-4675-5bdd-8908-adcbb5911547",
+              "revision_id": "0e3454f6-1c51-5ced-97ab-9b2d0667f600",
+              "kind": "dataset"
+            }
+          ],
+          "penalty": null
+        }
+      ],
+      "objective_mode": "single",
+      "evaluation_workflow_ref": {
+        "resource_id": "a1e3954c-c8b4-573e-9781-3a0a75c1e2e4",
+        "revision_id": "c2e11d16-378f-5cd0-a2f7-0f5fb98d0bdd",
+        "kind": "workflow"
+      },
+      "solver_requirements": {
+        "integer": true,
+        "linear": true
+      }
+    },
+    "RunManifest": {
+      "schema_version": "coastmas.run-manifest/1.0",
+      "run_id": "9b638ffb-beba-5a12-b395-86fa170d8d62",
+      "project_id": "995ac8df-813c-52a3-8b51-7c8f67459da6",
+      "topic_id": "e0c16521-fcbc-5290-a450-326920eb40d1",
+      "task_id": "38047c5a-aa82-565c-956e-5d02a34da0e4",
+      "task_revision_ref": {
+        "resource_id": "38047c5a-aa82-565c-956e-5d02a34da0e4",
+        "revision_id": "ce12df7c-4e08-55e1-b720-a25b4491bd0e",
+        "kind": "task"
+      },
+      "workflow_ref": {
+        "resource_id": "589a507f-1e81-5a5a-87ea-33fcf2dc8b26",
+        "revision_id": "1559eb92-10cd-50d8-802c-cfcf1feab127",
+        "kind": "workflow"
+      },
+      "input_bindings": [
+        {
+          "slot_key": "red",
+          "source_ref": {
+            "resource_id": "2929a147-48e0-5770-87a1-e359001074d8",
+            "revision_id": "6b27bd55-23ef-5985-afd3-53ac2cfb7df1",
+            "kind": "dataset"
+          },
+          "mapping_ref": {
+            "resource_id": "9055d5f3-1e24-5dd2-9835-508fd36614b0",
+            "revision_id": "73650f55-377f-5626-a3ee-1ee8853821b0",
+            "kind": "mapping"
+          },
+          "approval_ref": null
+        }
+      ],
+      "algorithm_refs": [
+        {
+          "resource_id": "85fad70e-7370-52d6-9323-800451c947d2",
+          "revision_id": "9d46c3dc-7ddc-5d4d-ae25-719a5192fda3",
+          "kind": "algorithm"
+        }
+      ],
+      "environment_refs": [
+        {
+          "resource_id": "f6f481e1-c2b9-5ca0-9b16-328d9a98221b",
+          "revision_id": "b5da5f10-3f77-5952-aecf-5b629dbe1db9",
+          "kind": "runtime"
+        }
+      ],
+      "scenario_ref": null,
+      "planning_problem_ref": null,
+      "parameters": {},
+      "seed": 42,
+      "domains": {
+        "scope": "engineering_fixture",
+        "analysis_space_ref": {
+          "resource_id": "fbbcffa0-c65c-58ae-aba5-dd8e6e75c603",
+          "revision_id": "880927f9-951f-52e1-856c-03e58f2990ba",
+          "kind": "analysis_space"
+        }
+      },
+      "artifacts": [],
+      "validation": {
+        "engineering": "not_run",
+        "business": "not_assessed",
+        "external_services": "not_used"
+      }
+    }
+  },
+  "semantic_validation_required": [
+    "WeightSet长度/ID对应与sum",
+    "ClassScheme断点单调和labels长度",
+    "GridSpec可用CRS/transform一致性",
+    "跨项目引用/版本/kind权限",
+    "CouplingPlan硬门禁与工作流一致",
+    "RunManifest产物真实存在和hash",
+    "PlanningProblem量纲/可表达性/独立可行性",
+    "ModelContract执行安全和数值验证"
+  ],
+  "schema_checks": [
+    {
+      "schema": "GridSpec",
+      "positive_valid": true
+    },
+    {
+      "schema": "DataProfile",
+      "positive_valid": true
+    },
+    {
+      "schema": "ModelContract",
+      "positive_valid": true
+    },
+    {
+      "schema": "CouplingPlan",
+      "positive_valid": true
+    },
+    {
+      "schema": "MethodDraft",
+      "positive_valid": true
+    },
+    {
+      "schema": "MethodVersion",
+      "positive_valid": true
+    },
+    {
+      "schema": "WeightSet",
+      "positive_valid": true
+    },
+    {
+      "schema": "ClassScheme",
+      "positive_valid": true
+    },
+    {
+      "schema": "PlanningProblem",
+      "positive_valid": true
+    },
+    {
+      "schema": "RunManifest",
+      "positive_valid": true
+    },
+    {
+      "negative_structural_examples_rejected": 5
+    }
+  ]
+}

@@ -2,8 +2,10 @@
 
 import hashlib
 import re
+import tempfile
 from dataclasses import dataclass, field
-from typing import Protocol, cast
+from pathlib import Path
+from typing import BinaryIO, Protocol, cast
 
 # These are the only untyped SDK import boundaries; responses use explicit structural checks.
 import boto3  # type: ignore[import-untyped]
@@ -42,7 +44,13 @@ class S3Client(Protocol):
     def head_bucket(self, *, Bucket: str) -> dict[str, object]: ...
     def create_bucket(self, *, Bucket: str) -> dict[str, object]: ...
     def put_object(
-        self, *, Bucket: str, Key: str, Body: bytes, IfNoneMatch: str, Metadata: dict[str, str]
+        self,
+        *,
+        Bucket: str,
+        Key: str,
+        Body: bytes | BinaryIO,
+        IfNoneMatch: str,
+        Metadata: dict[str, str],
     ) -> dict[str, object]: ...
     def get_object(self, *, Bucket: str, Key: str) -> dict[str, object]: ...
 
@@ -144,3 +152,77 @@ class S3ArtifactStore:
         if len(content) != artifact.size or hashlib.sha256(content).hexdigest() != artifact.sha256:
             raise CoastMASError("CHECKSUM_ERROR", "artifact size or checksum mismatch")
         return content
+
+    def put_file(self, key: str, path: Path, *, max_bytes: int) -> ArtifactRecord:
+        """Upload a private, seekable snapshot; never load the object into RAM."""
+        self.validate_key(key)
+        size = path.stat().st_size
+        if max_bytes <= 0 or not 0 < size <= max_bytes:
+            raise CoastMASError("STORAGE_LIMIT", "artifact exceeds disk transfer budget")
+        digest = hashlib.sha256()
+        with path.open("rb") as source:
+            while chunk := source.read(1024 * 1024):
+                digest.update(chunk)
+            artifact = ArtifactRecord(self.bucket, key, digest.hexdigest(), size)
+            source.seek(0)
+            conflict = False
+            try:
+                self.client.put_object(
+                    Bucket=self.bucket,
+                    Key=key,
+                    Body=source,
+                    IfNoneMatch="*",
+                    Metadata={"sha256": artifact.sha256},
+                )
+            except ClientError as exc:
+                if str(exc.response.get("Error", {}).get("Code")) not in {
+                    "PreconditionFailed",
+                    "412",
+                }:
+                    raise CoastMASError("STORAGE_ERROR", "artifact upload failed") from exc
+                conflict = True
+        # Verify all transferred bytes, also when an existing immutable key was returned.
+        with tempfile.TemporaryDirectory(prefix="coastmas-transfer-") as temporary:
+            try:
+                self.read_file(artifact, Path(temporary) / "verified", max_bytes=max_bytes)
+            except CoastMASError as exc:
+                if conflict:
+                    raise CoastMASError(
+                        "IMMUTABLE_CONFLICT", "immutable artifact key already exists"
+                    ) from exc
+                raise
+        return artifact
+
+    def read_file(self, artifact: ArtifactRecord, path: Path, *, max_bytes: int) -> None:
+        """Verified disk snapshot. A failed transfer cannot leave a partial destination."""
+        self.validate_key(artifact.key)
+        if artifact.bucket != self.bucket or not 0 <= artifact.size <= max_bytes:
+            raise CoastMASError("STORAGE_ERROR", "artifact scope or size invalid")
+        # Exclusive creation preserves the caller's existing file even on failure.
+        with path.open("xb") as destination:
+            try:
+                response = self.client.get_object(Bucket=self.bucket, Key=artifact.key)
+                raw_body = response.get("Body")
+                if (
+                    raw_body is None
+                    or not hasattr(raw_body, "read")
+                    or not hasattr(raw_body, "close")
+                ):
+                    raise CoastMASError("STORAGE_ERROR", "object storage returned invalid body")
+                body = cast(ReadableBody, raw_body)
+                digest = hashlib.sha256()
+                size = 0
+                try:
+                    while chunk := body.read(1024 * 1024):
+                        size += len(chunk)
+                        if size > artifact.size:
+                            raise CoastMASError("CHECKSUM_ERROR", "artifact size mismatch")
+                        digest.update(chunk)
+                        destination.write(chunk)
+                finally:
+                    body.close()
+                if size != artifact.size or digest.hexdigest() != artifact.sha256:
+                    raise CoastMASError("CHECKSUM_ERROR", "artifact size or checksum mismatch")
+            except BaseException:
+                path.unlink(missing_ok=True)
+                raise

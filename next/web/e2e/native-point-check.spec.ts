@@ -1,0 +1,47 @@
+import { test, expect } from "@playwright/test";
+import { readFile, writeFile } from "node:fs/promises";
+import { evidencePath } from "./evidence";
+test("two-character rail and native valid-point inspection keep the fixed result", async ({page}) => {
+  test.setTimeout(90000);
+  const access=JSON.parse(await readFile(process.env.COASTMAS_NEXT_ACCESS_FILE!, "utf8"));
+  const proof=JSON.parse(await readFile(evidencePath("result-branches.json"), "utf8"));
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto("/research?project="+proof.project);
+  await page.getByLabel("邮箱",{exact:true}).fill(access.email);
+  await page.getByLabel("密码",{exact:true}).fill(access.password);
+  await page.getByRole("button",{name:"登录",exact:true}).click();
+  await expect(page.getByRole("link",{name:"研究工作台",exact:true})).toBeVisible();
+  const headers={"X-CSRF-Token":(await(await page.request.get("/api/session")).json()).csrf};
+  const root="/api/projects/"+proof.project+"/workspace-state";
+  const workspace=await(await page.request.get(root)).json();
+  expect((await page.request.put(root,{headers,data:{expected_revision:workspace.revision,state:{...workspace.state,active_task_id:proof.task_id,viewed_job_id:proof.first_run,central_view:"result",content_tab:"layers",drawer:"closed"}}})).ok()).toBe(true);
+  const frozen=await(await page.request.get("/api/jobs/"+proof.first_run+"/result")).json();
+  const draft=await(await page.request.get("/api/tasks/"+proof.task_id)).json();
+  await page.reload();
+  const result=page.locator(".research-result");
+  const rail=page.getByRole("navigation",{name:"研究环节"});
+  await expect(rail.locator("button>span:nth-child(2)")).toHaveText(["资料","对齐","落图","指标","标化","权重","综合","验证"]);
+  await expect(result.getByRole("status",{name:"图层就绪",exact:true})).toBeVisible({timeout:45000});
+  await result.getByRole("button",{name:"定位",exact:true}).click();
+  const map=result.getByRole("region",{name:"资料地图",exact:true});
+  const points=[];
+  for (const [x,y] of [[.5,.5],[.6,.4],[.4,.6],[.65,.65],[.35,.35],[.5,.7]]) {
+    const inspector=page.getByRole("complementary",{name:"研究共用右侧面板"});
+    if (await inspector.isVisible()) await inspector.getByRole("button",{name:"关闭右侧面板"}).click();
+    const box=(await map.boundingBox())!;
+    const response=page.waitForResponse(r=>r.url().includes("/jobs/"+proof.first_run+"/artifacts/0/inspect")&&r.request().method()==="POST");
+    await map.click({position:{x:box.width*x!,y:box.height*y!}});
+    const received=await response;
+    expect(received.ok()).toBe(true);
+    const pixel=await received.json();
+    points.push(pixel);
+    expect(pixel.sha256).toBe(proof.descriptor.primary.sha256);
+    await expect(inspector.getByLabel("点查结果",{exact:true})).toBeVisible();
+    if (pixel.valid) break;
+  }
+  expect(points.some(point=>point.valid)).toBe(true);
+  expect(await(await page.request.get("/api/jobs/"+proof.first_run+"/result")).json()).toEqual(frozen);
+  expect(await(await page.request.get("/api/tasks/"+proof.task_id)).json()).toEqual(draft);
+  await page.screenshot({path:evidencePath("native-valid-point-and-short-rail.png")});
+  await writeFile(evidencePath("native-point-checks.json"),JSON.stringify({run:proof.first_run,points,short_labels_verified:true},null,2));
+});

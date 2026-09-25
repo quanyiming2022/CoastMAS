@@ -10,15 +10,19 @@ from urllib.parse import urlsplit
 from uuid import uuid4
 
 from fastapi import APIRouter, File, Form, Query, Request, Response, UploadFile
+from fastapi.responses import FileResponse
 from pydantic import Field, JsonValue
 from sqlalchemy import func, or_, select
+from starlette.background import BackgroundTask
 
 from coastmas.adapters.runtime import PythonFunctionAdapter, RunRequest
 from coastmas.adapters.storage import ArtifactRecord
 from coastmas.app.dependencies import CurrentUser, DatabaseSession, artifact_store
+from coastmas.app.ingestion_routes import inspect_disk
 from coastmas.core.contracts import Contract, DataAssetSpec
 from coastmas.core.data_inspection import MAX_BYTES, DataInspection, inspect_data
 from coastmas.core.errors import CoastMASError
+from coastmas.core.file_ingestion import MAX_FILE_BYTES, snapshot_file
 from coastmas.persistence.data_access import require_project_object
 from coastmas.persistence.lifecycle import archive_resource, resource_history
 from coastmas.persistence.resources import (
@@ -86,7 +90,9 @@ def data_resource(
     )
 
 
-def stored_content(request: Request, session: DatabaseSession, data: DataAssetSpec) -> bytes:
+def stored_record(
+    request: Request, session: DatabaseSession, data: DataAssetSpec
+) -> ArtifactRecord:
     resource = session.get(Resource, data.id)
     if resource is None:
         raise CoastMASError("NOT_FOUND", "data resource unavailable")
@@ -105,15 +111,23 @@ def stored_content(request: Request, session: DatabaseSession, data: DataAssetSp
         raise CoastMASError(
             "STORAGE_ERROR", "data inspection requires a configured stored artifact"
         )
-    content = store.read(
-        ArtifactRecord(store.bucket, uri.path.removeprefix("/"), data.checksum, size)
-    )
-    return content
+    return ArtifactRecord(store.bucket, uri.path.removeprefix("/"), data.checksum, size)
+
+
+def stored_content(request: Request, session: DatabaseSession, data: DataAssetSpec) -> bytes:
+    return artifact_store(request).read(stored_record(request, session, data))
 
 
 def inspect_stored(
     request: Request, session: DatabaseSession, data: DataAssetSpec
 ) -> DataInspection:
+    if data.format in {"GeoTIFF", "COG"}:
+        with tempfile.TemporaryDirectory(prefix="coastmas-preview-") as temporary:
+            path = Path(temporary) / "raster.tif"
+            artifact_store(request).read_file(
+                stored_record(request, session, data), path, max_bytes=MAX_FILE_BYTES
+            )
+            return inspect_disk(path, data)
     return inspect_isolated(stored_content(request, session, data), data)
 
 
@@ -132,14 +146,24 @@ def upload(
         raise CoastMASError("VERSION_CONFLICT", "new upload requires initial version 1")
     if session.get(Resource, source.id) is not None:
         raise CoastMASError("VERSION_CONFLICT", "data identity already exists")
-    content = file.file.read(MAX_BYTES + 1)
-    if len(content) > MAX_BYTES:
-        raise CoastMASError("DATA_LIMIT", "upload exceeds configured file budget")
-    digest = hashlib.sha256(content).hexdigest()
-    measured = source.model_copy(update={"checksum": digest})
-    report = inspect_isolated(content, measured)
     store = artifact_store(request)
-    artifact = store.put(f"{project_id}/data/{uuid4().hex}/{digest}", content)
+    if source.format in {"GeoTIFF", "COG"}:
+        with tempfile.TemporaryDirectory(prefix="coastmas-upload-") as temporary:
+            path = Path(temporary) / "raster.tif"
+            digest = snapshot_file(file.file, path)
+            measured = source.model_copy(update={"checksum": digest})
+            report = inspect_disk(path, measured)
+            artifact = store.put_file(
+                f"{project_id}/data/{uuid4().hex}/{digest}", path, max_bytes=MAX_FILE_BYTES
+            )
+    else:
+        content = file.file.read(MAX_BYTES + 1)
+        if len(content) > MAX_BYTES:
+            raise CoastMASError("DATA_LIMIT", "upload exceeds configured file budget")
+        digest = hashlib.sha256(content).hexdigest()
+        measured = source.model_copy(update={"checksum": digest})
+        report = inspect_isolated(content, measured)
+        artifact = store.put(f"{project_id}/data/{uuid4().hex}/{digest}", content)
     measured = measured.model_copy(
         update={
             "uri": artifact.uri,
@@ -224,15 +248,33 @@ def download(
     version: int | None = Query(default=None, ge=1),
 ) -> Response:
     data = data_resource(identifier, session, user_id, version)
-    return Response(
-        stored_content(request, session, data),
+    temporary = tempfile.TemporaryDirectory(prefix="coastmas-download-")
+    path = Path(temporary.name) / "original"
+    try:
+        artifact_store(request).read_file(
+            stored_record(request, session, data), path, max_bytes=MAX_FILE_BYTES
+        )
+    except BaseException:
+        temporary.cleanup()
+        raise
+    extension = {
+        "GeoTIFF": "tif",
+        "COG": "tif",
+        "CSV": "csv",
+        "GeoJSON": "geojson",
+        "Shapefile": "zip",
+        "GeoPackage": "gpkg",
+        "NetCDF": "nc",
+        "JSON": "json",
+    }.get(data.format, "bin")
+    return FileResponse(
+        path,
         media_type="application/octet-stream",
+        filename=f"coastmas-data-v{data.version}.{extension}",
+        background=BackgroundTask(temporary.cleanup),
         headers={
             "Cache-Control": "no-store",
             "X-Content-Type-Options": "nosniff",
-            "Content-Disposition": 'attachment; filename="coastmas-data-v'
-            + str(data.version)
-            + '.bin"',
             "ETag": '"' + data.checksum + '"',
         },
     )

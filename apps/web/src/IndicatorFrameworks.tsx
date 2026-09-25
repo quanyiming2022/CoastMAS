@@ -641,8 +641,7 @@ function Editor({ id, projectId }: { id?: string; projectId: string }) {
       {id && !historical ? (
         <Panel title="准备评价输入">
           <p>
-            从已校验的 JSON
-            指标观测中计算公式，保存带有体系与观测版本来源的新文件。保存未完成的编辑后才能准备。
+            选择已校验的指标观测，或在“数据目录→准备模型输入”生成的真实栅格观测，无需手写矩阵JSON。栅格像元须使用网格指标体系；按体系定义的公式、方向、参考范围及权重计算，不把聚类编号当评价等级。保存未完成的编辑后才能准备。
           </p>
           <div className="toolbar">
             <label>

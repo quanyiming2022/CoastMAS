@@ -1,0 +1,2497 @@
+[
+  {
+    "indicator_id": "indicator.ndvi",
+    "name": "NDVI",
+    "category": "生态环境",
+    "description": "用红光与近红外反射率计算植被指数",
+    "semantic_type": "NDVI",
+    "input_roles": [
+      "red",
+      "nir"
+    ],
+    "input_constraints": "公式与scale/QA/分母0",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "公式与scale/QA/分母0"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.evi",
+    "name": "EVI",
+    "category": "生态环境",
+    "description": "采用固定增益与大气校正系数的增强植被指数",
+    "semantic_type": "EVI",
+    "input_roles": [
+      "red",
+      "nir",
+      "blue"
+    ],
+    "input_constraints": "G/C1/C2/L来源化profile",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {
+        "gain": {
+          "type": "number",
+          "const": 2.5
+        },
+        "red_coefficient": {
+          "type": "number",
+          "const": 6.0
+        },
+        "blue_coefficient": {
+          "type": "number",
+          "const": 7.5
+        },
+        "background": {
+          "type": "number",
+          "const": 1.0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "gain",
+        "red_coefficient",
+        "blue_coefficient",
+        "background"
+      ]
+    },
+    "default_parameters": {
+      "gain": 2.5,
+      "red_coefficient": 6.0,
+      "blue_coefficient": 7.5,
+      "background": 1.0
+    },
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "G/C1/C2/L来源化profile"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.savi",
+    "name": "SAVI",
+    "category": "生态环境",
+    "description": "按已验证的土壤亮度修正档案计算植被指数",
+    "semantic_type": "SAVI",
+    "input_roles": [
+      "red",
+      "nir"
+    ],
+    "input_constraints": "L来源化profile",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {
+        "soil_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "soil_factor"
+      ]
+    },
+    "default_parameters": {
+      "soil_factor": 0.5
+    },
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "L来源化profile"
+      },
+      {
+        "source": "https://www.usgs.gov/landsat-missions/landsat-soil-adjusted-vegetation-index"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": [
+      {
+        "name": "soil_factor",
+        "label": "土壤修正系数",
+        "default": 0.5
+      }
+    ]
+  },
+  {
+    "indicator_id": "indicator.ndwi",
+    "name": "NDWI（McFeeters）",
+    "category": "生态环境",
+    "description": "McFeeters绿光与近红外水体指数",
+    "semantic_type": "NDWI_McFeeters",
+    "input_roles": [
+      "green",
+      "nir"
+    ],
+    "input_constraints": "明确McFeeters/Gao等不同算法代码",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "明确McFeeters/Gao等不同算法代码"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.mndwi",
+    "name": "MNDWI",
+    "category": "生态环境",
+    "description": "绿光与短波红外水体指数",
+    "semantic_type": "MNDWI",
+    "input_roles": [
+      "green",
+      "swir1"
+    ],
+    "input_constraints": "实际波段定义",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "实际波段定义"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.ndbi",
+    "name": "NDBI",
+    "category": "生态环境",
+    "description": "短波红外与近红外建筑指数",
+    "semantic_type": "NDBI",
+    "input_roles": [
+      "swir1",
+      "nir"
+    ],
+    "input_constraints": "实际波段定义",
+    "default_algorithm": "spectral",
+    "algorithm_version": "spectral/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": "1",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "实际波段定义"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.water_fraction",
+    "name": "水体比例",
+    "category": "生态环境",
+    "description": "landcover/水体结果",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "分类字典、面积分母",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "分类字典、面积分母"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.wetland_fraction",
+    "name": "湿地比例",
+    "category": "生态环境",
+    "description": "landcover/湿地结果",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "类别字典及有效范围",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "类别字典及有效范围"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.ecoland_fraction",
+    "name": "生态用地比例",
+    "category": "生态环境",
+    "description": "landuse",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "业务定义的生态类别",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "业务定义的生态类别"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.lst",
+    "name": "LST地表温度",
+    "category": "生态环境",
+    "description": "热红外/温度产品及必要大气参数",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "传感器转换/发射率/温度尺度，先选产品读取或具体反演profile",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "传感器转换/发射率/温度尺度，先选产品读取或具体反演profile"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.fvc",
+    "name": "FVC植被覆盖度",
+    "category": "生态环境",
+    "description": "植被数据+端元/模型",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "端元/拟合域与截断规则固定",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "端元/拟合域与截断规则固定"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.npp",
+    "name": "NPP净初级生产力",
+    "category": "生态环境",
+    "description": "NPP产品或辐射/气象/植被等",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "产品口径或经验证生产力模型，时间积分与单位",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "产品口径或经验证生产力模型，时间积分与单位"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.habitat_quality",
+    "name": "生境质量",
+    "category": "生态环境",
+    "description": "土地利用/威胁/敏感性",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "方法参数表、空间范围与适用性",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "方法参数表、空间范围与适用性"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.connectivity",
+    "name": "生态连通性",
+    "category": "生态环境",
+    "description": "斑块与阻力/图关系",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "选IIC/PC/最小成本等明确profile",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "选IIC/PC/最小成本等明确profile"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.soil_retention",
+    "name": "土壤保持",
+    "category": "生态环境",
+    "description": "地形/雨蚀/土壤/覆盖/管理",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "RUSLE等命名模型参数与单位",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "RUSLE等命名模型参数与单位"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.carbon",
+    "name": "碳储量/碳汇",
+    "category": "生态环境",
+    "description": "地类和碳库/变化数据",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "储量与通量分开，系数来源",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "储量与通量分开，系数来源"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.landuse_intensity",
+    "name": "土地利用强度",
+    "category": "土地利用与城市化",
+    "description": "土地类别+强度系数",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "Σlevel·area/area_valid；系数有据",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "Σlevel·area/area_valid；系数有据"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.landuse_dynamic",
+    "name": "土地利用动态度",
+    "category": "土地利用与城市化",
+    "description": "t0/t1面积/地类",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "单一/综合动态度命名，时间分母",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "单一/综合动态度命名，时间分母"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.built_fraction",
+    "name": "建设用地比例",
+    "category": "土地利用与城市化",
+    "description": "landuse",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "建成区字典，面积而非码值平均",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "建成区字典，面积而非码值平均"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.urban_speed",
+    "name": "城市扩张速度",
+    "category": "土地利用与城市化",
+    "description": "两期建设用地面积差÷年数，按完整共同有效域统计",
+    "semantic_type": "城市扩张速度",
+    "input_roles": [
+      "landuse_baseline",
+      "landuse_end"
+    ],
+    "input_constraints": "绝对/相对年率和单位明确",
+    "default_algorithm": "urban_speed",
+    "algorithm_version": "urban_speed/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": "m^2/year",
+    "output_geometry": "grid+study_domain_table",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {
+      "two_observed_years": true
+    },
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "绝对/相对年率和单位明确"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.urban_intensity",
+    "name": "城市扩张强度",
+    "category": "土地利用与城市化",
+    "description": "两期新增面积+固定研究域",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "新增/研究总面积/年",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "新增/研究总面积/年"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.urban_efficiency",
+    "name": "城市扩张效率",
+    "category": "土地利用与城市化",
+    "description": "扩张面积+经济/人口等产出",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "明确投入产出/增长比定义，非万能公式",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "明确投入产出/增长比定义，非万能公式"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.lei",
+    "name": "景观扩张指数LEI",
+    "category": "土地利用与城市化",
+    "description": "新旧城市斑块",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "缓冲距离与Ao/Av定义",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "缓冲距离与Ao/Av定义"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.compactness",
+    "name": "紧凑度",
+    "category": "土地利用与城市化",
+    "description": "patch polygons",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "4πA/P²等命名profile和周长定义",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "4πA/P²等命名profile和周长定义"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.patch_density",
+    "name": "斑块密度",
+    "category": "土地利用与城市化",
+    "description": "categorical raster",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "patch连通性/面积单位",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "patch连通性/面积单位"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.edge_density",
+    "name": "边界密度",
+    "category": "土地利用与城市化",
+    "description": "categorical raster",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "边界含研究区外框否、长度/面积",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "边界含研究区外框否、长度/面积"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.fragmentation",
+    "name": "景观破碎度",
+    "category": "土地利用与城市化",
+    "description": "categorical raster",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "选择具体指标而非通用fragmentation",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "选择具体指标而非通用fragmentation"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.road_density",
+    "name": "道路密度",
+    "category": "土地利用与城市化",
+    "description": "1 km半径窗口内去重道路长度÷窗口面积；计算网格由当前数据取得",
+    "semantic_type": "道路密度",
+    "input_roles": [
+      "roads",
+      "analysis_grid"
+    ],
+    "input_constraints": "长度、去重、窗口边缘与面积",
+    "default_algorithm": "road_density",
+    "algorithm_version": "road_density/1.0.0",
+    "parameters_schema": {
+      "type": "object",
+      "properties": {
+        "radius_m": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 10000
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "radius_m"
+      ]
+    },
+    "default_parameters": {
+      "radius_m": 1000.0
+    },
+    "default_parameters_version": 1,
+    "unit": "km/km^2",
+    "output_geometry": "grid",
+    "output_dtype": "float64",
+    "spatial_requirements": {
+      "native_grid": true,
+      "reliable_crs": true
+    },
+    "temporal_requirements": {},
+    "dependencies": [
+      "numpy",
+      "rasterio",
+      "pyproj"
+    ],
+    "quality_rules": [
+      "preserve_source_mask",
+      "zero_denominator_invalid",
+      "no_implicit_cloud_mask"
+    ],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "长度、去重、窗口边缘与面积"
+      }
+    ],
+    "version": 1,
+    "status": "published",
+    "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+    "tests": [
+      "tests/test_builtin_indicators.py",
+      "tests/test_indicator_kernels.py"
+    ],
+    "business_parameters": [
+      {
+        "name": "radius_m",
+        "label": "统计半径（米）",
+        "default": 1000.0
+      }
+    ]
+  },
+  {
+    "indicator_id": "indicator.population_density",
+    "name": "人口密度",
+    "category": "社会经济",
+    "description": "同口径人口+面积",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "行政/每格量/密度区别",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "行政/每格量/密度区别"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.population_growth",
+    "name": "人口增长率",
+    "category": "社会经济",
+    "description": "两期同口径人口",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "线性年率/CAGR分别profile",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "线性年率/CAGR分别profile"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.gdp_density",
+    "name": "GDP密度",
+    "category": "社会经济",
+    "description": "GDP+面积",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "币种/现价不变价/价格基年",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "币种/现价不变价/价格基年"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.gdp_growth",
+    "name": "GDP增长率",
+    "category": "社会经济",
+    "description": "两期GDP",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "可比价格基础，不默认消除通胀",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "可比价格基础，不默认消除通胀"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.secondary_share",
+    "name": "第二产业比重",
+    "category": "社会经济",
+    "description": "第二产业增加值+总增加值",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "分子分母同口径",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "分子分母同口径"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.tertiary_share",
+    "name": "第三产业比重",
+    "category": "社会经济",
+    "description": "第三产业增加值+总增加值",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "分子分母同口径",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "分子分母同口径"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.industrial_added_value",
+    "name": "工业增加值",
+    "category": "社会经济",
+    "description": "统计记录",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "不可把产值/营收当增加值",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "不可把产值/营收当增加值"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.port_throughput",
+    "name": "港口吞吐",
+    "category": "社会经济",
+    "description": "货物/集装箱统计",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "吨/TEU不同量纲，不混加",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "吨/TEU不同量纲，不混加"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.energy",
+    "name": "能源消费",
+    "category": "社会经济",
+    "description": "能源统计",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "原量或标准能源折算有据",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "原量或标准能源折算有据"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.fiscal_revenue",
+    "name": "财政收入",
+    "category": "社会经济",
+    "description": "统计记录",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "财政口径和货币基础",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "财政口径和货币基础"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.fixed_investment",
+    "name": "固定资产投资",
+    "category": "社会经济",
+    "description": "统计记录",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "期间/币种/口径",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "期间/币种/口径"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.tourism_intensity",
+    "name": "旅游强度",
+    "category": "社会经济",
+    "description": "游客/过夜/设施+分母",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "游客次数/人数及强度分母明确",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "游客次数/人数及强度分母明确"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.elevation",
+    "name": "海拔/高程",
+    "category": "灾害风险",
+    "description": "DEM",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "垂向基准、单位",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "垂向基准、单位"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.slope",
+    "name": "坡度",
+    "category": "灾害风险",
+    "description": "DEM",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "算法、角度/百分比、z factor",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "算法、角度/百分比、z factor"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.coast_distance",
+    "name": "距海岸",
+    "category": "灾害风险",
+    "description": "真实岸线+domain",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "岸线版本、测地/平面",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "岸线版本、测地/平面"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.river_distance",
+    "name": "距河流",
+    "category": "灾害风险",
+    "description": "河流/水体+domain",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "目标定义/距离类型",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "目标定义/距离类型"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.hazard_frequency",
+    "name": "历史灾害频率",
+    "category": "灾害风险",
+    "description": "实际事件目录",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "时窗、完整性、重事件去重",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "时窗、完整性、重事件去重"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.heavy_rain",
+    "name": "暴雨指标",
+    "category": "灾害风险",
+    "description": "降雨时间序列",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "阈值/累计时窗/缺测与日历",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "阈值/累计时窗/缺测与日历"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.population_exposure",
+    "name": "人口暴露",
+    "category": "灾害风险",
+    "description": "hazard+population",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "数量积分/密度面积权重",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "数量积分/密度面积权重"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.gdp_exposure",
+    "name": "GDP暴露",
+    "category": "灾害风险",
+    "description": "hazard+gdp",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "存量/流量与币种口径",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "存量/流量与币种口径"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.building_exposure",
+    "name": "建筑暴露",
+    "category": "灾害风险",
+    "description": "hazard+buildings",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "计数/面积/损失是不同输出",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "计数/面积/损失是不同输出"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.road_exposure",
+    "name": "道路暴露",
+    "category": "灾害风险",
+    "description": "hazard+roads",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "长度/容量/关键路径定义",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "长度/容量/关键路径定义"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.surge_depth",
+    "name": "风暴潮淹没深度",
+    "category": "灾害风险",
+    "description": "动力模型水位+地形/边界",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "水位/地面同基准，干湿/负深度规则",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "水位/地面同基准，干湿/负深度规则"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.slr",
+    "name": "海平面上升情景",
+    "category": "灾害风险",
+    "description": "情景/海面数据+地形",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "静态连通淹没与动力模拟区分",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "静态连通淹没与动力模拟区分"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.vulnerability",
+    "name": "生态/社会脆弱性",
+    "category": "灾害风险",
+    "description": "多指标及认可模型",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "目标定义、方向、权重和验证",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "目标定义、方向、权重和验证"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.resilience",
+    "name": "恢复力",
+    "category": "灾害风险",
+    "description": "时序/设施/社会等模型输入",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "恢复力定义和尺度需方法档案",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "恢复力定义和尺度需方法档案"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.shoreline_rate",
+    "name": "岸线变化率",
+    "category": "海岸带专题",
+    "description": "多期岸线+基线/剖面",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "EPR/LRR等命名，潮位/定位误差",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "EPR/LRR等命名，潮位/定位误差"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.shoreline_intensity",
+    "name": "岸线利用强度",
+    "category": "海岸带专题",
+    "description": "岸段类别/设施/长度",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "类别权值与分母",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "类别权值与分母"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.natural_shoreline",
+    "name": "自然岸线保有率",
+    "category": "海岸带专题",
+    "description": "岸线类型及长度",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "自然岸线字典、参考范围",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "自然岸线字典、参考范围"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.wetland_change",
+    "name": "滨海湿地变化",
+    "category": "海岸带专题",
+    "description": "两期湿地/landcover",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "固定类别与有效域",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "固定类别与有效域"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.reclamation",
+    "name": "围填海强度",
+    "category": "海岸带专题",
+    "description": "围填海图层+时段/沿海域",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "面积、时期、分母有据",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "面积、时期、分母有据"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.water_quality",
+    "name": "近岸水质",
+    "category": "海岸带专题",
+    "description": "监测记录/产品",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "参数单位/采样时间/评价标准版本",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "参数单位/采样时间/评价标准版本"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.erosion",
+    "name": "海岸侵蚀",
+    "category": "海岸带专题",
+    "description": "岸线/剖面/过程模型",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "几何变化指标或真实动力模型分流",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "几何变化指标或真实动力模型分流"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  },
+  {
+    "indicator_id": "indicator.marine_sensitivity",
+    "name": "海洋生态敏感性",
+    "category": "海岸带专题",
+    "description": "生态/人类压力指标",
+    "semantic_type": null,
+    "input_roles": [],
+    "input_constraints": "固定方案与验证依据",
+    "default_algorithm": null,
+    "algorithm_version": null,
+    "parameters_schema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false,
+      "required": []
+    },
+    "default_parameters": {},
+    "default_parameters_version": 1,
+    "unit": null,
+    "output_geometry": null,
+    "output_dtype": null,
+    "spatial_requirements": {},
+    "temporal_requirements": {},
+    "dependencies": [],
+    "quality_rules": [],
+    "references": [
+      {
+        "source": "master-spec §09.2",
+        "definition": "固定方案与验证依据"
+      }
+    ],
+    "version": 1,
+    "status": "not_installed",
+    "implementation_sha256": null,
+    "tests": [],
+    "business_parameters": []
+  }
+]
