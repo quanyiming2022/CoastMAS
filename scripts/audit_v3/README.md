@@ -18,7 +18,7 @@ next/.venv/bin/python next/scripts/serve.py --config next/.state/v3-audit-202609
 next/.venv/bin/python -m pytest -c next/pyproject.toml next/tests -q --junitxml=.review/evidence/runs/v3-audit-20260925/backend-junit.xml
 npm --prefix next/web test -- --run
 npm --prefix next/web run lint
-npm --prefix next/web exec tsc -- -b
+(cd next/web && npm exec tsc -- -b)
 node scripts/audit_v3/browser.mjs
 next/.venv/bin/python scripts/audit_v3/api.py
 next/.venv/bin/python scripts/audit_v3/followup.py

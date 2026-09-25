@@ -1,20 +1,20 @@
-# 能力状态
+# 本轮能力状态
 
-状态定义：REGISTERED=仅登记；IMPLEMENTED=代码存在；EXECUTABLE=可真实执行；VERIFIED=已在注明范围实测；BLOCKED=受具体条件阻塞；NOT_RUN=未验证。不得由菜单或注册推导实现/执行。
+只采用最新诊断枚举：VERIFIED、EXECUTABLE_NOT_VERIFIED、PARTIAL、UI_ONLY、API_ONLY、REGISTERED_ONLY、BROKEN、MISSING、BLOCKED、NOT_TESTED。各条按声明范围，不将注册/菜单等同实现。旧纳管记录在before commit保留。
 
-| 能力 | 状态 | 范围/证据 |
+[177项逐项矩阵](../docs/audit/COASTMAS-V3-COVERAGE.md)与[机器清单](../docs/audit/COASTMAS-V3-FINDINGS.json)：PARTIAL 40、MISSING 79、VERIFIED 1、REGISTERED_ONLY 54、BLOCKED 3；不是完成率。另列18项平台补充。
+
+| 能力 | 状态 | 边界 |
 |---|---|---|
-| V3 十个一级中心及权限过滤 | VERIFIED | 四类任务入口和导航浏览器测试；开发中子项不计为可执行 |
-| 62 项内置指标定义 | REGISTERED | 8 项有实现，54 项未安装；不宣称 62 项可算 |
-| 8 项内置指标核函数 | VERIFIED | next/tests/test_indicator_kernels.py 与当前后端日志；不是完整 A—J 产品验收 |
-| NDVI 上传、自动波段匹配、计算、点查与下载 | VERIFIED | 当前工程夹具运行摘要；地图截图存在待修问题 |
-| 规划目标/约束/决策独立版本与显式应用 | VERIFIED | planning-objects 浏览器链与后端 tests；不等于规划编译完成 |
-| 完整矢量规划单元与面积/重叠检查 | VERIFIED | 后端实际数值/API测试；本次地图视图恢复链失败 |
-| 二元 MILP、18 单元内完整 Pareto 求解核 | VERIFIED | numerical/reproduce.py 和 test_planning_solver.py；尚未接入业务队列 |
-| 矢量视图保存/恢复 | IMPLEMENTED | 当前浏览器回归失败，不能维持 VERIFIED |
-| 规划求解—候选—再评价—比较—报告 | NOT_RUN | 尚未完整实现，不能用独立求解器代替 |
-| 完整 ModelOps/Coupler/沙箱/SSE/复现/空间并发/不确定性 | NOT_RUN | 有部分既有模块，但新增平台专项验收未完成 |
-| 145 项主验收、177 项能力目录的完整业务证明 | NOT_RUN | 保留 next/acceptance-master.json 逐项索引；不继承旧版 PASS |
-| 真实业务科学解释与正式发布 | BLOCKED | 具体科学资料待确认，见已知问题；不作为工程未实现的理由 |
+| NDVI工程输入→自动匹配→实际产物/原生点查/主下载 | VERIFIED | 最终六链及数值证据；旧单项下载另列BROKEN |
+| V3导航、四类任务 | PARTIAL | 10中心/54注册/17链接；32步中的17步未接通 |
+| 8内置指标核、19类型化算子 | PARTIAL | 核函数数值已测；用户完整配置/执行不全 |
+| 其余54内置指标 | REGISTERED_ONLY | 明确未安装，普通任务不可算 |
+| 项目/用户管理与规划独立版本 | PARTIAL | 已测CRUD/权限/恢复/412；未称完整V3领域对象齐备 |
+| 旧单项产物下载 | BROKEN | 真实500，不影响正确主Artifact路径的独立结论 |
+| 方法编辑指标选择 | PARTIAL | 仍指向批准定义库，未与普通内置指标统一 |
+| 通用Coupler、完整ModelOps、Planning编译 | MISSING | 指标专用匹配和独立求解核不能替代 |
+| 不确定性、Reproduce、FeatureRevision/EditLease | MISSING | 新平台专项未交付 |
+| 真实模型上传后全链、恶意沙箱/性能专项 | NOT_TESTED | 入口缺失或本轮未执行，不记PASS |
 
-本表是本次提交的最小监督摘要；详细契约与实现直接审查 Git 代码。验收状态与能力状态不是同一枚举。
+证据统一见验收报告及机器索引，避免重复实现说明。

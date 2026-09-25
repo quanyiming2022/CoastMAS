@@ -1,26 +1,20 @@
-# 当前基线验收
+# 当前审计验收记录
 
-本次任务：将现有开发代码纳入指定 GitHub 仓库，并建立持续提交与最小监督证据规则。
-目标：`quanyiming2022/CoastMAS` 的 `main`。本地 before：`88f7b629c1bde2c91090e2ff1a47917567895b38`。
-当前运行构建：`master-v3-dev25`，58013 开发环境。首次提交收录此前累积工作，不伪造过去逐任务提交历史。
-最终 after 与推送状态以实际 Git commit/远程引用和交付消息为准，避免在提交内自引用 SHA。
+任务：V3全系统实现差距审计，诊断后停止。before：`8d8ae10e8a53c3aa63501c0244b7e37739609c13`；58013现有构建只读，58125新隔离空间执行。没有业务代码修复。原GitHub纳管任务的记录保留在before commit，不将旧PASS继承到本次。
 
-| 验收项 | 状态 | 实际证据与边界 |
+| 检查 | 状态 | 证据与边界 |
 |---|---|---|
-| 当前后端测试集合 | PASS | [后端日志](evidence/runs/backend.log)：290 项通过；仅 next/tests |
-| 当前前端组件测试 | PASS | [前端日志](evidence/runs/frontend.log)：72 项通过 |
-| 前端 lint | PASS | [lint 日志](evidence/runs/lint.log) |
-| 类型检查和前端构建 | PASS | [构建日志](evidence/runs/build.log)；仍有大包警告 |
-| 实际浏览器：导航、NDVI 操作/数值、Dock、规划配置版本 | PASS | [浏览器日志](evidence/runs/browser.log)：四条链通过，不代表全站/地图视觉全部通过 |
-| 规划单元视图保存/恢复全链 | FAIL | 同一日志：预期 opacity=0.6，读取为 1；后续恢复断言未执行 |
-| NDVI 成果地图视觉 | FAIL | [1440×900](evidence/screenshots/indicator-result-1440.png)、[1366×768](evidence/screenshots/indicator-result-1366.png)：捕获时未见有效栅格着色，需查明渲染/时序原因 |
-| 规划矢量实际地图截图 | PASS | [1440×900](evidence/screenshots/planning-units-1440.png)、[1366×768](evidence/screenshots/planning-units-1366.png)：实际两个工程夹具多边形；不包含保存恢复通过声明 |
-| 小型数值可重复性 | PASS | [可重跑脚本](evidence/numerical/reproduce.py)、[实际输出](evidence/numerical/results.json)：NDVI/MILP/Pareto |
-| 真实处理节点与结果摘要 | PASS | [NDVI 运行](evidence/runs/ndvi-run-summary.json)：固定输入/算法、原生像元、下载文件哈希；明确工程夹具 |
-| 完整新 RunManifest / Workflow / Reproduce 平台要求 | NOT_RUN | 上述摘要只证明现有处理节点，不替代完整平台契约验收 |
-| Planning 五条正式端到端业务 | NOT_RUN | 单元准备、配置和独立求解器不等于编译—求解—再评价闭环 |
-| 原版应用、tests_v1 和全部历史浏览器套件 | NOT_RUN | 本次未重跑；tests_v1 缺 v1 实现，不能算当前 290 项的一部分 |
-| 真实业务科学结论 | BLOCKED | 未获确认的指标含义/方向、A/B/C、TN 定位等只阻断相关正式分析；工程缺项另列 |
+| 后端290项、前端72项 | PASS | [后端](evidence/runs/v3-audit-20260925/backend-junit.xml)、[前端](evidence/runs/v3-audit-20260925/frontend-tests.json)；不是362条E2E |
+| lint、类型、隔离构建 | PASS | [退出码](evidence/runs/v3-audit-20260925/checks.json)，包体/弃用警告保留 |
+| 同一构建的六条浏览器链 | PASS | [最终6/6](evidence/runs/v3-audit-20260925/final-regression.log)：管理、导入恢复、方法、规划版本、NDVI、规划单元 |
+| 隔离与构建对应 | PASS | [隔离只读核对](evidence/runs/v3-audit-20260925/isolation-check.json)、[7文件字节一致](evidence/runs/v3-audit-20260925/bundle-identity.json) |
+| 六光谱实际worker数值与主产物下载 | PASS | [原值与hash](evidence/runs/v3-audit-20260925/followup-corrected.json)；仅注明的合成工程夹具 |
+| 四桌面成果稳定渲染 | PASS | [1440](evidence/screenshots/v3-audit-20260925/settled-result-1440.png)、[1366](evidence/screenshots/v3-audit-20260925/settled-result-1366.png)、[1920](evidence/screenshots/v3-audit-20260925/settled-result-1920.png)、[2560](evidence/screenshots/v3-audit-20260925/settled-result-2560.png)；不冒充全部未实现页面 |
+| 真实运行中取消 | PASS | [worker确认](evidence/runs/v3-audit-20260925/job-cancel-corrected.json)；不是完整SSE/统一状态机验收 |
+| 单项旧下载路径 | FAIL | `/api/jobs/{id}/files/0`缺media_type返回500，六实例；主Artifact下载另行通过 |
+| 非法视图422与部分成功错误呈现 | FAIL | [真实服务受控错误](evidence/runs/v3-audit-20260925/supplement-browser.json)丢失字段定位，无完整恢复动作 |
+| 完整ModelOps、Coupler、Simulation/Planning/Comparison产品闭环 | BLOCKED | 工程缺项见35项问题，不归因于用户资料 |
+| 完整复现、沙箱攻击、远端服务、容量压力及全站逐控件 | NOT_RUN | 本轮未执行；源码与组件测试不能代替 |
+| 原data_quan正式科学结论 | NOT_RUN | 本轮未重跑真实业务科学验证；不猜补语义/定位 |
 
-[执行命令与退出码](evidence/runs/checks.json)。截图来自当前实际浏览器，已经查看；不更新视觉快照掩盖失败。
-GitHub 网络推送在代码提交之后执行，不以本报告代替远程 SHA 核对。
+[完整报告](../docs/audit/COASTMAS-V3-IMPLEMENTATION-AUDIT.md)、[54导航/32步骤/177能力/145原验收索引](../docs/audit/COASTMAS-V3-COVERAGE.md)。索引覆盖不是全系统通过；最小原验收PASS仅有实际注明范围。最终GitHub同步以远程SHA读回为准。

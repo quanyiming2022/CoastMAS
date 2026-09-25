@@ -1,5 +1,16 @@
 # CoastMAS 当前执行状态
 
+- 当前任务：2026-09-25 V3 全系统实现差距审计；诊断与整改路线完成后停止，不自动继续开发。
+- 优先级：最新用户裁决 → V3 后专项补充 → CoastMAS V3.0 → master 工程细节 → 旧设计。下方旧“单一主基线”措辞属于历史状态，不能覆盖此裁决。
+- 产品审计基线：`8d8ae10e8a53c3aa63501c0244b7e37739609c13` / 58013 `master-v3-dev25`。隔离58125，同包同代码、新SQLite。产品代码、正式数据、原件均未改。
+- 交付：`docs/audit/COASTMAS-V3-IMPLEMENTATION-AUDIT.md`、`COASTMAS-V3-FINDINGS.json`、`COASTMAS-V3-COVERAGE.md`、`COASTMAS-V3-REMEDIATION-PLAN.md`。
+- 35项问题：2项P0、26项P1、7项P2。54导航/32步骤/177能力/145原验收索引均有审计处置，不是全部产品验收PASS。
+- 本轮证据：后端290、前端72、静态检查/隔离构建通过；六条重点浏览器链通过；下载单项旧接口实际500。详细失败与探针纠错保留在`.review/evidence/runs/v3-audit-20260925/`。
+- 下一轮建议：按整改Wave处理下载/错误契约、ModelOps与Planning编译及产品职责；本轮不实施。正式替换仍需单独授权。
+
+## 历史开发状态（未作为当前验收证据）
+
+
 - 单一主基线：`specification/20260925/CoastMAS-Codex-master-spec-20260925.md`；Planning补充已全文读取并归入W09/W12/W14/W15/W17及`acceptance-master.json`。V3四类任务、十个一级中心不变，不另写总体方案。
 - 当前可访问开发构建：`http://127.0.0.1:58013/`，`artifacts/master-v3-dev25`。API/worker自有服务会话61145；58012未替换。原始资料、模型原包、历史和未提交工作保留。
 - V3实际导航已纠偏；项目CRUD唯一。模型目录、数据—模型匹配、规划任务、指标库、规划目标、约束库、决策变量是真实目录/API。尚未接通的入口仅在开发环境标为开发中，无空路由。四类任务可创建，独立八步不等于完整业务通过。

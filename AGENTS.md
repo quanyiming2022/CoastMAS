@@ -1,6 +1,7 @@
 # CoastMAS：研发执行约定
 
 ## 依据与边界
+- 冲突优先级：最新用户明确裁决 → V3 后专项补充 → CoastMAS V3.0 产品与信息架构 → master spec 工程细节 → 旧V2/页面/路由；诊断任务不得自动转为开发。
 - 功能与科研范围见 `docs/requirements.md`；读取定位见 `docs/requirements-index.md`。
 - 执行与验收补充见 `docs/execution-quality.md`。它只在明确列出的事项上覆盖原任务书，不删除原有必选功能。
 - 本项目一次委托、连续研发、统一交付。内部可分解任务、测试、修复和提交，不等待例行“下一阶段”确认；安全授权不能绕过。
@@ -31,6 +32,6 @@
 ## GitHub 提交与最小监督证据
 - 用户指定仓库 `https://github.com/quanyiming2022/CoastMAS.git`，目标分支 `main`；后续显式指定优先。每个完成任务独立、清晰提交，并普通 push；禁止 force push、amend/rebase 已用于审查的提交历史。
 - 开始记录 before commit；结束核对远程分支 SHA 等于 after commit，再提供二者。推送失败如实报告，不把本地 commit 当作 GitHub 已同步。
-- 维护 `.review/acceptance-report.md`（仅 PASS/FAIL/BLOCKED/NOT_RUN，PASS 必须引用实际证据）、`capability-status.md`（REGISTERED/IMPLEMENTED/EXECUTABLE/VERIFIED/BLOCKED/NOT_RUN）与 `known-issues.md`。
+- 维护 `.review/acceptance-report.md`（仅 PASS/FAIL/BLOCKED/NOT_RUN，PASS 必须引用实际证据）、`capability-status.md`（本轮审计按用户最新定义：VERIFIED/EXECUTABLE_NOT_VERIFIED/PARTIAL/UI_ONLY/API_ONLY/REGISTERED_ONLY/BROKEN/MISSING/BLOCKED/NOT_TESTED；历史研发标签不自动继承）与 `known-issues.md`。
 - 最小证据保存到 `.review/evidence/{screenshots,numerical,runs}/`：实际桌面截图、可重复小型数值、重大流程的真实运行/Workflow/ResultManifest 摘要；缺项和失败不得隐藏，证据必须脱敏。
 - Git 直接审查代码/API/数据库/路由差异；不再额外生成 changed-files、diff stat、API diff 或 DB diff 报告。原始业务资料、模型原包、凭据、私有配置、数据库与缓存不提交。
