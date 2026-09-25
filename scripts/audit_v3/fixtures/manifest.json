@@ -1,0 +1,9 @@
+{
+  "origin": "synthetic engineering fixtures previously authored by CoastMAS tests; not user business observations",
+  "files": {
+    "engineering-red-nir.tif": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+    "coast.tfw": "eea8d20a18774e7995af2853a0b6799d511655c30440e7d569ce1acbc75810d6",
+    "engineering-location.json": "16b0a36885cc647256ff806de339bfd6e7366e334620c24dffefd0fe33d4d808",
+    "coast.tif": "3b6e0b6b9859777a396eb1db217e15feec6b3c2305c5a636ad981ad471d41750"
+  }
+}

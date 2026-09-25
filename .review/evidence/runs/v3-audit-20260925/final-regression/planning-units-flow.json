@@ -1,0 +1,224 @@
+{
+  "project": "4d2b9a3099eb45248290b87b5dcd9320",
+  "task": "8e8fb8e7adce4faaa5e9ee66411bcdf4",
+  "job": "dbbca4b3b3cf473da233d9f5bfa1669d",
+  "manifest": {
+    "contract_version": 1,
+    "actor": "57294803dd934d4a8e400d5908d06568",
+    "project_id": "4d2b9a3099eb45248290b87b5dcd9320",
+    "task_id": "8e8fb8e7adce4faaa5e9ee66411bcdf4",
+    "draft_revision": 2,
+    "draft": {
+      "title": "规划单元准备",
+      "purpose": "spatial",
+      "selection": [
+        {
+          "asset_id": "2e773b3e76d065c5f6a2ce48574344cf",
+          "revision": 1,
+          "layer": null
+        }
+      ],
+      "mapping": [
+        {
+          "asset_id": "2e773b3e76d065c5f6a2ce48574344cf",
+          "field": "features/id",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "2e773b3e76d065c5f6a2ce48574344cf",
+          "field": "features/cost",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        }
+      ],
+      "method_id": null,
+      "options": {
+        "operator": "planning_units",
+        "band": 1,
+        "parameters": {}
+      }
+    },
+    "assets": [
+      {
+        "id": "2e773b3e76d065c5f6a2ce48574344cf",
+        "project_id": "4d2b9a3099eb45248290b87b5dcd9320",
+        "revision": 1,
+        "name": "工程夹具分区.geojson",
+        "sha256": "eedaa470ee1eaec822400c161b3d81efe119495f3c1c6195108d0ab9f43931bc",
+        "size": 397,
+        "object_key": "ee/eedaa470ee1eaec822400c161b3d81efe119495f3c1c6195108d0ab9f43931bc",
+        "facts": {
+          "profile": "geojson",
+          "standard_version": "RFC7946",
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "features",
+              "fields": [
+                {
+                  "name": "id",
+                  "data_type": "str",
+                  "unit": null,
+                  "concept": null
+                },
+                {
+                  "name": "cost",
+                  "data_type": "int32",
+                  "unit": null,
+                  "concept": null
+                }
+              ],
+              "crs": "EPSG:4326",
+              "geometry_type": "Polygon",
+              "row_count": 2,
+              "preview": [
+                {
+                  "type": "Feature",
+                  "id": "a",
+                  "properties": {
+                    "cost": 2
+                  },
+                  "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [
+                          113,
+                          22
+                        ],
+                        [
+                          113.001,
+                          22
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113,
+                          22.001
+                        ],
+                        [
+                          113,
+                          22
+                        ]
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "type": "Feature",
+                  "id": "b",
+                  "properties": {
+                    "cost": 5
+                  },
+                  "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [
+                          113.001,
+                          22
+                        ],
+                        [
+                          113.00200000000001,
+                          22
+                        ],
+                        [
+                          113.00200000000001,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22
+                        ]
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "invalid_geometries": 0
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval"
+        },
+        "created": 1790306622.634676
+      }
+    ],
+    "states": {
+      "data_ingested": true,
+      "technical_quality": "checked",
+      "method_approved": true,
+      "model_approved": true,
+      "input_applicable": true,
+      "execution_succeeded": false,
+      "business_validated": false
+    },
+    "runtime": null,
+    "method": {
+      "id": "builtin:planning-units:1",
+      "version": "1.0.0",
+      "operator": "planning_units",
+      "layer": "features",
+      "scope": "full_layer",
+      "maximum_units": 100000,
+      "basis": "逐要素保留原生几何与字段；多边形计算面积并检查重叠；不推测成本、类别或时期",
+      "expected_outputs": [
+        {
+          "name": "planning-units.json",
+          "role": "planning_units",
+          "view_kind": "table"
+        },
+        {
+          "name": "planning-units.geojson",
+          "role": "planning_units",
+          "view_kind": "vector"
+        }
+      ]
+    },
+    "processing_node_id": "602211bfce6e47719da90fe9b95a78f7",
+    "business_role": "spatial_preparation"
+  },
+  "statistics": {
+    "unit_count": 2,
+    "area_m2": 22868.413214445114,
+    "overlap_check": "passed"
+  },
+  "view": {
+    "revision": 28,
+    "state": {
+      "selected_feature_id": "a",
+      "asset_id": null,
+      "band": 1,
+      "camera": {
+        "longitude": 113.00099999999998,
+        "latitude": 22.00050000088146,
+        "zoom": 17.245539940373742
+      },
+      "visible": true,
+      "opacity": 0.6
+    }
+  },
+  "sha256": "3e0b700f09cf42a195305cc8d158e5b553b7af4ee334772f4360f151fb55a438",
+  "actions": {
+    "uploads": 1,
+    "prepare_clicks": 1,
+    "technical_fields": 0,
+    "scientific_fields": 0
+  },
+  "origin_kind": "engineering_fixture"
+}

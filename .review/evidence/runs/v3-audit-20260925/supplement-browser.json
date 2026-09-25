@@ -1,0 +1,1976 @@
+{
+  "actions": [
+    {
+      "name": "stable-method-library-and-task-context",
+      "status": "WORKING",
+      "detail": {
+        "visibleText": "CoastMAS\n海岸带科研协同平台\n工作台\n项目与研究\n数据\n指标与方法\n指标库\n综合评价方法\n模型工程\n耦合与工作流\n规划与优化\n运行\n成果\n管理\n收起导航\n当前项目\nCoastMAS 新研究项目\ndesktop-1790304651863 已修改\n导入恢复工程验收 1790304654455\n规划版本工程验收 1790304656705\n方法闭环验收-1790304661689\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n内置指标工程验收 1790304915387\n规划单元工程验收 1790304918535\nV3审计-assessment\n已保存\n新建研究\n预检并执行\n账号\n图层\n输入 1\n运行 0\n全部图层\n参考\n1 / 1 层\n管理\n折叠\nred-nir.tif\n参考\n选择已有指标定义\n关闭\n搜索指标\n\n项目内尚无已批准的指标定义，可导入指标表或添加新指标。\n\n方法名称\n已保存\n方法草稿 v1\n保存草稿\n发布固定版本\n返回方法目录\n指标与评分\n从指标库选择\n导入指标表\n添加指标\n\n尚未添加指标\n\n赋权方式\n综合方式\n明确权重加权综合\nAHP判断赋权综合\n熵权综合\nTOPSIS排序\n空间布局优化\n\n添加指标后配置赋权。\n\n方案说明与依据\n1\n数据\n2\n对齐\n3\n指标\n4\n权评\n5\n综合\n6\n分级\n7\n时空\n8\n成果\n目录管理 · 当前研究保留\n最大化表格\n关闭目录\n方法方案\n正常记录\n已归档\n回收站\n全部状态\n全部类型/状态\n已认可\n待认可\n最近更新\n名称\n刷新\n导入方法\n继续草稿\n选择未完成草稿\n未命名方法 · 草稿v1\n新建\n已选 0 项\n全选筛选结果\n清除选择\n归档\n移入回收站\n\n此分类暂无记录\n\n共 0 项 · 第 1 页\n25 项/页\n50 项/页\n100 项/页\n上一页\n下一页",
+        "alerts": [],
+        "buttons": [
+          {
+            "text": "项目与研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "数据",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "指标与方法",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "模型工程",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "耦合与工作流",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "规划与优化",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "收起导航",
+            "label": "收起导航",
+            "disabled": false
+          },
+          {
+            "text": "V3审计-assessment",
+            "label": "查看或编辑研究名称",
+            "disabled": false
+          },
+          {
+            "text": "新建研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "预检并执行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "账号",
+            "label": "账号菜单",
+            "disabled": false
+          },
+          {
+            "text": "图层",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "输入 1",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行 0",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "折叠",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "red-nir.tif",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "",
+            "label": "图层 red-nir.tif 更多操作",
+            "disabled": false
+          },
+          {
+            "text": "关闭",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "保存草稿",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "发布固定版本",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "返回方法目录",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "从指标库选择",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "添加指标",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "1\n数据",
+            "label": "数据 · 已引用",
+            "disabled": false
+          },
+          {
+            "text": "2\n对齐",
+            "label": "准备与对齐 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "3\n指标",
+            "label": "指标 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "4\n权评",
+            "label": "权重与评价 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "5\n综合",
+            "label": "综合计算 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "6\n分级",
+            "label": "分级 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "7\n时空",
+            "label": "时空分析 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "8\n成果",
+            "label": "成果 · 待验证",
+            "disabled": false
+          },
+          {
+            "text": "最大化表格",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "关闭目录",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "刷新",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "导入方法",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "新建",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "全选筛选结果",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "清除选择",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "归档",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "移入回收站",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "上一页",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "下一页",
+            "label": null,
+            "disabled": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "coupler-actual-preflight",
+      "status": "WORKING",
+      "detail": {
+        "visibleText": "CoastMAS\n海岸带科研协同平台\n工作台\n项目与研究\n数据\n指标与方法\n指标库\n综合评价方法\n模型工程\n耦合与工作流\n数据—模型匹配\n规划与优化\n运行\n成果\n管理\n收起导航\n当前项目\nCoastMAS 新研究项目\ndesktop-1790304651863 已修改\n导入恢复工程验收 1790304654455\n规划版本工程验收 1790304656705\n方法闭环验收-1790304661689\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n内置指标工程验收 1790304915387\n规划单元工程验收 1790304918535\nV3审计-assessment\n已保存\n新建研究\n预检并执行\n账号\n图层\n输入 1\n运行 0\n全部图层\n参考\n1 / 1 层\n管理\n折叠\nred-nir.tif\n参考\n地图与资料\n分析配置与步骤\n当前运行成果\nred-nir.tif\ngeotiff · 原件已受管 · 资产版本 1\n下载原始资料\n显示波段\nband_1\nband_2\n✓\n定位本层\n样式\n详情\n20 m\nMapLibre | © OpenStreetMap contributors\n文件事实与质量信息\n1\n数据\n2\n对齐\n3\n指标\n4\n权评\n5\n综合\n6\n分级\n7\n时空\n8\n成果\n目录管理 · 当前研究保留\n最大化表格\n关闭目录\n数据—模型匹配\n\n选择已有任务核对其固定输入、方法和运行包；检查不会应用方法或启动模型。\n\n任务管理\n正常记录\n已归档\n回收站\n全部状态\n全部类型/状态\n资料检查\n空间处理\n地理实体\n时间适配\n综合评价\n空间优化\n投影寻踪聚类\n投影寻踪回归\n组合工作流\n科研验证\n成果比较\n模拟\n最近更新\n名称\n刷新\n已选 0 项\n全选筛选结果\n清除选择\n归档\n移入回收站\n\t名称\t研究类型\t状态\t当前环节\t最近运行 / 成果\t操作\n\t审计-assessment\t综合评价\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\t真实执行-ndbi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t真实执行-mndwi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t真实执行-ndwi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t真实执行-savi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t真实执行-evi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t真实执行-ndvi\t综合评价\t正常\t运行与成果\t计算完成\t编辑核对匹配\n\t审计-comparison\t成果比较\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\t审计-planning\t空间优化\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\t审计-simulation\t模拟\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\t审计-assessment\t综合评价\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\t审计-assessment\t综合评价\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\tV3审计-assessment\t综合评价\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\tV3审计-comparison\t成果比较\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\tV3审计-planning\t空间优化\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n\tV3审计-simulation\t模拟\t正常\t资料与方法装配\t暂无运行\t编辑核对匹配\n共 16 项 · 第 1 页\n25 项/页\n50 项/页\n100 项/页\n上一页\n下一页\n审计-assessment\n\n尚有未满足的执行条件\n\n请选择当前任务要使用的资料\n检查依据\n请选择适用的认可方法模板，无需手写数据矩阵\n检查依据",
+        "alerts": [],
+        "buttons": [
+          {
+            "text": "项目与研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "数据",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "指标与方法",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "模型工程",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "耦合与工作流",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "规划与优化",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "收起导航",
+            "label": "收起导航",
+            "disabled": false
+          },
+          {
+            "text": "V3审计-assessment",
+            "label": "查看或编辑研究名称",
+            "disabled": false
+          },
+          {
+            "text": "新建研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "预检并执行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "账号",
+            "label": "账号菜单",
+            "disabled": false
+          },
+          {
+            "text": "图层",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "输入 1",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行 0",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "折叠",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "red-nir.tif",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "",
+            "label": "图层 red-nir.tif 更多操作",
+            "disabled": false
+          },
+          {
+            "text": "地图与资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "分析配置与步骤",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "当前运行成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "定位本层",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "样式",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "详情",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "",
+            "label": "Zoom in",
+            "disabled": false
+          },
+          {
+            "text": "",
+            "label": "Zoom out",
+            "disabled": false
+          },
+          {
+            "text": "",
+            "label": "Drag to rotate map, click to reset north",
+            "disabled": false
+          },
+          {
+            "text": "1\n数据",
+            "label": "数据 · 已引用",
+            "disabled": false
+          },
+          {
+            "text": "2\n对齐",
+            "label": "准备与对齐 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "3\n指标",
+            "label": "指标 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "4\n权评",
+            "label": "权重与评价 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "5\n综合",
+            "label": "综合计算 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "6\n分级",
+            "label": "分级 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "7\n时空",
+            "label": "时空分析 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "8\n成果",
+            "label": "成果 · 待验证",
+            "disabled": false
+          },
+          {
+            "text": "最大化表格",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "关闭目录",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "刷新",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "全选筛选结果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "清除选择",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "归档",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "移入回收站",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "编辑",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "核对匹配",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "上一页",
+            "label": null,
+            "disabled": true
+          },
+          {
+            "text": "下一页",
+            "label": null,
+            "disabled": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "folder-import",
+      "status": "WORKING",
+      "detail": {
+        "visibleText": "CoastMAS\n海岸带科研协同平台\n工作台\n项目与研究\n数据\n指标与方法\n指标库\n综合评价方法\n模型工程\n耦合与工作流\n数据—模型匹配\n规划与优化\n运行\n成果\n管理\n收起导航\n当前项目\nCoastMAS 新研究项目\ndesktop-1790304651863 已修改\n导入恢复工程验收 1790304654455\n规划版本工程验收 1790304656705\n方法闭环验收-1790304661689\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n内置指标工程验收 1790304915387\n规划单元工程验收 1790304918535\n审计多入口与错误恢复\n已保存\n新建研究\n预检并执行\n账号\n图层\n输入 2\n运行 0\n输入资料 2项\n添加资料\n全部类型\ncsv\n\n当前草稿 v3；历史成果引用保持不变。\n\nfolder-b.csv\ncsv\n移除\nfolder-a.csv\ncsv\n移除\n地图与资料\n分析配置与步骤\n当前运行成果\nfolder-b.csv\ncsv · 原件已受管 · 资产版本 1\n下载原始资料\n查看自动读取的内容与质量\n\n分隔符表格 · 文件未明确声明规范版本\n\n以下是文件事实；科学定义与用户声明另存。表格预览最多20行，不代表全部记录。\n\ntable\n\n完整记录数：1\n\n源字段\t文件类型\t文件单位\t文件语义\nid\ttext\t未声明\t未声明\ny\ttext\t未声明\t未声明\nid\ty\na\t2\n1\n数据\n2\n对齐\n3\n指标\n4\n权评\n5\n综合\n6\n分级\n7\n时空\n8\n成果\n添加资料\n关闭\n\n可先导入与查看资料；明确方法后再核对本研究需要的指标。\n\n从资料库选择\n导入新资料\n已授权来源\n\n选择或拖入文件；同目录的影像、矢量主件与附件自动成组。\n\n选择并导入资料\n选择资料文件夹\nfolder-fixture/folder-b.csv · 已入库并加入研究\nfolder-fixture/folder-a.csv · 已入库并加入研究",
+        "alerts": [],
+        "buttons": [
+          {
+            "text": "项目与研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "数据",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "指标与方法",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "模型工程",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "耦合与工作流",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "规划与优化",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "收起导航",
+            "label": "收起导航",
+            "disabled": false
+          },
+          {
+            "text": "审计多入口与错误恢复",
+            "label": "查看或编辑研究名称",
+            "disabled": false
+          },
+          {
+            "text": "新建研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "预检并执行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "账号",
+            "label": "账号菜单",
+            "disabled": false
+          },
+          {
+            "text": "图层",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "输入 2",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行 0",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "添加资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "folder-b.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 folder-b.csv",
+            "disabled": false
+          },
+          {
+            "text": "folder-a.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 folder-a.csv",
+            "disabled": false
+          },
+          {
+            "text": "地图与资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "分析配置与步骤",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "当前运行成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "1\n数据",
+            "label": "数据 · 已引用",
+            "disabled": false
+          },
+          {
+            "text": "2\n对齐",
+            "label": "准备与对齐 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "3\n指标",
+            "label": "指标 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "4\n权评",
+            "label": "权重与评价 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "5\n综合",
+            "label": "综合计算 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "6\n分级",
+            "label": "分级 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "7\n时空",
+            "label": "时空分析 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "8\n成果",
+            "label": "成果 · 待验证",
+            "disabled": false
+          },
+          {
+            "text": "关闭",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "从资料库选择",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "导入新资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "已授权来源",
+            "label": null,
+            "disabled": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "library-selection",
+      "status": "BROKEN",
+      "error": "expect(locator).toBeVisible() failed\n\nLocator: getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究', exact: true }).first()\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究', exact: true }).first() with timeout 5000ms\n  - waiting for getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究', exact: true }).first()\n"
+    },
+    {
+      "name": "authorized-source-snapshot",
+      "status": "WORKING",
+      "detail": {
+        "statuses": [
+          {
+            "id": "52905a134fc84f6fae6b7864ed7e180a",
+            "status": "ready",
+            "asset_id": "9c56173bd5122e29a4f471acf957422d"
+          }
+        ],
+        "task": "8490d4c502694388bf2b8c95c0f416b8"
+      }
+    },
+    {
+      "name": "partial-success-double-error-controlled-fault",
+      "status": "WORKING",
+      "detail": {
+        "visibleText": "CoastMAS\n海岸带科研协同平台\n工作台\n项目与研究\n数据\n指标与方法\n指标库\n综合评价方法\n模型工程\n耦合与工作流\n数据—模型匹配\n规划与优化\n运行\n成果\n管理\n收起导航\n当前项目\nCoastMAS 新研究项目\ndesktop-1790304651863 已修改\n导入恢复工程验收 1790304654455\n规划版本工程验收 1790304656705\n方法闭环验收-1790304661689\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n审计夹具-可直接匹配\n审计夹具-缺NIR\n审计夹具-不确认物理量\n审计夹具-需适配\n审计夹具-授权边界\n内置指标工程验收 1790304915387\n规划单元工程验收 1790304918535\n审计多入口与错误恢复\n保存失败\n新建研究\n预检并执行\n账号\n图层\n输入 4\n运行 0\n输入资料 4项\n添加资料\n全部类型\ncsv\n\n当前草稿 v5；历史成果引用保持不变。\n\nfolder-b.csv\ncsv\n移除\nfolder-a.csv\ncsv\n移除\nobservations.csv\ncsv\n移除\nfault-preview.csv\ncsv\n移除\n地图与资料\n分析配置与步骤\n当前运行成果\nobservations.csv\ncsv · 原件已受管 · 资产版本 1\n下载原始资料\n查看自动读取的内容与质量\n\n分隔符表格 · 文件未明确声明规范版本\n\n以下是文件事实；科学定义与用户声明另存。表格预览最多20行，不代表全部记录。\n\ntable\n\n完整记录数：2\n\n源字段\t文件类型\t文件单位\t文件语义\nid\ttext\t未声明\t未声明\nvalue\ttext\t未声明\t未声明\nid\tvalue\na\t2\nb\t5\n1\n数据\n2\n对齐\n3\n指标\n4\n权评\n5\n综合\n6\n分级\n7\n时空\n8\n成果\n添加资料\n关闭\n\n可先导入与查看资料；明确方法后再核对本研究需要的指标。\n\n从资料库选择\n导入新资料\n已授权来源\n\n选择或拖入文件；同目录的影像、矢量主件与附件自动成组。\n\n选择并导入资料\n选择资料文件夹\nfault-preview.csv · 已入库并加入研究\n\n资料已加入研究；预览或视图保存失败：请求校验失败，请检查输入",
+        "alerts": [
+          "资料已加入研究；预览或视图保存失败：请求校验失败，请检查输入"
+        ],
+        "buttons": [
+          {
+            "text": "项目与研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "数据",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "指标与方法",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "模型工程",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "耦合与工作流",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "规划与优化",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "管理",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "收起导航",
+            "label": "收起导航",
+            "disabled": false
+          },
+          {
+            "text": "审计多入口与错误恢复",
+            "label": "查看或编辑研究名称",
+            "disabled": false
+          },
+          {
+            "text": "新建研究",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "预检并执行",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "账号",
+            "label": "账号菜单",
+            "disabled": false
+          },
+          {
+            "text": "图层",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "输入 4",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "运行 0",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "添加资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "folder-b.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 folder-b.csv",
+            "disabled": false
+          },
+          {
+            "text": "folder-a.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 folder-a.csv",
+            "disabled": false
+          },
+          {
+            "text": "observations.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 observations.csv",
+            "disabled": false
+          },
+          {
+            "text": "fault-preview.csv",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "移除",
+            "label": "移除输入 fault-preview.csv",
+            "disabled": false
+          },
+          {
+            "text": "地图与资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "分析配置与步骤",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "当前运行成果",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "1\n数据",
+            "label": "数据 · 已引用",
+            "disabled": false
+          },
+          {
+            "text": "2\n对齐",
+            "label": "准备与对齐 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "3\n指标",
+            "label": "指标 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "4\n权评",
+            "label": "权重与评价 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "5\n综合",
+            "label": "综合计算 · 待核查",
+            "disabled": false
+          },
+          {
+            "text": "6\n分级",
+            "label": "分级 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "7\n时空",
+            "label": "时空分析 · 未接通",
+            "disabled": false
+          },
+          {
+            "text": "8\n成果",
+            "label": "成果 · 待验证",
+            "disabled": false
+          },
+          {
+            "text": "关闭",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "从资料库选择",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "导入新资料",
+            "label": null,
+            "disabled": false
+          },
+          {
+            "text": "已授权来源",
+            "label": null,
+            "disabled": false
+          }
+        ],
+        "fault": "one outgoing PUT state.band changed to 0; actual server 422; asset/input still persisted",
+        "task": "8490d4c502694388bf2b8c95c0f416b8"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "path": "/api/projects",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/metadata",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/view",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/metadata",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/management/catalog/methods",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/method-workspaces",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/view",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/method-workspaces",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/method-workspaces",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/management/catalog/methods",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422383/228336.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422382/228336.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422383/228335.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422382/228335.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/indicator-definitions",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/configuration-review",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/method-workspaces",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/management/catalog/methods",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/management/catalog/tasks",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/75402c336bde47c682def7a6f5847848/preflight",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/management/catalog/tasks",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/view",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/metadata",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/210546f9d6c149d788e10aaae33d371a/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422383/228335.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422383/228336.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422382/228336.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/203771a2cca24126a507dcccae052600/tiles/19/422382/228335.png",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/jobs",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/imports",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/0289186808e0a307e4135bf72d0aaa81/resources",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/uploads/9a3d8e998061475ca42f4cfa0aed9083/parts/0",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/uploads/9a3d8e998061475ca42f4cfa0aed9083/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/0289186808e0a307e4135bf72d0aaa81/bind",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/assets/2c13babe537f2e05cea819a48e18abd9",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/2c13babe537f2e05cea819a48e18abd9/metadata",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/0289186808e0a307e4135bf72d0aaa81/resources",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/uploads/4a217c369b4f47c486a2b157ac1bd785/parts/0",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/uploads/4a217c369b4f47c486a2b157ac1bd785/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/0289186808e0a307e4135bf72d0aaa81/bind",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/imports",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/configuration-review",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/imports",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/source-snapshots",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/local-sources",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/local-sources/2c7c7a8e6047e660020b5fc8671e949781ac89916d37b9205a9650ef1392f271/files",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/source-snapshots",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/96188808c3be9242a645d1e5f9c6d926/resources",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/source-snapshots",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/source-snapshots",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/9c56173bd5122e29a4f471acf957422d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/import-targets/96188808c3be9242a645d1e5f9c6d926/bind",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/assets/9c56173bd5122e29a4f471acf957422d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/assets/9c56173bd5122e29a4f471acf957422d/metadata",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/configuration-review",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/workspace-state",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/imports",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/d1a6f38174abfd71056649632f5e7d38/resources",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/uploads/0e85d3d496624c6fa1cf834029ce3e6b/parts/0",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/uploads/0e85d3d496624c6fa1cf834029ce3e6b/complete",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/import-targets/d1a6f38174abfd71056649632f5e7d38/bind",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/import-targets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/view-state",
+      "status": 422,
+      "method": "PUT",
+      "body": {
+        "detail": [
+          {
+            "type": "greater_than_equal",
+            "loc": [
+              "body",
+              "state",
+              "band"
+            ],
+            "msg": "Input should be greater than or equal to 1",
+            "input": 0,
+            "ctx": {
+              "ge": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/input-requirements",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/tasks/8490d4c502694388bf2b8c95c0f416b8/assets",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/catalog",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/uploads",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/projects/7dcf20a017094fe59150062b7c825f8d/upload-groups",
+      "status": 200,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "method-indicator-definition-drift.png",
+    "coupler-task-preflight.png",
+    "folder-import.png",
+    "failed-library-selection.png",
+    "source-snapshot.png",
+    "partial-success-double-error.png"
+  ],
+  "note": "Controlled fault case forwards a deliberately invalid view state to real API; no mocked responses."
+}

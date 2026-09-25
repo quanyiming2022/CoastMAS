@@ -1,0 +1,235 @@
+{
+  "build": "unified-business-dev14",
+  "project": "87cc7d89ea0045af914fa295209f7e0f",
+  "task": "ab2a987de63341b5be983d989211918a",
+  "original": "f5eb499f7a0049e2b83cb43137c6c87d",
+  "interpretation": "5981e6872d734e009c8ba7641aa373a4",
+  "world_bytes": 93,
+  "no_browser_primary_retransfer": true,
+  "conflict_kept_inputs": 1,
+  "recovered_without_retransfer": true,
+  "saved": {
+    "id": "ab2a987de63341b5be983d989211918a",
+    "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+    "revision": 6,
+    "draft": {
+      "title": "另一个窗口已修改本研究",
+      "purpose": "assessment",
+      "selection": [
+        {
+          "asset_id": "5981e6872d734e009c8ba7641aa373a4",
+          "revision": 2,
+          "layer": null
+        },
+        {
+          "asset_id": "6187c21037286b38d06b2f9a19821a65",
+          "revision": 1,
+          "layer": null
+        },
+        {
+          "asset_id": "9d3bc801931c76dc56c464b4047e50e2",
+          "revision": 1,
+          "layer": null
+        },
+        {
+          "asset_id": "da7eb2b044f1158a419b64805d47e716",
+          "revision": 1,
+          "layer": null
+        }
+      ],
+      "mapping": [
+        {
+          "asset_id": "5981e6872d734e009c8ba7641aa373a4",
+          "field": "raster/band_1",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "6187c21037286b38d06b2f9a19821a65",
+          "field": "table/id",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "6187c21037286b38d06b2f9a19821a65",
+          "field": "table/x",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "9d3bc801931c76dc56c464b4047e50e2",
+          "field": "table/id",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "9d3bc801931c76dc56c464b4047e50e2",
+          "field": "table/y",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "da7eb2b044f1158a419b64805d47e716",
+          "field": "table/id",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        },
+        {
+          "asset_id": "da7eb2b044f1158a419b64805d47e716",
+          "field": "table/z",
+          "concept": null,
+          "unit": null,
+          "support": null,
+          "template_id": null,
+          "template_revision": null,
+          "role": "feature"
+        }
+      ],
+      "method_id": null,
+      "options": {
+        "business_goal": "comprehensive-assessment",
+        "inherited_declarations": {
+          "5981e6872d734e009c8ba7641aa373a4": {},
+          "6187c21037286b38d06b2f9a19821a65": {},
+          "9d3bc801931c76dc56c464b4047e50e2": {},
+          "da7eb2b044f1158a419b64805d47e716": {}
+        },
+        "mapping_issues": {
+          "5981e6872d734e009c8ba7641aa373a4": [],
+          "6187c21037286b38d06b2f9a19821a65": [],
+          "9d3bc801931c76dc56c464b4047e50e2": [],
+          "da7eb2b044f1158a419b64805d47e716": []
+        },
+        "declaration_references": {
+          "5981e6872d734e009c8ba7641aa373a4": [],
+          "6187c21037286b38d06b2f9a19821a65": [],
+          "9d3bc801931c76dc56c464b4047e50e2": [],
+          "da7eb2b044f1158a419b64805d47e716": []
+        },
+        "adaptations": {
+          "5981e6872d734e009c8ba7641aa373a4": [],
+          "6187c21037286b38d06b2f9a19821a65": [],
+          "9d3bc801931c76dc56c464b4047e50e2": [],
+          "da7eb2b044f1158a419b64805d47e716": []
+        }
+      }
+    },
+    "updated": 1790306616.9047759
+  },
+  "ledger": [
+    {
+      "id": "40822d0f5d6e76a035dceac17b370f71",
+      "task_id": "ab2a987de63341b5be983d989211918a",
+      "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+      "initial_revision": 1,
+      "expected_revision": 2,
+      "entries": [
+        {
+          "kind": "group",
+          "id": "affc9cb4d614ac405826cc1cd6c567fd",
+          "asset_id": "5981e6872d734e009c8ba7641aa373a4",
+          "name": "coast.tif",
+          "status": "attached",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "71e4a3d9c83653e2082f4e5a81d073ce",
+      "task_id": "ab2a987de63341b5be983d989211918a",
+      "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+      "initial_revision": 1,
+      "expected_revision": 1,
+      "entries": []
+    },
+    {
+      "id": "ff768388f89461c4aae31d94ed1e299f",
+      "task_id": "ab2a987de63341b5be983d989211918a",
+      "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+      "initial_revision": 2,
+      "expected_revision": 4,
+      "entries": [
+        {
+          "kind": "upload",
+          "id": "ccd506c84f2f440ab864f2835bc46700",
+          "asset_id": "6187c21037286b38d06b2f9a19821a65",
+          "name": "concurrent.csv",
+          "status": "attached",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "a899d83d19bad38eff734d9e080554b3",
+      "task_id": "ab2a987de63341b5be983d989211918a",
+      "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+      "initial_revision": 4,
+      "expected_revision": 5,
+      "entries": [
+        {
+          "kind": "upload",
+          "id": "3b3085ef617348fdac282111e121b34b",
+          "asset_id": "9d3bc801931c76dc56c464b4047e50e2",
+          "name": "good.csv",
+          "status": "attached",
+          "error": null
+        },
+        {
+          "kind": "upload",
+          "id": "e562606685da44528ab071690a305c03",
+          "asset_id": null,
+          "name": null,
+          "status": "receiving",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "320db8316570e5ad1c2f12f8f1f6a3d5",
+      "task_id": "ab2a987de63341b5be983d989211918a",
+      "project_id": "87cc7d89ea0045af914fa295209f7e0f",
+      "initial_revision": 5,
+      "expected_revision": 6,
+      "entries": [
+        {
+          "kind": "upload",
+          "id": "7bf04d3117c6485a8326291eb0461e7c",
+          "asset_id": "da7eb2b044f1158a419b64805d47e716",
+          "name": "dropped.csv",
+          "status": "attached",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "uploads": [
+    "concurrent.csv",
+    "good.csv",
+    "broken.bin",
+    "dropped.csv"
+  ]
+}

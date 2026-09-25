@@ -1,0 +1,96 @@
+[
+  {
+    "test": "desktop-management",
+    "source_sha256": "f01a110726f56869f677ec23807154bcc92396650d35a7717d55f4d25c284783",
+    "diagnostic_sha256": "fbf0d5b67afc8ac1050efd69de5c3853481fc401d37dcffec5418578c452d9c6",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      },
+      {
+        "kind": "retired_navigation",
+        "description": "Use actual routes for retired labels; navigation is independently audited. Assertions unchanged."
+      }
+    ]
+  },
+  {
+    "test": "import-recovery",
+    "source_sha256": "0bc3c6794e2559f4771c0a368be070076fb59ea16d29d0d93c48177c896afe66",
+    "diagnostic_sha256": "460dfc06090e78d7606a174438c7c9e7e44f7941dafeeae54541404b908df617",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      },
+      {
+        "kind": "portable_fixture",
+        "file": "coast.tif",
+        "sha256": "3b6e0b6b9859777a396eb1db217e15feec6b3c2305c5a636ad981ad471d41750"
+      },
+      {
+        "kind": "portable_fixture",
+        "file": "coast.tfw",
+        "sha256": "eea8d20a18774e7995af2853a0b6799d511655c30440e7d569ce1acbc75810d6"
+      }
+    ]
+  },
+  {
+    "test": "planning-objects",
+    "source_sha256": "f0377ebb4332354dcaa99b3da74bc75b154ee501ce1ff43c95b5dbcfa35e06b7",
+    "diagnostic_sha256": "fdce51393e010e0e37394c76a29c37ae08ad28dea559ae9f76e6c7736f0a9791",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      }
+    ]
+  },
+  {
+    "test": "unified-methods",
+    "source_sha256": "36232a609b6f7ac8e5662e91e8ea4799a186df3d67009e26750c1626a7310ab6",
+    "diagnostic_sha256": "42c647ad9057428774960c5a5a3e73f8df1c75c3589f2b48b7e65104d21567ed",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      },
+      {
+        "kind": "current_navigation",
+        "description": "Wait for current research then use real V3 group and method link. All business assertions preserved."
+      }
+    ]
+  },
+  {
+    "test": "builtin-indicators",
+    "source_sha256": "ee0cc0a87d33fcb7b002ac4571ec57e2a2d9c67b68289f0757feb042230cd60f",
+    "diagnostic_sha256": "e8764714ccb062a25f3d050f69148c9c5cdcf32698dfea4516524ad0ebbd8215",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      },
+      {
+        "kind": "portable_fixture",
+        "file": "engineering-red-nir.tif",
+        "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+      },
+      {
+        "kind": "portable_fixture",
+        "file": "engineering-location.json",
+        "sha256": "16b0a36885cc647256ff806de339bfd6e7366e334620c24dffefd0fe33d4d808"
+      }
+    ]
+  },
+  {
+    "test": "planning-units",
+    "source_sha256": "4192c6637f817a06b1a22a230584caa0556da6c279f61ae43aba8c7a7afecb8e",
+    "diagnostic_sha256": "e9706bf3486a77437f19f08229c2ed5122f6628eb040df220834f31d25951b06",
+    "adaptations": [
+      {
+        "kind": "isolation",
+        "description": "All hardcoded URLs and port guards use 58125, including the second browser."
+      }
+    ]
+  }
+]

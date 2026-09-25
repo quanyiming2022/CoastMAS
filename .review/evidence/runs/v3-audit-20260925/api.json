@@ -1,0 +1,1558 @@
+{
+  "fixture_kind": "engineering_fixture",
+  "cases": [
+    {
+      "name": "import-observations.csv",
+      "status": "PASS",
+      "result": {
+        "id": "30992c885a70432f9b3637682938ef60",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "revision": 1,
+        "name": "observations.csv",
+        "sha256": "8beb1d2dccb7251fa85f4d4d9d13ec471e48d627886f7944d901b59a275ac0d3",
+        "size": 17,
+        "facts": {
+          "profile": "csv",
+          "standard_version": null,
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "table",
+              "fields": [
+                {
+                  "name": "id",
+                  "data_type": "text",
+                  "unit": null,
+                  "concept": null
+                },
+                {
+                  "name": "value",
+                  "data_type": "text",
+                  "unit": null,
+                  "concept": null
+                }
+              ],
+              "row_count": 2,
+              "preview": [
+                {
+                  "id": "a",
+                  "value": "2"
+                },
+                {
+                  "id": "b",
+                  "value": "5"
+                }
+              ]
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval",
+          "encoding": "utf-8",
+          "dialect": {
+            "delimiter": ",",
+            "quotechar": "\"",
+            "doublequote": false
+          }
+        },
+        "created": 1790304226.120747
+      }
+    },
+    {
+      "name": "import-units.zip",
+      "status": "PASS",
+      "result": {
+        "id": "16da8fcfe02e40949bcecb4cba39772e",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "revision": 1,
+        "name": "units.zip",
+        "sha256": "01c369c0788392dd42835ae060da896615c40d1bddb00d01a028c056f379b4ca",
+        "size": 1431,
+        "facts": {
+          "profile": "shapefile",
+          "standard_version": null,
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "units",
+              "fields": [
+                {
+                  "name": "unit_id",
+                  "data_type": "str:80",
+                  "unit": null,
+                  "concept": null
+                },
+                {
+                  "name": "cost",
+                  "data_type": "int:18",
+                  "unit": null,
+                  "concept": null
+                }
+              ],
+              "crs": "EPSG:4326",
+              "geometry_type": "Polygon",
+              "row_count": 2,
+              "preview": [
+                {
+                  "type": "Feature",
+                  "id": "0",
+                  "properties": {
+                    "unit_id": "a",
+                    "cost": 2
+                  },
+                  "geometry": {
+                    "coordinates": [
+                      [
+                        [
+                          113.0,
+                          22.0
+                        ],
+                        [
+                          113.0,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22.0
+                        ],
+                        [
+                          113.0,
+                          22.0
+                        ]
+                      ]
+                    ],
+                    "type": "Polygon"
+                  }
+                },
+                {
+                  "type": "Feature",
+                  "id": "1",
+                  "properties": {
+                    "unit_id": "b",
+                    "cost": 5
+                  },
+                  "geometry": {
+                    "coordinates": [
+                      [
+                        [
+                          113.001,
+                          22.0
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113.00200000000001,
+                          22.001
+                        ],
+                        [
+                          113.00200000000001,
+                          22.0
+                        ],
+                        [
+                          113.001,
+                          22.0
+                        ]
+                      ]
+                    ],
+                    "type": "Polygon"
+                  }
+                }
+              ],
+              "invalid_geometries": 0
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval"
+        },
+        "created": 1790304226.139758
+      }
+    },
+    {
+      "name": "import-units.geojson",
+      "status": "PASS",
+      "result": {
+        "id": "f227c5851ab04671bb15bcb1bf97495d",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "revision": 1,
+        "name": "units.geojson",
+        "sha256": "2baa8d849e424ab8cb1984d4f815848b9f06b9fab2fc3d3f5f6294e3af4591d7",
+        "size": 473,
+        "facts": {
+          "profile": "geojson",
+          "standard_version": "RFC7946",
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "features",
+              "fields": [
+                {
+                  "name": "id",
+                  "data_type": "str",
+                  "unit": null,
+                  "concept": null
+                },
+                {
+                  "name": "unit_id",
+                  "data_type": "str",
+                  "unit": null,
+                  "concept": null
+                },
+                {
+                  "name": "cost",
+                  "data_type": "int32",
+                  "unit": null,
+                  "concept": null
+                }
+              ],
+              "crs": "EPSG:4326",
+              "geometry_type": "Polygon",
+              "row_count": 2,
+              "preview": [
+                {
+                  "type": "Feature",
+                  "id": "a",
+                  "properties": {
+                    "unit_id": "a",
+                    "cost": 2
+                  },
+                  "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [
+                          113,
+                          22
+                        ],
+                        [
+                          113.001,
+                          22
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113,
+                          22.001
+                        ],
+                        [
+                          113,
+                          22
+                        ]
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "type": "Feature",
+                  "id": "b",
+                  "properties": {
+                    "unit_id": "b",
+                    "cost": 5
+                  },
+                  "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                      [
+                        [
+                          113.001,
+                          22
+                        ],
+                        [
+                          113.00200000000001,
+                          22
+                        ],
+                        [
+                          113.00200000000001,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22.001
+                        ],
+                        [
+                          113.001,
+                          22
+                        ]
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "invalid_geometries": 0
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval"
+        },
+        "created": 1790304226.1458719
+      }
+    },
+    {
+      "name": "import-spectral-five.tif",
+      "status": "PASS",
+      "result": {
+        "id": "68fe7556c5be4e80a3429756b153980a",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "revision": 1,
+        "name": "spectral-five.tif",
+        "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+        "size": 1832,
+        "facts": {
+          "profile": "geotiff",
+          "standard_version": null,
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "raster",
+              "fields": [
+                {
+                  "name": "band_1",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 1,
+                  "description": "red",
+                  "metadata": {
+                    "common_name": "red",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1.0,
+                  "offset": 0.0,
+                  "nodata": -9999.0
+                },
+                {
+                  "name": "band_2",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 2,
+                  "description": "nir",
+                  "metadata": {
+                    "common_name": "nir",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1.0,
+                  "offset": 0.0,
+                  "nodata": -9999.0
+                },
+                {
+                  "name": "band_3",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 3,
+                  "description": "blue",
+                  "metadata": {
+                    "common_name": "blue",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1.0,
+                  "offset": 0.0,
+                  "nodata": -9999.0
+                },
+                {
+                  "name": "band_4",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 4,
+                  "description": "green",
+                  "metadata": {
+                    "common_name": "green",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1.0,
+                  "offset": 0.0,
+                  "nodata": -9999.0
+                },
+                {
+                  "name": "band_5",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 5,
+                  "description": "swir1",
+                  "metadata": {
+                    "common_name": "swir1",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1.0,
+                  "offset": 0.0,
+                  "nodata": -9999.0
+                }
+              ],
+              "preview": [
+                [
+                  0.2,
+                  0.0,
+                  null
+                ]
+              ],
+              "preview_scope": "top_left_window_physical_values",
+              "row_count": 3
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval",
+          "crs": "EPSG:32649",
+          "bounds": [
+            400000.0,
+            2499970.0,
+            400090.0,
+            2500000.0
+          ],
+          "transform": [
+            30.0,
+            0.0,
+            400000.0,
+            0.0,
+            -30.0,
+            2500000.0
+          ],
+          "width": 3,
+          "height": 1,
+          "cell_count": 3,
+          "file_tags": {
+            "AREA_OR_POINT": "Area"
+          }
+        },
+        "created": 1790304226.151746
+      }
+    },
+    {
+      "name": "input-transaction",
+      "status": "PASS",
+      "result": {
+        "task": {
+          "id": "633321f733484baba8ef8338625efd99",
+          "project_id": "7dcf20a017094fe59150062b7c825f8d",
+          "revision": 2,
+          "draft": {
+            "title": "审计-assessment",
+            "purpose": "assessment",
+            "selection": [
+              {
+                "asset_id": "30992c885a70432f9b3637682938ef60",
+                "revision": 1,
+                "layer": null
+              }
+            ],
+            "mapping": [
+              {
+                "asset_id": "30992c885a70432f9b3637682938ef60",
+                "field": "table/id",
+                "concept": null,
+                "unit": null,
+                "support": null,
+                "template_id": null,
+                "template_revision": null,
+                "role": "feature"
+              },
+              {
+                "asset_id": "30992c885a70432f9b3637682938ef60",
+                "field": "table/value",
+                "concept": null,
+                "unit": null,
+                "support": null,
+                "template_id": null,
+                "template_revision": null,
+                "role": "feature"
+              }
+            ],
+            "method_id": null,
+            "options": {
+              "task_type": "assessment",
+              "inherited_declarations": {
+                "30992c885a70432f9b3637682938ef60": {}
+              },
+              "mapping_issues": {
+                "30992c885a70432f9b3637682938ef60": []
+              },
+              "declaration_references": {
+                "30992c885a70432f9b3637682938ef60": []
+              },
+              "adaptations": {
+                "30992c885a70432f9b3637682938ef60": []
+              }
+            }
+          },
+          "updated": 1790304226.1595788
+        },
+        "items": [
+          {
+            "asset_id": "30992c885a70432f9b3637682938ef60",
+            "revision": 1,
+            "status": "added",
+            "name": "observations.csv"
+          }
+        ],
+        "intent": "audit-attach"
+      }
+    },
+    {
+      "name": "input-idempotent-replay",
+      "status": "PASS",
+      "result": {
+        "same_receipt": true
+      }
+    },
+    {
+      "name": "duplicate-input-not-rebound",
+      "status": "PASS",
+      "result": {
+        "status": "already_present",
+        "revision": 2
+      }
+    },
+    {
+      "name": "indicator-ndvi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "indicator-evi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "indicator-savi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "indicator-ndwi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "indicator-mndwi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "indicator-ndbi",
+      "status": "FAIL",
+      "error": ""
+    },
+    {
+      "name": "numeric-weight.ahp",
+      "status": "PASS",
+      "result": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.19999999999999984,
+          "b": 0.30000000000000016,
+          "c": 0.5000000000000001
+        },
+        "profile": "ahp_eigenvector/1.0.0",
+        "diagnostics": {
+          "algorithm": "principal_eigenvector",
+          "random_index_profile": "saaty_1_10",
+          "reference": "https://ijahp.org/index.php/IJAHP/article/download/1040/842",
+          "indicators": [
+            "a",
+            "b",
+            "c"
+          ],
+          "weights": [
+            0.19999999999999984,
+            0.30000000000000016,
+            0.5000000000000001
+          ],
+          "lambda_max": 2.9999999999999987,
+          "consistency_index": 0.0,
+          "random_index": 0.58,
+          "consistency_ratio": 0.0,
+          "consistency_limit": 0.1,
+          "consistency_applicable": true,
+          "note": "仅检验判断一致性，不代表独立科学精度"
+        }
+      }
+    },
+    {
+      "name": "numeric-weight.manual",
+      "status": "PASS",
+      "result": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.4,
+          "b": 0.6
+        },
+        "profile": "manual/1.0.0",
+        "diagnostics": {}
+      }
+    },
+    {
+      "name": "numeric-weight.entropy",
+      "status": "PASS",
+      "result": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.5373874502680704,
+          "b": 0.4626125497319295
+        },
+        "profile": "entropy/1.0.0",
+        "diagnostics": {
+          "sample_count": 3,
+          "fit_scope": "provided_complete_matrix",
+          "constant_indicators": [],
+          "ddof": 0
+        }
+      }
+    },
+    {
+      "name": "numeric-weight.critic",
+      "status": "PASS",
+      "result": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.4812235583930436,
+          "b": 0.5187764416069565
+        },
+        "profile": "critic/1.0.0",
+        "diagnostics": {
+          "sample_count": 3,
+          "fit_scope": "provided_complete_matrix",
+          "constant_indicators": [],
+          "ddof": 0
+        }
+      }
+    },
+    {
+      "name": "numeric-reduction.pca",
+      "status": "PASS",
+      "result": {
+        "kind": "ReductionResult",
+        "profile": "pca_standardized_svd/1.0.0",
+        "labels": [
+          "a",
+          "b"
+        ],
+        "mean": [
+          0.43333333333333335,
+          0.4666666666666666
+        ],
+        "scale": [
+          0.28674417556808757,
+          0.30912061651652345
+        ],
+        "components": [
+          [
+            0.7071067811865476,
+            0.7071067811865475
+          ]
+        ],
+        "transformed_features": [
+          [
+            -1.4319892178572051
+          ],
+          [
+            -0.4634459194841902
+          ],
+          [
+            1.8954351373413956
+          ]
+        ],
+        "explained_variance_ratio": [
+          0.9763416000357052
+        ],
+        "sign_convention": "largest_absolute_loading_positive",
+        "evaluation_meaning": null
+      }
+    },
+    {
+      "name": "numeric-classification.fisher_jenks",
+      "status": "PASS",
+      "result": {
+        "kind": "ClassScheme",
+        "profile": "fisher_jenks/1.0.0",
+        "breaks": [
+          0.0,
+          0.31,
+          1.0
+        ],
+        "classes": [
+          1,
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        "closure": "first includes minimum, then (lower,upper]",
+        "fit_scope": "provided_complete_values",
+        "sample_count": 6,
+        "labels": [
+          "第1组",
+          "第2组",
+          "第3组"
+        ],
+        "semantic_basis": null
+      }
+    },
+    {
+      "name": "numeric-evaluation.wlc",
+      "status": "PASS",
+      "result": {
+        "kind": "ScoreResult",
+        "profile": "wlc/1.0.0",
+        "scores": [
+          0.16,
+          0.34,
+          0.8600000000000001
+        ],
+        "contributions": [
+          [
+            0.04000000000000001,
+            0.12
+          ],
+          [
+            0.16000000000000003,
+            0.18
+          ],
+          [
+            0.32000000000000006,
+            0.54
+          ]
+        ],
+        "labels": [
+          "a",
+          "b"
+        ],
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture",
+          "diagnostics": {}
+        }
+      }
+    },
+    {
+      "name": "numeric-evaluation.topsis",
+      "status": "PASS",
+      "result": {
+        "kind": "ScoreResult",
+        "profile": "topsis/1.0.0",
+        "scores": [
+          0.0,
+          0.2631155722212671,
+          1.0
+        ],
+        "contributions": null,
+        "fit_scope": "provided_complete_matrix",
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture",
+          "diagnostics": {}
+        }
+      }
+    }
+  ],
+  "runs": [],
+  "operators": [
+    {
+      "code": "weight.ahp",
+      "input": {
+        "labels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "matrix": [
+          [
+            1,
+            0.6666666666666666,
+            0.4
+          ],
+          [
+            1.5,
+            1,
+            0.6
+          ],
+          [
+            2.5,
+            1.6666666666666667,
+            1
+          ]
+        ]
+      },
+      "output": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.19999999999999984,
+          "b": 0.30000000000000016,
+          "c": 0.5000000000000001
+        },
+        "profile": "ahp_eigenvector/1.0.0",
+        "diagnostics": {
+          "algorithm": "principal_eigenvector",
+          "random_index_profile": "saaty_1_10",
+          "reference": "https://ijahp.org/index.php/IJAHP/article/download/1040/842",
+          "indicators": [
+            "a",
+            "b",
+            "c"
+          ],
+          "weights": [
+            0.19999999999999984,
+            0.30000000000000016,
+            0.5000000000000001
+          ],
+          "lambda_max": 2.9999999999999987,
+          "consistency_index": 0.0,
+          "random_index": 0.58,
+          "consistency_ratio": 0.0,
+          "consistency_limit": 0.1,
+          "consistency_applicable": true,
+          "note": "仅检验判断一致性，不代表独立科学精度"
+        }
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "weight.manual",
+      "input": {
+        "weights": {
+          "a": 0.4,
+          "b": 0.6
+        }
+      },
+      "output": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.4,
+          "b": 0.6
+        },
+        "profile": "manual/1.0.0",
+        "diagnostics": {}
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "weight.entropy",
+      "input": {
+        "labels": [
+          "a",
+          "b"
+        ],
+        "values": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.4,
+            0.3
+          ],
+          [
+            0.8,
+            0.9
+          ]
+        ]
+      },
+      "output": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.5373874502680704,
+          "b": 0.4626125497319295
+        },
+        "profile": "entropy/1.0.0",
+        "diagnostics": {
+          "sample_count": 3,
+          "fit_scope": "provided_complete_matrix",
+          "constant_indicators": [],
+          "ddof": 0
+        }
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "weight.critic",
+      "input": {
+        "labels": [
+          "a",
+          "b"
+        ],
+        "values": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.4,
+            0.3
+          ],
+          [
+            0.8,
+            0.9
+          ]
+        ]
+      },
+      "output": {
+        "kind": "WeightSet",
+        "weights": {
+          "a": 0.4812235583930436,
+          "b": 0.5187764416069565
+        },
+        "profile": "critic/1.0.0",
+        "diagnostics": {
+          "sample_count": 3,
+          "fit_scope": "provided_complete_matrix",
+          "constant_indicators": [],
+          "ddof": 0
+        }
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "reduction.pca",
+      "input": {
+        "labels": [
+          "a",
+          "b"
+        ],
+        "values": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.4,
+            0.3
+          ],
+          [
+            0.8,
+            0.9
+          ]
+        ],
+        "components": 1
+      },
+      "output": {
+        "kind": "ReductionResult",
+        "profile": "pca_standardized_svd/1.0.0",
+        "labels": [
+          "a",
+          "b"
+        ],
+        "mean": [
+          0.43333333333333335,
+          0.4666666666666666
+        ],
+        "scale": [
+          0.28674417556808757,
+          0.30912061651652345
+        ],
+        "components": [
+          [
+            0.7071067811865476,
+            0.7071067811865475
+          ]
+        ],
+        "transformed_features": [
+          [
+            -1.4319892178572051
+          ],
+          [
+            -0.4634459194841902
+          ],
+          [
+            1.8954351373413956
+          ]
+        ],
+        "explained_variance_ratio": [
+          0.9763416000357052
+        ],
+        "sign_convention": "largest_absolute_loading_positive",
+        "evaluation_meaning": null
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "classification.fisher_jenks",
+      "input": {
+        "values": [
+          0,
+          0.3,
+          0.31,
+          0.7,
+          0.71,
+          1.0
+        ],
+        "classes": 3
+      },
+      "output": {
+        "kind": "ClassScheme",
+        "profile": "fisher_jenks/1.0.0",
+        "breaks": [
+          0.0,
+          0.31,
+          1.0
+        ],
+        "classes": [
+          1,
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        "closure": "first includes minimum, then (lower,upper]",
+        "fit_scope": "provided_complete_values",
+        "sample_count": 6,
+        "labels": [
+          "第1组",
+          "第2组",
+          "第3组"
+        ],
+        "semantic_basis": null
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "evaluation.wlc",
+      "input": {
+        "labels": [
+          "a",
+          "b"
+        ],
+        "values": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.4,
+            0.3
+          ],
+          [
+            0.8,
+            0.9
+          ]
+        ],
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture"
+        }
+      },
+      "output": {
+        "kind": "ScoreResult",
+        "profile": "wlc/1.0.0",
+        "scores": [
+          0.16,
+          0.34,
+          0.8600000000000001
+        ],
+        "contributions": [
+          [
+            0.04000000000000001,
+            0.12
+          ],
+          [
+            0.16000000000000003,
+            0.18
+          ],
+          [
+            0.32000000000000006,
+            0.54
+          ]
+        ],
+        "labels": [
+          "a",
+          "b"
+        ],
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture",
+          "diagnostics": {}
+        }
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    },
+    {
+      "code": "evaluation.topsis",
+      "input": {
+        "labels": [
+          "a",
+          "b"
+        ],
+        "values": [
+          [
+            0.1,
+            0.2
+          ],
+          [
+            0.4,
+            0.3
+          ],
+          [
+            0.8,
+            0.9
+          ]
+        ],
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture"
+        }
+      },
+      "output": {
+        "kind": "ScoreResult",
+        "profile": "topsis/1.0.0",
+        "scores": [
+          0.0,
+          0.2631155722212671,
+          1.0
+        ],
+        "contributions": null,
+        "fit_scope": "provided_complete_matrix",
+        "weight_set": {
+          "kind": "WeightSet",
+          "weights": {
+            "a": 0.4,
+            "b": 0.6
+          },
+          "profile": "engineering_fixture",
+          "diagnostics": {}
+        }
+      },
+      "execution_scope": "direct real kernel; not an API/UI workflow"
+    }
+  ],
+  "capability_probe": {
+    "actual_paths": [
+      "/health",
+      "/api/session",
+      "/api/projects",
+      "/api/research-goals",
+      "/api/tasks",
+      "/api/projects/{project}/tasks",
+      "/api/tasks/{task}",
+      "/api/tasks/{task}/history",
+      "/api/projects/{project}/assets",
+      "/api/assets/{asset_id}",
+      "/api/assets/{asset_id}/download",
+      "/api/projects/{project}/upload-groups",
+      "/api/upload-groups/{group_id}",
+      "/api/upload-groups/{group_id}/complete",
+      "/api/upload-groups/{group_id}/members",
+      "/api/upload-groups/{group_id}/primary-candidates",
+      "/api/upload-groups/{group_id}/primary",
+      "/api/projects/{project}/logical-imports",
+      "/api/tasks/{task_id}/inputs:attach",
+      "/api/projects/{project}/uploads",
+      "/api/uploads/{session}",
+      "/api/uploads/{session}/parts/{index}",
+      "/api/uploads/{session}/complete",
+      "/api/projects/{project}/catalog",
+      "/api/projects/{project}/view-state",
+      "/api/tasks/{task}/view-state",
+      "/api/tasks/{task}/assets",
+      "/api/jobs/{job}/view-state",
+      "/api/projects/{project}/task-catalog",
+      "/api/management/catalog/{kind}",
+      "/api/management/catalog/{kind}/{record_id}",
+      "/api/management/catalog/tasks/{record_id}/copy",
+      "/api/management/catalog/{kind}/selections",
+      "/api/management/selections/{selection_id}/apply",
+      "/api/projects/{project}/workspace-state",
+      "/api/tasks/{task_id}/apply-method",
+      "/api/tasks/{task_id}/processing-nodes",
+      "/api/processing-nodes/{node_id}/execute",
+      "/api/tasks/{task_id}/stage-products",
+      "/api/tasks/{task_id}/input-requirements",
+      "/api/v1/projects/{project}/indicators",
+      "/api/v1/tasks/{task_id}/indicators",
+      "/api/v1/tasks/{task_id}/indicators/{selection_id}/execute",
+      "/api/v1/projects/{project}/planning-catalog",
+      "/api/v1/projects/{project}/planning/{kind}",
+      "/api/v1/projects/{project}/planning/{kind}/{id}",
+      "/api/v1/projects/{project}/planning/{kind}/{id}/versions",
+      "/api/v1/projects/{project}/planning/{kind}/{id}/versions/{version_id}",
+      "/api/v1/tasks/{task_id}/planning/bindings",
+      "/api/v1/tasks/{task_id}/planning/units",
+      "/api/tasks/{task_id}/import-targets",
+      "/api/import-targets/{key}/resources",
+      "/api/import-targets/{key}/bind",
+      "/api/assets/{asset_id}/metadata",
+      "/api/projects/{project}/catalog/operations",
+      "/api/projects/{project}/catalog/operations/{operation_id}/apply",
+      "/api/assets/{asset_id}/view",
+      "/api/assets/{asset_id}/view.png",
+      "/api/assets/{asset_id}/tiles/{z}/{x}/{y}.png",
+      "/api/assets/{asset_id}/inspect",
+      "/api/assets/{asset_id}/vector/layers",
+      "/api/assets/{asset_id}/vector/features",
+      "/api/assets/{asset_id}/vector/records/{ordinal}",
+      "/api/assets/{asset_id}/preview",
+      "/api/assets/{asset_id}/preview.png",
+      "/api/jobs/{job_id}/preview",
+      "/api/jobs/{job_id}/preview.png",
+      "/api/jobs/{job_id}/bundle",
+      "/api/jobs/{job_id}/descriptor",
+      "/api/jobs/{job_id}/artifacts/{index}/view",
+      "/api/jobs/{job_id}/artifacts/{index}/view.png",
+      "/api/jobs/{job_id}/artifacts/{index}/tiles/{z}/{x}/{y}.png",
+      "/api/jobs/{job_id}/artifacts/{index}/inspect",
+      "/api/jobs/{job_id}/artifacts/{index}/download",
+      "/api/projects/{project}/spatial-tasks",
+      "/api/projects/{project}/source-snapshots",
+      "/api/source-snapshots/{key}/retry",
+      "/api/projects/{project}/models",
+      "/api/projects/{project}/models/{model}/approve",
+      "/api/projects/{project}/models/{model}/revoke",
+      "/api/projects/{project}/templates",
+      "/api/templates/{template_id}",
+      "/api/templates/{template_id}/history",
+      "/api/templates/{template_id}/revoke",
+      "/api/templates/{template_id}/approve",
+      "/api/assets/{asset_id}/suggestions",
+      "/api/tasks/{task_id}/sources",
+      "/api/projects/{project}/local-sources",
+      "/api/projects/{project}/local-sources/{source}/files",
+      "/api/projects/{project}/imports",
+      "/api/tasks/{task_id}/imports",
+      "/api/imports/{batch_id}",
+      "/api/imports/{batch_id}/items/{item_id}/content",
+      "/api/imports/{batch_id}/items/{item_id}/retry",
+      "/api/accounts",
+      "/api/accounts/{account}/state",
+      "/api/accounts/{account}/password",
+      "/api/projects/{project}/members",
+      "/api/projects/{project}/member-candidates",
+      "/api/projects/{project}/members/{account}",
+      "/api/projects/{project}/audit",
+      "/api/projects/{project}/local-sources/{source}/grant",
+      "/api/projects/{project}/ahp/preview",
+      "/api/projects/{project}/ahp/import",
+      "/api/system/settings",
+      "/api/management/audit",
+      "/api/projects/{project}/method-drafts",
+      "/api/tasks/{task_id}/publish-method",
+      "/api/projects/{project}/method-workspaces",
+      "/api/method-workspaces/{key}",
+      "/api/method-workspaces/{key}/publish",
+      "/api/methods/{method_id}/edit",
+      "/api/methods/{method_id}/versions/{revision}",
+      "/api/methods/{method_id}/versions/{revision}/export",
+      "/api/projects/{project}/method-imports",
+      "/api/method-workspaces/{key}/source",
+      "/api/method-workspaces/{key}/indicators:import",
+      "/api/method-workspaces/{key}/sources/{index}",
+      "/api/projects/{project}/indicator-definitions",
+      "/api/tasks/{task_id}/publish-statement",
+      "/api/tasks/{task_id}/publish-definition",
+      "/api/tasks/{task_id}/configuration-review",
+      "/api/tasks/{task_id}/preflight",
+      "/api/tasks/{task_id}/execute",
+      "/api/tasks/{task_id}/jobs",
+      "/api/jobs/{job_id}",
+      "/api/jobs/{job_id}/result",
+      "/api/jobs/{job_id}/download",
+      "/api/jobs/{job_id}/files/{index}",
+      "/api/jobs/{job_id}/cancel",
+      "/api/ogc/1.0/",
+      "/api/ogc/1.0/api",
+      "/api/ogc/1.0/conformance",
+      "/api/ogc/1.0/processes",
+      "/api/ogc/1.0/processes/{process_id}",
+      "/api/ogc/1.0/processes/{process_id}/execution",
+      "/api/ogc/1.0/jobs",
+      "/api/ogc/1.0/jobs/{job_id}",
+      "/api/ogc/1.0/jobs/{job_id}/results",
+      "/api/projects/{project}/completed-results",
+      "/api/jobs/{job_id}/discussion",
+      "/api/jobs/{job_id}/discussion/draft",
+      "/api/jobs/{job_id}/discussion/comments",
+      "/api/jobs/{job_id}/discussion/reviews",
+      "/{route}"
+    ],
+    "assessment": {
+      "task_id": "1975a439fb2e4a8c9b36d563a06760c1",
+      "purpose": "assessment",
+      "task_type": "assessment",
+      "preflight": {
+        "effective_draft": {
+          "title": "审计-assessment",
+          "purpose": "assessment",
+          "selection": [],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "task_type": "assessment"
+          }
+        },
+        "method": null,
+        "runtime": null,
+        "ready": false,
+        "issues": [
+          {
+            "code": "DATA_REQUIRED",
+            "message": "请选择当前任务要使用的资料",
+            "field": "selection"
+          },
+          {
+            "code": "METHOD_REQUIRED",
+            "message": "请选择适用的认可方法模板，无需手写数据矩阵",
+            "details": {}
+          }
+        ],
+        "sources": [],
+        "states": {
+          "data_ingested": false,
+          "technical_quality": "checked",
+          "method_approved": false,
+          "model_approved": false,
+          "input_applicable": false,
+          "execution_succeeded": false,
+          "business_validated": false
+        }
+      }
+    },
+    "simulation": {
+      "task_id": "8a0176831e61469998b444a03d32d535",
+      "purpose": "simulation",
+      "task_type": "simulation",
+      "preflight": {
+        "effective_draft": {
+          "title": "审计-simulation",
+          "purpose": "simulation",
+          "selection": [],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "task_type": "simulation"
+          }
+        },
+        "method": null,
+        "runtime": null,
+        "ready": false,
+        "issues": [
+          {
+            "code": "DATA_REQUIRED",
+            "message": "请选择当前任务要使用的资料",
+            "field": "selection"
+          },
+          {
+            "code": "METHOD_NOT_READY",
+            "message": "此任务的执行方法正在接入，不能提交空任务"
+          }
+        ],
+        "sources": [],
+        "states": {
+          "data_ingested": false,
+          "technical_quality": "checked",
+          "method_approved": false,
+          "model_approved": false,
+          "input_applicable": false,
+          "execution_succeeded": false,
+          "business_validated": false
+        }
+      }
+    },
+    "planning": {
+      "task_id": "caef7999caaf4943b7c5151b169f7e0a",
+      "purpose": "optimization",
+      "task_type": "planning",
+      "preflight": {
+        "effective_draft": {
+          "title": "审计-planning",
+          "purpose": "optimization",
+          "selection": [],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "task_type": "planning"
+          }
+        },
+        "method": null,
+        "runtime": null,
+        "ready": false,
+        "issues": [
+          {
+            "code": "DATA_REQUIRED",
+            "message": "请选择当前任务要使用的资料",
+            "field": "selection"
+          },
+          {
+            "code": "PLANNING_COMPILER_NOT_READY",
+            "message": "规划配置可保存和复用；完整诊断、问题编译与候选再评价服务尚未接通，当前不能提交规划求解。",
+            "category": "engineering_not_implemented"
+          }
+        ],
+        "sources": [],
+        "states": {
+          "data_ingested": false,
+          "technical_quality": "checked",
+          "method_approved": false,
+          "model_approved": false,
+          "input_applicable": false,
+          "execution_succeeded": false,
+          "business_validated": false
+        }
+      }
+    },
+    "comparison": {
+      "task_id": "4486abf4af4244fdaa799cab001c663f",
+      "purpose": "comparison",
+      "task_type": "comparison",
+      "preflight": {
+        "ready": false,
+        "issues": [
+          {
+            "code": "COMPARISON_INPUT_REQUIRED",
+            "message": "请选择基准成果和对照成果，无需重新导入资料。"
+          }
+        ],
+        "sources": [],
+        "method": null,
+        "runtime": null,
+        "comparison_inputs": [],
+        "comparison": null,
+        "states": {
+          "data_ingested": false,
+          "technical_quality": "issues",
+          "method_approved": false,
+          "model_approved": false,
+          "input_applicable": false,
+          "execution_succeeded": false,
+          "business_validated": false
+        }
+      }
+    },
+    "model_directory": [],
+    "model_upload_route_present": false,
+    "model_routes": [
+      "/api/projects/{project}/models",
+      "/api/projects/{project}/models/{model}/approve",
+      "/api/projects/{project}/models/{model}/revoke"
+    ],
+    "sse_routes": [],
+    "reproduce_routes": [],
+    "workflow_routes": [],
+    "checkpoint_routes": [],
+    "uncertainty_routes": [],
+    "feature_revision_routes": [],
+    "actual_tables": [
+      "accounts",
+      "asset_metadata",
+      "assets",
+      "audit",
+      "catalog_operations",
+      "constraint_items",
+      "constraint_set_revisions",
+      "constraint_sets",
+      "decision_spec_revisions",
+      "decision_specs",
+      "decision_variables",
+      "import_items",
+      "imports",
+      "input_attachment_receipts",
+      "job_view_states",
+      "jobs",
+      "local_source_grants",
+      "logical_import_receipts",
+      "managed_catalog_selections",
+      "managed_record_metadata",
+      "members",
+      "method_workspaces",
+      "model_approvals",
+      "objective_items",
+      "objective_set_revisions",
+      "objective_sets",
+      "opinion_drafts",
+      "personal_view_states",
+      "planning_unit_set_revisions",
+      "planning_unit_sets",
+      "processing_nodes",
+      "projects",
+      "research_workspace_states",
+      "scenario_comments",
+      "scenario_reviews",
+      "sessions",
+      "source_snapshot_jobs",
+      "stage_products",
+      "task_import_targets",
+      "task_revisions",
+      "task_view_states",
+      "tasks",
+      "template_revisions",
+      "templates",
+      "upload_group_sessions",
+      "upload_sessions"
+    ]
+  },
+  "errors": [
+    {
+      "name": "invalid-task-field",
+      "path": "/api/tasks",
+      "http_status": 422,
+      "body": {
+        "detail": [
+          {
+            "type": "string_too_short",
+            "loc": [
+              "body",
+              "title"
+            ],
+            "msg": "String should have at least 1 character",
+            "input": "",
+            "ctx": {
+              "min_length": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-view-fields",
+      "path": "/api/tasks/75402c336bde47c682def7a6f5847848/view-state",
+      "http_status": 200,
+      "body": {
+        "revision": 1,
+        "state": {
+          "asset_id": null,
+          "band": 1,
+          "camera": null,
+          "visible": true,
+          "opacity": 0.9
+        }
+      }
+    },
+    {
+      "name": "stale-task-revision",
+      "path": "/api/tasks/75402c336bde47c682def7a6f5847848",
+      "http_status": 409,
+      "body": {
+        "code": "DRAFT_CONFLICT",
+        "message": "已有更新版本，请比较后保存；当前编辑内容应保留",
+        "details": {
+          "current_revision": 1
+        }
+      }
+    }
+  ]
+}

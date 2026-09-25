@@ -1,0 +1,10 @@
+{
+  "audit_jobs": {
+    "cancelled": 1,
+    "succeeded": 10
+  },
+  "audit_service_gracefully_stopped": true,
+  "audit_namespace_retained": true,
+  "live58013_http": 200,
+  "live_services_signaled": false
+}

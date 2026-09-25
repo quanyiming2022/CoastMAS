@@ -1,0 +1,10 @@
+
+Running 2 tests using 1 worker
+
+(node:65548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] next/web/.audit-v3/builtin-indicators.spec.ts:6:1 › indicator picker freezes a real recipe, computes native pixels and preserves task context
+[2/2] next/web/.audit-v3/planning-units.spec.ts:6:1 › native planning units prepare in the same task and display their actual spatial artifact
+  2 passed (7.5s)

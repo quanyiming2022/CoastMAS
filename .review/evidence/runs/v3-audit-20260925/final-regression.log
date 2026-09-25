@@ -1,0 +1,15 @@
+
+Running 6 tests using 1 worker
+
+(node:67789) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/6] .audit-v3/builtin-indicators.spec.ts:6:1 › indicator picker freezes a real recipe, computes native pixels and preserves task context
+[2/6] .audit-v3/desktop-management.spec.ts:4:1 › separate user and project catalogs persist edits, membership and lifecycle without switching research
+[3/6] .audit-v3/import-recovery.spec.ts:5:1 › A06 A21 A23 orphan sidecar reuse, exact bytes, conflict recovery and partial batch
+[4/6] .audit-v3/planning-objects.spec.ts:5:1 › planning objects are independently saved, published, compared and explicitly bound
+[5/6] .audit-v3/planning-units.spec.ts:6:1 › native planning units prepare in the same task and display their actual spatial artifact
+[6/6] .audit-v3/unified-methods.spec.ts:5:1 › N06 method create, persisted edit, publish, clone, mapped import and fixed application
+  6 passed (18.3s)
+Prepared six diagnostic copies; production tests unchanged.

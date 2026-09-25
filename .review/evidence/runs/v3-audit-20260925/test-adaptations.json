@@ -1,0 +1,44 @@
+[
+  {
+    "test": "desktop-management.spec.ts",
+    "old": "await page.getByRole('link',{name:'项目管理',exact:true}).click();",
+    "new": "await page.goto('/projects?project='+access.project_id);",
+    "reason": "Retired navigation label; current route already separately exercised. No assertion removed."
+  },
+  {
+    "test": "desktop-management.spec.ts",
+    "old": "await page.getByRole('link',{name:'用户管理',exact:true}).click();",
+    "new": "await page.goto('/management/users?project='+access.project_id);",
+    "reason": "Retired navigation label; current route already separately exercised. No assertion removed."
+  },
+  {
+    "test": "desktop-management.spec.ts",
+    "source_sha256": "f01a110726f56869f677ec23807154bcc92396650d35a7717d55f4d25c284783",
+    "copied_sha256": "fbf0d5b67afc8ac1050efd69de5c3853481fc401d37dcffec5418578c452d9c6",
+    "port_guard": "58125 isolated namespace"
+  },
+  {
+    "test": "unified-methods.spec.ts",
+    "old": "await page.getByRole('link',{name:'方法方案',exact:true}).click();",
+    "new": "await page.goto('/methods?project='+project.id);",
+    "reason": "Retired navigation label; current route already separately exercised. No assertion removed."
+  },
+  {
+    "test": "unified-methods.spec.ts",
+    "source_sha256": "36232a609b6f7ac8e5662e91e8ea4799a186df3d67009e26750c1626a7310ab6",
+    "copied_sha256": "d3b6aac00e25187851d4470d91bfc6af64e3380ad43fef1e18faba27a57b48dc",
+    "port_guard": "58125 isolated namespace"
+  },
+  {
+    "test": "planning-objects.spec.ts",
+    "source_sha256": "f0377ebb4332354dcaa99b3da74bc75b154ee501ce1ff43c95b5dbcfa35e06b7",
+    "copied_sha256": "8613a8c0be2e9885c5c457007fc6ac3902632e6c5143decbe54f973a0dd19c81",
+    "port_guard": "58125 isolated namespace"
+  },
+  {
+    "test": "import-recovery.spec.ts",
+    "source_sha256": "0bc3c6794e2559f4771c0a368be070076fb59ea16d29d0d93c48177c896afe66",
+    "copied_sha256": "e7f1ba8bcfd16d34315d67ade202087325d86d6d7d65c310dbf91afe98f8d010",
+    "port_guard": "58125 isolated namespace"
+  }
+]

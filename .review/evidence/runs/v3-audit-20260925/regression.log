@@ -1,0 +1,37 @@
+
+Running 4 tests using 1 worker
+
+(node:65106) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] .audit-v3/desktop-management.spec.ts:4:1 › separate user and project catalogs persist edits, membership and lifecycle without switching research
+[2/4] .audit-v3/import-recovery.spec.ts:5:1 › A06 A21 A23 orphan sidecar reuse, exact bytes, conflict recovery and partial batch
+[3/4] .audit-v3/planning-objects.spec.ts:5:1 › planning objects are independently saved, published, compared and explicitly bound
+[4/4] .audit-v3/unified-methods.spec.ts:5:1 › N06 method create, persisted edit, publish, clone, mapped import and fixed application
+  1) .audit-v3/unified-methods.spec.ts:5:1 › N06 method create, persisted edit, publish, clone, mapped import and fixed application 
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: '方法版本详情', exact: true }).getByRole('button', { name: '应用到当前任务', exact: true })
+
+
+      36 |   const detail=page.getByRole('dialog',{name:'方法版本详情',exact:true});await expect(detail).toBeVisible();
+      37 |   expect((await (await page.request.get(`/api/tasks/${task.id}`)).json()).revision).toBe(before.revision);
+    > 38 |   await detail.getByRole('button',{name:'应用到当前任务',exact:true}).click();await expect(detail).not.toBeVisible();
+         |                                                                ^
+      39 |   const applied=await (await page.request.get(`/api/tasks/${task.id}`)).json();expect(applied.draft.options.method_revision).toBe(1);expect(applied.revision).toBe(before.revision+1);
+      40 |   await catalog.getByRole('button',{name:'克隆',exact:true}).click();await expect(editor.getByLabel('方法名称')).toHaveValue('工程质量综合方法 · 副本');await editor.getByRole('button',{name:'返回方法目录',exact:true}).click();
+      41 |   await catalog.getByRole('button',{name:'导入方法',exact:true}).click();
+        at /Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts:38:64
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../artifacts/v3-audit-playwright/unified-methods-N06-method-9dc18-mport-and-fixed-application/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../artifacts/v3-audit-playwright/unified-methods-N06-method-9dc18-mport-and-fixed-application/error-context.md
+
+
+  1 failed
+    .audit-v3/unified-methods.spec.ts:5:1 › N06 method create, persisted edit, publish, clone, mapped import and fixed application 
+  3 passed (27.0s)

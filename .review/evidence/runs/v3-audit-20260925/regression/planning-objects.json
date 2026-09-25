@@ -1,0 +1,59 @@
+{
+  "project": "2df3b253a27845a382f7cbd95c8a5717",
+  "task": "58f6542db0ca4aa4a69fd175cf3c8771",
+  "refs": {
+    "objectives": {
+      "object_id": "7e103ccf9aae4f9aacdcc7dc42ddc119",
+      "version_id": "5b124951aa794c3b85184d6046cec7d4",
+      "version": 1,
+      "name": "修复收益与成本",
+      "sha256": "4aadc461aeb42dfb6f986c0dfb31b60380fc83f3551f9882fb97107121ace646",
+      "recipe_version": "1.0.0"
+    },
+    "constraints": {
+      "object_id": "27982f247ff744109c6baf880f41a8a1",
+      "version_id": "a8aab4d1388f4a3b9766016108377329",
+      "version": 1,
+      "name": "工程面积上限",
+      "sha256": "7a5635d7502b23682cc339eae8901e3cf50c981c91dee0d38c909db5b2c2a1f8",
+      "recipe_version": "1.0.0"
+    },
+    "decisions": {
+      "object_id": "41afd96a2f784bca975985c7a12f57a6",
+      "version_id": "8e509e6da8594c418fdef0a703e054d4",
+      "version": 1,
+      "name": "工程修复单元",
+      "sha256": "539ad4d8fa01a5909b30b7fa49cc242b92cd66754e69fc87740ee272a6a7793d",
+      "recipe_version": "1.0.0"
+    }
+  },
+  "first_version": {
+    "id": "5b124951aa794c3b85184d6046cec7d4",
+    "object_id": "7e103ccf9aae4f9aacdcc7dc42ddc119",
+    "project_id": "2df3b253a27845a382f7cbd95c8a5717",
+    "version": 1,
+    "draft_revision": 2,
+    "name": "修复收益与成本",
+    "body": {
+      "mode": "pareto_multiobjective",
+      "items": [
+        {
+          "metric": "minimize_construction_cost"
+        },
+        {
+          "metric": "maximize_restoration_gain"
+        }
+      ]
+    },
+    "sha256": "4aadc461aeb42dfb6f986c0dfb31b60380fc83f3551f9882fb97107121ace646",
+    "recipe_version": "1.0.0",
+    "validation_state": "configuration_validated",
+    "actor": "57294803dd934d4a8e400d5908d06568",
+    "created": 1790304657.930978
+  },
+  "concurrency_status": 200,
+  "conflict": 412,
+  "task_not_automatically_upgraded": true,
+  "engineering_only": true,
+  "solver_and_reevaluation": "NOT_RUN"
+}

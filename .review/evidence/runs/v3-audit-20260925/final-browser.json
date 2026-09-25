@@ -1,0 +1,123 @@
+{
+  "actions": [
+    {
+      "name": "corrected-library-selector",
+      "status": "BROKEN",
+      "error": "locator.click: Error: strict mode violation: getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究 observations.csv', exact: true }) resolved to 2 elements:\n    1) <button type=\"button\" class=\"secondary\">加入研究 observations.csv</button> aka getByRole('button', { name: '加入研究 observations.csv' }).first()\n    2) <button type=\"button\" class=\"secondary\">加入研究 observations.csv</button> aka getByRole('button', { name: '加入研究 observations.csv' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究 observations.csv', exact: true })\u001b[22m\n"
+    },
+    {
+      "name": "stable-spatial-visuals",
+      "status": "WORKING",
+      "detail": {
+        "task": "5c1700c2233f44d2acb78eabbd2ef67a",
+        "job": "ad49a05cdb904325a81f5ce219a34d5f",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 850,
+              "height": 774
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "map": {
+              "x": 481,
+              "y": 121,
+              "width": 796,
+              "height": 642
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 1920,
+            "height": 1080,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 1330,
+              "height": 954
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 2560,
+            "height": 1440,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 1970,
+              "height": 1314
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          }
+        ]
+      }
+    },
+    {
+      "name": "viewer-navigation-denial",
+      "status": "BROKEN",
+      "error": "expect(received).toBe(expected) // Object.is equality\n\nExpected: 403\nReceived: 401"
+    }
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 850,
+        "height": 774
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "map": {
+        "x": 481,
+        "y": 121,
+        "width": 796,
+        "height": 642
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 1330,
+        "height": 954
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 1970,
+        "height": 1314
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    }
+  ],
+  "errors": []
+}

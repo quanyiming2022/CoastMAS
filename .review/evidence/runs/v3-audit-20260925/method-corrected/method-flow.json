@@ -1,0 +1,16 @@
+{
+  "project": "554f0c5c29c846ae8129436009ac7923",
+  "task": "a65430308e26403399d73d25d513f2d8",
+  "method": "02976b58494c4fc3b05f657965a976f0",
+  "methodRevision": 1,
+  "taskCount": 1,
+  "draftId": "417fb664473a4cb7a373ea4c777bb465",
+  "creationMeasurement": {
+    "filledFields": 7,
+    "scientificDirectionSelections": 1,
+    "approvalActions": 1
+  },
+  "browseDidNotApply": true,
+  "serverDraftRestored": true,
+  "csvImportPreservedMissingBasis": true
+}

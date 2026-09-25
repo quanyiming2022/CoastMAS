@@ -1,0 +1,57 @@
+{
+  "before_commit": "8d8ae10e8a53c3aa63501c0244b7e37739609c13",
+  "scope": "audit only",
+  "checks": [
+    {
+      "name": "backend",
+      "exit_code": 0,
+      "passed": 290,
+      "evidence": "backend-junit.xml"
+    },
+    {
+      "name": "frontend",
+      "exit_code": 0,
+      "passed": 72,
+      "evidence": "frontend-tests.json"
+    },
+    {
+      "name": "lint_typecheck_isolated_build",
+      "exit_code": 0,
+      "evidence": [
+        "lint.log",
+        "typecheck.log",
+        "build.log"
+      ]
+    },
+    {
+      "name": "first_browser_regression",
+      "exit_code": 1,
+      "passed": 3,
+      "failed": 1,
+      "failure_kind": "audit adapter hard-navigation before context persistence",
+      "evidence": "regression.log"
+    },
+    {
+      "name": "method_current_navigation",
+      "exit_code": 0,
+      "passed": 1,
+      "evidence": "method-corrected.log"
+    },
+    {
+      "name": "spatial_browser",
+      "exit_code": 0,
+      "passed": 2,
+      "evidence": "spatial.log"
+    },
+    {
+      "name": "final_six_browser_chains_isolated",
+      "exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "evidence": "final-regression.log"
+    }
+  ],
+  "diagnostic_scripts_exit_code_note": "Probes save per-case failures and may exit 0; JSON case statuses, not process exit, are authoritative.",
+  "remote_before_readback": "8d8ae10e8a53c3aa63501c0244b7e37739609c13",
+  "new_business_implementation": false
+}

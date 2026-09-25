@@ -1,0 +1,620 @@
+{
+  "project": "25deccbe9203414594f2890f671205a0",
+  "task": "3953ed62e0e34437ac03d459ce85e54b",
+  "job": "bffb9b7f9c984fe292f669cf6e89102b",
+  "selected": {
+    "task": {
+      "id": "3953ed62e0e34437ac03d459ce85e54b",
+      "project_id": "25deccbe9203414594f2890f671205a0",
+      "revision": 3,
+      "draft": {
+        "title": "内置指标操作工程夹具",
+        "purpose": "assessment",
+        "selection": [
+          {
+            "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+            "revision": 1,
+            "layer": null
+          }
+        ],
+        "mapping": [
+          {
+            "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+            "field": "raster/band_1",
+            "concept": null,
+            "unit": "1",
+            "support": null,
+            "template_id": null,
+            "template_revision": null,
+            "role": "feature"
+          },
+          {
+            "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+            "field": "raster/band_2",
+            "concept": null,
+            "unit": "1",
+            "support": null,
+            "template_id": null,
+            "template_revision": null,
+            "role": "feature"
+          }
+        ],
+        "method_id": null,
+        "options": {
+          "business_goal": "comprehensive-assessment",
+          "inherited_declarations": {
+            "c340d292ef424e9fa89273d96ac4cb5a": {}
+          },
+          "mapping_issues": {
+            "c340d292ef424e9fa89273d96ac4cb5a": []
+          },
+          "declaration_references": {
+            "c340d292ef424e9fa89273d96ac4cb5a": []
+          },
+          "adaptations": {
+            "c340d292ef424e9fa89273d96ac4cb5a": []
+          },
+          "indicators": [
+            {
+              "selection_id": "65113e05e0734e27b04810226e7774c6",
+              "indicator_id": "indicator.ndvi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.ndvi",
+                "name": "NDVI",
+                "category": "生态环境",
+                "description": "用红光与近红外反射率计算植被指数",
+                "semantic_type": "NDVI",
+                "input_roles": [
+                  "red",
+                  "nir"
+                ],
+                "input_constraints": "公式与scale/QA/分母0",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "default_parameters": {},
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "公式与scale/QA/分母0"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {},
+              "candidate": {
+                "key": "b44988edce0e14691ba4f739",
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+                    "revision": 1,
+                    "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+                  }
+                ],
+                "bindings": {
+                  "red": 1,
+                  "nir": 2
+                },
+                "label": "engineering-red-nir.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          ]
+        }
+      },
+      "updated": 1790306610.3109848
+    },
+    "items": [
+      {
+        "selection_id": "65113e05e0734e27b04810226e7774c6",
+        "indicator_id": "indicator.ndvi",
+        "definition_version": 1,
+        "definition": {
+          "indicator_id": "indicator.ndvi",
+          "name": "NDVI",
+          "category": "生态环境",
+          "description": "用红光与近红外反射率计算植被指数",
+          "semantic_type": "NDVI",
+          "input_roles": [
+            "red",
+            "nir"
+          ],
+          "input_constraints": "公式与scale/QA/分母0",
+          "default_algorithm": "spectral",
+          "algorithm_version": "spectral/1.0.0",
+          "parameters_schema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false,
+            "required": []
+          },
+          "default_parameters": {},
+          "default_parameters_version": 1,
+          "unit": "1",
+          "output_geometry": "grid",
+          "output_dtype": "float64",
+          "spatial_requirements": {
+            "native_grid": true,
+            "reliable_crs": true
+          },
+          "temporal_requirements": {},
+          "dependencies": [
+            "numpy",
+            "rasterio",
+            "pyproj"
+          ],
+          "quality_rules": [
+            "preserve_source_mask",
+            "zero_denominator_invalid",
+            "no_implicit_cloud_mask"
+          ],
+          "references": [
+            {
+              "source": "master-spec §09.2",
+              "definition": "公式与scale/QA/分母0"
+            }
+          ],
+          "version": 1,
+          "status": "published",
+          "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+          "tests": [
+            "tests/test_builtin_indicators.py",
+            "tests/test_indicator_kernels.py"
+          ],
+          "business_parameters": []
+        },
+        "parameters": {},
+        "candidate": {
+          "key": "b44988edce0e14691ba4f739",
+          "mode": "compute",
+          "sources": [
+            {
+              "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+              "revision": 1,
+              "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+            }
+          ],
+          "bindings": {
+            "red": 1,
+            "nir": 2
+          },
+          "label": "engineering-red-nir.tif",
+          "status": "ready",
+          "message": null
+        },
+        "status": "ready",
+        "mode": "compute"
+      }
+    ]
+  },
+  "pixel": {
+    "asset_id": "bffb9b7f9c984fe292f669cf6e89102b:0",
+    "asset_revision": 1,
+    "sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+    "band": 1,
+    "row": 0,
+    "column": 0,
+    "crs": "EPSG:32649",
+    "transform": [
+      30,
+      0,
+      400000,
+      0,
+      -30,
+      2500000
+    ],
+    "value_domain": "native_source_pixel",
+    "geolocation_chain": "inverse_PROJ_then_source_affine",
+    "scale": 1,
+    "offset": 0,
+    "unit": "1",
+    "unit_source": "file",
+    "valid": true,
+    "stored_value": 0.49999999999999994,
+    "value": 0.49999999999999994,
+    "status": "valid"
+  },
+  "ui_pixel": {
+    "asset_id": "bffb9b7f9c984fe292f669cf6e89102b:0",
+    "asset_revision": 1,
+    "sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+    "band": 1,
+    "row": 1,
+    "column": 1,
+    "crs": "EPSG:32649",
+    "transform": [
+      30,
+      0,
+      400000,
+      0,
+      -30,
+      2500000
+    ],
+    "value_domain": "native_source_pixel",
+    "geolocation_chain": "inverse_PROJ_then_source_affine",
+    "scale": 1,
+    "offset": 0,
+    "unit": "1",
+    "unit_source": "file",
+    "valid": true,
+    "stored_value": -1,
+    "value": -1,
+    "status": "valid"
+  },
+  "manifest": {
+    "contract_version": 1,
+    "actor": "57294803dd934d4a8e400d5908d06568",
+    "project_id": "25deccbe9203414594f2890f671205a0",
+    "task_id": "3953ed62e0e34437ac03d459ce85e54b",
+    "draft_revision": 3,
+    "draft": {
+      "title": "NDVI",
+      "purpose": "spatial",
+      "selection": [
+        {
+          "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+          "revision": 1,
+          "layer": null
+        }
+      ],
+      "mapping": [],
+      "method_id": null,
+      "options": {
+        "operator": "builtin_indicator",
+        "indicator_selection": {
+          "selection_id": "65113e05e0734e27b04810226e7774c6",
+          "indicator_id": "indicator.ndvi",
+          "definition_version": 1,
+          "definition": {
+            "indicator_id": "indicator.ndvi",
+            "name": "NDVI",
+            "category": "生态环境",
+            "description": "用红光与近红外反射率计算植被指数",
+            "semantic_type": "NDVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "公式与scale/QA/分母0",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "公式与scale/QA/分母0"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "key": "b44988edce0e14691ba4f739",
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+                "revision": 1,
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "engineering-red-nir.tif",
+            "status": "ready",
+            "message": null
+          },
+          "status": "ready",
+          "mode": "compute"
+        }
+      }
+    },
+    "assets": [
+      {
+        "id": "c340d292ef424e9fa89273d96ac4cb5a",
+        "project_id": "25deccbe9203414594f2890f671205a0",
+        "revision": 1,
+        "name": "engineering-red-nir.tif",
+        "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+        "size": 1462,
+        "object_key": "packages/25deccbe9203414594f2890f671205a0/0e6f9f5521104277919c1d0557404f0b/reader/engineering-red-nir.tif",
+        "facts": {
+          "profile": "geotiff",
+          "standard_version": null,
+          "observed_period": null,
+          "layers": [
+            {
+              "name": "raster",
+              "fields": [
+                {
+                  "name": "band_1",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 1,
+                  "description": "red",
+                  "metadata": {
+                    "common_name": "red",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1,
+                  "offset": 0,
+                  "nodata": -9999
+                },
+                {
+                  "name": "band_2",
+                  "data_type": "float64",
+                  "unit": "1",
+                  "concept": null,
+                  "band": 2,
+                  "description": "nir",
+                  "metadata": {
+                    "common_name": "nir",
+                    "physical_quantity": "surface_reflectance"
+                  },
+                  "scale": 1,
+                  "offset": 0,
+                  "nodata": -9999
+                }
+              ],
+              "preview": [
+                [
+                  0.2,
+                  0.2,
+                  null
+                ],
+                [
+                  0,
+                  0.4,
+                  0.2
+                ]
+              ],
+              "preview_scope": "top_left_window_physical_values",
+              "row_count": 6
+            }
+          ],
+          "issues": [],
+          "fact_scope": "file_metadata_not_scientific_approval",
+          "crs": "EPSG:32649",
+          "bounds": [
+            400000,
+            2499940,
+            400090,
+            2500000
+          ],
+          "transform": [
+            30,
+            0,
+            400000,
+            0,
+            -30,
+            2500000
+          ],
+          "width": 3,
+          "height": 2,
+          "cell_count": 6,
+          "file_tags": {
+            "origin_kind": "engineering_fixture",
+            "AREA_OR_POINT": "Area"
+          },
+          "logical_package": {
+            "sha256": "250c93b68dd117472dfcbc5de3e8681ad1a65e3ccc0e2f1c0e50e691980585be",
+            "primary": "engineering-red-nir.tif",
+            "members": [
+              {
+                "path": "engineering-red-nir.tif",
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+                "size": 1462,
+                "role": "primary",
+                "object_key": "packages/25deccbe9203414594f2890f671205a0/0e6f9f5521104277919c1d0557404f0b/originals/engineering-red-nir.tif"
+              }
+            ],
+            "reader_members": [
+              {
+                "path": "engineering-red-nir.tif",
+                "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33",
+                "size": 1462,
+                "object_key": "packages/25deccbe9203414594f2890f671205a0/0e6f9f5521104277919c1d0557404f0b/reader/engineering-red-nir.tif"
+              }
+            ],
+            "previous_asset_id": null
+          }
+        },
+        "created": 1790306610.197943
+      }
+    ],
+    "states": {
+      "data_ingested": true,
+      "technical_quality": "checked",
+      "method_approved": true,
+      "model_approved": true,
+      "input_applicable": true,
+      "execution_succeeded": false,
+      "business_validated": false
+    },
+    "runtime": null,
+    "method": {
+      "id": "indicator.ndvi",
+      "version": 1,
+      "operator": "builtin_indicator",
+      "definition": {
+        "indicator_id": "indicator.ndvi",
+        "name": "NDVI",
+        "category": "生态环境",
+        "description": "用红光与近红外反射率计算植被指数",
+        "semantic_type": "NDVI",
+        "input_roles": [
+          "red",
+          "nir"
+        ],
+        "input_constraints": "公式与scale/QA/分母0",
+        "default_algorithm": "spectral",
+        "algorithm_version": "spectral/1.0.0",
+        "parameters_schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "required": []
+        },
+        "default_parameters": {},
+        "default_parameters_version": 1,
+        "unit": "1",
+        "output_geometry": "grid",
+        "output_dtype": "float64",
+        "spatial_requirements": {
+          "native_grid": true,
+          "reliable_crs": true
+        },
+        "temporal_requirements": {},
+        "dependencies": [
+          "numpy",
+          "rasterio",
+          "pyproj"
+        ],
+        "quality_rules": [
+          "preserve_source_mask",
+          "zero_denominator_invalid",
+          "no_implicit_cloud_mask"
+        ],
+        "references": [
+          {
+            "source": "master-spec §09.2",
+            "definition": "公式与scale/QA/分母0"
+          }
+        ],
+        "version": 1,
+        "status": "published",
+        "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+        "tests": [
+          "tests/test_builtin_indicators.py",
+          "tests/test_indicator_kernels.py"
+        ],
+        "business_parameters": []
+      },
+      "parameters": {},
+      "candidate": {
+        "key": "b44988edce0e14691ba4f739",
+        "mode": "compute",
+        "sources": [
+          {
+            "asset_id": "c340d292ef424e9fa89273d96ac4cb5a",
+            "revision": 1,
+            "sha256": "83b4e372bf04cb7394952ddfb4c6d26eba9e3e45d7dbd9034793dde97d0fda33"
+          }
+        ],
+        "bindings": {
+          "red": 1,
+          "nir": 2
+        },
+        "label": "engineering-red-nir.tif",
+        "status": "ready",
+        "message": null
+      },
+      "output_grid": {
+        "width": 3,
+        "height": 2,
+        "crs": "EPSG:32649",
+        "transform": [
+          30,
+          0,
+          400000,
+          0,
+          -30,
+          2500000
+        ]
+      },
+      "expected_outputs": [
+        {
+          "name": "indicator.tif",
+          "role": "raw_indicator",
+          "view_kind": "raster"
+        }
+      ]
+    },
+    "processing_node_id": "19828c94d16441aeb8c2919a9b4baf2c",
+    "business_role": "indicator_production"
+  },
+  "statistics": {
+    "scope": "full_grid",
+    "total_pixels": 6,
+    "valid_pixels": 4
+  },
+  "download_sha256": "1a32e87b321de05473ac303c565d8e34400d25340f581dcd5c36b17326620b5e",
+  "actions": {
+    "indicator_selections": 1,
+    "technical_fields_entered": 0,
+    "compute_clicks": 1,
+    "uploads": 1
+  },
+  "origin_kind": "engineering_fixture"
+}

@@ -1,0 +1,131 @@
+{
+  "actions": [
+    {
+      "name": "corrected-library-selector",
+      "status": "WORKING",
+      "detail": {
+        "task": "210546f9d6c149d788e10aaae33d371a",
+        "input_count": 2,
+        "prior_failure": "diagnostic locator omitted filename; product action is WORKING"
+      }
+    },
+    {
+      "name": "stable-spatial-visuals",
+      "status": "WORKING",
+      "detail": {
+        "task": "5c1700c2233f44d2acb78eabbd2ef67a",
+        "job": "ad49a05cdb904325a81f5ce219a34d5f",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 850,
+              "height": 774
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "map": {
+              "x": 481,
+              "y": 121,
+              "width": 796,
+              "height": 642
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 1920,
+            "height": 1080,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 1330,
+              "height": 954
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          },
+          {
+            "width": 2560,
+            "height": 1440,
+            "map": {
+              "x": 501,
+              "y": 121,
+              "width": 1970,
+              "height": 1314
+            },
+            "overflow": false,
+            "bodyFont": "13px"
+          }
+        ]
+      }
+    },
+    {
+      "name": "viewer-navigation-denial",
+      "status": "WORKING",
+      "detail": {
+        "api_status": 403,
+        "restricted_link_absent": true,
+        "text": "CoastMAS\n海岸带科研协同平台\n工作台\n项目与研究\n项目\n研究任务\n数据\n数据资源\n指标与方法\n模型工程\n耦合与工作流\n规划与优化\n运行\n成果\n收起导航\n当前项目\n请选择可访问项目\n账号\n\n当前账号没有可访问项目，请联系项目管理员。"
+      }
+    }
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 850,
+        "height": 774
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "map": {
+        "x": 481,
+        "y": 121,
+        "width": 796,
+        "height": 642
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 1330,
+        "height": 954
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "map": {
+        "x": 501,
+        "y": 121,
+        "width": 1970,
+        "height": 1314
+      },
+      "overflow": false,
+      "bodyFont": "13px"
+    }
+  ],
+  "errors": []
+}

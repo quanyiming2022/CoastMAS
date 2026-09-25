@@ -1,0 +1,3341 @@
+{
+  "before_commit": "8d8ae10e8a53c3aa63501c0244b7e37739609c13",
+  "source_scope": "active next/src and next/web; vendored and legacy kernels are separately identified, not assumed reachable",
+  "navigation": [
+    {
+      "id": "workspace",
+      "center": "workspace",
+      "label": "工作台",
+      "path": "/research",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "projects",
+      "center": "research",
+      "label": "项目",
+      "path": "/projects",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "topics",
+      "center": "research",
+      "label": "研究内容",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "tasks",
+      "center": "research",
+      "label": "研究任务",
+      "path": "/tasks",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "relations",
+      "center": "research",
+      "label": "任务关系",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "data",
+      "center": "data",
+      "label": "数据资源",
+      "path": "/library",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "import",
+      "center": "data",
+      "label": "数据导入",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "processing",
+      "center": "data",
+      "label": "数据处理",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "quality",
+      "center": "data",
+      "label": "数据质量",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "indicators",
+      "center": "methods",
+      "label": "指标库",
+      "path": "/indicators",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "scoring",
+      "center": "methods",
+      "label": "标准化方法",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "weighting",
+      "center": "methods",
+      "label": "权重方法",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "methods",
+      "center": "methods",
+      "label": "综合评价方法",
+      "path": "/methods",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "classification",
+      "center": "methods",
+      "label": "分级方法",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "analysis-methods",
+      "center": "methods",
+      "label": "时空分析方法",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "models",
+      "center": "modelops",
+      "label": "模型目录",
+      "path": "/models",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "model-intake",
+      "center": "modelops",
+      "label": "模型接入",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "model-decomposition",
+      "center": "modelops",
+      "label": "模型解构",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "model-contracts",
+      "center": "modelops",
+      "label": "模型契约",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "model-tests",
+      "center": "modelops",
+      "label": "模型测试",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "environments",
+      "center": "modelops",
+      "label": "运行环境",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "releases",
+      "center": "modelops",
+      "label": "模型版本",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "matching",
+      "center": "coupling",
+      "label": "数据—模型匹配",
+      "path": "/coupling/matching",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "couplings",
+      "center": "coupling",
+      "label": "模型—模型耦合",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "adapters",
+      "center": "coupling",
+      "label": "数据适配",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "scene-constraints",
+      "center": "coupling",
+      "label": "场景约束",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "workflows",
+      "center": "coupling",
+      "label": "工作流",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "orchestration",
+      "center": "coupling",
+      "label": "服务编排",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "planning",
+      "center": "planning",
+      "label": "规划任务",
+      "path": "/planning/tasks",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "objectives",
+      "center": "planning",
+      "label": "规划目标",
+      "path": "/planning/objectives",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "constraints",
+      "center": "planning",
+      "label": "约束库",
+      "path": "/planning/constraints",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "variables",
+      "center": "planning",
+      "label": "决策变量",
+      "path": "/planning/decisions",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "scenarios",
+      "center": "planning",
+      "label": "情景方案",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "solvers",
+      "center": "planning",
+      "label": "优化求解器",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "planning-comparison",
+      "center": "planning",
+      "label": "方案比较",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "current-runs",
+      "center": "runs",
+      "label": "当前运行",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "queue",
+      "center": "runs",
+      "label": "运行队列",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "runs",
+      "center": "runs",
+      "label": "运行记录",
+      "path": "/runs",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "compute",
+      "center": "runs",
+      "label": "计算资源",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "diagnostics",
+      "center": "runs",
+      "label": "问题诊断",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "map-results",
+      "center": "results",
+      "label": "地图成果",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "results",
+      "center": "results",
+      "label": "数据成果",
+      "path": "/results",
+      "permission": "project",
+      "actual_link": true
+    },
+    {
+      "id": "simulation-results",
+      "center": "results",
+      "label": "模拟成果",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "planning-results",
+      "center": "results",
+      "label": "规划成果",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "analysis-results",
+      "center": "results",
+      "label": "时空分析",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "result-comparison",
+      "center": "results",
+      "label": "方案比较",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "reports",
+      "center": "results",
+      "label": "报告",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "publishing",
+      "center": "results",
+      "label": "服务发布",
+      "path": null,
+      "permission": "project",
+      "actual_link": false
+    },
+    {
+      "id": "users",
+      "center": "management",
+      "label": "用户与权限",
+      "path": "/management/users",
+      "permission": "systemOnly",
+      "actual_link": true
+    },
+    {
+      "id": "members",
+      "center": "management",
+      "label": "项目成员",
+      "path": null,
+      "permission": "manage",
+      "actual_link": false
+    },
+    {
+      "id": "extensions",
+      "center": "management",
+      "label": "扩展管理",
+      "path": null,
+      "permission": "manage",
+      "actual_link": false
+    },
+    {
+      "id": "settings",
+      "center": "management",
+      "label": "系统设置",
+      "path": "/management/settings",
+      "permission": "systemOnly",
+      "actual_link": true
+    },
+    {
+      "id": "audit",
+      "center": "management",
+      "label": "审计",
+      "path": "/management/audit",
+      "permission": "manage",
+      "actual_link": true
+    },
+    {
+      "id": "recycle",
+      "center": "management",
+      "label": "回收站",
+      "path": null,
+      "permission": "manage",
+      "actual_link": false
+    }
+  ],
+  "counts": {
+    "navigation_entries": 54,
+    "actual_links": 17,
+    "openapi_paths": 145,
+    "db_tables": 46,
+    "source_decorated_routes": 174,
+    "backend_tests": 290
+  },
+  "routes": [
+    {
+      "path": "/api/projects/{project}/catalog",
+      "method": "GET",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 187,
+      "function": "catalog",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/view-state",
+      "method": "GET",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 208,
+      "function": "current",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/view-state",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 214,
+      "function": "save",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}/view-state",
+      "method": "GET",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 218,
+      "function": "current_task",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}/view-state",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 224,
+      "function": "save_task_view",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}/assets",
+      "method": "GET",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 228,
+      "function": "selected_assets",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job}/view-state",
+      "method": "GET",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 238,
+      "function": "current_job",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job}/view-state",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/catalog.py",
+      "line": 244,
+      "function": "save_job_view",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/method-drafts",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_authoring.py",
+      "line": 29,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/publish-method",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_authoring.py",
+      "line": 45,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/tasks/{task_id}/planning/units",
+      "method": "GET",
+      "source": "next/src/coastmas_next/planning_units.py",
+      "line": 353,
+      "function": "read",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/publish-statement",
+      "method": "POST",
+      "source": "next/src/coastmas_next/knowledge_authoring.py",
+      "line": 33,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/catalog/{kind}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/management_catalog.py",
+      "line": 432,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/catalog/{kind}/{record_id}",
+      "method": "PATCH",
+      "source": "next/src/coastmas_next/management_catalog.py",
+      "line": 472,
+      "function": "edit",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/catalog/tasks/{record_id}/copy",
+      "method": "POST",
+      "source": "next/src/coastmas_next/management_catalog.py",
+      "line": 548,
+      "function": "clone",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/catalog/{kind}/selections",
+      "method": "POST",
+      "source": "next/src/coastmas_next/management_catalog.py",
+      "line": 557,
+      "function": "freeze",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/selections/{selection_id}/apply",
+      "method": "POST",
+      "source": "next/src/coastmas_next/management_catalog.py",
+      "line": 604,
+      "function": "apply",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/vector/layers",
+      "method": "GET",
+      "source": "next/src/coastmas_next/vector_view.py",
+      "line": 162,
+      "function": "layers",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/vector/features",
+      "method": "GET",
+      "source": "next/src/coastmas_next/vector_view.py",
+      "line": 166,
+      "function": "page",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/vector/records/{ordinal}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/vector_view.py",
+      "line": 176,
+      "function": "record",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/inputs:attach",
+      "method": "POST",
+      "source": "next/src/coastmas_next/input_transactions.py",
+      "line": 160,
+      "function": "attach",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/publish-definition",
+      "method": "POST",
+      "source": "next/src/coastmas_next/semantic_authoring.py",
+      "line": 82,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/configuration-review",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 343,
+      "function": "review_configuration",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/preflight",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 349,
+      "function": "check",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/execute",
+      "method": "POST",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 354,
+      "function": "execute",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/jobs",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 360,
+      "function": "history",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 411,
+      "function": "read_job",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/result",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 415,
+      "function": "result",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/download",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 422,
+      "function": "download",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/files/{index}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 433,
+      "function": "output_file",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/cancel",
+      "method": "POST",
+      "source": "next/src/coastmas_next/execution.py",
+      "line": 449,
+      "function": "cancel",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/accounts",
+      "method": "GET",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 48,
+      "function": "list_accounts",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/accounts",
+      "method": "POST",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 79,
+      "function": "create_account",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/accounts/{account}/state",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 96,
+      "function": "account_state",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/accounts/{account}/password",
+      "method": "POST",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 144,
+      "function": "password",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects",
+      "method": "POST",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 163,
+      "function": "create_project",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/members",
+      "method": "GET",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 171,
+      "function": "list_members",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/member-candidates",
+      "method": "GET",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 190,
+      "function": "candidates",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/members/{account}",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 207,
+      "function": "membership",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/members/{account}",
+      "method": "DELETE",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 212,
+      "function": "remove_member",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/audit",
+      "method": "GET",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 244,
+      "function": "events",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/local-sources/{source}/grant",
+      "method": "POST",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 271,
+      "function": "grant",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/local-sources/{source}/grant",
+      "method": "DELETE",
+      "source": "next/src/coastmas_next/administration.py",
+      "line": 291,
+      "function": "revoke",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/models",
+      "method": "GET",
+      "source": "next/src/coastmas_next/models.py",
+      "line": 307,
+      "function": "catalog",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/models/{model}/approve",
+      "method": "POST",
+      "source": "next/src/coastmas_next/models.py",
+      "line": 311,
+      "function": "approve",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/models/{model}/revoke",
+      "method": "POST",
+      "source": "next/src/coastmas_next/models.py",
+      "line": 317,
+      "function": "revoke",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/task-catalog",
+      "method": "GET",
+      "source": "next/src/coastmas_next/task_catalog.py",
+      "line": 16,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 169,
+      "function": "landing",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/api",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 193,
+      "function": "definition",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/conformance",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 197,
+      "function": "conformance",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/processes",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 201,
+      "function": "list_processes",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/processes/{process_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 213,
+      "function": "describe",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/processes/{process_id}/execution",
+      "method": "POST",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 217,
+      "function": "execute",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/jobs",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 244,
+      "function": "list_jobs",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/jobs/{job_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 264,
+      "function": "read",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/jobs/{job_id}/results",
+      "method": "GET",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 268,
+      "function": "results",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/jobs/{job_id}",
+      "method": "DELETE",
+      "source": "next/src/coastmas_next/process_service.py",
+      "line": 287,
+      "function": "dismiss",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/api/projects/{project}/workspace-state",
+      "method": "GET",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 99,
+      "function": "read",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/workspace-state",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 139,
+      "function": "save",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/apply-method",
+      "method": "POST",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 176,
+      "function": "apply",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/processing-nodes",
+      "method": "GET",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 231,
+      "function": "nodes",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/processing-nodes",
+      "method": "POST",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 244,
+      "function": "create_node",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/processing-nodes/{node_id}/execute",
+      "method": "POST",
+      "source": "next/src/coastmas_next/research_workspace.py",
+      "line": 342,
+      "function": "execute",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/ahp/preview",
+      "method": "POST",
+      "source": "next/src/coastmas_next/ahp.py",
+      "line": 197,
+      "function": "preview",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/ahp/import",
+      "method": "POST",
+      "source": "next/src/coastmas_next/ahp.py",
+      "line": 204,
+      "function": "imported",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/spatial-tasks",
+      "method": "POST",
+      "source": "next/src/coastmas_next/spatial.py",
+      "line": 210,
+      "function": "start",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/method-workspaces",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 144,
+      "function": "new",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/method-workspaces",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 149,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 163,
+      "function": "get",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 168,
+      "function": "save",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}/publish",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 193,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/methods/{method_id}/edit",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 257,
+      "function": "open_version",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/methods/{method_id}/versions/{revision}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 279,
+      "function": "fixed_version",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/methods/{method_id}/versions/{revision}/export",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 286,
+      "function": "export",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/method-imports",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 305,
+      "function": "imported",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}/source",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 339,
+      "function": "original_source",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}/indicators:import",
+      "method": "POST",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 352,
+      "function": "import_indicators",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/method-workspaces/{key}/sources/{index}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 413,
+      "function": "indicator_source",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/indicator-definitions",
+      "method": "GET",
+      "source": "next/src/coastmas_next/method_library.py",
+      "line": 427,
+      "function": "indicator_library",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/uploads",
+      "method": "POST",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 333,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/uploads",
+      "method": "GET",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 337,
+      "function": "pending",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/uploads/{session}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 355,
+      "function": "read",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/uploads/{session}/parts/{index}",
+      "method": "POST",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 359,
+      "function": "part",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/uploads/{session}",
+      "method": "DELETE",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 369,
+      "function": "cancel",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/uploads/{session}/complete",
+      "method": "POST",
+      "source": "next/src/coastmas_next/upload_sessions.py",
+      "line": 386,
+      "function": "complete",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/metadata",
+      "method": "GET",
+      "source": "next/src/coastmas_next/resource_catalog.py",
+      "line": 364,
+      "function": "read_metadata",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/metadata",
+      "method": "PATCH",
+      "source": "next/src/coastmas_next/resource_catalog.py",
+      "line": 369,
+      "function": "edit",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/catalog/operations",
+      "method": "POST",
+      "source": "next/src/coastmas_next/resource_catalog.py",
+      "line": 373,
+      "function": "preview",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/catalog/operations/{operation_id}/apply",
+      "method": "POST",
+      "source": "next/src/coastmas_next/resource_catalog.py",
+      "line": 377,
+      "function": "apply",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/indicators",
+      "method": "GET",
+      "source": "next/src/coastmas_next/indicator_service.py",
+      "line": 292,
+      "function": "project_catalog",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/tasks/{task_id}/indicators",
+      "method": "GET",
+      "source": "next/src/coastmas_next/indicator_service.py",
+      "line": 296,
+      "function": "catalog",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/tasks/{task_id}/indicators",
+      "method": "POST",
+      "source": "next/src/coastmas_next/indicator_service.py",
+      "line": 300,
+      "function": "choose",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/tasks/{task_id}/indicators/{selection_id}/execute",
+      "method": "POST",
+      "source": "next/src/coastmas_next/indicator_service.py",
+      "line": 304,
+      "function": "execute",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/descriptor",
+      "method": "GET",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 80,
+      "function": "descriptor",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/artifacts/{index}/view",
+      "method": "GET",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 118,
+      "function": "view",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/artifacts/{index}/view.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 123,
+      "function": "image",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/artifacts/{index}/tiles/{z}/{x}/{y}.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 131,
+      "function": "tile",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/artifacts/{index}/inspect",
+      "method": "POST",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 144,
+      "function": "inspect",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/artifacts/{index}/download",
+      "method": "GET",
+      "source": "next/src/coastmas_next/result_views.py",
+      "line": 149,
+      "function": "download",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning-catalog",
+      "method": "GET",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 201,
+      "function": "recipes",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 207,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}",
+      "method": "POST",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 241,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}/{id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 266,
+      "function": "read",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}/{id}",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 273,
+      "function": "save",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}/{id}/versions",
+      "method": "POST",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 297,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/projects/{project}/planning/{kind}/{id}/versions/{version_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 358,
+      "function": "version",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/v1/tasks/{task_id}/planning/bindings",
+      "method": "POST",
+      "source": "next/src/coastmas_next/planning_versions.py",
+      "line": 380,
+      "function": "bind",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion",
+      "method": "GET",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 130,
+      "function": "state",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/draft",
+      "method": "GET",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 143,
+      "function": "get_draft",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/draft",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 149,
+      "function": "save_draft",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/comments",
+      "method": "POST",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 178,
+      "function": "publish",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/reviews",
+      "method": "POST",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 226,
+      "function": "review",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/comments",
+      "method": "GET",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 288,
+      "function": "list_comments",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/discussion/reviews",
+      "method": "GET",
+      "source": "next/src/coastmas_next/collaboration.py",
+      "line": 297,
+      "function": "list_reviews",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/templates",
+      "method": "GET",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 523,
+      "function": "catalog",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/templates",
+      "method": "POST",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 534,
+      "function": "create_template",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/templates/{template_id}",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 558,
+      "function": "update_template",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/templates/{template_id}/history",
+      "method": "GET",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 599,
+      "function": "history",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/templates/{template_id}/revoke",
+      "method": "POST",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 617,
+      "function": "revoke",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/templates/{template_id}/approve",
+      "method": "POST",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 647,
+      "function": "approve",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/suggestions",
+      "method": "GET",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 675,
+      "function": "suggestions",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/sources",
+      "method": "POST",
+      "source": "next/src/coastmas_next/reuse.py",
+      "line": 679,
+      "function": "attach",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 100,
+      "function": "health",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/session",
+      "method": "POST",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 106,
+      "function": "login",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/session",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 119,
+      "function": "current_session",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/session",
+      "method": "DELETE",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 123,
+      "function": "logout",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 138,
+      "function": "project_list",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/research-goals",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 142,
+      "function": "research_goals",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks",
+      "method": "POST",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 149,
+      "function": "create_task",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/tasks",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 169,
+      "function": "task_list",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 182,
+      "function": "read_task",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}",
+      "method": "PUT",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 186,
+      "function": "save_task",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task}/history",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 195,
+      "function": "history",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/assets",
+      "method": "POST",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 210,
+      "function": "upload",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/assets",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 227,
+      "function": "asset_list",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 240,
+      "function": "asset_detail",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/download",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 244,
+      "function": "download",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/{route:path}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/app.py",
+      "line": 296,
+      "function": "workspace_page",
+      "in_current_openapi": false
+    },
+    {
+      "path": "/api/tasks/{task_id}/stage-products",
+      "method": "GET",
+      "source": "next/src/coastmas_next/stage_products.py",
+      "line": 224,
+      "function": "products",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/logical-imports",
+      "method": "POST",
+      "source": "next/src/coastmas_next/logical_intake.py",
+      "line": 455,
+      "function": "complete",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/system/settings",
+      "method": "GET",
+      "source": "next/src/coastmas_next/system_settings.py",
+      "line": 34,
+      "function": "settings",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/management/audit",
+      "method": "GET",
+      "source": "next/src/coastmas_next/system_settings.py",
+      "line": 62,
+      "function": "events",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/upload-groups/{group_id}/primary-candidates",
+      "method": "GET",
+      "source": "next/src/coastmas_next/group_primary.py",
+      "line": 40,
+      "function": "candidates",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/upload-groups/{group_id}/primary",
+      "method": "POST",
+      "source": "next/src/coastmas_next/group_primary.py",
+      "line": 60,
+      "function": "associate",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/input-requirements",
+      "method": "GET",
+      "source": "next/src/coastmas_next/input_requirements.py",
+      "line": 261,
+      "function": "requirements",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/import-targets",
+      "method": "POST",
+      "source": "next/src/coastmas_next/import_targets.py",
+      "line": 105,
+      "function": "start",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/import-targets",
+      "method": "GET",
+      "source": "next/src/coastmas_next/import_targets.py",
+      "line": 134,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/import-targets/{key}/resources",
+      "method": "POST",
+      "source": "next/src/coastmas_next/import_targets.py",
+      "line": 144,
+      "function": "register",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/import-targets/{key}/bind",
+      "method": "POST",
+      "source": "next/src/coastmas_next/import_targets.py",
+      "line": 170,
+      "function": "bind",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/local-sources",
+      "method": "GET",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 438,
+      "function": "sources",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/local-sources/{source}/files",
+      "method": "GET",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 442,
+      "function": "browse",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/imports",
+      "method": "POST",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 455,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/tasks/{task_id}/imports",
+      "method": "GET",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 459,
+      "function": "task_batches",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/imports/{batch_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 473,
+      "function": "read",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/imports/{batch_id}/items/{item_id}/content",
+      "method": "POST",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 477,
+      "function": "upload",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/imports/{batch_id}/items/{item_id}/retry",
+      "method": "POST",
+      "source": "next/src/coastmas_next/batches.py",
+      "line": 502,
+      "function": "retry",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/source-snapshots",
+      "method": "POST",
+      "source": "next/src/coastmas_next/source_snapshots.py",
+      "line": 301,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/source-snapshots",
+      "method": "GET",
+      "source": "next/src/coastmas_next/source_snapshots.py",
+      "line": 305,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/source-snapshots/{key}/retry",
+      "method": "POST",
+      "source": "next/src/coastmas_next/source_snapshots.py",
+      "line": 322,
+      "function": "retry",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/completed-results",
+      "method": "GET",
+      "source": "next/src/coastmas_next/comparison_tasks.py",
+      "line": 124,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/view",
+      "method": "GET",
+      "source": "next/src/coastmas_next/geospatial_view.py",
+      "line": 299,
+      "function": "descriptor",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/view.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/geospatial_view.py",
+      "line": 303,
+      "function": "native_image",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/tiles/{z}/{x}/{y}.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/geospatial_view.py",
+      "line": 311,
+      "function": "tile",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/inspect",
+      "method": "POST",
+      "source": "next/src/coastmas_next/geospatial_view.py",
+      "line": 318,
+      "function": "inspect",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/upload-groups",
+      "method": "POST",
+      "source": "next/src/coastmas_next/group_sessions.py",
+      "line": 66,
+      "function": "create",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/projects/{project}/upload-groups",
+      "method": "GET",
+      "source": "next/src/coastmas_next/group_sessions.py",
+      "line": 112,
+      "function": "listing",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/upload-groups/{group_id}",
+      "method": "GET",
+      "source": "next/src/coastmas_next/group_sessions.py",
+      "line": 128,
+      "function": "detail",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/upload-groups/{group_id}/complete",
+      "method": "POST",
+      "source": "next/src/coastmas_next/group_sessions.py",
+      "line": 132,
+      "function": "complete",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/upload-groups/{group_id}/members",
+      "method": "POST",
+      "source": "next/src/coastmas_next/group_sessions.py",
+      "line": 165,
+      "function": "supplement",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/preview",
+      "method": "GET",
+      "source": "next/src/coastmas_next/outputs.py",
+      "line": 406,
+      "function": "asset_metadata",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/assets/{asset_id}/preview.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/outputs.py",
+      "line": 411,
+      "function": "asset_image",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/preview",
+      "method": "GET",
+      "source": "next/src/coastmas_next/outputs.py",
+      "line": 419,
+      "function": "job_metadata",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/preview.png",
+      "method": "GET",
+      "source": "next/src/coastmas_next/outputs.py",
+      "line": 429,
+      "function": "job_image",
+      "in_current_openapi": true
+    },
+    {
+      "path": "/api/jobs/{job_id}/bundle",
+      "method": "GET",
+      "source": "next/src/coastmas_next/outputs.py",
+      "line": 443,
+      "function": "result_bundle",
+      "in_current_openapi": true
+    }
+  ],
+  "tables": [
+    "accounts",
+    "asset_metadata",
+    "assets",
+    "audit",
+    "catalog_operations",
+    "constraint_items",
+    "constraint_set_revisions",
+    "constraint_sets",
+    "decision_spec_revisions",
+    "decision_specs",
+    "decision_variables",
+    "import_items",
+    "imports",
+    "input_attachment_receipts",
+    "job_view_states",
+    "jobs",
+    "local_source_grants",
+    "logical_import_receipts",
+    "managed_catalog_selections",
+    "managed_record_metadata",
+    "members",
+    "method_workspaces",
+    "model_approvals",
+    "objective_items",
+    "objective_set_revisions",
+    "objective_sets",
+    "opinion_drafts",
+    "personal_view_states",
+    "planning_unit_set_revisions",
+    "planning_unit_sets",
+    "processing_nodes",
+    "projects",
+    "research_workspace_states",
+    "scenario_comments",
+    "scenario_reviews",
+    "sessions",
+    "source_snapshot_jobs",
+    "stage_products",
+    "task_import_targets",
+    "task_revisions",
+    "task_view_states",
+    "tasks",
+    "template_revisions",
+    "templates",
+    "upload_group_sessions",
+    "upload_sessions"
+  ],
+  "backend_tests": [
+    {
+      "name": "test_admin_account_project_membership_and_viewer_denials",
+      "class": "tests.test_admin",
+      "status": "PASS"
+    },
+    {
+      "name": "test_disable_revokes_sessions_and_queued_work_but_never_disables_last_manager",
+      "class": "tests.test_admin",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ratio_matrix_identity_order_and_inconsistent_rejection",
+      "class": "tests.test_ahp",
+      "status": "PASS"
+    },
+    {
+      "name": "test_matrix_csv_xlsx_mapping_and_formula_rejection",
+      "class": "tests.test_ahp",
+      "status": "PASS"
+    },
+    {
+      "name": "test_published_ahp_actually_computes_point66_and_contributions",
+      "class": "tests.test_ahp",
+      "status": "PASS"
+    },
+    {
+      "name": "test_full_grid_assessment_matches_whole_matrix_not_per_block[weighted]",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_full_grid_assessment_matches_whole_matrix_not_per_block[entropy]",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_full_grid_assessment_matches_whole_matrix_not_per_block[topsis]",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_vector_scores_preserve_actual_geometry_and_native_source",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csv_spatiality_uses_explicit_coordinates_not_extension",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_raster_rejects_outside_reference_without_partial_success",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_raster_mismatched_grid_and_unknown_units_are_not_adapted_silently",
+      "class": "tests.test_assessment_space",
+      "status": "PASS"
+    },
+    {
+      "name": "test_different_intentions_share_only_physical_bytes",
+      "class": "tests.test_asset_identity",
+      "status": "PASS"
+    },
+    {
+      "name": "test_retry_of_one_internal_intent_is_exact_and_payload_conflict_fails",
+      "class": "tests.test_asset_identity",
+      "status": "PASS"
+    },
+    {
+      "name": "test_sqlite_constraint_upgrade_preserves_existing_ids_and_references",
+      "class": "tests.test_asset_identity",
+      "status": "PASS"
+    },
+    {
+      "name": "test_other_project_blob_existence_is_not_disclosed_and_asset_is_not_accessible",
+      "class": "tests.test_asset_identity",
+      "status": "PASS"
+    },
+    {
+      "name": "test_upload_batch_recovers_partial_failure_and_replay_preserves_task",
+      "class": "tests.test_batches",
+      "status": "PASS"
+    },
+    {
+      "name": "test_local_batch_no_traversal_no_symlinks_and_hash_matches",
+      "class": "tests.test_batches",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ready_upload_replay_must_match_actual_bytes",
+      "class": "tests.test_batches",
+      "status": "PASS"
+    },
+    {
+      "name": "test_local_file_changed_while_queued_is_not_silently_substituted",
+      "class": "tests.test_batches",
+      "status": "PASS"
+    },
+    {
+      "name": "test_A_B_D_J_selection_autobinding_and_fixed_algorithm",
+      "class": "tests.test_builtin_indicators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_rgb_does_not_guess_nir_or_allow_contract_injection",
+      "class": "tests.test_builtin_indicators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_registry_published_entries_have_verified_runner_and_private_definition",
+      "class": "tests.test_builtin_indicators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_core_operators_work_without_plugin_discovery",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_weight_and_reducer_types_are_not_interchangeable",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_implicit_equal_weight_for_degenerate_data[weight.entropy]",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_implicit_equal_weight_for_degenerate_data[weight.critic]",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_implicit_equal_weight_for_degenerate_data[weight.standard_deviation]",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_implicit_equal_weight_for_degenerate_data[weight.coefficient_variation]",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_scoring_and_classification_boundaries",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_weight_profile_cannot_be_published_by_type_coercion",
+      "class": "tests.test_builtin_operators",
+      "status": "PASS"
+    },
+    {
+      "name": "test_edit_conflict_search_and_recycle_restore_keep_bytes_and_identity",
+      "class": "tests.test_catalog_lifecycle",
+      "status": "PASS"
+    },
+    {
+      "name": "test_whole_query_selection_is_frozen_with_partial_conflict_results",
+      "class": "tests.test_catalog_lifecycle",
+      "status": "PASS"
+    },
+    {
+      "name": "test_active_run_blocks_recycle_and_recycled_input_blocks_new_execution",
+      "class": "tests.test_catalog_lifecycle",
+      "status": "PASS"
+    },
+    {
+      "name": "test_lifecycle_permissions_and_plan_ownership_are_rechecked",
+      "class": "tests.test_catalog_lifecycle",
+      "status": "PASS"
+    },
+    {
+      "name": "test_durable_personal_opinion_draft_cas_publish_and_replay",
+      "class": "tests.test_collaboration",
+      "status": "PASS"
+    },
+    {
+      "name": "test_roles_personal_drafts_review_version_conflict_and_history_retained",
+      "class": "tests.test_collaboration",
+      "status": "PASS"
+    },
+    {
+      "name": "test_new_run_never_inherits_old_review_and_concurrent_reviews_do_not_overwrite",
+      "class": "tests.test_collaboration",
+      "status": "PASS"
+    },
+    {
+      "name": "test_assessment_aligns_string_ids_and_explains_weight_sensitivity",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[source-SOURCE_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[normalization-NORMALIZATION_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[method-METHOD_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[mapping-MAPPING_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[rows-IDENTITY_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[duplicate-IDENTITY_INVALID]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[scope-SCOPE_DIFFERENT]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incompatible_results_never_emit_a_numeric_difference[unknown-UNIT_UNKNOWN]",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_equivalent_reference_units_convert_without_changing_meaning",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_temporal_native_calendar_and_actual_unit_conversion",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_optimization_infeasible_is_unknown_not_unselected",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_actual_comparison_persists_runs_exports_and_isolates_project",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_result_integrity_rechecked_by_worker_and_read_only_role_cannot_execute",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_actual_cf_result_contract_and_changed_interpolation_evidence",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_comparison_bundle_carries_hash_verified_parent_results",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_actual_optimization_constraint_sensitivity_preserves_protected_units",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_temperature_difference_is_an_increment_not_an_absolute_temperature",
+      "class": "tests.test_comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "test_settings_repr_does_not_expose_database_credentials",
+      "class": "tests.test_config_security",
+      "status": "PASS"
+    },
+    {
+      "name": "test_empty_and_known_gaps_never_read_source_or_compute",
+      "class": "tests.test_configuration_review",
+      "status": "PASS"
+    },
+    {
+      "name": "test_metadata_review_scopes_known_issues_and_rejects_stale_revision",
+      "class": "tests.test_configuration_review",
+      "status": "PASS"
+    },
+    {
+      "name": "test_review_permission_failure_does_not_return_cached_private_metadata",
+      "class": "tests.test_configuration_review",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_statement_is_not_reported_as_invalid_scope_after_input_removal",
+      "class": "tests.test_configuration_review",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_reads_types_null_decimal_comma_and_leading_zero_identity",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_does_not_silently_coerce_or_drop_invalid_rows[ID;Length;Valid\\n001;1,25;true\\n001;2,5;false\\n-CSVW_PRIMARY_KEY]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_does_not_silently_coerce_or_drop_invalid_rows[ID;Length;Valid\\n001;wrong;true\\n-CSVW_VALUE]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_does_not_silently_coerce_or_drop_invalid_rows[ID;Length;Valid\\n001;2,5\\n-CSVW_ROW_WIDTH]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_never_fetches_external_or_traversal_table_references",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_actual_assessment_and_export_roundtrip",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_unimplemented_semantics_preserve_registration_but_block_computation",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_numeric_lexical_errors_never_coerce[1_000]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_numeric_lexical_errors_never_coerce[1.2.3]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_numeric_lexical_errors_never_coerce[NaN]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_numeric_lexical_errors_never_coerce[Infinity]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csvw_nested_multitable_selection_has_local_identity",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_csvw_metadata_returns_user_error_not_server_error[columns0]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_csvw_metadata_returns_user_error_not_server_error[columns1]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_csvw_metadata_returns_user_error_not_server_error[columns2]",
+      "class": "tests.test_csvw",
+      "status": "PASS"
+    },
+    {
+      "name": "test_assessment_reads_whole_table_converts_units_and_preserves_identity",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_optimization_bulk_loads_protection_and_never_invents_missing_cost",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_optimization_area_threshold_uses_declared_unit_and_protection_is_required",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_method_authoring_uses_server_draft_and_atomic_publication",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_method_and_unauthorized_approval_leave_no_partial_publication",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_method_revision_keeps_one_lineage_and_old_definition",
+      "class": "tests.test_decisions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_preflight_enqueue_real_worker_and_complete_download",
+      "class": "tests.test_execution",
+      "status": "PASS"
+    },
+    {
+      "name": "test_new_draft_revision_requires_new_idempotency_intent",
+      "class": "tests.test_execution",
+      "status": "PASS"
+    },
+    {
+      "name": "test_worker_verifies_actual_bytes_and_records_failure",
+      "class": "tests.test_execution",
+      "status": "PASS"
+    },
+    {
+      "name": "test_scientific_missing_unit_blocks_only_dependent_computation",
+      "class": "tests.test_execution",
+      "status": "PASS"
+    },
+    {
+      "name": "test_view_and_native_inspect_need_no_task_or_science",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_or_unsupported_location_keeps_actual_non_geographic_image[missing]",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_or_unsupported_location_keeps_actual_non_geographic_image[conflict]",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_or_unsupported_location_keeps_actual_non_geographic_image[identity]",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_or_unsupported_location_keeps_actual_non_geographic_image[antimeridian]",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_rotation_native_identity_and_transparent_warp_edges",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_nodata_and_band_validation",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_catalog_paging_personal_state_conflict_and_scope",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_alpha_palette_and_cache_keep_valid_zero_and_original_codes",
+      "class": "tests.test_geospatial_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_group_resume_and_supplement_keep_received_parts_and_original_download",
+      "class": "tests.test_group_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_orphan_world_file_reuses_managed_primary_as_new_version",
+      "class": "tests.test_group_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_shapefile_members_are_one_logical_vector_not_table_fragments",
+      "class": "tests.test_group_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_import_target_recovery_conflict_and_idempotence",
+      "class": "tests.test_import_targets",
+      "status": "PASS"
+    },
+    {
+      "name": "test_target_cannot_attach_unrelated_or_cross_project_bytes",
+      "class": "tests.test_import_targets",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[ndvi-0.5-parameters0]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[evi-0.48780487804878053-parameters1]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[savi-0.4615384615384615-parameters2]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[ndwi--0.3333333333333333-parameters3]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[mndwi--0.14285714285714285-parameters4]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_spectral_profiles_physical_values_and_nodata[ndbi--0.2-parameters5]",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_C_expansion_candidate_library_and_actual_rate",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_E_road_density_uses_default_radius_and_deduplicated_clipped_length",
+      "class": "tests.test_indicator_kernels",
+      "status": "PASS"
+    },
+    {
+      "name": "test_sqlite_first_initialization_is_serialized",
+      "class": "tests.test_initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "test_clean_bootstrap_never_overwrites_existing_namespace",
+      "class": "tests.test_initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "test_worker_finishes_current_call_before_stopping",
+      "class": "tests.test_initialization",
+      "status": "PASS"
+    },
+    {
+      "name": "test_method_application_drives_requirements_and_plain_preview_remains_unblocked",
+      "class": "tests.test_input_requirements",
+      "status": "PASS"
+    },
+    {
+      "name": "test_analyst_can_publish_but_cannot_approve_or_apply_unapproved_version",
+      "class": "tests.test_input_requirements",
+      "status": "PASS"
+    },
+    {
+      "name": "test_model_requirements_distinguish_training_prediction_and_clustering",
+      "class": "tests.test_input_requirements",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ndvi_recipe_cannot_claim_nonexistent_bands_ready",
+      "class": "tests.test_input_requirements",
+      "status": "PASS"
+    },
+    {
+      "name": "test_recycled_task_does_not_lock_active_project",
+      "class": "tests.test_input_transactions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_attach_replay_preserves_mapping_and_durable_revision",
+      "class": "tests.test_input_transactions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partial_attachment_and_conflict_explain_actual_changes",
+      "class": "tests.test_input_transactions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_fixed_asset_version_and_cross_project_access",
+      "class": "tests.test_input_transactions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_csv_dialect_ids_zero_and_unknown_units",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_raster_magic_grid_and_physical_values",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cf_calendar_bounds_and_cell_methods_are_retained",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_geojson_and_multilayer_gpkg",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_upload_keeps_bytes_reuses_blob_and_attaches_independent_asset_to_task",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unapproved_local_path_is_rejected",
+      "class": "tests.test_intake",
+      "status": "PASS"
+    },
+    {
+      "name": "test_publish_source_statement_is_atomic_and_preserves_manual_model_roles",
+      "class": "tests.test_knowledge_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_four_members_one_asset_native_values_and_replay",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_worldfile_rotation_center_and_unknown_crs_are_not_guessed",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_orphans_cross_directory_and_unsafe_xml_do_not_enter_library",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_conflicting_georeference_and_wrong_mask_not_silently_ignored",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_standalone_sidecar_is_not_a_csv_or_a_new_indicator",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_sidecar_reader_integrity_preserves_original_identity",
+      "class": "tests.test_logical_imports",
+      "status": "PASS"
+    },
+    {
+      "name": "test_user_project_edits_and_frozen_batch_restore",
+      "class": "tests.test_management_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_last_admin_and_project_permissions_are_server_enforced",
+      "class": "tests.test_management_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_task_recycle_refuses_running_job_and_copies_without_old_results",
+      "class": "tests.test_management_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_recycled_project_blocks_new_science_but_restore_preserves_records",
+      "class": "tests.test_management_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_member_removal_revokes_project_access_preserves_account_and_last_manager",
+      "class": "tests.test_management_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_durable_method_editor_fixed_publication_clone_and_roundtrip",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_table_import_preserves_missing_science_and_rejects_bad_definition",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_method_permissions_and_project_lifecycle",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_revoked_method_cannot_regain_approval_when_it_becomes_historical",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partial_draft_types_and_publish_business_errors",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partial_indicator_import_retains_original_without_inventing_science",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incomplete_optimization_and_ahp_drafts_keep_strict_types",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_indicator_table_import_appends_to_existing_draft_and_retains_source",
+      "class": "tests.test_method_library",
+      "status": "PASS"
+    },
+    {
+      "name": "test_runtime_has_no_execution_qualification_without_new_approval",
+      "class": "tests.test_models",
+      "status": "PASS"
+    },
+    {
+      "name": "test_table_binding_preserves_identity_and_physical_conversion",
+      "class": "tests.test_models",
+      "status": "PASS"
+    },
+    {
+      "name": "test_missing_and_duplicate_observations_are_not_silently_dropped",
+      "class": "tests.test_models",
+      "status": "PASS"
+    },
+    {
+      "name": "test_actual_raster_preview_has_georeference_and_transparent_nodata",
+      "class": "tests.test_outputs",
+      "status": "PASS"
+    },
+    {
+      "name": "test_geojson_result_bundle_contains_full_features_and_frozen_provenance",
+      "class": "tests.test_outputs",
+      "status": "PASS"
+    },
+    {
+      "name": "test_infeasible_allocation_export_retains_unknown_selection",
+      "class": "tests.test_outputs",
+      "status": "PASS"
+    },
+    {
+      "name": "test_exact_pareto_preserves_tradeoffs_without_choosing_a_best",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_milp_and_independent_constraint_check",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_infeasible_is_not_an_empty_success_or_a_repaired_constraint[single_objective]",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_infeasible_is_not_an_empty_success_or_a_repaired_constraint[pareto_multiobjective]",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_weighted_objectives_require_reviewed_scales_not_just_weights",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_coefficients_and_unsupported_scale_are_not_silently_truncated",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cancel_and_identical_vectors_retain_distinct_spatial_alternatives",
+      "class": "tests.test_planning_solver",
+      "status": "PASS"
+    },
+    {
+      "name": "test_native_polygon_units_actual_area_artifacts_versions_and_no_draft_mutation",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_space_fails_without_publishing_or_partial_unit_set[overlap]",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_space_fails_without_publishing_or_partial_unit_set[invalid]",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_space_fails_without_publishing_or_partial_unit_set[mixed]",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_points_have_no_invented_area_and_csv_needs_actual_coordinates",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_version_reuse_permissions_and_source_scope",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_vector_download_and_view_feature_are_fixed_to_the_same_run",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_prepare_rejects_unapproved_hidden_parameters",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_preparation_budget_and_cancel_do_not_publish_partial_units",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_removing_vector_from_map_preserves_input_and_immutable_unit_version",
+      "class": "tests.test_planning_units",
+      "status": "PASS"
+    },
+    {
+      "name": "test_sets_exist_without_problem_and_freeze_versions",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_required_etag_conflicts_and_permissions",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_constraints_need_explicit_business_basis_and_decisions_have_own_contract",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_apply_is_explicit_versioned_and_does_not_upgrade",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_real_metric_and_constraint_compilation_respects_units_and_domains",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_simultaneous_writers_cannot_lose_updates",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_project_and_task_binding_guards",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_pareto_does_not_require_or_ignore_weights",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_new_planning_reports_engineering_gap_not_a_legacy_method_request",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_binding_race_uses_same_412_contract",
+      "class": "tests.test_planning_versions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ndvi_from_actual_multiband_source_without_evaluation_method",
+      "class": "tests.test_preparation_steps",
+      "status": "PASS"
+    },
+    {
+      "name": "test_alignment_uses_reference_grid_and_rejects_interpolated_categories",
+      "class": "tests.test_preparation_steps",
+      "status": "PASS"
+    },
+    {
+      "name": "test_discovery_official_schemas_and_actual_native_equivalence",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_permission_preflight_failure_and_real_cancellation",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unimplemented_extensions_rejected_before_job_creation[change0]",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unimplemented_extensions_rejected_before_job_creation[change1]",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unimplemented_extensions_rejected_before_job_creation[change2]",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unimplemented_extensions_rejected_before_job_creation[change3]",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unimplemented_extensions_rejected_before_job_creation[change4]",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_preflight_and_process_version_do_not_bypass_native_contract",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_running_cancel_waits_for_worker_and_completion_race_preserves_result",
+      "class": "tests.test_process_service",
+      "status": "PASS"
+    },
+    {
+      "name": "test_explicit_isolated_frontend_build_is_respected_and_must_exist",
+      "class": "tests.test_release_loading",
+      "status": "PASS"
+    },
+    {
+      "name": "test_layer_preferences_are_bound_to_run_and_do_not_mutate_inputs",
+      "class": "tests.test_research_content_views",
+      "status": "PASS"
+    },
+    {
+      "name": "test_run_lookup_paginates_filters_and_rechecks_project_permission",
+      "class": "tests.test_research_content_views",
+      "status": "PASS"
+    },
+    {
+      "name": "test_workspace_context_is_private_persistent_and_browsing_never_binds",
+      "class": "tests.test_research_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_method_application_explicit_fixed_and_conflict_safe",
+      "class": "tests.test_research_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_processing_node_keeps_parent_draft_and_top_level_task_count",
+      "class": "tests.test_research_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_count_adapter_preserves_the_frozen_result_and_unknown_statistics",
+      "class": "tests.test_result_statistics",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incomplete_or_inconsistent_statistics_are_not_silently_repaired[statistics0]",
+      "class": "tests.test_result_statistics",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incomplete_or_inconsistent_statistics_are_not_silently_repaired[statistics1]",
+      "class": "tests.test_result_statistics",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incomplete_or_inconsistent_statistics_are_not_silently_repaired[statistics2]",
+      "class": "tests.test_result_statistics",
+      "status": "PASS"
+    },
+    {
+      "name": "test_incomplete_or_inconsistent_statistics_are_not_silently_repaired[statistics3]",
+      "class": "tests.test_result_statistics",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unapproved_template_does_not_auto_map",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_new_bytes_reuse_knowledge_but_have_new_binding",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ambiguous_approved_templates_are_not_silently_picked",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_mapping_conflict_preserves_both_file_and_declaration",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ordinary_upload_applies_approved_knowledge_atomically",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_semantic_template_scope_does_not_spread_to_unrelated_data",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_compatible_unit_adaptation_is_automatic_and_traceable",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_semantic_edit_creates_new_unapproved_version_and_invalidates_binding",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partial_unit_knowledge_does_not_invent_concept_or_period",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_source_year_is_hash_scoped_and_declaration_version_is_rechecked",
+      "class": "tests.test_reuse",
+      "status": "PASS"
+    },
+    {
+      "name": "test_run_history_pages_actual_total_and_keeps_old_result",
+      "class": "tests.test_run_history",
+      "status": "PASS"
+    },
+    {
+      "name": "test_viewer_reads_run_history_but_cannot_cancel",
+      "class": "tests.test_run_history",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cf_360_day_interval_mean_is_not_gregorian",
+      "class": "tests.test_science",
+      "status": "PASS"
+    },
+    {
+      "name": "test_entity_collection_keeps_geometry_identity_and_properties",
+      "class": "tests.test_science",
+      "status": "PASS"
+    },
+    {
+      "name": "test_entity_execution_uses_each_selected_layer_and_mapped_identity",
+      "class": "tests.test_science",
+      "status": "PASS"
+    },
+    {
+      "name": "test_definition_reuses_new_batch_without_inheriting_response_or_year",
+      "class": "tests.test_semantic_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_definition_rejects_invalid_or_ambiguous_science_atomically[unknown_unit]",
+      "class": "tests.test_semantic_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_definition_rejects_invalid_or_ambiguous_science_atomically[invented_field]",
+      "class": "tests.test_semantic_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_definition_rejects_invalid_or_ambiguous_science_atomically[conflicting_definitions]",
+      "class": "tests.test_semantic_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_partial_unit_definition_files_only_never_invents_meaning",
+      "class": "tests.test_semantic_authoring",
+      "status": "PASS"
+    },
+    {
+      "name": "test_source_revocation_stops_queued_curator_reads_and_preserves_assets[queued]",
+      "class": "tests.test_source_revocation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_source_revocation_stops_queued_curator_reads_and_preserves_assets[during_read]",
+      "class": "tests.test_source_revocation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_source_queue_replays_without_task_and_original_changes_do_not_change_snapshot",
+      "class": "tests.test_source_snapshots",
+      "status": "PASS"
+    },
+    {
+      "name": "test_group_source_snapshot_and_revocation_fail_closed",
+      "class": "tests.test_source_snapshots",
+      "status": "PASS"
+    },
+    {
+      "name": "test_grant_revoked_at_actual_registration_prevents_csv_commit",
+      "class": "tests.test_source_snapshots",
+      "status": "PASS"
+    },
+    {
+      "name": "test_windowed_training_retains_physical_values_and_complete_denominator",
+      "class": "tests.test_spatial_model",
+      "status": "PASS"
+    },
+    {
+      "name": "test_raster_identity_mismatch_is_rejected_without_resampling",
+      "class": "tests.test_spatial_model",
+      "status": "PASS"
+    },
+    {
+      "name": "test_no_training_per_window_and_full_output_mask",
+      "class": "tests.test_spatial_model",
+      "status": "PASS"
+    },
+    {
+      "name": "test_full_mask_result_descriptor_inspection_and_download",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_location_only_blocks_georeferenced_analysis_not_source_read",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_missing_or_mismatched_expected_output_cannot_publish",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_start_from_selected_asset_is_saved_atomic_and_retryable",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_result_view_is_private_persistent_and_does_not_change_frozen_run",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_blank_spatial_task_has_explicit_default_tool_before_source_choice",
+      "class": "tests.test_spatial_results",
+      "status": "PASS"
+    },
+    {
+      "name": "test_ndvi_stage_is_managed_and_reused_without_mutating_original_draft",
+      "class": "tests.test_stage_products",
+      "status": "PASS"
+    },
+    {
+      "name": "test_produced_indicator_flows_into_real_assessment_and_old_run_stays_fixed",
+      "class": "tests.test_stage_products",
+      "status": "PASS"
+    },
+    {
+      "name": "test_independent_scoring_consumes_produced_indicator_with_actual_mask",
+      "class": "tests.test_stage_products",
+      "status": "PASS"
+    },
+    {
+      "name": "test_settings_are_global_and_audit_uses_one_ledger",
+      "class": "tests.test_system_settings",
+      "status": "PASS"
+    },
+    {
+      "name": "test_member_candidates_can_find_beyond_fifty_without_internal_ids",
+      "class": "tests.test_system_settings",
+      "status": "PASS"
+    },
+    {
+      "name": "test_two_hundred_tasks_search_sort_page_and_role_isolation",
+      "class": "tests.test_task_catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "test_task_view_is_persistent_private_and_independent_from_science",
+      "class": "tests.test_task_views",
+      "status": "PASS"
+    },
+    {
+      "name": "test_deterministic_file_choices_and_four_interval_methods[mean-mean-2-CF-1.10]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_deterministic_file_choices_and_four_interval_methods[sum-sum-6-CF-1.12]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_deterministic_file_choices_and_four_interval_methods[minimum-min-0-CF-1.12]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_deterministic_file_choices_and_four_interval_methods[maximum-max-4-CF-1.12]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_point_methods_require_recorded_assumption_and_keep_used_observations[interpolation-2022-01-01T12:00:00-options0-100]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_point_methods_require_recorded_assumption_and_keep_used_observations[nearest-2022-01-02T18:00:00-options1-400]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[point-options0-ADAPTATION_BASIS_REQUIRED]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[point-options1-OUTSIDE_TIME_RANGE]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[point-options2-NEAREST_TIE]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[point-options3-NEAREST_TOLERANCE]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[mean-options4-PARTIAL_INTERVAL]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[sum-options5-PARTIAL_INTERVAL]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[minimum-options6-PARTIAL_INTERVAL]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_only_dependent_preflight_is_blocked_without_enqueuing[mean-options7-INCOMPLETE_TIME_COVERAGE]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_and_multistep_semantics_never_become_automatic_mean",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_manual_mapping_cannot_contradict_file_science[unit-kg]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_manual_mapping_cannot_contradict_file_science[concept-unrelated_indicator]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_declared_cf_versions_use_actual_same_interval_semantics[CF-1.7]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_declared_cf_versions_use_actual_same_interval_semantics[CF-1.8]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_declared_cf_versions_use_actual_same_interval_semantics[CF-1.9]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_declared_cf_versions_use_actual_same_interval_semantics[CF-1.11]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_exact_point_needs_no_approximation_confirmation",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_scientific_sources_are_rejected_before_execution[masked_bounds-TIME_BOUNDS_INVALID]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_scientific_sources_are_rejected_before_execution[masked_value-MISSING_OBSERVATION]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_scientific_sources_are_rejected_before_execution[duplicate_axis-TIME_AXIS_INVALID]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_malformed_scientific_sources_are_rejected_before_execution[future_version-CF_VERSION_UNSUPPORTED]",
+      "class": "tests.test_temporal_adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "test_parts_replay_restart_and_finalize_preserve_exact_file",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_chunk_bounds_hash_and_owner",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_invalid_file_failure_does_not_remove_other_successes",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cancel_only_removes_owned_unfinished_parts",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_tampered_staging_is_never_registered",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_disk_budget_checked_before_accepting_upload",
+      "class": "tests.test_upload_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "test_four_task_types_persist_without_starting_work[assessment-assessment]",
+      "class": "tests.test_v3_navigation_contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "test_four_task_types_persist_without_starting_work[simulation-simulation]",
+      "class": "tests.test_v3_navigation_contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "test_four_task_types_persist_without_starting_work[planning-optimization]",
+      "class": "tests.test_v3_navigation_contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "test_four_task_types_persist_without_starting_work[comparison-comparison]",
+      "class": "tests.test_v3_navigation_contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "test_indicator_library_reads_project_without_creating_a_task",
+      "class": "tests.test_v3_navigation_contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_parts_native_identity_paging_and_projection[GPKG]",
+      "class": "tests.test_vector_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_all_parts_native_identity_paging_and_projection[ESRI Shapefile]",
+      "class": "tests.test_vector_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_unknown_crs_preserves_attributes_without_guessing_location",
+      "class": "tests.test_vector_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_bad_geojson_coordinates_and_duplicate_ids_are_not_guessed_or_merged",
+      "class": "tests.test_vector_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_vector_routes_recheck_project_permission",
+      "class": "tests.test_vector_view",
+      "status": "PASS"
+    },
+    {
+      "name": "test_cancelled_abandoned_lease_is_finalized_without_compute",
+      "class": "tests.test_worker_recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "test_expired_owner_cannot_overwrite_recovered_output",
+      "class": "tests.test_worker_recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "test_server_acknowledged_draft_survives_new_process_and_browser",
+      "class": "tests.test_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_conflicting_save_cannot_replace_newer_draft",
+      "class": "tests.test_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_project_boundaries_and_csrf_are_enforced",
+      "class": "tests.test_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_secret_fields_and_unbounded_values_do_not_enter_draft",
+      "class": "tests.test_workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "test_legacy_database_name_is_rejected",
+      "class": "tests.test_workspace",
+      "status": "PASS"
+    }
+  ],
+  "note": "routes.json initial direct FastAPI introspection saw lazy include wrappers only; use this decorator + actual OpenAPI intersection index instead."
+}

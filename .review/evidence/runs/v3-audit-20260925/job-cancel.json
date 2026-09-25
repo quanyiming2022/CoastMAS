@@ -1,0 +1,6 @@
+{
+  "fixture": "engineering_fixture",
+  "events": [],
+  "status": "FAIL",
+  "error": "AssertionError(('/api/tasks/e04cd12880314c98a635aab8097c6e82/processing-nodes', 422, '{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"idempotency_key\"],\"msg\":\"Field required\",\"input\":{\"expected_revision\":1,\"operator\":\"valid_mask\",\"asset_id\":\"08c51eb0707e4f9e93997d0173bb886f\",\"band\":1,\"parameters\":{}}}]}'))"
+}

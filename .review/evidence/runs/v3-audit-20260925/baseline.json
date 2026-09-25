@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-09-25T02:30:45.132029+00:00",
+  "before_commit": "8d8ae10e8a53c3aa63501c0244b7e37739609c13",
+  "live_url": "http://127.0.0.1:58013",
+  "audit_url": "http://127.0.0.1:58125",
+  "served_build_directory": "master-v3-dev25",
+  "served_index_sha256": "e478cd50073cd22542cfb029a24190844e090c889694d8e11ba32a5be805487e",
+  "audit_database_kind": "SQLite; clean isolated namespace",
+  "live_database_changed": false,
+  "original_business_files_changed": false,
+  "fixture_kind": "engineering_fixture",
+  "runtime_catalog_available": false,
+  "scope_priority": [
+    "latest explicit user decisions",
+    "post-V3 specialist supplements",
+    "CoastMAS V3.0",
+    "master spec engineering details",
+    "legacy V2/pages/routes"
+  ],
+  "source_requirement": "Current conversation V3 IA/task definitions and supplied audit request; no unprovided standalone V3 document assumed."
+}

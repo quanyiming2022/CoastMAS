@@ -1,0 +1,3682 @@
+{
+  "cases": [
+    {
+      "name": "recover-six-real-artifacts",
+      "status": "PASS",
+      "detail": {
+        "runs": 6,
+        "actual_numeric_pass": 6,
+        "ui_download_fail": 6
+      }
+    },
+    {
+      "name": "matcher-ready",
+      "status": "PASS",
+      "detail": {
+        "status": "ready",
+        "missing": [],
+        "diagnostics": [
+          {
+            "requirement": "indicator.ndvi",
+            "candidate": "d5a4ef10019abc3d51f976b0",
+            "gate_type": "input",
+            "actual": "satisfied",
+            "required": "fixed_input_roles",
+            "severity": "info",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": [
+              {
+                "asset_id": "2e5871b9f68a477b9825e1e3b8dead96",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "matcher-missing-NIR",
+      "status": "PASS",
+      "detail": {
+        "status": "missing",
+        "missing": [
+          "近红外波段"
+        ],
+        "diagnostics": [
+          {
+            "requirement": "近红外波段",
+            "candidate": null,
+            "gate_type": "input",
+            "actual": null,
+            "required": "近红外波段",
+            "severity": "error",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "matcher-hard-conflict",
+      "status": "PASS",
+      "detail": {
+        "status": "inapplicable",
+        "missing": [],
+        "diagnostics": [
+          {
+            "requirement": "indicator.ndvi",
+            "candidate": "c4a1bea39b900cef21344a4c",
+            "gate_type": "semantics",
+            "actual": "physical_reflectance_not_confirmed",
+            "required": "可靠坐标与物理反射率依据",
+            "severity": "error",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": [
+              {
+                "asset_id": "1d6aa33913904a05aef01aa11ca8722d",
+                "revision": 1,
+                "basis": "file_metadata"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "matcher-legal-adaptation",
+      "status": "PASS",
+      "detail": {
+        "status": "adaptation",
+        "missing": [],
+        "diagnostics": [
+          {
+            "requirement": "共同分析网格",
+            "candidate": "e66f87ed527a4bb2ba0a3d92",
+            "gate_type": "grid",
+            "actual": [
+              {
+                "crs": "EPSG:6933",
+                "transform": [
+                  10.0,
+                  0.0,
+                  400000.0,
+                  0.0,
+                  -10.0,
+                  2500000.0
+                ],
+                "width": 2,
+                "height": 1
+              },
+              {
+                "crs": "EPSG:6933",
+                "transform": [
+                  10.0,
+                  0.0,
+                  400005.0,
+                  0.0,
+                  -10.0,
+                  2500000.0
+                ],
+                "width": 2,
+                "height": 1
+              }
+            ],
+            "required": "同一已确认的分析网格",
+            "severity": "warning",
+            "adaptable": true,
+            "suggested_adapter": "align_grid",
+            "affected_node": "indicator.urban_speed",
+            "evidence": [
+              {
+                "asset_id": "cca712e8db6a4b019cfdab455f5d93cd",
+                "revision": 1,
+                "basis": "file_metadata"
+              },
+              {
+                "asset_id": "96a9098e3ff3447fa2f4fd42641a88e3",
+                "revision": 1,
+                "basis": "file_metadata"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "live-api-project-permissions",
+      "status": "PASS",
+      "detail": {
+        "outsider_system_admin_read": 404,
+        "viewer_read": 200,
+        "viewer_write": 403,
+        "viewer_account_directory": 403,
+        "removed_member_read": 404
+      }
+    }
+  ],
+  "runs": [
+    {
+      "task": "699c7d9ec87143aa888dc313b8ac2ed8",
+      "job": "7ddffb22ad4543f7842bd08ac76f97b4",
+      "name": "ndbi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          -0.19999999999999996,
+          null,
+          null
+        ]
+      ],
+      "expected_first_pixel": -0.19999999999999996,
+      "numerical_check": "PASS",
+      "sha256": "a382634bb080dfb09dea9e24a446491b9ccecc947e268375d5242cc88640ad65",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "699c7d9ec87143aa888dc313b8ac2ed8",
+        "draft_revision": 2,
+        "draft": {
+          "title": "NDBI",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "603c47002dcd46b9a8ef82f5b3cf0d3c",
+              "indicator_id": "indicator.ndbi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.ndbi",
+                "name": "NDBI",
+                "category": "生态环境",
+                "description": "短波红外与近红外建筑指数",
+                "semantic_type": "NDBI",
+                "input_roles": [
+                  "swir1",
+                  "nir"
+                ],
+                "input_constraints": "实际波段定义",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "default_parameters": {},
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "实际波段定义"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {},
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "swir1": 5,
+                  "nir": 2
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.ndbi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndbi",
+            "name": "NDBI",
+            "category": "生态环境",
+            "description": "短波红外与近红外建筑指数",
+            "semantic_type": "NDBI",
+            "input_roles": [
+              "swir1",
+              "nir"
+            ],
+            "input_constraints": "实际波段定义",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "实际波段定义"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "swir1": 5,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "4f54bc0fe35048d0860da112665a9c73",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.ndbi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndbi",
+            "name": "NDBI",
+            "category": "生态环境",
+            "description": "短波红外与近红外建筑指数",
+            "semantic_type": "NDBI",
+            "input_roles": [
+              "swir1",
+              "nir"
+            ],
+            "input_constraints": "实际波段定义",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "实际波段定义"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "swir1": 5,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "a382634bb080dfb09dea9e24a446491b9ccecc947e268375d5242cc88640ad65",
+            "size": 1688,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "NDBI"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "7ddffb22ad4543f7842bd08ac76f97b4",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "7ddffb22ad4543f7842bd08ac76f97b4",
+          "name": "indicator.tif",
+          "title": "NDBI",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "a382634bb080dfb09dea9e24a446491b9ccecc947e268375d5242cc88640ad65",
+          "size": 1688,
+          "resource": "/jobs/7ddffb22ad4543f7842bd08ac76f97b4/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "7ddffb22ad4543f7842bd08ac76f97b4",
+            "name": "indicator.tif",
+            "title": "NDBI",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "a382634bb080dfb09dea9e24a446491b9ccecc947e268375d5242cc88640ad65",
+            "size": 1688,
+            "resource": "/jobs/7ddffb22ad4543f7842bd08ac76f97b4/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1,
+          "invalid_pixels": 2
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    },
+    {
+      "task": "d4e802cf66ce4923b7317567f98736e0",
+      "job": "7d83ed65e1b94e2c9dbbdcf142021413",
+      "name": "mndwi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          -0.1428571428571429,
+          null,
+          null
+        ]
+      ],
+      "expected_first_pixel": -0.1428571428571429,
+      "numerical_check": "PASS",
+      "sha256": "466cfe97e6f79bcf8cf559f51523ea66eda260b6b2bfc388f4c61f5958c12b39",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "d4e802cf66ce4923b7317567f98736e0",
+        "draft_revision": 2,
+        "draft": {
+          "title": "MNDWI",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "45de7b55963942949b74201d0cb70ef0",
+              "indicator_id": "indicator.mndwi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.mndwi",
+                "name": "MNDWI",
+                "category": "生态环境",
+                "description": "绿光与短波红外水体指数",
+                "semantic_type": "MNDWI",
+                "input_roles": [
+                  "green",
+                  "swir1"
+                ],
+                "input_constraints": "实际波段定义",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "default_parameters": {},
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "实际波段定义"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {},
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "green": 4,
+                  "swir1": 5
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.mndwi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.mndwi",
+            "name": "MNDWI",
+            "category": "生态环境",
+            "description": "绿光与短波红外水体指数",
+            "semantic_type": "MNDWI",
+            "input_roles": [
+              "green",
+              "swir1"
+            ],
+            "input_constraints": "实际波段定义",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "实际波段定义"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "green": 4,
+              "swir1": 5
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "8e29ab313c85431d9989b5bdfad03076",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.mndwi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.mndwi",
+            "name": "MNDWI",
+            "category": "生态环境",
+            "description": "绿光与短波红外水体指数",
+            "semantic_type": "MNDWI",
+            "input_roles": [
+              "green",
+              "swir1"
+            ],
+            "input_constraints": "实际波段定义",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "实际波段定义"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "green": 4,
+              "swir1": 5
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "466cfe97e6f79bcf8cf559f51523ea66eda260b6b2bfc388f4c61f5958c12b39",
+            "size": 1694,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "MNDWI"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "7d83ed65e1b94e2c9dbbdcf142021413",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "7d83ed65e1b94e2c9dbbdcf142021413",
+          "name": "indicator.tif",
+          "title": "MNDWI",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "466cfe97e6f79bcf8cf559f51523ea66eda260b6b2bfc388f4c61f5958c12b39",
+          "size": 1694,
+          "resource": "/jobs/7d83ed65e1b94e2c9dbbdcf142021413/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "7d83ed65e1b94e2c9dbbdcf142021413",
+            "name": "indicator.tif",
+            "title": "MNDWI",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "466cfe97e6f79bcf8cf559f51523ea66eda260b6b2bfc388f4c61f5958c12b39",
+            "size": 1694,
+            "resource": "/jobs/7d83ed65e1b94e2c9dbbdcf142021413/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1,
+          "invalid_pixels": 2
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    },
+    {
+      "task": "663ed0d3ee264cba93db8b05c9f2eb89",
+      "job": "584f1b66011640738bc121be778911f9",
+      "name": "ndwi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          -0.33333333333333337,
+          null,
+          null
+        ]
+      ],
+      "expected_first_pixel": -0.33333333333333337,
+      "numerical_check": "PASS",
+      "sha256": "02ff8068bec5ccda8be9686cee23f41cb4acad96b42f2b88e89db76c71bb001c",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "663ed0d3ee264cba93db8b05c9f2eb89",
+        "draft_revision": 2,
+        "draft": {
+          "title": "NDWI（McFeeters）",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "8f89e7d6d6f244319337dab6c062404e",
+              "indicator_id": "indicator.ndwi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.ndwi",
+                "name": "NDWI（McFeeters）",
+                "category": "生态环境",
+                "description": "McFeeters绿光与近红外水体指数",
+                "semantic_type": "NDWI_McFeeters",
+                "input_roles": [
+                  "green",
+                  "nir"
+                ],
+                "input_constraints": "明确McFeeters/Gao等不同算法代码",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "default_parameters": {},
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "明确McFeeters/Gao等不同算法代码"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {},
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "green": 4,
+                  "nir": 2
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.ndwi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndwi",
+            "name": "NDWI（McFeeters）",
+            "category": "生态环境",
+            "description": "McFeeters绿光与近红外水体指数",
+            "semantic_type": "NDWI_McFeeters",
+            "input_roles": [
+              "green",
+              "nir"
+            ],
+            "input_constraints": "明确McFeeters/Gao等不同算法代码",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "明确McFeeters/Gao等不同算法代码"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "green": 4,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "a4713cdf6fe14285ab5e0e2bfbdfeec5",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.ndwi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndwi",
+            "name": "NDWI（McFeeters）",
+            "category": "生态环境",
+            "description": "McFeeters绿光与近红外水体指数",
+            "semantic_type": "NDWI_McFeeters",
+            "input_roles": [
+              "green",
+              "nir"
+            ],
+            "input_constraints": "明确McFeeters/Gao等不同算法代码",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "明确McFeeters/Gao等不同算法代码"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "green": 4,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "02ff8068bec5ccda8be9686cee23f41cb4acad96b42f2b88e89db76c71bb001c",
+            "size": 1698,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "NDWI（McFeeters）"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "584f1b66011640738bc121be778911f9",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "584f1b66011640738bc121be778911f9",
+          "name": "indicator.tif",
+          "title": "NDWI（McFeeters）",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "02ff8068bec5ccda8be9686cee23f41cb4acad96b42f2b88e89db76c71bb001c",
+          "size": 1698,
+          "resource": "/jobs/584f1b66011640738bc121be778911f9/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "584f1b66011640738bc121be778911f9",
+            "name": "indicator.tif",
+            "title": "NDWI（McFeeters）",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "02ff8068bec5ccda8be9686cee23f41cb4acad96b42f2b88e89db76c71bb001c",
+            "size": 1698,
+            "resource": "/jobs/584f1b66011640738bc121be778911f9/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1,
+          "invalid_pixels": 2
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    },
+    {
+      "task": "dd00a5758952420482eb4c656dcbfca2",
+      "job": "0cc2bebc8d7c4cd4b47ced0e23988280",
+      "name": "savi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          0.4615384615384615,
+          0.0,
+          null
+        ]
+      ],
+      "expected_first_pixel": 0.4615384615384615,
+      "numerical_check": "PASS",
+      "sha256": "971cd9ff33265cf067463f7b24d1fb050d97868eef306fed8e3e978d0321ac6c",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "dd00a5758952420482eb4c656dcbfca2",
+        "draft_revision": 2,
+        "draft": {
+          "title": "SAVI",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "0fbadbc1318c43ab8bccd190d125b4df",
+              "indicator_id": "indicator.savi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.savi",
+                "name": "SAVI",
+                "category": "生态环境",
+                "description": "按已验证的土壤亮度修正档案计算植被指数",
+                "semantic_type": "SAVI",
+                "input_roles": [
+                  "red",
+                  "nir"
+                ],
+                "input_constraints": "L来源化profile",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {
+                    "soil_factor": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "soil_factor"
+                  ]
+                },
+                "default_parameters": {
+                  "soil_factor": 0.5
+                },
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "L来源化profile"
+                  },
+                  {
+                    "source": "https://www.usgs.gov/landsat-missions/landsat-soil-adjusted-vegetation-index"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": [
+                  {
+                    "name": "soil_factor",
+                    "label": "土壤修正系数",
+                    "default": 0.5
+                  }
+                ]
+              },
+              "parameters": {
+                "soil_factor": 0.5
+              },
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "red": 1,
+                  "nir": 2
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.savi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.savi",
+            "name": "SAVI",
+            "category": "生态环境",
+            "description": "按已验证的土壤亮度修正档案计算植被指数",
+            "semantic_type": "SAVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "L来源化profile",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {
+                "soil_factor": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "soil_factor"
+              ]
+            },
+            "default_parameters": {
+              "soil_factor": 0.5
+            },
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "L来源化profile"
+              },
+              {
+                "source": "https://www.usgs.gov/landsat-missions/landsat-soil-adjusted-vegetation-index"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": [
+              {
+                "name": "soil_factor",
+                "label": "土壤修正系数",
+                "default": 0.5
+              }
+            ]
+          },
+          "parameters": {
+            "soil_factor": 0.5
+          },
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "bf9064afde534d77a7cb6a8852842f78",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.savi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.savi",
+            "name": "SAVI",
+            "category": "生态环境",
+            "description": "按已验证的土壤亮度修正档案计算植被指数",
+            "semantic_type": "SAVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "L来源化profile",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {
+                "soil_factor": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "soil_factor"
+              ]
+            },
+            "default_parameters": {
+              "soil_factor": 0.5
+            },
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "L来源化profile"
+              },
+              {
+                "source": "https://www.usgs.gov/landsat-missions/landsat-soil-adjusted-vegetation-index"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": [
+              {
+                "name": "soil_factor",
+                "label": "土壤修正系数",
+                "default": 0.5
+              }
+            ]
+          },
+          "parameters": {
+            "soil_factor": 0.5
+          },
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 2
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "971cd9ff33265cf067463f7b24d1fb050d97868eef306fed8e3e978d0321ac6c",
+            "size": 1688,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "SAVI"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "0cc2bebc8d7c4cd4b47ced0e23988280",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "0cc2bebc8d7c4cd4b47ced0e23988280",
+          "name": "indicator.tif",
+          "title": "SAVI",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "971cd9ff33265cf067463f7b24d1fb050d97868eef306fed8e3e978d0321ac6c",
+          "size": 1688,
+          "resource": "/jobs/0cc2bebc8d7c4cd4b47ced0e23988280/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "0cc2bebc8d7c4cd4b47ced0e23988280",
+            "name": "indicator.tif",
+            "title": "SAVI",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "971cd9ff33265cf067463f7b24d1fb050d97868eef306fed8e3e978d0321ac6c",
+            "size": 1688,
+            "resource": "/jobs/0cc2bebc8d7c4cd4b47ced0e23988280/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 2,
+          "invalid_pixels": 1
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    },
+    {
+      "task": "7049693e95af4fcb8d029fa12bf8da3b",
+      "job": "175686cd5f3e407cbee23896a833bd5e",
+      "name": "evi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          0.48780487804878037,
+          0.0,
+          null
+        ]
+      ],
+      "expected_first_pixel": 0.48780487804878037,
+      "numerical_check": "PASS",
+      "sha256": "57dc7a052883803e8dac3ee567420307b7d25eecce7b536791986b3bbf419b8b",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "7049693e95af4fcb8d029fa12bf8da3b",
+        "draft_revision": 2,
+        "draft": {
+          "title": "EVI",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "cb85f6a916024724aaa2fc6d0ecdb147",
+              "indicator_id": "indicator.evi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.evi",
+                "name": "EVI",
+                "category": "生态环境",
+                "description": "采用固定增益与大气校正系数的增强植被指数",
+                "semantic_type": "EVI",
+                "input_roles": [
+                  "red",
+                  "nir",
+                  "blue"
+                ],
+                "input_constraints": "G/C1/C2/L来源化profile",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {
+                    "gain": {
+                      "type": "number",
+                      "const": 2.5
+                    },
+                    "red_coefficient": {
+                      "type": "number",
+                      "const": 6.0
+                    },
+                    "blue_coefficient": {
+                      "type": "number",
+                      "const": 7.5
+                    },
+                    "background": {
+                      "type": "number",
+                      "const": 1.0
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "gain",
+                    "red_coefficient",
+                    "blue_coefficient",
+                    "background"
+                  ]
+                },
+                "default_parameters": {
+                  "gain": 2.5,
+                  "red_coefficient": 6.0,
+                  "blue_coefficient": 7.5,
+                  "background": 1.0
+                },
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "G/C1/C2/L来源化profile"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {
+                "gain": 2.5,
+                "red_coefficient": 6.0,
+                "blue_coefficient": 7.5,
+                "background": 1.0
+              },
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "red": 1,
+                  "nir": 2,
+                  "blue": 3
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.evi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.evi",
+            "name": "EVI",
+            "category": "生态环境",
+            "description": "采用固定增益与大气校正系数的增强植被指数",
+            "semantic_type": "EVI",
+            "input_roles": [
+              "red",
+              "nir",
+              "blue"
+            ],
+            "input_constraints": "G/C1/C2/L来源化profile",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {
+                "gain": {
+                  "type": "number",
+                  "const": 2.5
+                },
+                "red_coefficient": {
+                  "type": "number",
+                  "const": 6.0
+                },
+                "blue_coefficient": {
+                  "type": "number",
+                  "const": 7.5
+                },
+                "background": {
+                  "type": "number",
+                  "const": 1.0
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "gain",
+                "red_coefficient",
+                "blue_coefficient",
+                "background"
+              ]
+            },
+            "default_parameters": {
+              "gain": 2.5,
+              "red_coefficient": 6.0,
+              "blue_coefficient": 7.5,
+              "background": 1.0
+            },
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "G/C1/C2/L来源化profile"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {
+            "gain": 2.5,
+            "red_coefficient": 6.0,
+            "blue_coefficient": 7.5,
+            "background": 1.0
+          },
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2,
+              "blue": 3
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "ff2afef9240c40fcae64d25d325de26e",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.evi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.evi",
+            "name": "EVI",
+            "category": "生态环境",
+            "description": "采用固定增益与大气校正系数的增强植被指数",
+            "semantic_type": "EVI",
+            "input_roles": [
+              "red",
+              "nir",
+              "blue"
+            ],
+            "input_constraints": "G/C1/C2/L来源化profile",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {
+                "gain": {
+                  "type": "number",
+                  "const": 2.5
+                },
+                "red_coefficient": {
+                  "type": "number",
+                  "const": 6.0
+                },
+                "blue_coefficient": {
+                  "type": "number",
+                  "const": 7.5
+                },
+                "background": {
+                  "type": "number",
+                  "const": 1.0
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "gain",
+                "red_coefficient",
+                "blue_coefficient",
+                "background"
+              ]
+            },
+            "default_parameters": {
+              "gain": 2.5,
+              "red_coefficient": 6.0,
+              "blue_coefficient": 7.5,
+              "background": 1.0
+            },
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "G/C1/C2/L来源化profile"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {
+            "gain": 2.5,
+            "red_coefficient": 6.0,
+            "blue_coefficient": 7.5,
+            "background": 1.0
+          },
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2,
+              "blue": 3
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 2
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "57dc7a052883803e8dac3ee567420307b7d25eecce7b536791986b3bbf419b8b",
+            "size": 1690,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "EVI"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "175686cd5f3e407cbee23896a833bd5e",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "175686cd5f3e407cbee23896a833bd5e",
+          "name": "indicator.tif",
+          "title": "EVI",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "57dc7a052883803e8dac3ee567420307b7d25eecce7b536791986b3bbf419b8b",
+          "size": 1690,
+          "resource": "/jobs/175686cd5f3e407cbee23896a833bd5e/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "175686cd5f3e407cbee23896a833bd5e",
+            "name": "indicator.tif",
+            "title": "EVI",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "57dc7a052883803e8dac3ee567420307b7d25eecce7b536791986b3bbf419b8b",
+            "size": 1690,
+            "resource": "/jobs/175686cd5f3e407cbee23896a833bd5e/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 2,
+          "invalid_pixels": 1
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    },
+    {
+      "task": "b162cb066e044fc88b1d9ed55680e705",
+      "job": "a1130420d6244b80aff5c7f9aa449dd1",
+      "name": "ndvi",
+      "status": "succeeded",
+      "native_values": [
+        [
+          0.49999999999999994,
+          null,
+          null
+        ]
+      ],
+      "expected_first_pixel": 0.5,
+      "numerical_check": "PASS",
+      "sha256": "6c66f027237fdb260315ef4926debddb49deb9d45430e370997b8ab6f8f703e0",
+      "ui_download_status": 500,
+      "ui_download_response": "Internal Server Error",
+      "alternate_download_status": 200,
+      "manifest": {
+        "contract_version": 1,
+        "actor": "57294803dd934d4a8e400d5908d06568",
+        "project_id": "7dcf20a017094fe59150062b7c825f8d",
+        "task_id": "b162cb066e044fc88b1d9ed55680e705",
+        "draft_revision": 2,
+        "draft": {
+          "title": "NDVI",
+          "purpose": "spatial",
+          "selection": [
+            {
+              "asset_id": "68fe7556c5be4e80a3429756b153980a",
+              "revision": 1,
+              "layer": null
+            }
+          ],
+          "mapping": [],
+          "method_id": null,
+          "options": {
+            "operator": "builtin_indicator",
+            "indicator_selection": {
+              "selection_id": "70b02cc9869641d68092e0f68c892542",
+              "indicator_id": "indicator.ndvi",
+              "definition_version": 1,
+              "definition": {
+                "indicator_id": "indicator.ndvi",
+                "name": "NDVI",
+                "category": "生态环境",
+                "description": "用红光与近红外反射率计算植被指数",
+                "semantic_type": "NDVI",
+                "input_roles": [
+                  "red",
+                  "nir"
+                ],
+                "input_constraints": "公式与scale/QA/分母0",
+                "default_algorithm": "spectral",
+                "algorithm_version": "spectral/1.0.0",
+                "parameters_schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "default_parameters": {},
+                "default_parameters_version": 1,
+                "unit": "1",
+                "output_geometry": "grid",
+                "output_dtype": "float64",
+                "spatial_requirements": {
+                  "native_grid": true,
+                  "reliable_crs": true
+                },
+                "temporal_requirements": {},
+                "dependencies": [
+                  "numpy",
+                  "rasterio",
+                  "pyproj"
+                ],
+                "quality_rules": [
+                  "preserve_source_mask",
+                  "zero_denominator_invalid",
+                  "no_implicit_cloud_mask"
+                ],
+                "references": [
+                  {
+                    "source": "master-spec §09.2",
+                    "definition": "公式与scale/QA/分母0"
+                  }
+                ],
+                "version": 1,
+                "status": "published",
+                "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+                "tests": [
+                  "tests/test_builtin_indicators.py",
+                  "tests/test_indicator_kernels.py"
+                ],
+                "business_parameters": []
+              },
+              "parameters": {},
+              "candidate": {
+                "mode": "compute",
+                "sources": [
+                  {
+                    "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                    "revision": 1,
+                    "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+                  }
+                ],
+                "bindings": {
+                  "red": 1,
+                  "nir": 2
+                },
+                "label": "spectral-five.tif",
+                "status": "ready",
+                "message": null
+              },
+              "status": "ready",
+              "mode": "compute"
+            }
+          }
+        },
+        "assets": [
+          {
+            "id": "68fe7556c5be4e80a3429756b153980a",
+            "project_id": "7dcf20a017094fe59150062b7c825f8d",
+            "revision": 1,
+            "name": "spectral-five.tif",
+            "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9",
+            "size": 1832,
+            "facts": {
+              "profile": "geotiff",
+              "standard_version": null,
+              "observed_period": null,
+              "layers": [
+                {
+                  "name": "raster",
+                  "fields": [
+                    {
+                      "name": "band_1",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 1,
+                      "description": "red",
+                      "metadata": {
+                        "common_name": "red",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_2",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 2,
+                      "description": "nir",
+                      "metadata": {
+                        "common_name": "nir",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_3",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 3,
+                      "description": "blue",
+                      "metadata": {
+                        "common_name": "blue",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_4",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 4,
+                      "description": "green",
+                      "metadata": {
+                        "common_name": "green",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    },
+                    {
+                      "name": "band_5",
+                      "data_type": "float64",
+                      "unit": "1",
+                      "concept": null,
+                      "band": 5,
+                      "description": "swir1",
+                      "metadata": {
+                        "common_name": "swir1",
+                        "physical_quantity": "surface_reflectance"
+                      },
+                      "scale": 1.0,
+                      "offset": 0.0,
+                      "nodata": -9999.0
+                    }
+                  ],
+                  "preview": [
+                    [
+                      0.2,
+                      0.0,
+                      null
+                    ]
+                  ],
+                  "preview_scope": "top_left_window_physical_values",
+                  "row_count": 3
+                }
+              ],
+              "issues": [],
+              "fact_scope": "file_metadata_not_scientific_approval",
+              "crs": "EPSG:32649",
+              "bounds": [
+                400000.0,
+                2499970.0,
+                400090.0,
+                2500000.0
+              ],
+              "transform": [
+                30.0,
+                0.0,
+                400000.0,
+                0.0,
+                -30.0,
+                2500000.0
+              ],
+              "width": 3,
+              "height": 1,
+              "cell_count": 3,
+              "file_tags": {
+                "AREA_OR_POINT": "Area"
+              }
+            },
+            "created": 1790304226.151746
+          }
+        ],
+        "states": {
+          "data_ingested": true,
+          "technical_quality": "checked",
+          "method_approved": true,
+          "model_approved": true,
+          "input_applicable": true,
+          "execution_succeeded": false,
+          "business_validated": false
+        },
+        "runtime": null,
+        "method": {
+          "id": "indicator.ndvi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndvi",
+            "name": "NDVI",
+            "category": "生态环境",
+            "description": "用红光与近红外反射率计算植被指数",
+            "semantic_type": "NDVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "公式与scale/QA/分母0",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "公式与scale/QA/分母0"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "processing_node_id": "cea592bc09df49d6b7ef7a84d5f0fe93",
+        "business_role": "indicator_production"
+      },
+      "data": {
+        "scope": "full_grid",
+        "operator": "builtin_indicator",
+        "method": {
+          "id": "indicator.ndvi",
+          "version": 1,
+          "operator": "builtin_indicator",
+          "definition": {
+            "indicator_id": "indicator.ndvi",
+            "name": "NDVI",
+            "category": "生态环境",
+            "description": "用红光与近红外反射率计算植被指数",
+            "semantic_type": "NDVI",
+            "input_roles": [
+              "red",
+              "nir"
+            ],
+            "input_constraints": "公式与scale/QA/分母0",
+            "default_algorithm": "spectral",
+            "algorithm_version": "spectral/1.0.0",
+            "parameters_schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false,
+              "required": []
+            },
+            "default_parameters": {},
+            "default_parameters_version": 1,
+            "unit": "1",
+            "output_geometry": "grid",
+            "output_dtype": "float64",
+            "spatial_requirements": {
+              "native_grid": true,
+              "reliable_crs": true
+            },
+            "temporal_requirements": {},
+            "dependencies": [
+              "numpy",
+              "rasterio",
+              "pyproj"
+            ],
+            "quality_rules": [
+              "preserve_source_mask",
+              "zero_denominator_invalid",
+              "no_implicit_cloud_mask"
+            ],
+            "references": [
+              {
+                "source": "master-spec §09.2",
+                "definition": "公式与scale/QA/分母0"
+              }
+            ],
+            "version": 1,
+            "status": "published",
+            "implementation_sha256": "b49ab8aa6e9665361a070b0716e2f2411d2d4789dcb5e9876420a305c58f4517",
+            "tests": [
+              "tests/test_builtin_indicators.py",
+              "tests/test_indicator_kernels.py"
+            ],
+            "business_parameters": []
+          },
+          "parameters": {},
+          "candidate": {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "68fe7556c5be4e80a3429756b153980a",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          },
+          "output_grid": {
+            "width": 3,
+            "height": 1,
+            "crs": "EPSG:32649",
+            "transform": [
+              30.0,
+              0.0,
+              400000.0,
+              0.0,
+              -30.0,
+              2500000.0
+            ]
+          },
+          "expected_outputs": [
+            {
+              "name": "indicator.tif",
+              "role": "raw_indicator",
+              "view_kind": "raster"
+            }
+          ]
+        },
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1
+        },
+        "business_validated": false,
+        "files": [
+          {
+            "name": "indicator.tif",
+            "sha256": "6c66f027237fdb260315ef4926debddb49deb9d45430e370997b8ab6f8f703e0",
+            "size": 1686,
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "title": "NDVI"
+          }
+        ]
+      },
+      "descriptor": {
+        "schema_version": 1,
+        "run_id": "a1130420d6244b80aff5c7f9aa449dd1",
+        "draft_revision": 2,
+        "primary": {
+          "id": "0",
+          "run_id": "a1130420d6244b80aff5c7f9aa449dd1",
+          "name": "indicator.tif",
+          "title": "NDVI",
+          "role": "raw_indicator",
+          "view_kind": "raster",
+          "legend": [],
+          "sha256": "6c66f027237fdb260315ef4926debddb49deb9d45430e370997b8ab6f8f703e0",
+          "size": 1686,
+          "resource": "/jobs/a1130420d6244b80aff5c7f9aa449dd1/artifacts/0"
+        },
+        "outputs": [
+          {
+            "id": "0",
+            "run_id": "a1130420d6244b80aff5c7f9aa449dd1",
+            "name": "indicator.tif",
+            "title": "NDVI",
+            "role": "raw_indicator",
+            "view_kind": "raster",
+            "legend": [],
+            "sha256": "6c66f027237fdb260315ef4926debddb49deb9d45430e370997b8ab6f8f703e0",
+            "size": 1686,
+            "resource": "/jobs/a1130420d6244b80aff5c7f9aa449dd1/artifacts/0"
+          }
+        ],
+        "statistics": {
+          "scope": "full_grid",
+          "total_pixels": 3,
+          "valid_pixels": 1,
+          "invalid_pixels": 2
+        },
+        "vector_statistics": null,
+        "business_validated": false
+      }
+    }
+  ],
+  "matching": [
+    {
+      "name": "可直接匹配",
+      "task": "4fcfb0ec8e754b9f96c51f489cffb5ce",
+      "catalog_item": {
+        "indicator_id": "indicator.ndvi",
+        "name": "NDVI",
+        "category": "生态环境",
+        "description": "用红光与近红外反射率计算植被指数",
+        "status": "ready",
+        "suggested_key": "d5a4ef10019abc3d51f976b0",
+        "candidates": [
+          {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "2e5871b9f68a477b9825e1e3b8dead96",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "spectral-five.tif",
+            "status": "ready",
+            "message": null
+          }
+        ],
+        "missing": [],
+        "message": "当前数据满足，可以添加",
+        "diagnostics": [
+          {
+            "requirement": "indicator.ndvi",
+            "candidate": "d5a4ef10019abc3d51f976b0",
+            "gate_type": "input",
+            "actual": "satisfied",
+            "required": "fixed_input_roles",
+            "severity": "info",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": [
+              {
+                "asset_id": "2e5871b9f68a477b9825e1e3b8dead96",
+                "revision": 1,
+                "sha256": "f122c96d05214dab63ebb3bdaf9b8fffd7d0989dd0e39a942b4459d90ca2d0b9"
+              }
+            ]
+          }
+        ],
+        "installation_status": "published",
+        "business_parameters": []
+      }
+    },
+    {
+      "name": "缺NIR",
+      "task": "287c80326df448b9bef4090d23ab8ba7",
+      "catalog_item": {
+        "indicator_id": "indicator.ndvi",
+        "name": "NDVI",
+        "category": "生态环境",
+        "description": "用红光与近红外反射率计算植被指数",
+        "status": "missing",
+        "suggested_key": null,
+        "candidates": [],
+        "missing": [
+          "近红外波段"
+        ],
+        "message": "还需要近红外波段",
+        "diagnostics": [
+          {
+            "requirement": "近红外波段",
+            "candidate": null,
+            "gate_type": "input",
+            "actual": null,
+            "required": "近红外波段",
+            "severity": "error",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": []
+          }
+        ],
+        "installation_status": "published",
+        "business_parameters": []
+      }
+    },
+    {
+      "name": "不确认物理量",
+      "task": "4ab14bb5d1db4062aafbd894bf9940ef",
+      "catalog_item": {
+        "indicator_id": "indicator.ndvi",
+        "name": "NDVI",
+        "category": "生态环境",
+        "description": "用红光与近红外反射率计算植被指数",
+        "status": "inapplicable",
+        "suggested_key": null,
+        "candidates": [
+          {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "1d6aa33913904a05aef01aa11ca8722d",
+                "revision": 1,
+                "sha256": "d04029727e01191a91a84f90d4c84b8b5d088c70720abb16fb2cf17654ee18c1"
+              }
+            ],
+            "bindings": {
+              "red": 1,
+              "nir": 2
+            },
+            "label": "red-nir.tif",
+            "status": "inapplicable",
+            "message": "影像定位或物理反射率依据不完整，请核对数据说明"
+          }
+        ],
+        "missing": [],
+        "message": "影像定位或物理反射率依据不完整，请核对数据说明",
+        "diagnostics": [
+          {
+            "requirement": "indicator.ndvi",
+            "candidate": "c4a1bea39b900cef21344a4c",
+            "gate_type": "semantics",
+            "actual": "physical_reflectance_not_confirmed",
+            "required": "可靠坐标与物理反射率依据",
+            "severity": "error",
+            "adaptable": false,
+            "suggested_adapter": null,
+            "affected_node": "indicator.ndvi",
+            "evidence": [
+              {
+                "asset_id": "1d6aa33913904a05aef01aa11ca8722d",
+                "revision": 1,
+                "basis": "file_metadata"
+              }
+            ]
+          }
+        ],
+        "installation_status": "published",
+        "business_parameters": []
+      }
+    },
+    {
+      "name": "需适配",
+      "task": "250652bfa2874a7c8a8ae4f5ceb37b7c",
+      "catalog_item": {
+        "indicator_id": "indicator.urban_speed",
+        "name": "城市扩张速度",
+        "category": "土地利用与城市化",
+        "description": "两期建设用地面积差÷年数，按完整共同有效域统计",
+        "status": "adaptation",
+        "suggested_key": null,
+        "candidates": [
+          {
+            "mode": "compute",
+            "sources": [
+              {
+                "asset_id": "cca712e8db6a4b019cfdab455f5d93cd",
+                "revision": 1,
+                "sha256": "97bb7c8c9d07a84b0fe88baa29b840e5b998a849d85e03afe817dee35295b0f5"
+              },
+              {
+                "asset_id": "96a9098e3ff3447fa2f4fd42641a88e3",
+                "revision": 1,
+                "sha256": "0a61bce578632a8a081c6e835c3f2a29afc67cf5d118a925ecbcc761e273d16a"
+              }
+            ],
+            "bindings": {
+              "years": [
+                2020,
+                2025
+              ],
+              "codes": [
+                [
+                  2
+                ],
+                [
+                  2
+                ]
+              ]
+            },
+            "label": "2020 land-2020.tif → 2025 land-2025.tif",
+            "status": "adaptation",
+            "message": "两期网格不同，需要先按分类数据对齐；原始类别码保持不变"
+          }
+        ],
+        "missing": [],
+        "message": "两期网格不同，需要先按分类数据对齐；原始类别码保持不变",
+        "diagnostics": [
+          {
+            "requirement": "共同分析网格",
+            "candidate": "e66f87ed527a4bb2ba0a3d92",
+            "gate_type": "grid",
+            "actual": [
+              {
+                "crs": "EPSG:6933",
+                "transform": [
+                  10.0,
+                  0.0,
+                  400000.0,
+                  0.0,
+                  -10.0,
+                  2500000.0
+                ],
+                "width": 2,
+                "height": 1
+              },
+              {
+                "crs": "EPSG:6933",
+                "transform": [
+                  10.0,
+                  0.0,
+                  400005.0,
+                  0.0,
+                  -10.0,
+                  2500000.0
+                ],
+                "width": 2,
+                "height": 1
+              }
+            ],
+            "required": "同一已确认的分析网格",
+            "severity": "warning",
+            "adaptable": true,
+            "suggested_adapter": "align_grid",
+            "affected_node": "indicator.urban_speed",
+            "evidence": [
+              {
+                "asset_id": "cca712e8db6a4b019cfdab455f5d93cd",
+                "revision": 1,
+                "basis": "file_metadata"
+              },
+              {
+                "asset_id": "96a9098e3ff3447fa2f4fd42641a88e3",
+                "revision": 1,
+                "basis": "file_metadata"
+              }
+            ]
+          }
+        ],
+        "installation_status": "published",
+        "business_parameters": []
+      }
+    }
+  ],
+  "errors": [],
+  "baseline_same_index": {
+    "live_status": 200,
+    "isolated_status": 200,
+    "live_sha256": "e478cd50073cd22542cfb029a24190844e090c889694d8e11ba32a5be805487e",
+    "isolated_sha256": "e478cd50073cd22542cfb029a24190844e090c889694d8e11ba32a5be805487e",
+    "same": true
+  }
+}

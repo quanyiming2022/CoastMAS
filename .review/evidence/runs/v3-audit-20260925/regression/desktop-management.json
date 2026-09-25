@@ -1,0 +1,12 @@
+{
+  "account": "eb2a9b715511432b95b1eb3a950d59b4",
+  "create_account": "PASS",
+  "edit_account": "PASS",
+  "creation_auto_membership": false,
+  "create_project": "PASS",
+  "edit_project": "PASS",
+  "add_remove_member": "PASS",
+  "project_recycle_refresh_restore": "PASS",
+  "account_disable_enable": "PASS",
+  "project_context_unchanged": true
+}

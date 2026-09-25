@@ -1,0 +1,30 @@
+{
+  "read_only_check": true,
+  "checks": [
+    {
+      "environment": "live58013",
+      "phase": "regression",
+      "project": "2df3b253a27845a382f7cbd95c8a5717",
+      "matching_project_count": 0
+    },
+    {
+      "environment": "live58013",
+      "phase": "final-regression",
+      "project": "68fa8f9a2e1f462f9e086587d6df23ed",
+      "matching_project_count": 0
+    },
+    {
+      "environment": "isolated58125",
+      "phase": "regression",
+      "project": "2df3b253a27845a382f7cbd95c8a5717",
+      "matching_project_count": 1
+    },
+    {
+      "environment": "isolated58125",
+      "phase": "final-regression",
+      "project": "68fa8f9a2e1f462f9e086587d6df23ed",
+      "matching_project_count": 1
+    }
+  ],
+  "note": "Earlier second-browser navigation had a hardcoded live URL; browser API calls used configured isolated baseURL. Corrected diagnostic and all six cases rerun entirely on 58125."
+}

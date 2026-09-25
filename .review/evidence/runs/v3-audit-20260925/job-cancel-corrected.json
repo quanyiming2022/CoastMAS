@@ -1,0 +1,121 @@
+{
+  "fixture": "engineering_fixture",
+  "events": [
+    {
+      "status": "queued",
+      "cancel_requested": false,
+      "started": null,
+      "finished": null
+    },
+    {
+      "status": "queued",
+      "cancel_requested": false,
+      "started": null,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": false,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "running",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": null
+    },
+    {
+      "status": "cancelled",
+      "cancel_requested": true,
+      "started": 1790305375.087724,
+      "finished": 1790305375.437491
+    }
+  ],
+  "http_202_seconds": 0.005877874995348975,
+  "cancel_ack": {
+    "status": "running",
+    "cancel_requested": true,
+    "output_key": null
+  },
+  "final": {
+    "status": "cancelled",
+    "cancel_requested": true,
+    "output_key": null
+  },
+  "result_http": 409,
+  "status": "PASS",
+  "meaning": "Actual running worker acknowledged cancellation; legacy boolean/status contract differs from new unified FSM."
+}

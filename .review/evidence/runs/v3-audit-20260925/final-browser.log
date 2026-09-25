@@ -1,0 +1,6 @@
+BROKEN corrected-library-selector locator.click: Error: strict mode violation: getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究 observations.csv', exact: true }) resolve
+WORKING stable-spatial-visuals
+BROKEN viewer-navigation-denial expect(received).toBe(expected) // Object.is equality
+
+Expected: 403
+Received: 401

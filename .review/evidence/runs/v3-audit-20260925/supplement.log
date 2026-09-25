@@ -1,0 +1,11 @@
+WORKING stable-method-library-and-task-context
+WORKING coupler-actual-preflight
+WORKING folder-import
+BROKEN library-selection expect(locator).toBeVisible() failed
+
+Locator: getByRole('dialog', { name: '添加研究输入' }).getByRole('button', { name: '加入研究', exact: true }).first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) no
+WORKING authorized-source-snapshot
+WORKING partial-success-double-error-controlled-fault

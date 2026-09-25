@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "audit-document/evidence consistency, not full V3 acceptance",
+  "audited_commit": "8d8ae10e8a53c3aa63501c0244b7e37739609c13",
+  "findings": 35,
+  "capabilities": 177,
+  "original_acceptance_statuses": {
+    "NOT_RUN": 121,
+    "FAIL": 2,
+    "PASS": 4,
+    "BLOCKED": 18
+  },
+  "product_code_unchanged": true,
+  "backend_passed": 290,
+  "frontend_passed": 72,
+  "browser_passed": 6,
+  "screenshot_dimensions": {
+    "1440": [
+      1440,
+      900
+    ],
+    "1366": [
+      1366,
+      768
+    ],
+    "1920": [
+      1920,
+      1080
+    ],
+    "2560": [
+      2560,
+      1440
+    ]
+  },
+  "errors": []
+}

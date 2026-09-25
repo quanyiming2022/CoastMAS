@@ -1,0 +1,6 @@
+PASS recover-six-real-artifacts
+PASS matcher-ready
+PASS matcher-missing-NIR
+PASS matcher-hard-conflict
+FAIL matcher-legal-adaptation StopIteration()
+FAIL live-api-project-permissions AssertionError((404, '{"code":"PROJECT_UNAVAILABLE","message":"项目不可用","details":{}}'))

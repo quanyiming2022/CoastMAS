@@ -1,0 +1,282 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/quanyiming/Projects/CoastMAS/next/web/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      ".audit-v3/playwright.config.ts"
+    ],
+    "configFile": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/playwright.config.ts",
+    "rootDir": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/quanyiming/Projects/CoastMAS/next/artifacts/v3-audit-playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../../.review/evidence/runs/v3-audit-20260925/browser-regression.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "desktop-management.spec.ts",
+      "file": "desktop-management.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "separate user and project catalogs persist edits, membership and lifecycle without switching research",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2702,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T02:50:50.724Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6a2bbeda4e6830f28756-9771ddfc614f29c2458e",
+          "file": "desktop-management.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "import-recovery.spec.ts",
+      "file": "import-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "A06 A21 A23 orphan sidecar reuse, exact bytes, conflict recovery and partial batch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T02:50:54.097Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fcab98c90d7639dda612-6bee274f474b2889cb3f",
+          "file": "import-recovery.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "planning-objects.spec.ts",
+      "file": "planning-objects.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "planning objects are independently saved, published, compared and explicitly bound",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4994,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T02:50:56.338Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "bfcfa7dbd96e41c81d45-2c670266e80f041951be",
+          "file": "planning-objects.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "unified-methods.spec.ts",
+      "file": "unified-methods.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "N06 method create, persisted edit, publish, clone, mapped import and fixed application",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 16030,
+                  "error": {
+                    "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '方法版本详情', exact: true }).getByRole('button', { name: '应用到当前任务', exact: true })\u001b[22m\n",
+                    "stack": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '方法版本详情', exact: true }).getByRole('button', { name: '应用到当前任务', exact: true })\u001b[22m\n\n    at /Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts:38:64",
+                    "location": {
+                      "file": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts",
+                      "column": 64,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   const detail=page.getByRole('dialog',{name:'方法版本详情',exact:true});await expect(detail).toBeVisible();\n  37 |   expect((await (await page.request.get(`/api/tasks/${task.id}`)).json()).revision).toBe(before.revision);\n> 38 |   await detail.getByRole('button',{name:'应用到当前任务',exact:true}).click();await expect(detail).not.toBeVisible();\n     |                                                                ^\n  39 |   const applied=await (await page.request.get(`/api/tasks/${task.id}`)).json();expect(applied.draft.options.method_revision).toBe(1);expect(applied.revision).toBe(before.revision+1);\n  40 |   await catalog.getByRole('button',{name:'克隆',exact:true}).click();await expect(editor.getByLabel('方法名称')).toHaveValue('工程质量综合方法 · 副本');await editor.getByRole('button',{name:'返回方法目录',exact:true}).click();\n  41 |   await catalog.getByRole('button',{name:'导入方法',exact:true}).click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts",
+                        "column": 64,
+                        "line": 38
+                      },
+                      "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: '方法版本详情', exact: true }).getByRole('button', { name: '应用到当前任务', exact: true })\u001b[22m\n\n\n  36 |   const detail=page.getByRole('dialog',{name:'方法版本详情',exact:true});await expect(detail).toBeVisible();\n  37 |   expect((await (await page.request.get(`/api/tasks/${task.id}`)).json()).revision).toBe(before.revision);\n> 38 |   await detail.getByRole('button',{name:'应用到当前任务',exact:true}).click();await expect(detail).not.toBeVisible();\n     |                                                                ^\n  39 |   const applied=await (await page.request.get(`/api/tasks/${task.id}`)).json();expect(applied.draft.options.method_revision).toBe(1);expect(applied.revision).toBe(before.revision+1);\n  40 |   await catalog.getByRole('button',{name:'克隆',exact:true}).click();await expect(editor.getByLabel('方法名称')).toHaveValue('工程质量综合方法 · 副本');await editor.getByRole('button',{name:'返回方法目录',exact:true}).click();\n  41 |   await catalog.getByRole('button',{name:'导入方法',exact:true}).click();\n    at /Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts:38:64"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-25T02:51:01.343Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/quanyiming/Projects/CoastMAS/next/artifacts/v3-audit-playwright/unified-methods-N06-method-9dc18-mport-and-fixed-application/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/quanyiming/Projects/CoastMAS/next/artifacts/v3-audit-playwright/unified-methods-N06-method-9dc18-mport-and-fixed-application/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/quanyiming/Projects/CoastMAS/next/web/.audit-v3/unified-methods.spec.ts",
+                    "column": 64,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b585e639492fc5480272-8b2065daf91afdd164ee",
+          "file": "unified-methods.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-25T02:50:50.472Z",
+    "duration": 26962.247,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
